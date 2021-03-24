@@ -34,6 +34,14 @@
         <div class="row">
           <div class="col-12">
             <!-- /.card -->
+            @if(Session::has('success_message'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+                {{ Session::get('success_message') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Thể Loại Sản Phẩm</h3>

@@ -46,6 +46,39 @@ class CategoryController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
+            // Category Validations
+            $rules = [
+                'category_name' => 'required',
+                'section_id' => 'required',
+                'url' => 'required'
+            ];  
+            $customMessages = [
+                'category_name.required' => 'Vui lòng nhập tên thể loại SP.',
+                'section_id.required' => 'Vui lòng chọn danh mục của thể loại SP.',
+                'url.required' => 'Vui lòng nhập đường dẫn của thể loại SP.',
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+            if(empty($data['category_description'])){
+                $data['category_description']="";
+            }
+
+            if(empty($data['category_discount'])){
+                $data['category_discount']="";
+            }
+
+            if(empty($data['meta_title'])){
+                $data['meta_title']="";
+            }
+
+            if(empty($data['meta_keywords'])){
+                $data['meta_keywords']="";
+            }
+
+            if(empty($data['meta_description'])){
+                $data['meta_description']="";
+            }
+
             $category->parent_id = $data['parent_id'];
             $category->section_id = $data['section_id'];
             $category->category_name = $data['category_name'];
@@ -57,6 +90,9 @@ class CategoryController extends Controller
             $category->meta_description = $data['meta_description'];
             $category->status = 1;
             $category->save();
+            
+            session::flash('success_message', 'Thể loại SP đã được thêm thành công!');
+            return redirect('admin/categories');
         }
 
         // Get All Sections 

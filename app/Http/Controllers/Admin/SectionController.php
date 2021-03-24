@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Section;
 use Session;
+use Image;
 
 class SectionController extends Controller
 {
@@ -42,6 +43,55 @@ class SectionController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
+            // Section Validations
+            $rules = [
+                'name' => 'required',
+                'url' => 'required',
+                'section_image' => 'required'
+            ];  
+            $customMessages = [
+                'name.required' => 'Vui lòng nhập tên danh mục SP.',
+                'url.required' => 'Vui lòng nhập đường dẫn của danh mục SP.',
+                'section_image.required' => 'Danh mục SP phải có hình ảnh đại diện.',
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+            //upload Section Image
+            if($request->hasFile('section_image')){
+                $image_tmp = $request->file('section_image');
+                if($image_tmp->isValid()){
+                    // Get Image Extension
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    // Generate New Image Name
+                    $imageName = rand(111,99999).'.'.$extension;
+                    $imagePath = 'images/section_images/'.$imageName;
+                    // Upload the Image
+                    Image::make($image_tmp)->resize(128, 128)->save($imagePath);
+                    // save Category Image
+                    $section->section_image = $imageName;
+                }
+            }
+
+            if(empty($data['section_description'])){
+                $data['section_description']="";
+            }
+
+            if(empty($data['section_discount'])){
+                $data['section_discount']="";
+            }
+
+            if(empty($data['meta_title'])){
+                $data['meta_title']="";
+            }
+
+            if(empty($data['meta_keywords'])){
+                $data['meta_keywords']="";
+            }
+
+            if(empty($data['meta_description'])){
+                $data['meta_description']="";
+            }
+            
             $section->name = $data['name'];
             $section->section_discount = $data['section_discount'];
             $section->section_description = $data['section_description'];
@@ -51,7 +101,11 @@ class SectionController extends Controller
             $section->meta_description = $data['meta_description'];
             $section->status = 1;
             $section->save();
+
+            session::flash('success_message', 'Danh mục SP đã được thêm thành công!');
+            return redirect('admin/sections');
         }
+
 
         return view('admin.sections.add_edit_section')->with(compact('title'));
     }

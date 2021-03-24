@@ -22,6 +22,15 @@
      <!-- Main content -->
      <section class="content">
       <div class="container-fluid">
+        @if ($errors->any())
+            <div class="alert alert-danger" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+        @endif
         <form name="sectionForm" id="SectionForm" action="{{ url('admin/add-edit-section') }}" method="post" enctype="multipart/form-data">@csrf
           <div class="card card-default">
             <div class="card-header">
