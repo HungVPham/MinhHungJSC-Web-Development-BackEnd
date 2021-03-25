@@ -8,6 +8,12 @@
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
     #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
+    .updateCategoryStatus:hover{color: #563434 !important}
+    .deleteCategory{color:#cb1c22}
+    .deleteCategory:hover{color: #563434}
+    .updateCategory{color: #563434; text-decoration: underline}
+    .updateCategory:hover{color: #333}
+    a{color:#333}
 </style>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -52,25 +58,38 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Tên</th>
-                    <th>Danh Mục Sản Phẩm</th>
+                    {{-- <th>ID</th> --}}
+                    <th>Phân Cấp Thể Loại</i></th>
+                    <th>Danh Mục</th>
+                    <th>Thể Loại</th>
                     <th>URL</th>
                     <th>Trạng Thái</th>
+                    <th>Hành Động</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($categories as $category)
+                  @if(!isset($category->parentcategory->category_name))
+                    <?php $parent_category = "cấp gốc (0)"; ?>
+                    @else
+                    <?php $parent_category = $category->parentcategory->category_name; ?>
+                  @endif
                   <tr>
-                    <td>{{ $category->id }}</td>
+                    {{-- <td>{{ $category->id }}</td> --}}
+                    <td>{{ $parent_category }}</td>
+                    <td>{{ $category->section->name }}</td>
                     <td>{{ $category->category_name }}</td>
-                    <td>{{ $category->section_id }}</td>
                     <td>{{ $category->url }}</td>
                     <td>@if ($category->status==1)
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)">đang hoạt động</a>    
+                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)"" style="color:#228B22;">đang hoạt động</a>    
                         @else 
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)">chưa hoạt động</a>
+                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color:#cb1c22;">chưa hoạt động</a>
                         @endif
+                    </td>
+                    <td>
+                      <a class="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}">Sửa</a>
+                      <br>
+                      <a class="deleteCategory" href="">Xóa</a>
                     </td>
                   </tr>
                   @endforeach

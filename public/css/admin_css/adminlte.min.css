@@ -19609,7 +19609,7 @@ body.iframe-mode-fullscreen .content-wrapper.iframe-mode {
     color: #1f2d3d;
 }
 .select2-container--default .select2-results__option--highlighted {
-    background-color: #007bff;
+    background-color: #cb1c22;
     color: #fff;
 }
 .select2-container--default .select2-results__option--highlighted[aria-selected],
@@ -19640,8 +19640,8 @@ body.iframe-mode-fullscreen .content-wrapper.iframe-mode {
     margin-top: 6px;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #007bff;
-    border-color: #006fe6;
+    background-color: #cb1c22;
+    border-color: #cb1c22;
     color: #fff;
     padding: 0 10px;
     margin-top: 0.31rem;
@@ -19747,12 +19747,12 @@ select.form-control-sm~.select2-container--default .select2-selection--multiple 
 }
 .select2-container--default .select2-primary .select2-selection--multiple:focus,
 .select2-primary .select2-container--default .select2-selection--multiple:focus {
-    border-color: #80bdff;
+    border-color: #cb1c22;
 }
 .select2-container--default .select2-primary .select2-selection--multiple .select2-selection__choice,
 .select2-primary .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #007bff;
-    border-color: #006fe6;
+    background-color: #cb1c22;
+    border-color: #cb1c22;
     color: #fff;
 }
 .select2-container--default .select2-primary .select2-selection--multiple .select2-selection__choice__remove,
@@ -19765,7 +19765,7 @@ select.form-control-sm~.select2-container--default .select2-selection--multiple 
 }
 .select2-container--default .select2-primary.select2-container--focus .select2-selection--multiple,
 .select2-primary .select2-container--default.select2-container--focus .select2-selection--multiple {
-    border-color: #80bdff;
+    border-color: #cb1c22;
 }
 .select2-secondary+.select2-container--default.select2-container--open .select2-selection--single {
     border-color: #afb5ba;
@@ -28392,10 +28392,14 @@ a.text-muted:hover {
     border: #ffffff;
 }
 
-#admin-btn-login {
+#admin-btn-login{
     font-size: 0.9rem;
     background: #cb1c22;
     border: #ffffff;
+}
+
+#admin-btn-login:hover{
+    background: #563434;
 }
 
 #admin-btn:hover {
@@ -28417,4 +28421,20 @@ a.text-muted:hover {
 
 .form-control:focus {
     border-color: #cb1c22 !important;
+}
+
+#FooterPublicNav{
+    color: #cb1c22;
+}
+
+#FooterPublicNav:hover{
+    color: #563434;
+}
+
+#AdminPhotoNav{
+    color: #cb1c22;
+}
+
+#AdminPhotoNav:hover{
+    color: #563434;
 }

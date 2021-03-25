@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function categories(){
         Session::put('page', 'categories');
-        $categories = Category::get();
+        $categories = Category::with(['section', 'parentcategory'])->get();
         /* $categories = json_decode(json_encode($categories));
         echo "<pre>"; print_r($categories);  die; */
         return view('admin.categories.categories')->with(compact('categories'));
@@ -99,5 +99,16 @@ class CategoryController extends Controller
         $getSections = Section::get();
 
         return view('admin.categories.add_edit_category')->with(compact('title', 'getSections'));
+    }
+
+    public function appendCategoryLevel(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            //echo "<pre>"; print_r($data); die;
+            $getCategories = Category::with('subcategories')->where(['section_id'=>$data['section_id'],'parent_id'=>0,'status'=>1])->get();
+            $getCategories = json_decode(json_encode($getCategories),true);
+            // echo "<pre>"; print_r($data); die;
+            return view('admin.categories.append_categories_level')->with(compact('getCategories'));
+        }
     }
 }

@@ -52,12 +52,8 @@
                       <label for="category_name">Tên Thể Loại Sản Phẩm</label>
                       <input type="text" class="form-control" name="category_name" id="category_name" placeholder="nhập tên thể loại sản phẩm...">
                   </div>
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                  <label>Cấp Thể Loại</label>
-                    <select name="parent_id" id="parent_id" class="form-control select2" style="width: 100%;">
-                      <option value="0">cấp 0 (cao nhất)</option>
-                    </select>
+                  <div id="appendCategoriesLevel">
+                    @include('admin.categories.append_categories_level')
                   </div>
                 </div>
                 <!-- /.col -->

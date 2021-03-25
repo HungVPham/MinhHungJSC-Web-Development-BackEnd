@@ -89,7 +89,7 @@
                     <label for="exampleInputPassword1">Hình Ảnh Đại Diện</label>
                     <input type="file" class="form-control" name="admin_image" id="admin_image" accept="image/*">
                     @if(!empty(Auth::guard('admin')->user()->image))
-                      <a target="_blank" href=" {{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}">Xem ảnh</a>
+                      <a id="AdminPhotoNav" target="_blank" href=" {{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}">Xem ảnh</a>
                       <input type="hidden" name="current_admin_image" value="{{ Auth::guard('admin')->user()->image }}">
                     @endif
                   </div>

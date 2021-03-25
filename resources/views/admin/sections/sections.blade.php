@@ -7,6 +7,12 @@
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
     #admin-btn{max-width: 180px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
+    .updateSectionStatus:hover{color: #563434 !important}
+    .deleteSection{color:#cb1c22}
+    .deleteSection:hover{color: #563434}
+    .updateSection{color: #563434; text-decoration: underline}
+    .updateSection:hover{color: #333}
+    a{color:#333}
 </style>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -51,23 +57,29 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>ID</th>
+                    {{-- <th>ID</th> --}}
                     <th>Tên</th>
                     <th>Hình Ảnh</th>
                     <th>Trạng Thái</th>
+                    <th>Hành Động</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($sections as $section)
                   <tr>
-                    <td>{{ $section->id }}</td>
+                    {{-- <td>{{ $section->id }}</td> --}}
                     <td>{{ $section->name }}</td>
                     <td>{{ $section->section_image }}</td>
                     <td>@if ($section->status==1)
-                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)">đang hoạt động</a>    
+                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:#228B22;">đang hoạt động</a>    
                         @else 
-                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)">chưa hoạt động</a>
+                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:#cb1c22;">chưa hoạt động</a>
                         @endif
+                    </td>
+                    <td>
+                      <a class="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}">Sửa</a>
+                      <br>
+                      <a class="deleteSection" href="">Xóa</a>
                     </td>
                   </tr>
                   @endforeach
