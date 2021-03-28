@@ -58,7 +58,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    {{-- <th>ID</th> --}}
+                    <th>ID</th>
                     <th>Phân Cấp Thể Loại</i></th>
                     <th>Danh Mục</th>
                     <th>Thể Loại</th>
@@ -75,7 +75,7 @@
                     <?php $parent_category = $category->parentcategory->category_name; ?>
                   @endif
                   <tr>
-                    {{-- <td>{{ $category->id }}</td> --}}
+                    <td>{{ $category->id }}</td>
                     <td>{{ $parent_category }}</td>
                     <td>{{ $category->section->name }}</td>
                     <td>{{ $category->category_name }}</td>

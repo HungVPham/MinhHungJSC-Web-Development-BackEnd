@@ -57,7 +57,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    {{-- <th>ID</th> --}}
+                    <th>ID</th>
                     <th>Tên</th>
                     <th>Hình Ảnh</th>
                     <th>Trạng Thái</th>
@@ -67,7 +67,7 @@
                   <tbody>
                   @foreach($sections as $section)
                   <tr>
-                    {{-- <td>{{ $section->id }}</td> --}}
+                    <td>{{ $section->id }}</td>
                     <td>{{ $section->name }}</td>
                     <td>{{ $section->section_image }}</td>
                     <td>@if ($section->status==1)

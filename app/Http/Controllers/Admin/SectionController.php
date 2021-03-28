@@ -34,9 +34,13 @@ class SectionController extends Controller
             $title = "Thêm Danh Mục SP";
             // Add Section Functionality
             $section = new Section;
+            $sectiondata = array(); 
         }else{
-            $title = "Sửa Danh Mục SP";
             // Edit Section Functionality
+            $title = "Sửa Danh Mục SP";
+            $sectiondata = Section::where('id',$id)->first();
+            $sectiondata = json_decode(json_encode($sectiondata),true);
+            // echo "<pre>"; print_r($sectiondata); die;
         }
 
         if($request->isMethod('post')){
@@ -107,6 +111,6 @@ class SectionController extends Controller
         }
 
 
-        return view('admin.sections.add_edit_section')->with(compact('title'));
+        return view('admin.sections.add_edit_section')->with(compact('title','sectiondata'));
     }
 }

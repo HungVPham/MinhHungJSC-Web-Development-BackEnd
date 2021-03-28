@@ -13,6 +13,12 @@
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('css/admin_css/adminlte.min.css') }}">
+  <style>
+      .fas{color: #cb1c22;}
+      #admin-btn-login{margin: none !important; height: 2.5rem; font-size: 1.0rem;}
+      #btn-wrapper{margin-bottom: none !important;}
+      .login-card-body,.register-card-body{padding-bottom: 10px !important;}
+  </style>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -60,19 +66,19 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <!-- <div class="col-8">
+        <div class="input-group mb-3" id="btn-wrapper">
+          {{-- <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" id="remember">
               <label for="remember">
                 Nhớ Tôi
               </label>
             </div>
-          </div> -->
+          </div> --}}
           <!-- /.col -->
-          <div class="col-4">
+            
             <button type="submit" class="btn btn-primary btn-block" id="admin-btn-login">Đăng Nhập</button>
-          </div>
+          
           <!-- /.col -->
         </div>
       </form>

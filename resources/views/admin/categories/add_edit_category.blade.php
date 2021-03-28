@@ -12,7 +12,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
-              <li class="breadcrumb-item active">Thêm Thể Loại SP</li>
+              <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div>
         </div>
@@ -31,10 +31,16 @@
               </ul>
             </div>
           @endif
-        <form name="categoryForm" id="CategoryForm" action="{{ url('admin/add-edit-category') }}" method="post" enctype="multipart/form-data">@csrf
+        <form name="categoryForm" id="CategoryForm" 
+          @if(!empty($categorydata['id'])) 
+            action="{{ url('admin/add-edit-category') }}" 
+          @else
+            action="{{ url('admin/add-edit-category/'.$categorydata['id']) }}" 
+          @endif
+          method="post" enctype="multipart/form-data">@csrf
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title">Thêm Thể Loại Sản Phẩm</h3>
+              <h3 class="card-title">{{ $title }}</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -50,7 +56,10 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                       <label for="category_name">Tên Thể Loại Sản Phẩm</label>
-                      <input type="text" class="form-control" name="category_name" id="category_name" placeholder="nhập tên thể loại sản phẩm...">
+                      <input type="text" class="form-control" name="category_name" id="category_name" placeholder="nhập tên thể loại sản phẩm..."
+                      @if (!empty($categorydata['category_name'])) value="{{ $categorydata['category_name'] }}"
+                      @else value="{{ old("category_name") }}"
+                      @endif>
                   </div>
                   <div id="appendCategoriesLevel">
                     @include('admin.categories.append_categories_level')

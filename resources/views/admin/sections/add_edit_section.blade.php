@@ -13,7 +13,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
-              <li class="breadcrumb-item active">Thêm Danh Mục SP</li>
+              <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div>
         </div>
@@ -31,10 +31,16 @@
               </ul>
             </div>
         @endif
-        <form name="sectionForm" id="SectionForm" action="{{ url('admin/add-edit-section') }}" method="post" enctype="multipart/form-data">@csrf
+        <form name="sectionForm" id="SectionForm" 
+          @if(!empty($sectiondata['id'])) 
+            action="{{ url('admin/add-edit-section') }}" 
+          @else
+            action="{{ url('admin/add-edit-section/'.$sectiondata['id']) }}" 
+          @endif
+            method="post" enctype="multipart/form-data">@csrf
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title">Thêm Danh Mục Sản Phẩm</h3>
+              <h3 class="card-title">{{ $title }}</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -49,7 +55,10 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                       <label for="category_name">Tên Danh Mục Sản Phẩm</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên danh mục sản phẩm...">
+                      <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên danh mục sản phẩm..."
+                      @if (!empty($sectiondata['name'])) value="{{ $sectiondata['name'] }}"
+                      @else value="{{ old("name") }}"
+                      @endif>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">

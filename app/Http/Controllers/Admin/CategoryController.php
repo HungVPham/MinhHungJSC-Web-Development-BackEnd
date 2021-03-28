@@ -37,9 +37,13 @@ class CategoryController extends Controller
             $title = "Thêm Thể Loại SP";
             // Add Category Functionality
             $category = new Category;
+            $categorydata = array();
         }else{
             $title = "Sửa Thể Loại SP";
             // Edit Category Functionality
+            $categorydata = Category::where('id',$id)->first();
+            $categorydata = json_decode(json_encode($categorydata),true);
+            // echo "<pre>"; print_r($sectiondata); die;
         }
 
         if($request->isMethod('post')){
@@ -98,7 +102,7 @@ class CategoryController extends Controller
         // Get All Sections 
         $getSections = Section::get();
 
-        return view('admin.categories.add_edit_category')->with(compact('title', 'getSections'));
+        return view('admin.categories.add_edit_category')->with(compact('title', 'getSections', 'categorydata'));
     }
 
     public function appendCategoryLevel(Request $request){
