@@ -34,13 +34,13 @@ class CategoryController extends Controller
 
     public function addEditCategory(Request $request, $id=null){
         if($id==""){
-            $title = "Thêm Thể Loại SP";
             // Add Category Functionality
+            $title = "Thêm Thể Loại SP";
             $category = new Category;
             $categorydata = array();
         }else{
-            $title = "Sửa Thể Loại SP";
             // Edit Category Functionality
+            $title = "Sửa Thể Loại SP";
             $categorydata = Category::where('id',$id)->first();
             $categorydata = json_decode(json_encode($categorydata),true);
             // echo "<pre>"; print_r($sectiondata); die;

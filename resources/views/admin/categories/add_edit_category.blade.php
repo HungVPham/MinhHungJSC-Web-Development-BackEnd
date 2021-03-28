@@ -32,7 +32,7 @@
             </div>
           @endif
         <form name="categoryForm" id="CategoryForm" 
-          @if(!empty($categorydata['id'])) 
+          @if(empty($categorydata['id'])) 
             action="{{ url('admin/add-edit-category') }}" 
           @else
             action="{{ url('admin/add-edit-category/'.$categorydata['id']) }}" 

@@ -32,7 +32,7 @@
             </div>
         @endif
         <form name="sectionForm" id="SectionForm" 
-          @if(!empty($sectiondata['id'])) 
+          @if(empty($sectiondata['id'])) 
             action="{{ url('admin/add-edit-section') }}" 
           @else
             action="{{ url('admin/add-edit-section/'.$sectiondata['id']) }}" 
