@@ -38,12 +38,18 @@ class CategoryController extends Controller
             $title = "Thêm Thể Loại SP";
             $category = new Category;
             $categorydata = array();
+            $getCategories = array();
+            $message = "Thể loại SP đã được thêm thành công!";
         }else{
             // Edit Category Functionality
             $title = "Sửa Thể Loại SP";
             $categorydata = Category::where('id',$id)->first();
             $categorydata = json_decode(json_encode($categorydata),true);
+            $getCategories = Category::with('subcategories')->where(['parent_id'=>0, 'section_id'=>$categorydata['section_id']])->get();
+            $getCategories = json_decode(json_encode($getCategories),true);
             // echo "<pre>"; print_r($sectiondata); die;
+            $category = Category::find($id);
+            $message = "Thể loại SP đã được cập nhật thành công!";
         }
 
         if($request->isMethod('post')){
@@ -95,14 +101,14 @@ class CategoryController extends Controller
             $category->status = 1;
             $category->save();
             
-            session::flash('success_message', 'Thể loại SP đã được thêm thành công!');
+            session::flash('success_message',$message);
             return redirect('admin/categories');
         }
 
         // Get All Sections 
         $getSections = Section::get();
 
-        return view('admin.categories.add_edit_category')->with(compact('title', 'getSections', 'categorydata'));
+        return view('admin.categories.add_edit_category')->with(compact('title', 'getSections', 'categorydata', 'getCategories'));
     }
 
     public function appendCategoryLevel(Request $request){

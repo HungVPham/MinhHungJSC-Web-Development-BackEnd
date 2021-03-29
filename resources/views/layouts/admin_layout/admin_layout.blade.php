@@ -54,6 +54,7 @@
 
 <!-- jQuery -->
 <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ url('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -71,6 +72,10 @@
 
     //Initialize Select2 Elements
     $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    $('').select2({
       theme: 'bootstrap4'
     })
   });

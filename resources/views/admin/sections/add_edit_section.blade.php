@@ -54,7 +54,7 @@
                 <div class="col-md-6">
                   <!-- /.form-group -->
                   <div class="form-group">
-                      <label for="category_name">Tên Danh Mục Sản Phẩm</label>
+                      <label for="name">Tên Danh Mục Sản Phẩm</label>
                       <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên danh mục sản phẩm..."
                       @if (!empty($sectiondata['name'])) value="{{ $sectiondata['name'] }}"
                       @else value="{{ old("name") }}"
@@ -78,35 +78,45 @@
                 <div class="col-12 col-sm-6">
                   <!-- /.form-group -->
                   <div class="form-group">
-                      <label for="category_name">Giảm Giá toàn Danh Mục</label>
-                      <input type="text" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá...">
+                      <label for="section_discount">Giảm Giá toàn Danh Mục</label>
+                      <input type="text" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá..."
+                      @if (!empty($sectiondata['section_discount'])) value="{{ $sectiondata['section_discount'] }}"
+                      @else value="{{ old("section_discount") }}"
+                      @endif>
                   </div>
                   <div class="form-group">
-                      <label for="category_name">Mô Tả Danh Mục</label>
-                      <textarea name="section_description" id="section_description" class="form-control" rows="3" placeholder="nhập mô tả danh mục..."></textarea>
+                      <label for="section_description">Mô Tả Danh Mục</label>
+                      <textarea name="section_description" id="section_description" class="form-control" rows="3" placeholder="nhập mô tả danh mục...">@if (!empty($sectiondata['section_description'])) {{ $sectiondata['section_description'] }}@else {{ old("section_description") }}@endif
+                      </textarea>
                   </div>
                   <!-- /.form-group -->
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                      <label for="category_name">URL Danh Mục</label>
-                      <input name="url" id="url" type="text" class="form-control" id="category_name" placeholder="nhập URL của danh mục...">
+                      <label for="url">URL Danh Mục</label>
+                      <input name="url" id="url" type="text" class="form-control" id="category_name" placeholder="nhập URL của danh mục..."
+                      @if (!empty($sectiondata['url'])) value="{{ $sectiondata['url'] }}"
+                      @else value="{{ old("url") }}"
+                      @endif>
                   </div>
                   <div class="form-group">
-                      <label for="category_name">Metadata Title (Cho SEO)</label>
-                      <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO..."></textarea>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6">
-                  <div class="form-group">
-                      <label for="category_name">Metadata Keywords (Cho SEO)</label>
-                      <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO..."></textarea>
+                      <label for="meta_title">Metadata Title (Cho SEO)</label>
+                      <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($sectiondata['meta_title'])) {{ $sectiondata['meta_title'] }}@else {{ old("meta_title") }}@endif
+                    </textarea>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                      <label for="category_name">Metadata Description (Cho SEO)</label>
-                      <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO..."></textarea>
+                      <label for="meta_keywords">Metadata Keywords (Cho SEO)</label>
+                      <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO...">@if (!empty($sectiondata['meta_keywords'])) {{ $sectiondata['meta_keywords'] }}@else {{ old("meta_keywords") }}@endif
+                    </textarea>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                      <label for="meta_description">Metadata Description (Cho SEO)</label>
+                      <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO...">@if (!empty($sectiondata['meta_description'])) {{ $sectiondata['meta_description'] }}@else {{ old("meta_description") }}@endif
+                    </textarea>
                   </div>
                 </div>
               </div>
@@ -115,7 +125,7 @@
         </form>
               <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Thêm Danh Mục SP</button>
+                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
             </div>
             </div>
             <!-- /.card -->

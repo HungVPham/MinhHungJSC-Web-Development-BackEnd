@@ -35,12 +35,15 @@ class SectionController extends Controller
             // Add Section Functionality
             $section = new Section;
             $sectiondata = array(); 
+            $message = "Danh Mục SP đã được thêm thành công!";
         }else{
             // Edit Section Functionality
             $title = "Sửa Danh Mục SP";
             $sectiondata = Section::where('id',$id)->first();
             $sectiondata = json_decode(json_encode($sectiondata),true);
             // echo "<pre>"; print_r($sectiondata); die;
+            $section = Section::find($id);
+            $message = "Danh Mục SP đã được cập nhật thành công!";
         }
 
         if($request->isMethod('post')){
@@ -106,7 +109,7 @@ class SectionController extends Controller
             $section->status = 1;
             $section->save();
 
-            session::flash('success_message', 'Danh mục SP đã được thêm thành công!');
+            session::flash('success_message',$message);
             return redirect('admin/sections');
         }
 

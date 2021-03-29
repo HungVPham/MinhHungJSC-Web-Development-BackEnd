@@ -68,11 +68,11 @@
                 <!-- /.col -->
                 <div class="col-md-6">
                 <div class="form-group">
-                    <label>Danh Mục của Thể Loại</label>
+                    <label for="section_id">Danh Mục của Thể Loại</label>
                     <select name="section_id" id="section_id" class="form-control select2" style="width: 100%;">
                       <option value="">Chọn danh mục...</option>
                       @foreach($getSections as $section)
-                      <option value="{{ $section->id }}">{{ $section->name }}</option>
+                      <option value="{{ $section->id }}" @if(!empty($categorydata['section_id']) && $categorydata['section_id']==$section->id) selected @endif>{{ $section->name }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -84,35 +84,45 @@
                 <div class="col-12 col-sm-6">
                   <!-- /.form-group -->
                   <div class="form-group">
-                      <label for="category_name">Giảm Giá toàn Thể Loại</label>
-                      <input type="text" class="form-control" name="category_discount" id="category_discount" placeholder="nhập khoản giảm giá...">
+                      <label for="category_discount">Giảm Giá toàn Thể Loại</label>
+                      <input type="text" class="form-control" name="category_discount" id="category_discount" placeholder="nhập khoản giảm giá..."
+                      @if (!empty($categorydata['category_discount'])) value="{{ $categorydata['category_discount'] }}"
+                      @else value="{{ old("category_discount") }}"
+                      @endif>
                   </div>
                   <div class="form-group">
-                      <label for="category_name">Mô Tả Thể Loại</label>
-                      <textarea name="category_description" id="category_description" class="form-control" rows="3" placeholder=" nhập mô tả thể loại..."></textarea>
+                      <label for="category_description">Mô Tả Thể Loại</label>
+                      <textarea name="category_description" id="category_description" class="form-control" rows="3" placeholder=" nhập mô tả thể loại...">@if (!empty($categorydata['category_description'])) {{ $categorydata['category_description'] }}@else {{ old("category_description") }}@endif
+                      </textarea>
                   </div>
                   <!-- /.form-group -->
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                      <label for="category_name">URL Thể Loại</label>
-                      <input name="url" id="url" type="text" class="form-control" placeholder="nhập URL thể loại...">
+                      <label for="url">URL Thể Loại</label>
+                      <input name="url" id="url" type="text" class="form-control" placeholder="nhập URL thể loại..."
+                      @if (!empty($categorydata['url'])) value="{{ $categorydata['url'] }}"
+                      @else value="{{ old("url") }}"
+                      @endif>
                   </div>
                   <div class="form-group">
-                      <label for="category_name">Metadata Title (Cho SEO)</label>
-                      <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO..."></textarea>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6">
-                  <div class="form-group">
-                      <label for="category_name">Metadata Keywords (Cho SEO)</label>
-                      <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO..."></textarea>
+                      <label for="meta-title">Metadata Title (Cho SEO)</label>
+                      <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($categorydata['meta_title'])) {{ $categorydata['meta_title'] }}@else {{ old("meta_title") }}@endif
+                    </textarea>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                      <label for="category_name">Metadata Description (Cho SEO)</label>
-                      <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO..."></textarea>
+                      <label for="meta_keywords">Metadata Keywords (Cho SEO)</label>
+                      <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO...">@if (!empty($categorydata['meta_keywords'])) {{ $categorydata['meta_keywords'] }}@else {{ old("meta_keywords") }}@endif
+                    </textarea>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                      <label for="meta_description">Metadata Description (Cho SEO)</label>
+                      <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO...">@if (!empty($categorydata['meta_description'])) {{ $categorydata['meta_description'] }}@else {{ old("meta_description") }}@endif
+                    </textarea>
                   </div>
                 </div>
               </div>
@@ -121,7 +131,7 @@
         </form>
               <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Thêm Thể Loại SP</button>
+                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
             </div>
             </div>
             <!-- /.card -->
