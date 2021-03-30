@@ -1,6 +1,9 @@
 @extends('layouts.admin_layout.admin_layout')
 @section('content')
-
+  <style>
+    #dlt-section-img{color: #cb1c22;}
+    #dlt-section-img:hover{color: #563434;}
+  </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -29,6 +32,14 @@
                   <li>{{ $error }}</li>
                 @endforeach
               </ul>
+            </div>
+        @endif
+        @if (Session::has('success_message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+              {{ Session::get('success_message') }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
         @endif
         <form name="sectionForm" id="SectionForm" 
@@ -70,6 +81,11 @@
                         </div>
                       </div>
                   </div>
+                  @if(!empty($sectiondata['section_image']))
+                       <div style="padding-bottom: 10px"><img style="width: 80px" src="{{ asset('images/section_images/'.$sectiondata['section_image']) }}">
+                      &nbsp;<a href="{{ url('admin/delete-section-image/'.$sectiondata['id']) }}" id="dlt-section-img">xóa ảnh</a>
+                      </div>
+                      @endif
                 </div>
                 <!-- /.col -->
               </div>

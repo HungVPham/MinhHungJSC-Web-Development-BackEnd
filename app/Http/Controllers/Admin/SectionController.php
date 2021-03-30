@@ -73,7 +73,7 @@ class SectionController extends Controller
                     $imageName = rand(111,99999).'.'.$extension;
                     $imagePath = 'images/section_images/'.$imageName;
                     // Upload the Image
-                    Image::make($image_tmp)->resize(128, 128)->save($imagePath);
+                    Image::make($image_tmp)->resize(550, 604)->save($imagePath);
                     // save Category Image
                     $section->section_image = $imageName;
                 }
@@ -115,5 +115,34 @@ class SectionController extends Controller
 
 
         return view('admin.sections.add_edit_section')->with(compact('title','sectiondata'));
+    }
+
+    public function deleteSectionImage($id){
+        // Get Section Image
+        $sectionImage = Section::select('section_image')->where('id', $id)->first();
+
+        // Get Section Image path
+        $section_image_path = 'images/section_images/';
+
+        // Delete Section Image from section_images folder if exists
+        if(file_exists($section_image_path.$sectionImage->section_image)){
+           unlink($section_image_path.$sectionImage->section_image);
+        }
+
+        // Delete Section Image from section table
+        Section::where('id',$id)->update(['section_image'=>'']);
+
+        $message = 'Hình ảnh danh mục đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }
+
+    public function deleteSection($id){
+        // delete section 
+        Section::where('id',$id)->delete();
+
+        $message = 'Danh Mục SP đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
     }
 }

@@ -12,8 +12,18 @@
     .deleteSection:hover{color: #563434}
     .updateSection{color: #563434; text-decoration: underline}
     .updateSection:hover{color: #333}
-    a{color:#333}
+    a{color: inherit}
 </style>
+<script>
+  function toggle_link(select){
+  var color = select.style.color;
+  select.style.color = (color == "crimson" ? "forestgreen" : "crimson");}
+</script>
+<script>
+function toggle_link(select){
+var color = select.style.color;
+select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
+</script>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -71,15 +81,15 @@
                     <td>{{ $section->name }}</td>
                     <td>{{ $section->section_image }}</td>
                     <td>@if ($section->status==1)
-                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:#228B22;">đang hoạt động</a>    
+                            <a onclick="javascript:toggle_link(this)" class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:forestgreen;">đang hoạt động</a>    
                         @else 
-                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:#cb1c22;">chưa hoạt động</a>
+                            <a onclick="javascript:toggle_link(this)" class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:crimson;">chưa hoạt động</a>
                         @endif
                     </td>
                     <td>
                       <a class="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}">Sửa</a>
                       <br>
-                      <a class="deleteSection" href="">Xóa</a>
+                      <a class="deleteSection" href="{{ url('admin/delete-section/'.$section->id) }}">Xóa</a>
                     </td>
                   </tr>
                   @endforeach

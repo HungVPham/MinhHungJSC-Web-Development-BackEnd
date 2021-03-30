@@ -121,4 +121,13 @@ class CategoryController extends Controller
             return view('admin.categories.append_categories_level')->with(compact('getCategories'));
         }
     }
+
+    public function deleteCategory($id){
+        // delete category 
+        Category::where('id',$id)->delete();
+
+        $message = 'Thể loại SP đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }
 }

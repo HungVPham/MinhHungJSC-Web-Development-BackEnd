@@ -13,8 +13,18 @@
     .deleteCategory:hover{color: #563434}
     .updateCategory{color: #563434; text-decoration: underline}
     .updateCategory:hover{color: #333}
-    a{color:#333}
+    a{color: inherit;}
 </style>
+<script>
+    function toggle_link(select){
+    var color = select.style.color;
+    select.style.color = (color == "crimson" ? "forestgreen" : "crimson");}
+</script>
+<script>
+  function toggle_link(select){
+  var color = select.style.color;
+  select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
+</script>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -59,9 +69,9 @@
                   <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Thể Loại</th>
                     <th>Phân Cấp Thể Loại</i></th>
                     <th>Danh Mục</th>
-                    <th>Thể Loại</th>
                     <th>URL</th>
                     <th>Trạng Thái</th>
                     <th>Hành Động</th>
@@ -76,20 +86,21 @@
                   @endif
                   <tr>
                     <td>{{ $category->id }}</td>
+                    <td>{{ $category->category_name }}</td>
                     <td>{{ $parent_category }}</td>
                     <td>{{ $category->section->name }}</td>
-                    <td>{{ $category->category_name }}</td>
                     <td>{{ $category->url }}</td>
-                    <td>@if ($category->status==1)
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)"" style="color:#228B22;">đang hoạt động</a>    
+                    <td>
+                        @if ($category->status==1)
+                            <a onclick="javascript:toggle_link(this)" class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: forestgreen;">đang hoạt động</a>    
                         @else 
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color:#cb1c22;">chưa hoạt động</a>
+                            <a onclick="javascript:toggle_link(this)" class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: crimson;">chưa hoạt động</a> 
                         @endif
                     </td>
                     <td>
                       <a class="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}">Sửa</a>
                       <br>
-                      <a class="deleteCategory" href="">Xóa</a>
+                      <a class="deleteCategory" href="{{ url('admin/delete-category/'.$category->id) }}">Xóa</a>
                     </td>
                   </tr>
                   @endforeach
