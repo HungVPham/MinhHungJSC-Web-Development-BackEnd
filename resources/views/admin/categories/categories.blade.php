@@ -14,6 +14,7 @@
     #updateCategory{color: #563434; text-decoration: underline}
     #updateCategory:hover{color: #333}
     a{color: inherit;}
+    .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
 </style>
 <script>
     function toggle_link(select){
@@ -32,7 +33,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Danh Mục</h1>
+            <h1>Catalogue</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -100,7 +101,7 @@
                     <td>
                       <a id="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}">Sửa</a>
                       <br>
-                      <a href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" id="deleteCategory" <?php /*href="{{ url('admin/delete-category/'.$category->id) }}"*/ ?>>Xóa</a>
+                      <a href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" id="deleteCategory">Xóa</a>
                     </td>
                   </tr>
                   @endforeach

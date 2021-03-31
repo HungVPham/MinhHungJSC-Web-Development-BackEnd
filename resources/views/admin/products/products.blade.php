@@ -1,29 +1,30 @@
 @extends('layouts.admin_layout.admin_layout')
 @section('content')
+
 <style>
-    .page-item.active .page-link {background-color: #cb1c22;border-color: #cb1c22;}
+    .page-item.active .page-link {background-color: #cb1c22;border-color: #cb1c22}
     .page-item.active .page-link:focus{box-shadow: none;} 
-    .dropdown-item.active, .dropdown-item:active {background-color: #cb1c22;}
+    .dropdown-item.active, .dropdown-item:active {background-color: #cb1c22}
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
-    #admin-btn{max-width: 180px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
-    #deleteSection{color:#cb1c22}
-    #deleteSection:hover{color: #563434}
-    #updateSection{color: #563434; text-decoration: underline}
-    #updateSection:hover{color:#333}
-    .updateSection:hover{color:#333}
-    a{color: inherit}
+    #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
+    .updateProductStatus:hover{color: #563434 !important}
+    #deleteproduct{color:#cb1c22}
+    #deleteproduct:hover{color: #563434}
+    #updateproduct{color: #563434; text-decoration: underline}
+    #updateproduct:hover{color: #333}
+    a{color: inherit;}
     .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
 </style>
 <script>
-  function toggle_link(select){
-  var color = select.style.color;
-  select.style.color = (color == "crimson" ? "forestgreen" : "crimson");}
+    function toggle_link(select){
+    var color = select.style.color;
+    select.style.color = (color == "crimson" ? "forestgreen" : "crimson");}
 </script>
 <script>
-function toggle_link(select){
-var color = select.style.color;
-select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
+  function toggle_link(select){
+  var color = select.style.color;
+  select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
 </script>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -37,7 +38,7 @@ select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
-              <li class="breadcrumb-item active">Danh Mục SP</li>
+              <li class="breadcrumb-item active">Sản Phẩm</li>
             </ol>
           </div>
         </div>
@@ -60,8 +61,8 @@ select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
             @endif
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Danh Mục Sản Phẩm</h3>
-                <a href="{{ url('admin/add-edit-section') }}" class="btn btn-block btn-success" id="admin-btn">Thêm Danh Mục SP</a>
+                <h3 class="card-title">Sản Phẩm</h3>
+                <a href="{{ url('admin/add-edit-product') }}" class="btn btn-block btn-success"  id="admin-btn">Thêm Sản Phẩm</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -70,27 +71,32 @@ select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
                   <tr>
                     <th>ID</th>
                     <th>Tên</th>
-                    <th>Hình Ảnh</th>
+                    <th>Thể Loại Chính</th>
+                    <th>Thể Loại Phụ</th>
+                    <th>Danh Mục SP</th>
                     <th>Trạng Thái</th>
                     <th>Hành Động</th>
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($sections as $section)
+                  @foreach($products as $product)
                   <tr>
-                    <td>{{ $section->id }}</td>
-                    <td>{{ $section->name }}</td>
-                    <td>{{ $section->section_image }}</td>
-                    <td>@if ($section->status==1)
-                            <a onclick="javascript:toggle_link(this)" class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:forestgreen;">đang hoạt động</a>    
+                    <td>{{ $product->id }}</td>
+                    <td>{{ $product->product_name }}</td>
+                    <td>{{ $product->category_id }}</td>
+                    <td>{{ $product->subcategory_id }}</td>
+                    <td>{{ $product->section_id }}</td>
+                    <td>
+                        @if ($product->status==1)
+                            <a onclick="javascript:toggle_link(this)" class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: forestgreen;">đang hoạt động</a>    
                         @else 
-                            <a onclick="javascript:toggle_link(this)" class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color:crimson;">chưa hoạt động</a>
+                            <a onclick="javascript:toggle_link(this)" class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: crimson;">chưa hoạt động</a> 
                         @endif
                     </td>
                     <td>
-                      <a id="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}">Sửa</a>
+                      <a id="updateproduct" href="{{ url('admin/add-edit-product/'.$product->id) }}">Sửa</a>
                       <br>
-                      <a href="javascript:void(0)" class="confirmDelete" record="section" recordid="{{ $section->id }}"  class="confirmDelete" id="deleteSection">Xóa</a>
+                      <a href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}" id="deleteproduct">Xóa</a>
                     </td>
                   </tr>
                   @endforeach

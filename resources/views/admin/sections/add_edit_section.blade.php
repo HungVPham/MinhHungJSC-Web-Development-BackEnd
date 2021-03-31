@@ -3,6 +3,7 @@
   <style>
     #dlt-section-img{color: #cb1c22;}
     #dlt-section-img:hover{color: #563434;}
+    .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
   </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
