@@ -83,7 +83,7 @@
                   </div>
                   @if(!empty($sectiondata['section_image']))
                        <div style="padding-bottom: 10px"><img style="width: 80px" src="{{ asset('images/section_images/'.$sectiondata['section_image']) }}">
-                      &nbsp;<a href="{{ url('admin/delete-section-image/'.$sectiondata['id']) }}" id="dlt-section-img">xóa ảnh</a>
+                      &nbsp;<a class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="section-image" recordid="{{ $sectiondata['id'] }}" id="dlt-section-img">xóa ảnh</a>
                       </div>
                       @endif
                 </div>

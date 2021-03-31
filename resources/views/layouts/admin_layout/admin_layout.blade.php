@@ -134,5 +134,7 @@ $(function () {
 <script src="{{ url('js/admin_js/pages/dashboard.js') }}"></script>
 <!-- Custom Admin JS  -->
 <script src="{{ url('js/admin_js/admin_scripts.js') }}"></script>
+<!-- SweetAlert2 Script  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 </html>

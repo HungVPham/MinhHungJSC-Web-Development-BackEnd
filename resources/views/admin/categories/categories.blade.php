@@ -9,10 +9,10 @@
     .page-item .page-link:focus{box-shadow: none}
     #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
     .updateCategoryStatus:hover{color: #563434 !important}
-    .deleteCategory{color:#cb1c22}
-    .deleteCategory:hover{color: #563434}
-    .updateCategory{color: #563434; text-decoration: underline}
-    .updateCategory:hover{color: #333}
+    #deleteCategory{color:#cb1c22}
+    #deleteCategory:hover{color: #563434}
+    #updateCategory{color: #563434; text-decoration: underline}
+    #updateCategory:hover{color: #333}
     a{color: inherit;}
 </style>
 <script>
@@ -98,9 +98,9 @@
                         @endif
                     </td>
                     <td>
-                      <a class="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}">Sửa</a>
+                      <a id="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}">Sửa</a>
                       <br>
-                      <a class="deleteCategory" href="{{ url('admin/delete-category/'.$category->id) }}">Xóa</a>
+                      <a href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" id="deleteCategory" <?php /*href="{{ url('admin/delete-category/'.$category->id) }}"*/ ?>>Xóa</a>
                     </td>
                   </tr>
                   @endforeach

@@ -74,4 +74,33 @@ $(document).ready(function(){
             }
         });
     });
+
+    // Confirm Deletion of Record
+    // $(".confirmDelete").click(function(){
+    //     var name = $(this).attr("name");
+    //     if(confirm("Xác nhận xóa "+name+"?")){
+    //         return true; 
+    //     }
+    //     return false;
+    // });
+
+    // Confirm Deletion of Record with SweetAlert2
+    $(document).on("click", ".confirmDelete", function(){
+        var record = $(this).attr("record");
+        var recordid = $(this).attr("recordid");
+        Swal.fire({
+            title: 'Xác nhận xóa?',
+            text: "Bạn sẽ không thay đổi được sau khi xóa!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#228B22',
+            cancelButtonColor: '#cb1c22',
+            confirmButtonText: 'Xóa!',
+            cancelButtonText: 'Không xóa.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href="/admin/delete-"+record+"/"+recordid;
+            }
+          });
+    });
 });

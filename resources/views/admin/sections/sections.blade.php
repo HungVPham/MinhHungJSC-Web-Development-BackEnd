@@ -7,10 +7,10 @@
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
     #admin-btn{max-width: 180px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
-    .updateSectionStatus:hover{color: #563434 !important}
-    .deleteSection{color:#cb1c22}
-    .deleteSection:hover{color: #563434}
-    .updateSection{color: #563434; text-decoration: underline}
+    #deleteSection{color:#cb1c22}
+    #deleteSection:hover{color: #563434}
+    #updateSection{color: #563434; text-decoration: underline}
+    #updateSection:hover{color: #333}
     .updateSection:hover{color: #333}
     a{color: inherit}
 </style>
@@ -87,9 +87,9 @@ select.style.color = (color == "forestgreen" ? "crimson" : "forestgreen");}
                         @endif
                     </td>
                     <td>
-                      <a class="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}">Sửa</a>
+                      <a id="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}">Sửa</a>
                       <br>
-                      <a class="deleteSection" href="{{ url('admin/delete-section/'.$section->id) }}">Xóa</a>
+                      <a href="javascript:void(0)" class="confirmDelete" record="section" recordid="{{ $section->id }}"  class="confirmDelete" id="deleteSection">Xóa</a>
                     </td>
                   </tr>
                   @endforeach

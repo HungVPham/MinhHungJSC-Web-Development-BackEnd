@@ -123,7 +123,7 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory($id){
-        // delete category 
+        // delete Category 
         Category::where('id',$id)->delete();
 
         $message = 'Thể loại SP đã được xóa thành công!';

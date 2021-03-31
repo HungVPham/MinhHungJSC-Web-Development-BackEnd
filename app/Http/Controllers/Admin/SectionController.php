@@ -141,7 +141,7 @@ class SectionController extends Controller
         // delete section 
         Section::where('id',$id)->delete();
 
-        $message = 'Danh Mục SP đã được xóa thành công!';
+        $message = 'Danh mục SP đã được xóa thành công!';
         session::flash('success_message',$message);
         return redirect()->back();
     }
