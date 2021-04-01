@@ -24,40 +24,66 @@ $(document).ready(function(){
     $(".updateSectionStatus").click(function(){
         var status = $(this).text();
         var section_id = $(this).attr("section_id");
-        $.ajax({
-            type:'post',
-            url:'/admin/update-section-status',
-            data:{status:status,section_id:section_id},
-            success:function(resp){
-                if(resp['status']==0){
-                    $("#section-"+section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>chưa hoạt động</a>");
-                }else if(resp['status']==1){
-                    $("#section-"+section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>đang hoạt động</a>");
-                }
-            },error:function(){
-                alert("Error");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#228B22',
+            cancelButtonColor: '#cb1c22',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'post',
+                url:'/admin/update-section-status',
+                data:{status:status,section_id:section_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: #cb1c22;' href='javascript:void(0)'>chưa hoạt động</a>");
+                    }else if(resp['status']==1){
+                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: #228b22;' href='javascript:void(0)'>đang hoạt động</a>");
+                        }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
             }
-        })
+        });
     });
 
     // Update Category Status 
     $(".updateCategoryStatus").click(function(){
         var status = $(this).text();
         var category_id = $(this).attr("category_id");
-        $.ajax({
-            type:'post',
-            url:'/admin/update-category-status',
-            data:{status:status,category_id:category_id},
-            success:function(resp){
-                if(resp['status']==0){
-                    $("#category-"+category_id).html("<a class='updateCategoryStatus' href='javascript:void(0)'>chưa hoạt động</a>");
-                }else if(resp['status']==1){
-                    $("#category-"+category_id).html("<a class='updateCategoryStatus' href='javascript:void(0)'>đang hoạt động</a>");
-                }
-            },error:function(){
-                alert("Error");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#228B22',
+            cancelButtonColor: '#cb1c22',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'post',
+                url:'/admin/update-category-status',
+                data:{status:status,category_id:category_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: #cb1c22;' href='javascript:void(0)'>chưa hoạt động</a>");
+                    }else if(resp['status']==1){
+                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: #228b22;' href='javascript:void(0)'>đang hoạt động</a>");
+                        }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
             }
-        })
+        });
     });
 
     // Append Categories Level 
@@ -108,19 +134,32 @@ $(document).ready(function(){
     $(".updateProductStatus").click(function(){
         var status = $(this).text();
         var product_id = $(this).attr("product_id");
-        $.ajax({
-            type:'post',
-            url:'/admin/update-product-status',
-            data:{status:status,product_id:product_id},
-            success:function(resp){
-                if(resp['status']==0){
-                    $("#product-"+product_id).html("<a class='updateProductStatus' href='javascript:void(0)'>chưa hoạt động</a>");
-                }else if(resp['status']==1){
-                    $("#product-"+product_id).html("<a class='updateProductStatus' href='javascript:void(0)'>đang hoạt động</a>");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#228B22',
+            cancelButtonColor: '#cb1c22',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type:'post',
+                    url:'/admin/update-product-status',
+                    data:{status:status,product_id:product_id},
+                    success:function(resp){
+                        if(resp['status']==0){
+                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: #cb1c22;' href='javascript:void(0)'>chưa hoạt động</a>");
+                        }else if(resp['status']==1){
+                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: #228b22;' href='javascript:void(0)'>đang hoạt động</a>");
+                        }
+                        },error:function(){
+                            alert("Error");
+                        }
+                    })
                 }
-            },error:function(){
-                alert("Error");
-            }
-        })
+          });
     });
 });
