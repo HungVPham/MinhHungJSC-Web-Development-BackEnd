@@ -6,11 +6,12 @@
     .dropdown-item.active, .dropdown-item:active {background-color: #cb1c22;}
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
+    .updateSectionStatus:hover{color: #563434 !important}
     #admin-btn{max-width: 180px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
     #deleteSection{color:#cb1c22}
     #deleteSection:hover{color: #563434}
-    #updateSection{color: #563434; text-decoration: underline}
-    #updateSection:hover{color:#333}
+    #updateSection{color: #563434; text-decoration: none}
+    #updateSection:hover{color:#333; text-decoration: underline}
     .updateSection:hover{color:#333}
     a{color: inherit}
     .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
@@ -60,8 +61,9 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Tên</th>
+                    <th>Danh Mục</th>
                     <th>Hình Ảnh</th>
+                    <th>URL</th>
                     <th>Trạng Thái</th>
                     <th>Hành Động</th>
                   </tr>
@@ -72,6 +74,7 @@
                     <td>{{ $section->id }}</td>
                     <td>{{ $section->name }}</td>
                     <td>{{ $section->section_image }}</td>
+                    <td>{{ $section->url }}</td>
                     <td>@if ($section->status==1)
                             <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    
                         @else 

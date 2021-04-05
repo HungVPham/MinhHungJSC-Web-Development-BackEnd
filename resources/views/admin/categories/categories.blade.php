@@ -11,8 +11,8 @@
     .updateCategoryStatus:hover{color: #563434 !important}
     #deleteCategory{color:#cb1c22}
     #deleteCategory:hover{color: #563434}
-    #updateCategory{color: #563434; text-decoration: underline}
-    #updateCategory:hover{color: #333}
+    #updateCategory{color: #563434; text-decoration: none}
+    #updateCategory:hover{color:#333; text-decoration: underline}
     a{color: inherit;}
     .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
     .swal2-icon.swal2-info {border-color:#cb1c22;color:#cb1c22;}

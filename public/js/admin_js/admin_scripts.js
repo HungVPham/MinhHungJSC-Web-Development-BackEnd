@@ -21,7 +21,7 @@ $(document).ready(function(){
     });
 
     // Update Section Status
-    $(".updateSectionStatus").click(function(){
+    $(document).on("click", ".updateSectionStatus", function(){
         var status = $(this).text();
         var section_id = $(this).attr("section_id");
         Swal.fire({
@@ -54,7 +54,7 @@ $(document).ready(function(){
     });
 
     // Update Category Status 
-    $(".updateCategoryStatus").click(function(){
+    $(document).on("click", ".updateCategoryStatus", function(){
         var status = $(this).text();
         var category_id = $(this).attr("category_id");
         Swal.fire({
@@ -131,7 +131,7 @@ $(document).ready(function(){
     });
 
     // Update Product Status 
-    $(".updateProductStatus").click(function(){
+    $(document).on("click", ".updateProductStatus", function(){
         var status = $(this).text();
         var product_id = $(this).attr("product_id");
         Swal.fire({

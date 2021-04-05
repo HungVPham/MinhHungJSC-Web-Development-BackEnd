@@ -11,8 +11,8 @@
     .updateProductStatus:hover{color: #563434 !important}
     #deleteproduct{color:#cb1c22}
     #deleteproduct:hover{color: #563434}
-    #updateproduct{color: #563434; text-decoration: underline}
-    #updateproduct:hover{color: #333}
+    #updateproduct{color: #563434; text-decoration: none}
+    #updateproduct:hover{color:#333; text-decoration: underline}
     a{color: inherit;}
     .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
     .swal2-icon.swal2-info {border-color:#cb1c22;color:#cb1c22;}
@@ -61,9 +61,10 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Tên</th>
-                    <th>Thể Loại Chính</th>
-                    <th>Thể Loại Phụ</th>
+                    <th>Mã SP</th>
+                    <th>Sản Phẩm</th>
+                    <th>Thể Loại Cấp (1)</th>
+                    <th>Thể Loại Cấp (0)</th>
                     <th>Danh Mục SP</th>
                     <th>Trạng Thái</th>
                     <th>Hành Động</th>
@@ -73,10 +74,11 @@
                   @foreach($products as $product)
                   <tr>
                     <td>{{ $product->id }}</td>
+                    <td>{{ $product->product_code }}</td>
                     <td>{{ $product->product_name }}</td>
-                    <td>{{ $product->category_id }}</td>
-                    <td>{{ $product->subcategory_id }}</td>
-                    <td>{{ $product->section_id }}</td>
+                    <td>{{ $product->subcategory->category_name }}</td>
+                    <td>{{ $product->category->category_name }}</td>
+                    <td>{{ $product->section->name }}</td>
                     <td>
                         @if ($product->status==1)
                             <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    
