@@ -43,4 +43,18 @@ class ProductController extends Controller
         session::flash('success_message',$message);
         return redirect()->back();
     }
+
+    public function addEditProduct(Request $request,$id=null){
+        if($id==""){
+            $title = "Thêm Sản Phẩm";
+        }else{
+            $title = "Sửa Sản Phẩm";
+        }
+
+        //Filter Arrays
+        $voltageArray = array('≤12V', '18V', '14.4V', '220-240V', '220-230V');
+        $powerArray = array('80W', '230W','240W', '250W', '300W', '320W', '350W', '400W', '450W', '500W', '550W', '600W', '620W', '680W', '710W', '750W', '760W', '800W', '850W', '900W', '950W', '1050W', '1100W', '1200W', '1250W', '1300W', '1350W', '1400W', '1500W', '1600W', '1800W', '2000W', '2100W', '2200W', '2400W', '2600W');
+
+        return view('admin.products.add_edit_product')->with(compact('title', 'voltageArray', 'powerArray'));
+    }
 }
