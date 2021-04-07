@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('css/admin_css/adminlte.min.css') }}">
+  <!-- tabbar icon -->
+  <link rel = "icon" href="{{ asset('images/admin_images/logo.png') }}" type="image/x-icon"> 
   <style>
       .fas{color: #cb1c22;}
       #admin-btn-login{margin: none !important; height: 2.5rem; font-size: 1.0rem;}

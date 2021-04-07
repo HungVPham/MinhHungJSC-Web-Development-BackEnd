@@ -32,6 +32,8 @@
   <link rel="stylesheet" href="{{ url('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ url('plugins/summernote/summernote-bs4.min.css') }}">
+  <!-- tabbar icon -->
+  <link rel = "icon" href="{{ asset('images/admin_images/logo.png') }}" type="image/x-icon"> 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
