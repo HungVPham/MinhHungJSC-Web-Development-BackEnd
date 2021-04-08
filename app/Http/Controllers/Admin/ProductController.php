@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use Session;
+use App\Section;
 
 class ProductController extends Controller
 {
@@ -51,10 +52,15 @@ class ProductController extends Controller
             $title = "Sửa Sản Phẩm";
         }
 
-        //Filter Arrays
-        $voltageArray = array('≤12V', '18V', '14.4V', '220-240V', '220-230V');
-        $powerArray = array('80W', '230W','240W', '250W', '300W', '320W', '350W', '400W', '450W', '500W', '550W', '600W', '620W', '680W', '710W', '750W', '760W', '800W', '850W', '900W', '950W', '1050W', '1100W', '1200W', '1250W', '1300W', '1350W', '1400W', '1500W', '1600W', '1800W', '2000W', '2100W', '2200W', '2400W', '2600W');
+        // Filter Arrays
+        $maxpro_voltageArray = array('≤12V', '18V', '14.4V', '220-240V', '220-230V');
+        $maxpro_powerArray = array('80W', '230W','240W', '250W', '300W', '320W', '350W', '400W', '450W', '500W', '550W', '600W', '620W', '680W', '710W', '750W', '760W', '800W', '850W', '900W', '950W', '1050W', '1100W', '1200W', '1250W', '1300W', '1350W', '1400W', '1500W', '1600W', '1800W', '2000W', '2100W', '2200W', '2400W', '2600W');
 
-        return view('admin.products.add_edit_product')->with(compact('title', 'voltageArray', 'powerArray'));
+        // Section with Categories and Subcategories
+        $categories = Section::with('categories')->get();
+        $categories = json_decode(json_encode($categories), true);
+
+
+        return view('admin.products.add_edit_product')->with(compact('title', 'maxpro_voltageArray', 'maxpro_powerArray', 'categories'));
     }
 }

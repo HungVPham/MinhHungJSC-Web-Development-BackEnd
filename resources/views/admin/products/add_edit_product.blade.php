@@ -54,9 +54,18 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="section_id">Thể Loại Sản Phẩm</label>
+                    <label for="section_id">Thể Loại Cấp (0)</label>
                     <select name="category_id" id="category_id" class="form-control select2" style="width: 100%;">
                       <option value="">Chọn danh mục...</option>
+                      @foreach($categories as $section)
+                        <optgroup label="{{ $section['name'] }}"></optgroup>
+                        @foreach($section['categories'] as $category)
+                          <option disabled value="{{ $category['id'] }}"> {{ $category['category_name'] }}</option>
+                          @foreach($category['subcategories'] as $subcategory)
+                            <option value="{{ $subcategory['id'] }}"> --- {{ $subcategory['category_name'] }}</option>
+                          @endforeach
+                        @endforeach
+                      @endforeach
                     </select>
                   </div>
                   <div class="form-group">
@@ -119,6 +128,15 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="section_id">Chọn hiệu điện thế [V]</label>
+                    <select name="maxpro_voltage" id="maxpro_voltage" class="form-control select2" style="width: 100%;">
+                      <option value="">Chọn điện thế...</option>
+                      @foreach($maxpro_voltageArray as $voltage)
+                      <option value="{{ $voltage }}">{{ $voltage }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
                       <label for="product_description">Mô Tả Sản Phẩm</label>
                       <textarea name="product_description" id="product_description" class="form-control" rows="3" placeholder=" nhập mô tả sản phẩm...">@if (!empty($productdata['product_description'])) {{ $productdata['product_description'] }}@else {{ old("product_description") }}@endif
                       </textarea>
@@ -136,6 +154,15 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="section_id">Chọn công suất điện [W]</label>
+                    <select name="maxpro_power" id="maxpro_power" class="form-control select2" style="width: 100%;">
+                      <option value="">Chọn công suất...</option>
+                      @foreach($maxpro_powerArray as $power)
+                      <option value="{{ $power }}">{{ $power }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
                       <label for="meta-title">Metadata Title [SEO]</label>
                       <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($productdata['meta_title'])) {{ $productdata['meta_title'] }}@else {{ old("meta_title") }}@endif
                     </textarea>
@@ -147,6 +174,11 @@
                       <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO...">@if (!empty($productdata['meta_keywords'])) {{ $productdata['meta_keywords'] }}@else {{ old("meta_keywords") }}@endif
                     </textarea>
                   </div>
+                  <div class="form-group">
+                    <label for="meta_keywords">Sản Phẩm Nổi Bật: Có/Không</label>
+                    <input type="checkbox" name="is_featured" id="is_featured" value="1">
+                  </textarea>
+                </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
