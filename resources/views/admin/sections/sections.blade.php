@@ -73,7 +73,14 @@
                   <tr>
                     <td>{{ $section->id }}</td>
                     <td>{{ $section->name }}</td>
-                    <td>{{ $section->section_image }}</td>
+                    <td style="text-align: center;">
+                      <?php $section_image_path = "images/section_images/".$section->section_image; ?>
+                      @if(!empty($section->section_image) && file_exists($section_image_path))
+                      <img style="width: 150px;" src="{{ asset('images/section_images/'.$section->section_image) }}">
+                       @else
+                      <img style="width: 150px;" src="{{ asset('images/section_images/no-img.jpg') }}">
+                      @endif
+                    </td>
                     <td>{{ $section->url }}</td>
                     <td>@if ($section->status==1)
                             <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    

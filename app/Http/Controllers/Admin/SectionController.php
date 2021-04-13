@@ -106,7 +106,7 @@ class SectionController extends Controller
             $section->meta_title = $data['meta_title'];
             $section->meta_keywords = $data['meta_keywords'];
             $section->meta_description = $data['meta_description'];
-            $section->status = 1;
+            // $section->status = 1;
             $section->save();
 
             session::flash('success_message',$message);

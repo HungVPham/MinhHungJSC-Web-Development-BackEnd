@@ -16,18 +16,17 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('category_id');
-            $table->integer('subcategory_id');
             $table->integer('section_id');
             $table->string('product_name');
             $table->string('product_code');
-            $table->float('product_price');
+            $table->bigInteger('product_price');
             $table->float('product_discount');
             $table->float('product_weight');
             $table->string('maxpro_voltage')->nullable();
             $table->string('maxpro_power')->nullable();
             $table->string('hhose_diameter')->nullable();
-            $table->enum('hhose_embossed', ['No', 'Yes'])->nullable();
-            $table->enum('hhose_smoothtexture', ['No', 'Yes'])->nullable();
+            $table->enum('hhose_spflex_embossed', ['No', 'Yes'])->nullable();
+            $table->enum('hhose_spflex_smoothtexture', ['No', 'Yes'])->nullable();
             $table->string('shimge_power')->nullable();
             $table->string('shimge_maxflow')->nullable();
             $table->string('main_image');

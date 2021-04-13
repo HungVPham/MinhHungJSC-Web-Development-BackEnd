@@ -63,8 +63,10 @@
                     <th>ID</th>
                     <th>Mã SP</th>
                     <th>Sản Phẩm</th>
-                    <th>Thể Loại Cấp (1)</th>
-                    <th>Thể Loại Cấp (0)</th>
+                    <th>Hình Ảnh</th>
+                    {{-- <th>Thể Loại Cấp (1)</th>
+                    <th>Thể Loại Cấp (0)</th> --}}
+                    <th>Thể Loại SP</th>
                     <th>Danh Mục SP</th>
                     <th>Trạng Thái</th>
                     <th>Hành Động</th>
@@ -76,7 +78,15 @@
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->product_code }}</td>
                     <td>{{ $product->product_name }}</td>
-                    <td>{{ $product->subcategory->category_name }}</td>
+                    <td style="text-align: center;">
+                      <?php $product_image_path = "images/product_images/main_image/small/".$product->main_image; ?>
+                      @if(!empty($product->main_image) && file_exists($product_image_path))
+                      <img style="width: 100px;" src="{{ asset('images/product_images/main_image/small/'.$product->main_image) }}">
+                       @else
+                      <img style="width: 100px;" src="{{ asset('images/product_images/main_image/small/no-img.jpg') }}">
+                      @endif
+                    </td>
+                    {{-- <td>{{ $product->subcategory->category_name }}</td> --}}
                     <td>{{ $product->category->category_name }}</td>
                     <td>{{ $product->section->name }}</td>
                     <td>
