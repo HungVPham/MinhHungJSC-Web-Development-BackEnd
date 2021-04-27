@@ -2,6 +2,11 @@
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <style>
+    .page-item.active .page-link {color: #000000;background-color: var(--Hhose-Yellow);border-color: var(--Hhose-Yellow)}
+    .page-item.active .page-link:focus{box-shadow: none;} 
+    .dropdown-item.active, .dropdown-item:active {background-color: var(--Hhose-Yellow); color: #000000;}
+    .page-item .page-link {color: #333}
+    .page-item .page-link:focus{box-shadow: none}
     input[type="checkbox"]{
       appearance: none;
       -webkit-appearance: none;
@@ -117,7 +122,7 @@
         @endif
         @if (Session::has('error_message'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
-              {{ Session::get('error_message') }}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;&nbsp;{{ Session::get('error_message') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -141,13 +146,13 @@
               <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="product_name">Tên Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_name'] }}</p></label>
+                            <label for="product_name">Tên Sản Phẩm Cấp (0): <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_name'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Mã Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
+                            <label for="product_code">Mã SP: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Trọng Lượng Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
+                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -163,10 +168,10 @@
                       <div class="form-group">
                         <div class="field_wrapper2">
                           <div>
-                            <input name="diameter[]" placeholder="đường kính" value="" id="diameter[]" style="width: 100px;" type="text" name="diameter[]"/>
+                            <input name="diameter[]" placeholder="đường kính [Inch]" value="" id="diameter[]" style="width: 130px;" type="text" name="diameter[]"/>
                             <input required id="sku"  name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px;"/>
-                            <input required id="price"  name="price[]" type="number" min="0" step="1" oninput="validity.valid||(value='');"  name="price[]" value="" placeholder="giá bán" style="width: 100px;"/>
-                            <input required id="stock"  name="stock[]" type="number" min="0" step="1" oninput="validity.valid||(value='');"  name="stock[]" value="" placeholder="tồn kho" style="width: 100px;"/>
+                            <input required id="price"  name="price[]" type="number" min="0" name="price[]" value="" placeholder="giá bán" style="width: 100px;"/>
+                            <input required id="stock"  name="stock[]" type="number" min="0" name="stock[]" value="" placeholder="tồn kho" style="width: 100px;"/>
                             <div style="width: 100%; margin-top: 10px;">
                                 <label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_embossed">Da Trơn: Có/Không</label>
                                 <input id="hhose_spflex_embossed"  name="hhose_spflex_embossed[]" type="checkbox" name="hhose_spflex_embossed[]" value="Yes"/></div>
@@ -187,6 +192,75 @@
                 <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Thêm SP Cấp (1)</button>
             </div>
             </div>
+            <form name="editHhoseAttributeForm" id="editHhoseAttributeForm" method="post" action="{{ url('admin/edit-hhose-attributes/'.$productdata['id']) }}">@csrf
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Sản Phẩm Cấp (1) <Strong>[{{ $productdata['product_name'] }}]</Strong></h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Đường Kính</th>
+                    <th>In Nổi</th>
+                    <th>Da Trơn</th>
+                    <th>Mã SKU</th>
+                    <th>Giá Bán</th>
+                    <th>Tồn Kho</th>
+                    <th>Hành Động</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($productdata['hhose_attributes'] as $HhoseAttributes)
+                  <input style="display: none;" type="text" name="attrId[]" value="{{ $HhoseAttributes['id'] }}">
+                  <tr>
+                    <td>{{ $HhoseAttributes['id'] }}</td>
+                    <td>
+                      @if(!empty($HhoseAttributes['diameter']))
+                      {{ $HhoseAttributes['diameter'] }}&nbsp;[Inch]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif
+                    </td>
+                    <td>
+                      @if($HhoseAttributes['hhose_spflex_embossed']=='Yes')
+                      <p style="color: #228B22">Có</p>
+                      @else 
+                      <p style="color: var(--Delete-Red)">Không</p>
+                      @endif 
+                    </td>
+                    <td>
+                      @if($HhoseAttributes['hhose_spflex_smoothtexture']=='Yes')
+                      <p style="color: #228B22">Có</p>
+                      @else 
+                      <p style="color: var(--Delete-Red)">Không</p>
+                      @endif 
+                    </td>
+                    <td>{{ $HhoseAttributes['sku'] }}</td>
+                    <td>
+                      <input style="width: 50%;" type="number" min="0"  name="price[]" value="{{ $HhoseAttributes['price'] }}" required=""> = <?php 
+                      $num = $HhoseAttributes['price'];
+                      $format = number_format($num);
+                      echo $format;
+                      ?> [VNĐ]
+                    </td>
+                    <td>
+                      <input style="width: 50%;" type="number" min="0"  name="stock[]" value="{{ $HhoseAttributes['stock'] }}" required=""> [Cái]
+                    </td>
+                    <td></td>
+                  </tr>
+                  @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Cập Nhật SP (Cấp 1)</button>
+              </div>
+            </div>
+            </form>
             <!-- /.card -->
           </div>
         </div>

@@ -111,7 +111,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="section_discount">Giảm Giá toàn Danh Mục [%]</label>
-                    <input type="number" min="0" max="100" step="10" oninput="validity.valid||(value='');" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá..."
+                    <input type="number" min="0" max="100" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá..."
                     @if (!empty($sectiondata['section_discount'])) value="{{ $sectiondata['section_discount'] }}"
                     @else value="{{ old("section_discount") }}"
                     @endif>

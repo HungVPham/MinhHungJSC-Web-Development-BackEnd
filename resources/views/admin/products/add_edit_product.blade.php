@@ -162,7 +162,7 @@
                   </div>
                   <div class="form-group">
                     <label for="product_weight">Trọng Lượng Sản Phẩm [Kg]</label>
-                    <input type="number"  type="number" min="0" step="0.5" oninput="validity.valid||(value='');"  class="form-control" name="product_weight" id="product_weight" placeholder="nhập trọng lượng..."
+                    <input type="number"  type="number" min="0" class="form-control" name="product_weight" id="product_weight" placeholder="nhập trọng lượng..."
                     @if (!empty($productdata['product_weight'])) value="{{ $productdata['product_weight'] }}"
                     @else value="{{ old("product_weight") }}"
                     @endif>
@@ -174,7 +174,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="product_price">Giá Sản Phẩm (1000000 &#8594; 1,000,000) [VND]</label>
-                  <input type="number" min="0" step="100000" oninput="validity.valid||(value='');" class="form-control" name="product_price" id="product_price" placeholder="nhập giá..."
+                  <input type="number" min="0" class="form-control" name="product_price" id="product_price" placeholder="nhập giá..."
                   @if (!empty($productdata['product_price'])) value="{{ $productdata['product_price'] }}"
                   @else value="{{ old("product_price") }}"
                   @endif>
@@ -183,7 +183,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                     <label for="product_discount">Giảm Giá Sản Phẩm [%]</label>
-                  <input type="number" min="0" max="100" step="10" oninput="validity.valid||(value='');" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
+                  <input type="number" min="0" max="100" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
                   @if (!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}"
                   @else value="{{ old("product_discount") }}"
                   @endif>

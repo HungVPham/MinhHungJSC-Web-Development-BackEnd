@@ -2,6 +2,11 @@
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <style>    
+    .page-item.active .page-link {background-color: var(--MaxPro-Orange);border-color: var(--MaxPro-Orange)}
+    .page-item.active .page-link:focus{box-shadow: none;} 
+    .dropdown-item.active, .dropdown-item:active {background-color: var(--MaxPro-Orange)}
+    .page-item .page-link {color: #333}
+    .page-item .page-link:focus{box-shadow: none}
     /* Add/Remove Attributes Array Btns */
     .add_button1{color: #228B22;}
     .add_button1:hover{color: #563434;}
@@ -77,13 +82,13 @@
         @endif
         @if (Session::has('error_message'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red);">
-              {{ Session::get('error_message') }}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;&nbsp;{{ Session::get('error_message') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span style="color: var(--Delete-Red);" aria-hidden="true">&times;</span>
               </button>
             </div>
         @endif
-        <form name="attributeForm" id="attributeForm" 
+        <form name="addMaxproAttributeForm" id="addMaxproAttributeForm" 
           method="post" action="{{ url('admin/add-maxpro-attributes/'.$productdata['id']) }}">@csrf
           <div class="card card-default">
             <div class="card-header">
@@ -101,13 +106,13 @@
               <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="product_name">Tên Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_name'] }}</p></label>
+                            <label for="product_name">Tên Sản Phẩm (Cấp 0): <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_name'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Mã Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
+                            <label for="product_code">Mã SP: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Trọng Lượng Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
+                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -123,11 +128,11 @@
                       <div class="form-group">
                         <div class="field_wrapper1">
                           <div>
-                            <input id="voltage"  name="voltage[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="voltage[]" value="" placeholder="nguồn điện [V]" style="width: 125px;"/>
-                            <input id="power"  name="power[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="power[]" value="" placeholder="công suất [W]" style="width: 125px;"/>
+                            <input id="voltage"  name="voltage[]" type="number" min="0"  name="voltage[]" value="" placeholder="nguồn điện [V]" style="width: 125px;"/>
+                            <input id="power"  name="power[]" type="number" min="0"  name="power[]" value="" placeholder="công suất [W]" style="width: 125px;"/>
                             <input required id="sku"  name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px;"/>
-                            <input required id="price"  name="price[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="price[]" value="" placeholder="giá bán" style="width: 100px;"/>
-                            <input required id="stock"  name="stock[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="stock[]" value="" placeholder="tồn kho" style="width: 100px;"/>
+                            <input required id="price"  name="price[]" type="number" min="0" name="price[]" value="" placeholder="giá bán" style="width: 100px;"/>
+                            <input required id="stock"  name="stock[]" type="number" min="0"  name="stock[]" value="" placeholder="tồn kho" style="width: 100px;"/>
                               <a href="javascript:void(0);" class="add_button1" title="thêm dòng dữ liệu">&nbsp;<i id="add-atr-ic" class="fas fa-plus"></i></a>
                           </div>
                         </div>
@@ -141,6 +146,70 @@
                 <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Thêm SP Cấp (1)</button>
             </div>
             </div>
+
+            <form name="editMaxproAttributeForm" id="editMaxproAttributeForm" method="post" action="{{ url('admin/edit-maxpro-attributes/'.$productdata['id']) }}">@csrf
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Sản Phẩm Cấp (1) của <Strong>[{{ $productdata['product_name'] }}]</Strong></h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nguồn Điện</th>
+                      <th>Công Suất</th>
+                      <th>Mã SKU</th>
+                      <th>Giá Bán</th>
+                      <th>Tồn Kho</th>
+                      <th>Hành Động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($productdata['maxpro_attributes'] as $MaxproAttributes)
+                    <input style="display: none;" type="text" name="attrId[]" value="{{ $MaxproAttributes['id'] }}">
+                    <tr>
+                      <td>{{ $MaxproAttributes['id'] }}</td>
+                      <td>
+                        @if(!empty($MaxproAttributes['voltage']))
+                        {{ $MaxproAttributes['voltage'] }}&nbsp;[V]
+                        @else 
+                        <i>không có dữ liệu</i>
+                        @endif
+                      </td>
+                      <td>
+                        @if(!empty($MaxproAttributes['power']))
+                        {{ $MaxproAttributes['power'] }}&nbsp;[W]
+                        @else 
+                        <i>không có dữ liệu</i>
+                        @endif 
+                      </td>
+                      <td>{{ $MaxproAttributes['sku'] }}</td>
+                      <td>
+                        <input style="width: 50%;" type="number" min="0" name="price[]" value="{{ $MaxproAttributes['price'] }}" required=""> = <?php 
+                        $num = $MaxproAttributes['price'];
+                        $format = number_format($num);
+                        echo $format;
+                        ?> [VNĐ]
+                      </td>
+                      <td>
+                        <input style="width: 50%;" type="number" min="0" name="stock[]" value="{{ $MaxproAttributes['stock'] }}" required=""> [Cái]
+                      </td>
+                      <td></td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Cập Nhật SP (Cấp 1)</button>
+                </div>
+
+
+              </div>
+            </form>
             <!-- /.card -->
           </div>
         </div>

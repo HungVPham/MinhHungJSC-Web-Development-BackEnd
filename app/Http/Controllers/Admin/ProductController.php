@@ -391,10 +391,10 @@ class ProductController extends Controller
                     $attribute-> save();
                 }
             }
-            $success_message = 'Sản Phẩm cấp (1) đã được thêm thành công!';
+            $success_message = 'Sản phẩm cấp (1) đã được thêm thành công!';
             session::flash('success_message',$success_message);
         }
-        $productdata = Product::find($id);
+        $productdata = Product::select('id', 'product_code', 'product_name', 'product_weight', 'main_image')->with('MaxproAttributes')->find($id);
         $productdata = json_decode(json_encode($productdata), true);
         // echo "<pre>"; print_r($productdata); die;
         $title = "Thêm Sản Phẩm Cấp (1)";
@@ -418,7 +418,7 @@ class ProductController extends Controller
                     // Unique SKU
                     $attrCountSKU = HhoseProductAttributes::where('sku',$value)->count();
                     if($attrCountSKU>0){
-                        $message = 'Mã SKU đã tồn tại.';
+                        $message = 'Mã SKU đã tồn tại!';
                         session::flash('error_message',$message);
                         return redirect()->back();
                     }
@@ -434,11 +434,11 @@ class ProductController extends Controller
                     $attribute-> save();
                 }
             }
-            $success_message = 'Sản Phẩm cấp (1) đã được thêm thành công!';
+            $success_message = 'Sản phẩm cấp (1) đã được thêm thành công!';
             session::flash('success_message',$success_message);
         }
 
-        $productdata = Product::find($id);
+        $productdata = Product::select('id', 'product_code', 'product_name', 'product_weight', 'main_image')->with('HhoseAttributes')->find($id);
         $productdata = json_decode(json_encode($productdata), true);
         // echo "<pre>"; print_r($productdata); die;
         $title = "Thêm Sản Phẩm Cấp (1)";
@@ -455,7 +455,7 @@ class ProductController extends Controller
                     // Unique SKU
                     $attrCountSKU = ShimgeProductAttributes::where('sku',$value)->count();
                     if($attrCountSKU>0){
-                        $message = 'Mã SKU đã tồn tại.';
+                        $message = 'Mã SKU đã tồn tại!';
                         session::flash('error_message',$message);
                         return redirect()->back();
                     }
@@ -474,14 +474,59 @@ class ProductController extends Controller
                     $attribute-> save();
                 }
             }
-            $success_message = 'Sản Phẩm cấp (1) đã được thêm thành công!';
+            $success_message = 'Sản phẩm cấp (1) đã được thêm thành công!';
             session::flash('success_message',$success_message);
         }
-        $productdata = Product::find($id);
+        $productdata = Product::select('id', 'product_code', 'product_name', 'product_weight', 'main_image')->with('ShimgeAttributes')->find($id);
         $productdata = json_decode(json_encode($productdata), true);
         // echo "<pre>"; print_r($productdata); die;
         $title = "Thêm Sản Phẩm Cấp (1)";
         return view('admin.products.add_shimge_attributes')->with(compact('productdata', 'title'));
+    }
+
+    public function editMaxproAttributes(Request $request,$id){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            foreach ($data['attrId'] as $key => $attr){
+                if(!empty($attr)){
+                    MaxproProductAttributes::where(['id'=>$data['attrId'][$key]])->update(['price'=>$data['price'][$key], 'stock'=>$data['stock'][$key]]);
+                }
+            }
+            $message = 'Sản phẩm cấp (1) đã được cập nhật thành công!';
+            session::flash('success_message',$message);
+            return redirect()->back();
+        }
+    }
+
+    public function editHhoseAttributes(Request $request,$id){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            foreach ($data['attrId'] as $key => $attr){
+                if(!empty($attr)){
+                    HhoseProductAttributes::where(['id'=>$data['attrId'][$key]])->update(['price'=>$data['price'][$key], 'stock'=>$data['stock'][$key]]);
+                }
+            }
+            $message = 'Sản phẩm cấp (1) đã được cập nhật thành công!';
+            session::flash('success_message',$message);
+            return redirect()->back();
+        }
+    }
+
+    public function editShimgeAttributes(Request $request,$id){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            foreach ($data['attrId'] as $key => $attr){
+                if(!empty($attr)){
+                    ShimgeProductAttributes::where(['id'=>$data['attrId'][$key]])->update(['price'=>$data['price'][$key], 'stock'=>$data['stock'][$key]]);
+                }
+            }
+            $message = 'Sản phẩm cấp (1) đã được cập nhật thành công!';
+            session::flash('success_message',$message);
+            return redirect()->back();
+        }
     }
 }
 

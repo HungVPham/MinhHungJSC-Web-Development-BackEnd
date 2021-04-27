@@ -63,10 +63,15 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         // delete product video
         Route::get('delete-product-video/{id}','ProductController@deleteProductVideo');
 
-        // Products Attribute
+        // Add Products Attribute
         Route::match(['get', 'post'],'add-maxpro-attributes/{id}','ProductController@addMaxproAttributes');
         Route::match(['get', 'post'],'add-hhose-attributes/{id}','ProductController@addHhoseAttributes');
         Route::match(['get', 'post'],'add-shimge-attributes/{id}','ProductController@addShimgeAttributes');
+
+        // Add Products Attribute
+        Route::post('edit-maxpro-attributes/{id}','ProductController@editMaxproAttributes');
+        Route::post('edit-hhose-attributes/{id}','ProductController@editHhoseAttributes');
+        Route::post('edit-shimge-attributes/{id}','ProductController@editShimgeAttributes');
     });
 });
 

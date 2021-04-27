@@ -107,7 +107,7 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                       <label for="category_discount">Giảm Giá toàn Thể Loại [%]</label>
-                      <input type="number" min="0" max="100" step="10" oninput="validity.valid||(value='');" class="form-control" name="category_discount" id="category_discount" placeholder="nhập khoản giảm giá..."
+                      <input type="number" min="0" max="100" class="form-control" name="category_discount" id="category_discount" placeholder="nhập khoản giảm giá..."
                       @if (!empty($categorydata['category_discount'])) value="{{ $categorydata['category_discount'] }}"
                       @else value="{{ old("category_discount") }}"
                       @endif>

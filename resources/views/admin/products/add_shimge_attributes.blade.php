@@ -2,6 +2,11 @@
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <style>
+    .page-item.active .page-link {background-color: var(--Shimge-Blue);border-color: var(--Shimge-Blue)}
+    .page-item.active .page-link:focus{box-shadow: none;} 
+    .dropdown-item.active, .dropdown-item:active {background-color: var(--Shimge-Blue)}
+    .page-item .page-link {color: #333}
+    .page-item .page-link:focus{box-shadow: none}
     /* Add/Remove Attributes Array Btns */
     .remove_button3{color: #cb1c22;}
     .remove_button3:hover{color: #563434;}
@@ -75,7 +80,7 @@
         @endif
         @if (Session::has('error_message'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
-              {{ Session::get('error_message') }}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;&nbsp;{{ Session::get('error_message') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -99,13 +104,13 @@
               <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="product_name">Tên Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_name'] }}</p></label>
+                            <label for="product_name">Tên Sản Phẩm (Cấp 0): <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_name'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Mã Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
+                            <label for="product_code">Mã SP: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Trọng Lượng Sản Phẩm: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
+                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -121,15 +126,15 @@
                       <div class="form-group">
                         <div class="field_wrapper3">
                           <div>
-                            <input id="voltage"  name="voltage[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="voltage[]" value="" placeholder="nguồn điện [V]" style="width: 125px; margin-top: 5px;"/>
-                            <input id="power"  name="power[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="power[]" value="" placeholder="công suất [W]" style="width: 125px; margin-top: 5px;"/>
-                            <input id="maxflow"  name="maxflow[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="maxflow[]" value="" placeholder="lưu lượng [m³/h]" style="width: 135px; margin-top: 5px;"/>
-                            <input id="vertical"  name="vertical[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="vertical[]" value="" placeholder="đẩy cao [m]" style="width: 100px; margin-top: 5px;"/>
-                            <input id="indiameter"  name="indiameter[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="indiameter[]" value="" placeholder="họng hút [mm]" style="width: 125px; margin-top: 5px;"/>
-                            <input id="outdiameter"  name="outdiameter[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="outdiameter[]" value="" placeholder="họng xả [mm]" style="width: 125px; margin-top: 5px;"/>
+                            <input id="voltage"  name="voltage[]" type="number" min="0" name="voltage[]" value="" placeholder="nguồn điện [V]" style="width: 125px; margin-top: 5px;"/>
+                            <input id="power"  name="power[]" type="number" min="0" name="power[]" value="" placeholder="công suất [W]" style="width: 125px; margin-top: 5px;"/>
+                            <input id="maxflow"  name="maxflow[]" type="number" min="0" name="maxflow[]" value="" placeholder="lưu lượng [m³/h]" style="width: 135px; margin-top: 5px;"/>
+                            <input id="vertical"  name="vertical[]" type="number" min="0" name="vertical[]" value="" placeholder="đẩy cao [m]" style="width: 100px; margin-top: 5px;"/>
+                            <input id="indiameter"  name="indiameter[]" type="number" min="0" name="indiameter[]" value="" placeholder="họng hút [mm]" style="width: 125px; margin-top: 5px;"/>
+                            <input id="outdiameter"  name="outdiameter[]" type="number" min="0" name="outdiameter[]" value="" placeholder="họng xả [mm]" style="width: 125px; margin-top: 5px;"/>
                             <input required id="sku"  name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px; margin-top: 5px;"/>
-                            <input required id="price"  name="price[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="price[]" value="" placeholder="giá bán" style="width: 100px; margin-top: 5px;"/>
-                            <input required id="stock"  name="stock[]" type="number" min="0" step="1" oninput="validity.valid||(value='');" name="stock[]" value="" placeholder="tồn kho" style="width: 100px; margin-top: 5px;"/>
+                            <input required id="price"  name="price[]" type="number" min="0" name="price[]" value="" placeholder="giá bán" style="width: 100px; margin-top: 5px;"/>
+                            <input required id="stock"  name="stock[]" type="number" min="0" name="stock[]" value="" placeholder="tồn kho" style="width: 100px; margin-top: 5px;"/>
                               <a href="javascript:void(0);" class="add_button3" title="thêm dòng dữ liệu">&nbsp;<i id="add-atr-ic" class="fas fa-plus"></i></a>
                           </div>
                         </div>
@@ -143,6 +148,100 @@
                 <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Thêm SP Cấp (1)</button>
             </div>
             </div>
+            <form name="editShimgeAttributeForm" id="editShimgeAttributeForm" method="post" action="{{ url('admin/edit-shimge-attributes/'.$productdata['id']) }}">@csrf
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Sản Phẩm Cấp (1) của <Strong>[{{ $productdata['product_name'] }}]</Strong></h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nguồn Điện</th>
+                    <th>Công Suất</th>
+                    <th>Lưu Lượng</th>
+                    <th>Đẩy Cao</th>
+                    <th>Họng Hút</th>
+                    <th>Họng Xả</th>
+                    <th>Mã SKU</th>
+                    <th>Giá Bán</th>
+                    <th>Tồn Kho</th>
+                    <th>Hành Động</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($productdata['shimge_attributes'] as $ShimgeAttributes)
+                  <input style="display: none;" type="text" name="attrId[]" value="{{ $ShimgeAttributes['id'] }}">
+                  <tr>
+                    <td>{{ $ShimgeAttributes['id'] }}</td>
+                    <td>
+                      @if(!empty($ShimgeAttributes['voltage']))
+                      {{ $ShimgeAttributes['voltage'] }}&nbsp;[V]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif
+                    </td>
+                    <td>
+                      @if(!empty($ShimgeAttributes['power']))
+                      {{ $ShimgeAttributes['power'] }}&nbsp;[W]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif 
+                    </td>
+                    <td>
+                      @if(!empty($ShimgeAttributes['maxflow']))
+                      {{ $ShimgeAttributes['maxflow'] }}&nbsp;[m³/h]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif 
+                    </td>
+                    <td>
+                      @if(!empty($ShimgeAttributes['vertical']))
+                      {{ $ShimgeAttributes['vertical'] }}&nbsp;[m]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif 
+                    </td>
+                    <td>
+                      @if(!empty($ShimgeAttributes['indiameter']))
+                      {{ $ShimgeAttributes['indiameter'] }}&nbsp;[mm]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif 
+                    </td>
+                    <td>
+                      @if(!empty($ShimgeAttributes['outdiameter']))
+                      {{ $ShimgeAttributes['indiameter'] }}&nbsp;[mm]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif 
+                    </td>
+                    <td>{{ $ShimgeAttributes['sku'] }}</td>
+                    <td>
+                      <input style="width: 50%;" type="number" min="0" name="price[]" value="{{ $ShimgeAttributes['price'] }}" required=""> = <?php 
+                      $num = $ShimgeAttributes['price'];
+                      $format = number_format($num);
+                      echo $format;
+                      ?> [VNĐ]
+                    </td>
+                    <td>
+                      <input style="width: 50%;" type="number" min="0" name="stock[]" value="{{ $ShimgeAttributes['stock'] }}" required=""> [Cái]
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+                  @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Cập Nhật SP (Cấp 1)</button>
+              </div>
+            </div>
+            </form>
             <!-- /.card -->
           </div>
         </div>
