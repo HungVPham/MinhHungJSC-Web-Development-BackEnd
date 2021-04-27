@@ -54,12 +54,12 @@ class SectionController extends Controller
             $rules = [
                 'name' => 'required',
                 'url' => 'required',
-                'section_image' => 'required'
+                // 'section_image' => 'required'
             ];  
             $customMessages = [
                 'name.required' => 'Vui lòng nhập tên danh mục SP.',
                 'url.required' => 'Vui lòng nhập đường dẫn của danh mục SP.',
-                'section_image.required' => 'Danh mục SP phải có hình ảnh đại diện.',
+                // 'section_image.required' => 'Danh mục SP phải có hình ảnh đại diện.',
             ];
             $this->validate($request, $rules, $customMessages);
 

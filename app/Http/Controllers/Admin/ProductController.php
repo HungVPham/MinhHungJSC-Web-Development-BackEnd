@@ -9,6 +9,9 @@ use Session;
 use App\Section;
 use App\Category;
 use Image;
+use App\MaxproProductAttributes;
+use App\HhoseProductAttributes;
+use App\ShimgeProductAttributes;
 
 
 class ProductController extends Controller
@@ -77,11 +80,11 @@ class ProductController extends Controller
                 // 'main_image' => 'required',
             ];  
             $customMessages = [
-                'category_id.required' => 'Vui lòng chọn thể loại SP.',
-                'product_name.required' => 'Vui lòng đặt tên cho SP.',
+                'category_id.required' => 'Vui lòng chọn thể loại sản phẩm.',
+                'product_name.required' => 'Vui lòng đặt tên cho sản phẩm.',
                 //'main_image.required' => 'Vui lòng chọn hình ảnh đại diện cho SP.',
-                'product_code.required' => 'Vui lòng đăt mã cho SP.',
-                'product_code.regex' => 'Vui lòng đạt mã hợp lệ cho SP. Ví dụ: SGP01, MP01, SPF01,...',
+                'product_code.required' => 'Vui lòng đăt mã cho sản phẩm.',
+                'product_code.regex' => 'Vui lòng đạt mã hợp lệ cho sản phẩm. Ví dụ: SGP01, MP01, SPF01,...',
             ];
             $this->validate($request, $rules, $customMessages);
 
@@ -91,7 +94,7 @@ class ProductController extends Controller
                 $is_featured = "Yes";
             }
 
-            if(empty($data['hhose_spflex_embossed'])){
+            /* if(empty($data['hhose_spflex_embossed'])){
                 $hhose_spflex_embossed = NULL;
             }else{
                 $hhose_spflex_embossed = "Yes";
@@ -122,7 +125,7 @@ class ProductController extends Controller
 
             if(empty($data['shimge_maxflow'])){
                 $data['shimge_maxflow'] = NULL;
-            }
+            } */
 
             // Upload Product Images
             if($request->hasFile('main_image')){
@@ -142,7 +145,7 @@ class ProductController extends Controller
                 }
             }
 
-            if($request->hasFile('image_v1')){
+            /*if($request->hasFile('image_v1')){
                 $image_tmp = $request->file('image_v1');
                 if($image_tmp->isValid()){
                     //upload images after resize
@@ -191,10 +194,10 @@ class ProductController extends Controller
                     $small_image_path = 'images/product_images/image_v3/small/'.$imageName;
                     Image::make($image_tmp)->resize(750,650)->save($large_image_path);
                     Image::make($image_tmp)->resize(450,450)->save($medium_image_path);
-                    Image::make($image_tmp)->resize(225,225)->save($medium_image_path);
+                    Image::make($image_tmp)->resize(225,225)->save($small_image_path);
                     $product->image_v3 = $imageName;
                 }
-            }
+            }*/
 
             // Upload Product Video 
             if($request->hasFile('product_video')){
@@ -219,13 +222,13 @@ class ProductController extends Controller
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
             $product->product_description = $data['product_description'];
-            $product->maxpro_voltage = $data['maxpro_voltage'];
-            $product->maxpro_power = $data['maxpro_power'];
-            $product->hhose_diameter = $data['hhose_diameter'];
-            $product->hhose_spflex_embossed = $hhose_spflex_embossed;
-            $product->hhose_spflex_smoothtexture = $hhose_spflex_smoothtexture;
-            $product->shimge_power = $data['shimge_power'];
-            $product->shimge_maxflow = $data['shimge_maxflow'];
+            // $product->maxpro_voltage = $data['maxpro_voltage'];
+            // $product->maxpro_power = $data['maxpro_power'];
+            // $product->hhose_diameter = $data['hhose_diameter'];
+            // $product->hhose_spflex_embossed = $hhose_spflex_embossed;
+            // $product->hhose_spflex_smoothtexture = $hhose_spflex_smoothtexture;
+            // $product->shimge_power = $data['shimge_power'];
+            // $product->shimge_maxflow = $data['shimge_maxflow'];
             $product->meta_title = $data['meta_title'];
             $product->meta_description = $data['meta_description'];
             $product->meta_keywords = $data['meta_keywords'];
@@ -237,17 +240,249 @@ class ProductController extends Controller
         }
 
         // Filter Arrays
-        $maxpro_voltageArray = array('≤12V', '18V', '14.4V', '220-240V', '220-230V');
-        $maxpro_powerArray = array('80W', '230W','240W', '250W', '300W', '320W', '350W', '400W', '450W', '500W', '550W', '600W', '620W', '680W', '710W', '750W', '760W', '800W', '850W', '900W', '950W', '1050W', '1100W', '1200W', '1250W', '1300W', '1350W', '1400W', '1500W', '1600W', '1800W', '2000W', '2100W', '2200W', '2400W', '2600W');
-        $hhose_diameterArray = array('1/4 in.', '5/16 in.', '3/8 in.', '1/2 in.', '5/8 in.', '3/4 in.', '1 in.', '1-1/4 in.', '1-1/4 in.', '1-1/2 in.', '2 in.');
-        $shimge_powerArray = array('125W', '250W', '370W', '550W', '750W', '1100W', '1500W', '2200W', '3000W', '4000W', '5500W', '7500W');
-        $shimge_maxflowArray = array('1.9 m³/h', '2.0 m³/h', '2.2 m³/h', '2.4 m³/h', '3.0 m³/h', '3.4 m³/h', '3.6 m³/h', '4.2 m³/h', '4.5 m³/h', '5.1 m³/h', '5.4 m³/h', '7.2 m³/h', '7.8 m³/h',  '21 m³/h', '30 m³/h', '36 m³/h', '39 m³/h', '66 m³/h', '72 m³/h', '78 m³/h');
+        // $maxpro_voltageArray = array('≤12V', '18V', '14.4V', '220-240V', '220-230V');
+        // $maxpro_powerArray = array('80W', '230W','240W', '250W', '300W', '320W', '350W', '400W', '450W', '500W', '550W', '600W', '620W', '680W', '710W', '750W', '760W', '800W', '850W', '900W', '950W', '1050W', '1100W', '1200W', '1250W', '1300W', '1350W', '1400W', '1500W', '1600W', '1800W', '2000W', '2100W', '2200W', '2400W', '2600W');
+        // $hhose_diameterArray = array('1/4 in.', '5/16 in.', '3/8 in.', '1/2 in.', '5/8 in.', '3/4 in.', '1 in.', '1-1/4 in.', '1-1/4 in.', '1-1/2 in.', '2 in.');
+        // $shimge_powerArray = array('125W', '250W', '370W', '550W', '750W', '1100W', '1500W', '2200W', '3000W', '4000W', '5500W', '7500W');
+        // $shimge_maxflowArray = array('1.9 m³/h', '2.0 m³/h', '2.2 m³/h', '2.4 m³/h', '3.0 m³/h', '3.4 m³/h', '3.6 m³/h', '4.2 m³/h', '4.5 m³/h', '5.1 m³/h', '5.4 m³/h', '7.2 m³/h', '7.8 m³/h',  '21 m³/h', '30 m³/h', '36 m³/h', '39 m³/h', '66 m³/h', '72 m³/h', '78 m³/h');
 
         // Section with Categories and Subcategories
         $categories = Section::with('categories')->get();
         $categories = json_decode(json_encode($categories), true);
 
 
-        return view('admin.products.add_edit_product')->with(compact('title', 'maxpro_voltageArray', 'maxpro_powerArray', 'hhose_diameterArray', 'shimge_powerArray', 'shimge_maxflowArray', 'categories', 'productdata'));
+        return view('admin.products.add_edit_product')->with(compact('title', 'categories', 'productdata'));
     }   
+
+    public function deleteProductImage($id){
+        // Get Product Image
+        $productImage = Product::select('main_image')->where('id', $id)->first();
+
+        // Get Product Image path
+        $small_image_path = 'images/product_images/main_image/small/';
+        $medium_image_path = 'images/product_images/main_image/medium/';
+        $large_image_path = 'images/product_images/main_image/large/';
+
+        // Delete small Product Image from product folder if exists
+        if(file_exists($small_image_path.$productImage->main_image)){
+           unlink($small_image_path.$productImage->main_image);
+        }
+
+         // Delete medium Product Image from product folder if exists
+        if(file_exists($medium_image_path.$productImage->main_image)){
+            unlink($medium_image_path.$productImage->main_image);
+        }
+
+         // Delete large Product Image from product folder if exists
+         if(file_exists($large_image_path.$productImage->main_image)){
+            unlink($large_image_path.$productImage->main_image);
+        }
+
+        // Delete Product Images from product table
+        Product::where('id',$id)->update(['main_image'=>'']);
+
+        $message = 'Hình ảnh đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }
+
+    /*public function deleteProductImage1($id){
+        $productImage = Product::select('image_v1')->where('id', $id)->first();
+        $small_image_path = 'images/product_images/image_v1/small/';
+        $medium_image_path = 'images/product_images/image_v1/medium/';
+        $large_image_path = 'images/product_images/image_v1/large/';
+        if(file_exists($small_image_path.$productImage->image_v1)){
+           unlink($small_image_path.$productImage->image_v1);
+        }
+        if(file_exists($medium_image_path.$productImage->image_v1)){
+        unlink($medium_image_path.$productImage->image_v1);
+        }
+        if(file_exists($large_image_path.$productImage->image_v1)){
+        unlink($large_image_path.$productImage->image_v1);
+        }
+        Product::where('id',$id)->update(['image_v1'=>'']);
+        $message = 'Hình ảnh đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }
+
+    public function deleteProductImage2($id){
+        $productImage = Product::select('image_v2')->where('id', $id)->first();
+        $small_image_path = 'images/product_images/image_v2/small/';
+        $medium_image_path = 'images/product_images/image_v2/medium/';
+        $large_image_path = 'images/product_images/image_v2/large/';
+        if(file_exists($small_image_path.$productImage->image_v2)){
+           unlink($small_image_path.$productImage->image_v2);
+        }
+        if(file_exists($medium_image_path.$productImage->image_v2)){
+        unlink($medium_image_path.$productImage->image_v2);
+        }
+        if(file_exists($large_image_path.$productImage->image_v2)){
+        unlink($large_image_path.$productImage->image_v2);
+        }
+        Product::where('id',$id)->update(['image_v2'=>'']);
+        $message = 'Hình ảnh đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }
+
+    public function deleteProductImage3($id){
+        $productImage = Product::select('image_v3')->where('id', $id)->first();
+        $small_image_path = 'images/product_images/image_v3/small/';
+        $medium_image_path = 'images/product_images/image_v3/medium/';
+        $large_image_path = 'images/product_images/image_v3/large/';
+        if(file_exists($small_image_path.$productImage->image_v3)){
+           unlink($small_image_path.$productImage->image_v3);
+        }
+        if(file_exists($medium_image_path.$productImage->image_v3)){
+        unlink($medium_image_path.$productImage->image_v3);
+        }
+        if(file_exists($large_image_path.$productImage->image_v3)){
+        unlink($large_image_path.$productImage->image_v3);
+        }
+        Product::where('id',$id)->update(['image_v3'=>'']);
+        $message = 'Hình ảnh đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }*/
+
+    public function deleteProductVideo($id){
+        // Get product video
+        $productVideo = Product::select('product_video')->where('id', $id)->first();
+
+        // Get product video path
+        $product_video_path = 'videos/product_videos/';
+
+        // Delete product video from product video folder if exists
+        if(file_exists($product_video_path.$productVideo->product_video)){
+           unlink($product_video_path.$productVideo->product_video);
+        }
+
+        // Delete product video from product table
+        Product::where('id',$id)->update(['product_video'=>'']);
+        $message = 'Video đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }
+
+    public function addMaxproAttributes(Request $request,$id){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r( $data); die;
+            foreach ($data['sku'] as $key => $value){
+                if(!empty($value)){
+
+                    // Unique SKU
+                    $attrCountSKU = MaxproProductAttributes::where('sku',$value)->count();
+                    if($attrCountSKU>0){
+                        $message = 'Mã SKU đã tồn tại!';
+                        session::flash('error_message',$message);
+                        return redirect()->back();
+                    }
+
+
+                    $attribute = new MaxproProductAttributes;
+                    $attribute-> product_id = $id;
+                    $attribute-> sku = $value;
+                    $attribute-> price = $data['price'][$key];
+                    $attribute-> voltage = $data['voltage'][$key];
+                    $attribute-> power = $data['power'][$key];
+                    $attribute-> stock = $data['stock'][$key];
+                    $attribute-> save();
+                }
+            }
+            $success_message = 'Sản Phẩm cấp (1) đã được thêm thành công!';
+            session::flash('success_message',$success_message);
+        }
+        $productdata = Product::find($id);
+        $productdata = json_decode(json_encode($productdata), true);
+        // echo "<pre>"; print_r($productdata); die;
+        $title = "Thêm Sản Phẩm Cấp (1)";
+        return view('admin.products.add_maxpro_attributes')->with(compact('productdata', 'title'));
+    }
+
+    public function addHhoseAttributes(Request $request,$id){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r( $data); die;
+            foreach ($data['sku'] as $key => $value){
+                if(empty($data['hhose_spflex_embossed'])){
+                    $data['hhose_spflex_embossed'][$key] = "No";
+                }
+        
+                if(empty($data['hhose_spflex_smoothtexture'])){
+                    $data['hhose_spflex_smoothtexture'][$key] = "No";
+                }
+                if(!empty($value)){
+
+                    // Unique SKU
+                    $attrCountSKU = HhoseProductAttributes::where('sku',$value)->count();
+                    if($attrCountSKU>0){
+                        $message = 'Mã SKU đã tồn tại.';
+                        session::flash('error_message',$message);
+                        return redirect()->back();
+                    }
+
+                    $attribute = new HhoseProductAttributes;
+                    $attribute-> product_id = $id;
+                    $attribute-> sku = $value;
+                    $attribute-> price = $data['price'][$key];
+                    $attribute-> diameter = $data['diameter'][$key];
+                    $attribute-> hhose_spflex_embossed = $data['hhose_spflex_embossed'][$key];
+                    $attribute-> hhose_spflex_smoothtexture = $data['hhose_spflex_smoothtexture'][$key];
+                    $attribute-> stock = $data['stock'][$key];
+                    $attribute-> save();
+                }
+            }
+            $success_message = 'Sản Phẩm cấp (1) đã được thêm thành công!';
+            session::flash('success_message',$success_message);
+        }
+
+        $productdata = Product::find($id);
+        $productdata = json_decode(json_encode($productdata), true);
+        // echo "<pre>"; print_r($productdata); die;
+        $title = "Thêm Sản Phẩm Cấp (1)";
+        return view('admin.products.add_hhose_attributes')->with(compact('productdata', 'title'));
+    }
+
+    public function addShimgeAttributes(Request $request,$id){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r( $data); die;
+            foreach ($data['sku'] as $key => $value){
+                if(!empty($value)){
+
+                    // Unique SKU
+                    $attrCountSKU = ShimgeProductAttributes::where('sku',$value)->count();
+                    if($attrCountSKU>0){
+                        $message = 'Mã SKU đã tồn tại.';
+                        session::flash('error_message',$message);
+                        return redirect()->back();
+                    }
+
+                    $attribute = new ShimgeProductAttributes;
+                    $attribute-> product_id = $id;
+                    $attribute-> sku = $value;
+                    $attribute-> price = $data['price'][$key];
+                    $attribute-> vertical = $data['vertical'][$key];
+                    $attribute-> maxflow = $data['maxflow'][$key];
+                    $attribute-> indiameter = $data['indiameter'][$key];
+                    $attribute-> indiameter = $data['outdiameter'][$key];
+                    $attribute-> power = $data['power'][$key];
+                    $attribute-> voltage = $data['voltage'][$key];
+                    $attribute-> stock = $data['stock'][$key];
+                    $attribute-> save();
+                }
+            }
+            $success_message = 'Sản Phẩm cấp (1) đã được thêm thành công!';
+            session::flash('success_message',$success_message);
+        }
+        $productdata = Product::find($id);
+        $productdata = json_decode(json_encode($productdata), true);
+        // echo "<pre>"; print_r($productdata); die;
+        $title = "Thêm Sản Phẩm Cấp (1)";
+        return view('admin.products.add_shimge_attributes')->with(compact('productdata', 'title'));
+    }
 }
+
+

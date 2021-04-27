@@ -1,9 +1,28 @@
 @extends('layouts.admin_layout.admin_layout')
 @section('content')
   <style>
-    #dlt-section-img{color: #cb1c22;}
+    #dlt-section-img{color: var(--Delete-Red);}
     #dlt-section-img:hover{color: #563434;}
-    .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
+    .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
+    .card-title{
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+    .card-header{
+      background-color: var(--MinhHung-Red) !important;
+    }
+    .fa-minus{
+      color: #ffffff;
+    }
+    .fa-minus:hover{
+      color: #333;
+    }
+    .fa-plus{
+      color: #ffffff;
+    }
+    .fa-plus:hover{
+      color: #333;
+    }
   </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -17,6 +36,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
+              <li class="breadcrumb-item active"><a href="{{ url('admin/sections') }}" id="admin-prev">Danh Mục</a></li>
               <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div>
@@ -27,7 +47,7 @@
      <section class="content">
       <div class="container-fluid">
         @if ($errors->any())
-            <div class="alert alert-danger" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
@@ -83,15 +103,15 @@
                       </div>
                   </div>
                   @if(!empty($sectiondata['section_image']))
-                       <div style="padding-bottom: 10px"><img style="width: 80px" src="{{ asset('images/section_images/'.$sectiondata['section_image']) }}">
-                      &nbsp;<a class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="section-image" recordid="{{ $sectiondata['id'] }}" id="dlt-section-img">xóa ảnh</a>
-                      </div>
-                      @endif
+                    <div style="padding-bottom: 10px"><img style="width: 80px" src="{{ asset('images/section_images/'.$sectiondata['section_image']) }}">
+                      &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="section-image" recordid="{{ $sectiondata['id'] }}" id="dlt-section-img"><i class="fas fa-trash"></i></a>
+                    </div>
+                  @endif
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="section_discount">Giảm Giá toàn Danh Mục [%]</label>
-                    <input type="text" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá..."
+                    <input type="number" min="0" max="100" step="10" oninput="validity.valid||(value='');" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá..."
                     @if (!empty($sectiondata['section_discount'])) value="{{ $sectiondata['section_discount'] }}"
                     @else value="{{ old("section_discount") }}"
                     @endif>

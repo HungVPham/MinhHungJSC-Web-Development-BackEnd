@@ -1,6 +1,6 @@
 <style>
   #user-panel-img {height: auto; width: 2.5rem;}
-  .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {background-color: #cb1c22 !important;}
+  .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {background-color: var(--MinhHung-Red) !important;}
   #logo-panel-img {opacity: 0.8;}
 </style>
 <!-- Main Sidebar Container -->
@@ -17,10 +17,10 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <?php $admin_image_path = "images/admin_images/admin_photos/".Auth::guard('admin')->user()->image; ?>
-          @if(!empty(Auth::guard('admin')->user()->image)&& file_exists($admin_image_path))
+          @if(!empty(Auth::guard('admin')->user()->image) && file_exists($admin_image_path))
           <img src="{{ asset('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}" class="img-circle elevation-2" id="user-panel-img" alt="User Image">
           @else
-          <img src="{{ asset('images/admin_images/admin_photos/no-image.jpg') }}" class="img-circle elevation-2" id="user-panel-img" alt="User Image">
+          <img src="{{ asset('images/admin_images/admin_photos/no-img.jpg') }}" class="img-circle elevation-2" id="user-panel-img" alt="User Image">
           @endif
         </div>
         <div class="info">

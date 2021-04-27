@@ -2,20 +2,23 @@
 @section('content')
 
 <style>
-    .page-item.active .page-link {background-color: #cb1c22;border-color: #cb1c22}
+    .page-item.active .page-link {background-color: var(--MinhHung-Red);border-color: var(--MinhHung-Red)}
     .page-item.active .page-link:focus{box-shadow: none;} 
-    .dropdown-item.active, .dropdown-item:active {background-color: #cb1c22}
+    .dropdown-item.active, .dropdown-item:active {background-color: var(--MinhHung-Red)}
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
-    #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
+    #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: var(--MinhHung-Red); border-color: var(--MinhHung-Red); font-size: 1.0rem}
     .updateProductStatus:hover{color: #563434 !important}
-    #deleteproduct{color:#cb1c22}
+    #deleteproduct{color:var(--Delete-Red)}
     #deleteproduct:hover{color: #563434}
-    #updateproduct{color: #563434; text-decoration: none}
-    #updateproduct:hover{color:#333; text-decoration: underline}
+    #updateproduct{color: #000000;}
+    #updateproduct:hover{color: #6c757d;}
     a{color: inherit;}
-    .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
-    .swal2-icon.swal2-info {border-color:#cb1c22;color:#cb1c22;}
+    .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
+    .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
+    .card-title{
+      font-size: 1.3rem;
+    }
 </style>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -93,13 +96,26 @@
                         @if ($product->status==1)
                             <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    
                         @else 
-                            <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: #cb1c22;">chưa hoạt động</a> 
+                            <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: var(--MinhHung-Red);">chưa hoạt động</a> 
                         @endif
                     </td>
                     <td>
-                      <a id="updateproduct" href="{{ url('admin/add-edit-product/'.$product->id) }}">Sửa</a>
-                      <br>
-                      <a href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}" id="deleteproduct">Xóa</a>
+                      <a title="thêm sản phẩm cấp (1)" id="updateproduct" 
+                      @if($product->section_id==1)
+                      href="{{ url('admin/add-maxpro-attributes/'.$product->id) }}">
+                      @else 
+                      @endif
+                      @if($product->section_id==2)
+                      href="{{ url('admin/add-hhose-attributes/'.$product->id) }}">
+                      @else 
+                      @endif
+                      @if($product->section_id==3)
+                      href="{{ url('admin/add-shimge-attributes/'.$product->id) }}">
+                      @else 
+                      @endif
+                      <i class="fas fa-plus"></i></a>
+                      &nbsp;&nbsp;<a title="sửa sản phẩm" id="updateproduct" href="{{ url('admin/add-edit-product/'.$product->id) }}"><i class="fas fa-edit"></i></a>
+                      &nbsp;&nbsp;<a title="xóa sản phẩm" href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}" id="deleteproduct"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

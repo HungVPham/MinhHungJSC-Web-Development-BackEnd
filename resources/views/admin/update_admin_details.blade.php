@@ -5,7 +5,7 @@
         font-size: 1.0rem;
     }
     .card-header{
-      background-color: #cb1c22 !important;
+      background-color: var(--MinhHung-Red) !important;
     }
 </style>
   
@@ -58,7 +58,7 @@
                 </div>
                 @endif
                 @if ($errors->any())
-                    <div class="alert alert-danger" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+                    <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -67,7 +67,7 @@
                     </div>
                 @endif
               <!-- form start -->
-              <form role="form" method="post" action="{{ url('/admin/update-admin-details') }}" name="updateAdminDetails" id="updateAdminDetails" style="border: 1px solid #cb1c22" enctype="multipart/form-data">@csrf
+              <form role="form" method="post" action="{{ url('/admin/update-admin-details') }}" name="updateAdminDetails" id="updateAdminDetails" style="border: 1px solid var(--MinhHung-Red)" enctype="multipart/form-data">@csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email Quản Lý</label>

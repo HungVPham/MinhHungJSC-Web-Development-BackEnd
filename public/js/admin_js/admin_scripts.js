@@ -143,7 +143,7 @@ $(document).ready(function(){
             cancelButtonColor: '#cb1c22',
             confirmButtonText: 'Thay đổi!',
             cancelButtonText: 'Không thay đổi.'
-          }).then((result) => {
+            }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
                     type:'post',
@@ -160,6 +160,75 @@ $(document).ready(function(){
                         }
                     })
                 }
-          });
+            });
+        });
+
+    // Product Attributes Add/Remove Script for CONSTRUCTION TOOLS
+    var maxField = 10; //Input fields increment limitation
+    var addButton1 = $('.add_button1'); //Add button selector
+    var wrapper1 = $('.field_wrapper1'); //Input field wrapper
+    var fieldHTML1 = '<div style="margin-top: 10px;"><input placeholder="nguồn điện [V]" style="width: 125px;" type="number" min="0" step="1" name="voltage[]"/>&nbsp;<input placeholder="công suất [W]" style="width: 125px;" type="number" min="0" step="1" name="power[]"/>&nbsp;<input required placeholder="mã SKU" style="width: 100px;" type="text" name="sku[]"/>&nbsp;<input required style="width: 100px;" type="number" min="0" step="1" placeholder="giá bán" name="price[]"/>&nbsp;<input placeholder="tồn kho" style="width: 100px;" type="number" min="0" step="1" required name="stock[]"/><a href="javascript:void(0);" title="xóa dòng dữ liệu" class="remove_button1">&nbsp;&nbsp;<i class="fas fa-trash"></i></a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton1).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper1).append(fieldHTML1); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper1).on('click', '.remove_button1', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+
+     // Product Attributes Add/Remove Script for HYDRAULIC HOSES
+     var maxField = 10; //Input fields increment limitation
+     var addButton2 = $('.add_button2'); //Add button selector
+     var wrapper2 = $('.field_wrapper2'); //Input field wrapper
+     var fieldHTML2 = '<div style="margin-top: 10px;"><input placeholder="đường kính" style="width: 100px;" type="text" name="diameter[]"/>&nbsp;<input required placeholder="mã SKU" style="width: 100px;" type="text" name="sku[]"/>&nbsp;<input required placeholder="giá bán" style="width: 100px;" type="number" min="0" step="1" name="price[]"/>&nbsp;<input placeholder="tồn kho" style="width: 100px;" type="number" min="0" step="1" required name="stock[]"/><div style="width: 100%; margin-top: 10px;"><label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_embossed">In nổi: Có/Không</label><input id="hhose_spflex_embossed"  name="hhose_spflex_embossed[]" type="checkbox" name="hhose_spflex_embossed[]"/></div><div style="width: 100%;"><label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_smoothtexture">Da Trơn: Có/Không</label><input id="hhose_spflex_smoothtexture"  name="hhose_spflex_smoothtexture[]" type="checkbox" name="hhose_spflex_smoothtexture[]"/></div><a href="javascript:void(0);" title="xóa dòng dữ liệu" class="remove_button2"><i class="fas fa-trash"></i></a></div>'; //New input field html 
+     var x = 1; //Initial field counter is 1
+     
+     //Once add button is clicked
+     $(addButton2).click(function(){
+         //Check maximum number of input fields
+         if(x < maxField){ 
+             x++; //Increment field counter
+             $(wrapper2).append(fieldHTML2); //Add field html
+         }
+     });
+     
+     //Once remove button is clicked
+     $(wrapper2).on('click', '.remove_button2', function(e){
+         e.preventDefault();
+         $(this).parent('div').remove(); //Remove field html
+         x--; //Decrement field counter
+     });
+
+    // Product Attributes Add/Remove Script for HYDRAULIC PUMPS
+    var maxField = 10; //Input fields increment limitation
+    var addButton3 = $('.add_button3'); //Add button selector
+    var wrapper3 = $('.field_wrapper3'); //Input field wrapper
+    var fieldHTML3 = '<div style="margin-top: 10px;"><input placeholder="nguồn điện [V]" style="width: 125px; margin-top: 5px;" type="number" min="0" step="1" name="voltage[]"/>&nbsp;<input placeholder="công suất [W]" style="width: 125px; margin-top: 5px;" type="number" min="0" step="1" name="power[]"/>&nbsp;<input id="maxflow"  name="maxflow[]" type="number" min="0" step="1" name="maxflow[]" placeholder="lưu lượng [m³/h]" style="width: 135px; margin-top: 5px;"/>&nbsp;<input placeholder="đẩy cao [m]" style="width: 100px; margin-top: 5px;" type="number" min="0" step="1" name="vertical[]"/>&nbsp;<input placeholder="họng hút [mm]" style="width: 125px; margin-top: 5px;" type="number" min="0" step="1" name="indiameter[]"/>&nbsp;<input placeholder="họng xả [mm]" style="width: 125px; margin-top: 5px;" type="number" min="0" step="1" name="oudiameter[]"/>&nbsp;<input required placeholder="mã SKU" style="width: 100px; margin-top: 5px;" type="text" name="sku[]"/>&nbsp;<input required placeholder="giá bán" style="width: 100px; margin-top: 5px;" type="number" min="0" step="1" name="price[]"/>&nbsp;<input placeholder="tồn kho" style="width: 100px; margin-top: 5px;" type="number" min="0" step="1" required name="stock[]"/><a href="javascript:void(0);" title="xóa dòng dữ liệu" class="remove_button3">&nbsp;&nbsp;<i class="fas fa-trash"></i></a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton3).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper3).append(fieldHTML3); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper3).on('click', '.remove_button3', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
     });
 });

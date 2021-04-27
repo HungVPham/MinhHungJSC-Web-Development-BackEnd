@@ -2,20 +2,23 @@
 @section('content')
 
 <style>
-    .page-item.active .page-link {background-color: #cb1c22;border-color: #cb1c22}
+    .page-item.active .page-link {background-color: var(--MinhHung-Red);border-color: var(--MinhHung-Red)}
     .page-item.active .page-link:focus{box-shadow: none;} 
-    .dropdown-item.active, .dropdown-item:active {background-color: #cb1c22}
+    .dropdown-item.active, .dropdown-item:active {background-color: var(--MinhHung-Red)}
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
-    #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: #cb1c22; border-color: #cb1c22; font-size: 1.0rem}
+    #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: var(--MinhHung-Red); border-color: var(--MinhHung-Red); font-size: 1.0rem}
     .updateCategoryStatus:hover{color: #563434 !important}
-    #deleteCategory{color:#cb1c22}
+    #deleteCategory{color:var(--Delete-Red)}
     #deleteCategory:hover{color: #563434}
-    #updateCategory{color: #563434; text-decoration: none}
-    #updateCategory:hover{color:#333; text-decoration: underline}
+    #updateCategory{color: #000000; text-decoration: none}
+    #updateCategory:hover{color:#6c757d; text-decoration: underline}
     a{color: inherit;}
-    .swal2-icon.swal2-warning {border-color:#cb1c22;color:#cb1c22;}
-    .swal2-icon.swal2-info {border-color:#cb1c22;color:#cb1c22;}
+    .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
+    .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
+    .card-title{
+      font-size: 1.3rem;
+    }
 </style>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -86,13 +89,12 @@
                         @if ($category->status==1)
                             <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    
                         @else 
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: #cb1c22;">chưa hoạt động</a> 
+                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: var(--MinhHung-Red);">chưa hoạt động</a> 
                         @endif
                     </td>
                     <td>
-                      <a id="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}">Sửa</a>
-                      <br>
-                      <a href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" id="deleteCategory">Xóa</a>
+                      &nbsp;&nbsp;<a title="sửa thể loại" id="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}"><i class="fas fa-edit"></i></a>
+                      &nbsp;&nbsp;<a title="sửa thể loại" href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" id="deleteCategory"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

@@ -5,7 +5,7 @@
         font-size: 1.0rem;
     }
     .card-header{
-      background-color: #cb1c22 !important;
+      background-color: var(--MinhHung-Red) !important;
     }
 </style>
   
@@ -42,7 +42,7 @@
               </div>
               <!-- /.card-header -->
               @if(Session::has('error_message'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
                   {{ Session::get('error_message') }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -58,7 +58,7 @@
                 </div>
               @endif
               <!-- form start -->
-              <form role="form" method="post" action="{{ url('/admin/update-current-pwd') }}" name="updatePasswordForm" id="updatePasswordForm" style="border: 1px solid #cb1c22">@csrf
+              <form role="form" method="post" action="{{ url('/admin/update-current-pwd') }}" name="updatePasswordForm" id="updatePasswordForm" style="border: 1px solid var(--MinhHung-Red)">@csrf
                 <div class="card-body">
                   <?php /*<div class="form-group">
                     <label for="exampleInputEmail1">Tên Quản Lý Viên</label>

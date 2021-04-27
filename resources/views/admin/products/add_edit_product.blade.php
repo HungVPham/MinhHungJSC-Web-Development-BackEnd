@@ -41,6 +41,32 @@
     input[type="checkbox"]:checked::after{
       display: block;
     }
+    #dlt-product-img{color: var(--Delete-Red);}
+    #dlt-product-img:hover{color: #563434;}
+    #dlt-product-vid{color: var(--Delete-Red);}
+    #dlt-product-vid:hover{color: #563434;}
+    .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
+    #download-video-btn{color: #228B22;}
+    #download-video-btn:hover{color: #563434;}
+    .card-title{
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+    .card-header{
+      background-color: var(--MinhHung-Red) !important;
+    }
+    .fa-minus{
+      color: #ffffff;
+    }
+    .fa-minus:hover{
+      color: #333;
+    }
+    .fa-plus{
+      color: #ffffff;
+    }
+    .fa-plus:hover{
+      color: #333;
+    }
   </style>
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -53,6 +79,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
+              <li class="breadcrumb-item active"><a href="{{ url('admin/products') }}" id="admin-prev">Sản Phẩm</a></li>
               <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div>
@@ -63,15 +90,23 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-          @if ($errors->any())
-            <div class="alert alert-danger" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+        @if ($errors->any())
+            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
                 @endforeach
               </ul>
             </div>
-          @endif
+        @endif
+        @if (Session::has('success_message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+              {{ Session::get('success_message') }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        @endif
         <form name="productForm" id="ProductForm" 
           @if(empty($productdata['id'])) 
             action="{{ url('admin/add-edit-product') }}" 
@@ -101,9 +136,9 @@
                       @foreach($categories as $section)
                         <optgroup label="{{ $section['name'] }}"></optgroup>
                         @foreach($section['categories'] as $category)
-                          <option disabled value="{{ $category['id'] }}"> {{ $category['category_name'] }}</option>
+                          <option  value="{{ $category['id'] }}" @if(!empty(@old('category_id')) && $category['id'] ==@old('category_id')) selected=""@elseif(!empty($productdata['category_id']) && $productdata['category_id']==$category['id']) selected="" @endif> {{ $category['category_name'] }}</option>
                           @foreach($category['subcategories'] as $subcategory)
-                            <option value="{{ $subcategory['id'] }}" @if(!empty(@old('category_id')) && $subcategory['id'] ==@old('category_id')) selected=""@elseif(!empty($productdata['category_id']) && $productdata['category_id']==$subcategory['id']) selected="" @endif>&nbsp;&nbsp;---&nbsp;&nbsp;{{ $subcategory['category_name'] }}</option>
+                            <option  value="{{ $subcategory['id'] }}" @if(!empty(@old('category_id')) && $subcategory['id'] ==@old('category_id')) selected=""@elseif(!empty($productdata['category_id']) && $productdata['category_id']==$subcategory['id']) selected="" @endif>&nbsp;&nbsp;---&nbsp;&nbsp;{{ $subcategory['category_name'] }}</option>
                           @endforeach
                         @endforeach
                       @endforeach
@@ -127,7 +162,7 @@
                   </div>
                   <div class="form-group">
                     <label for="product_weight">Trọng Lượng Sản Phẩm [Kg]</label>
-                    <input type="text" class="form-control" name="product_weight" id="product_weight" placeholder="nhập trọng lượng..."
+                    <input type="number"  type="number" min="0" step="0.5" oninput="validity.valid||(value='');"  class="form-control" name="product_weight" id="product_weight" placeholder="nhập trọng lượng..."
                     @if (!empty($productdata['product_weight'])) value="{{ $productdata['product_weight'] }}"
                     @else value="{{ old("product_weight") }}"
                     @endif>
@@ -139,7 +174,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="product_price">Giá Sản Phẩm (1000000 &#8594; 1,000,000) [VND]</label>
-                  <input type="text" class="form-control" name="product_price" id="product_price" placeholder="nhập giá..."
+                  <input type="number" min="0" step="100000" oninput="validity.valid||(value='');" class="form-control" name="product_price" id="product_price" placeholder="nhập giá..."
                   @if (!empty($productdata['product_price'])) value="{{ $productdata['product_price'] }}"
                   @else value="{{ old("product_price") }}"
                   @endif>
@@ -148,7 +183,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                     <label for="product_discount">Giảm Giá Sản Phẩm [%]</label>
-                  <input type="text" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
+                  <input type="number" min="0" max="100" step="10" oninput="validity.valid||(value='');" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
                   @if (!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}"
                   @else value="{{ old("product_discount") }}"
                   @endif>
@@ -160,87 +195,22 @@
                 <div class="col-12 col-sm-6">
                   <!-- /.form-group -->
                   <div class="form-group">
-                    <label for="exampleInputFile">Hình Ảnh Sản Phẩm v0</label>
+                    <label for="exampleInputFile">Hình Ảnh Sản Phẩm</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" name="main_image" id="main_image" accept="image/*">
                         <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
                       </div>
                     </div>
-                    <div style="color: grey">Độ phân giải đề xuất (750x650)</div>
+                    @if(!empty($productdata['main_image']))
+                    <div style="padding-top: 10px"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
+                      &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
+                    </div>
+                    @else  <div style="color: grey">Độ phân giải đề xuất (750x650)</div>
+                    @endif
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">Hình Ảnh Sản Phẩm v1</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image_v1" id="image_v1" accept="image/*">
-                        <label class="custom-file-label" for="image_v1">chọn hình ảnh...</label>
-                      </div>
-                    </div>
-                    <div style="color: grey">Độ phân giải đề xuất (750x650)</div>
-                  </div>
-                  <div class="maxpro-container" style="border: 3px solid #db880d; padding-left: 10px; padding-right: 10px; margin-bottom: 10px;">
-                    <div class="form-group">
-                      <label for="section_id">Chọn hiệu điện thế [V] (SP MaxPro Tools)</label>
-                      <select name="maxpro_voltage" id="maxpro_voltage" class="form-control select2" style="width: 100%;">
-                        <option value="">Chọn điện thế...</option>
-                        @foreach($maxpro_voltageArray as $voltage)
-                        <option value="{{ $voltage }}" @if(!empty($productdata['maxpro_voltage']) && $productdata['maxpro_voltage']==$voltage) selected="" @endif>{{ $voltage }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="section_id">Chọn công suất điện [W] (SP MaxPro Tools)</label>
-                      <select name="maxpro_power" id="maxpro_power" class="form-control select2" style="width: 100%;">
-                        <option value="">Chọn công suất...</option>
-                        @foreach($maxpro_powerArray as $power)
-                        <option value="{{ $power }}" @if(!empty($productdata['maxpro_power']) && $productdata['maxpro_power']==$power) selected="" @endif>{{ $power }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                  </div>
-                  <div class="hhose-container" style="border: 3px solid #efe649; padding-left: 10px; padding-right: 10px;">
-                    <div class="form-group">
-                      <label for="section_id">Chọn đường kính [Inch] (SP Ống Tuy Ô - Thủy Lực)</label>
-                      <select name="hhose_diameter" id="hhose_diameter" class="form-control select2" style="width: 100%;">
-                        <option value="">Chọn đường kính...</option>
-                        @foreach($hhose_diameterArray as $diameter)
-                        <option value="{{ $diameter }}" @if(!empty($productdata['hhose_diameter']) && $productdata['hhose_diameter']==$diameter) selected="" @endif>{{ $diameter }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="hhose_spflex_embossed">SP Flex (In Nổi): Có/Không</label>
-                      <input type="checkbox" name="hhose_spflex_embossed" id="hhose_spflex_embossed" value="Yes" @if(!empty($productdata['hhose_spflex_embossed']) && $productdata['hhose_spflex_embossed']=="Yes") checked="" @endif>
-                    </div>
-                    <div class="form-group">
-                      <label for="hhose_spflex_smoothtexture">SP Flex (Da Trơn): Có/Không</label>
-                      <input type="checkbox" name="hhose_spflex_smoothtexture" id="hhose_spflex_smoothtexture" value="Yes" @if(!empty($productdata['hhose_spflex_smoothtexture']) && $productdata['hhose_spflex_smoothtexture']=="Yes") checked="" @endif>
-                    </div>
-                  </div>
-                  <!-- /.form-group -->
                 </div>
                 <div class="col-12 col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputFile">Hình Ảnh Sản Phẩm v2</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image_v2" id="image_v2" accept="image/*">
-                        <label class="custom-file-label" for="image_v2">chọn hình ảnh...</label>
-                      </div>
-                    </div>
-                    <div style="color: grey">Độ phân giải đề xuất (750x650)</div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">Hình Ảnh Sản Phẩm v3</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image_v3" id="image_v3" accept="image/*">
-                        <label class="custom-file-label" for="image_v3">chọn hình ảnh...</label>
-                      </div>
-                    </div>
-                    <div style="color: grey">Độ phân giải đề xuất (750x650)</div>
-                  </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Video Demo Sản Phẩm</label>
                     <div class="input-group">
@@ -249,26 +219,9 @@
                         <label class="custom-file-label" for="product_video">chọn video...</label>
                       </div>
                     </div>
-                  </div>
-                  <div class="shimge-container" style="border: 3px solid #00a0a8; padding-left: 10px; padding-right: 10px;">
-                    <div class="form-group">
-                      <label for="section_id">Chọn lưu lượng [m³/h] (SP Shimge Pumps)</label>
-                      <select name="shimge_maxflow" id="shimge_maxflow" class="form-control select2" style="width: 100%;">
-                        <option value="">Chọn lưu lượng...</option>
-                        @foreach($shimge_maxflowArray as $maxflow)
-                        <option value="{{ $maxflow }}" @if(!empty($productdata['shimge_maxflow']) && $productdata['shimge_maxflow']==$maxflow) selected="" @endif>{{ $maxflow }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="section_id">Chọn công suất điện [W] (SP Shimge Pumps)</label>
-                      <select name="shimge_power" id="shimge_power" class="form-control select2" style="width: 100%;">
-                        <option value="">Chọn công suất...</option>
-                        @foreach($shimge_powerArray as $power)
-                        <option value="{{ $power }}" @if(!empty($productdata['shimge_power']) && $productdata['shimge_power']==$power) selected="" @endif>{{ $power }}</option>
-                        @endforeach
-                      </select>
-                    </div>
+                    @if(!empty($productdata['product_video']))
+                      <div>&nbsp;&nbsp;<a title="tải video" id="download-video-btn" href="{{ url('videos/product_videos/'.$productdata['product_video']) }}" download><i class="fas fa-file-video"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="confirmDelete" href="javascript:void(0)" class="confirmDelete" title="xóa video" record="product-video" recordid="{{ $productdata['id'] }}" id="dlt-product-vid"><i class="fas fa-trash"></i></a></div>
+                    @endif
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
@@ -283,7 +236,7 @@
                   </textarea>
                 </div>
                   <div class="form-group">
-                    <label for="is_featured">&nbsp;&nbsp;Sản Phẩm Nổi Bật: Có/Không</label>
+                    <label for="is_featured">Sản Phẩm Nổi Bật: Có/Không</label>
                     <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if(!empty($productdata['is_featured']) && $productdata['is_featured']=="Yes") checked="" @endif>
                   </textarea>
                   </div>

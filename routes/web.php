@@ -53,6 +53,20 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('update-product-status', 'ProductController@updateProductStatus');
         Route::get('delete-product/{id}','ProductController@deleteProduct');
         Route::match(['get', 'post'], 'add-edit-product/{id?}', 'ProductController@addEditProduct');
+
+        // delete product images
+        Route::get('delete-product-image/{id}','ProductController@deleteProductImage');
+        //Route::get('delete-product-image1/{id}','ProductController@deleteProductImage1');
+        //Route::get('delete-product-image2/{id}','ProductController@deleteProductImage2');
+        //Route::get('delete-product-image3/{id}','ProductController@deleteProductImage3');
+
+        // delete product video
+        Route::get('delete-product-video/{id}','ProductController@deleteProductVideo');
+
+        // Products Attribute
+        Route::match(['get', 'post'],'add-maxpro-attributes/{id}','ProductController@addMaxproAttributes');
+        Route::match(['get', 'post'],'add-hhose-attributes/{id}','ProductController@addHhoseAttributes');
+        Route::match(['get', 'post'],'add-shimge-attributes/{id}','ProductController@addShimgeAttributes');
     });
 });
 

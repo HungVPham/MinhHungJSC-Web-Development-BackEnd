@@ -1,5 +1,26 @@
 @extends('layouts.admin_layout.admin_layout')
 @section('content')
+  <style>
+     .card-title{
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+    .card-header{
+      background-color: var(--MinhHung-Red) !important;
+    }
+    .fa-minus{
+      color: #ffffff;
+    }
+    .fa-minus:hover{
+      color: #333;
+    }
+    .fa-plus{
+      color: #ffffff;
+    }
+    .fa-plus:hover{
+      color: #333;
+    }
+  </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -12,6 +33,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
+              <li class="breadcrumb-item active"><a href="{{ url('admin/categories') }}" id="admin-prev">Thể Loại</a></li>
               <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div>
@@ -23,7 +45,7 @@
     <section class="content">
       <div class="container-fluid">
           @if ($errors->any())
-            <div class="alert alert-danger" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
@@ -85,7 +107,7 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                       <label for="category_discount">Giảm Giá toàn Thể Loại [%]</label>
-                      <input type="text" class="form-control" name="category_discount" id="category_discount" placeholder="nhập khoản giảm giá..."
+                      <input type="number" min="0" max="100" step="10" oninput="validity.valid||(value='');" class="form-control" name="category_discount" id="category_discount" placeholder="nhập khoản giảm giá..."
                       @if (!empty($categorydata['category_discount'])) value="{{ $categorydata['category_discount'] }}"
                       @else value="{{ old("category_discount") }}"
                       @endif>

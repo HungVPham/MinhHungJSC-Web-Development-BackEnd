@@ -22,17 +22,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('product_price');
             $table->float('product_discount');
             $table->float('product_weight');
-            $table->string('maxpro_voltage')->nullable();
-            $table->string('maxpro_power')->nullable();
-            $table->string('hhose_diameter')->nullable();
-            $table->enum('hhose_spflex_embossed', ['No', 'Yes'])->nullable();
-            $table->enum('hhose_spflex_smoothtexture', ['No', 'Yes'])->nullable();
-            $table->string('shimge_power')->nullable();
-            $table->string('shimge_maxflow')->nullable();
             $table->string('main_image');
-            $table->string('image_v1');
-            $table->string('image_v2');
-            $table->string('image_v3');
             $table->string('product_video')->nullable();
             $table->string('product_rating');
             $table->text('product_description');
