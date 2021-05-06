@@ -8,16 +8,22 @@
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
     #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: var(--MinhHung-Red); border-color: var(--MinhHung-Red); font-size: 1.0rem}
-    .updateCategoryStatus:hover{color: #563434 !important}
+    .updateCategoryStatus:hover{color: #4c5158 !important}
     #deleteCategory{color:var(--Delete-Red)}
-    #deleteCategory:hover{color: #563434}
+    #deleteCategory:hover{color: var(--MinhHung-Red-Hover)}
     #updateCategory{color: #000000; text-decoration: none}
-    #updateCategory:hover{color:#6c757d; text-decoration: underline}
+    #updateCategory:hover{color:#4c5158; text-decoration: underline}
     a{color: inherit;}
     .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
     .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
     .card-title{
       font-size: 1.3rem;
+    }
+    #active:hover{
+      color: #4c5158 !important;
+    }
+    #inactive:hover{
+      color: #4c5158 !important;
     }
 </style>
   <!-- Content Wrapper. Contains page content -->
@@ -85,15 +91,15 @@
                     <td>{{ $parent_category }}</td>
                     <td>{{ $category->section->name }}</td>
                     <td>{{ $category->url }}</td>
-                    <td>
+                    <td style="width: 125px;">
                         @if ($category->status==1)
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    
-                        @else 
-                            <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: var(--MinhHung-Red);">chưa hoạt động</a> 
+                        <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                        @elseif ($category->status==0)
+                        <a class="updateCategoryStatus" id="category-{{ $category->id }}" category_id="{{ $category->id }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
                         @endif
                     </td>
-                    <td>
-                      &nbsp;&nbsp;<a title="sửa thể loại" id="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}"><i class="fas fa-edit"></i></a>
+                    <td style="width: 50px;">
+                      <a title="sửa thể loại" id="updateCategory" href="{{ url('admin/add-edit-category/'.$category->id) }}"><i class="fas fa-edit"></i></a>
                       &nbsp;&nbsp;<a title="sửa thể loại" href="javascript:void(0)" class="confirmDelete" record="category" recordid="{{ $category->id }}" id="deleteCategory"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>

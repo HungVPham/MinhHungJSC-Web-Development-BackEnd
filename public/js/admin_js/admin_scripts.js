@@ -10,7 +10,7 @@ $(document).ready(function(){
             data:{current_pwd:current_pwd},
             success:function(resp){
                 if(resp=="false"){
-                    $('#checkCurrentPwd').html("<font color=#cb1c22>Mật Khẩu Hiện Tại Sai</font>");
+                    $('#checkCurrentPwd').html("<font color=var(--Delete-Red)>Mật Khẩu Hiện Tại Sai</font>");
                 }else if(resp=="true"){
                     $('#checkCurrentPwd').html("<font color=#333>Mật Khẩu Hiện Tại Đúng</font>");
                 }
@@ -29,8 +29,8 @@ $(document).ready(function(){
             text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
             icon: 'info',
             showCancelButton: true,
-            confirmButtonColor: '#228B22',
-            cancelButtonColor: '#cb1c22',
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
             confirmButtonText: 'Thay đổi!',
             cancelButtonText: 'Không thay đổi.'
           }).then((result) => {
@@ -41,10 +41,10 @@ $(document).ready(function(){
                 data:{status:status,section_id:section_id},
                 success:function(resp){
                     if(resp['status']==0){
-                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: #cb1c22;' href='javascript:void(0)'>chưa hoạt động</a>");
+                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
                     }else if(resp['status']==1){
-                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: #228b22;' href='javascript:void(0)'>đang hoạt động</a>");
-                        }
+                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                    }
                     },error:function(){
                         alert("Error");
                     }
@@ -62,8 +62,8 @@ $(document).ready(function(){
             text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
             icon: 'info',
             showCancelButton: true,
-            confirmButtonColor: '#228B22',
-            cancelButtonColor: '#cb1c22',
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
             confirmButtonText: 'Thay đổi!',
             cancelButtonText: 'Không thay đổi.'
           }).then((result) => {
@@ -74,10 +74,10 @@ $(document).ready(function(){
                 data:{status:status,category_id:category_id},
                 success:function(resp){
                     if(resp['status']==0){
-                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: #cb1c22;' href='javascript:void(0)'>chưa hoạt động</a>");
+                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
                     }else if(resp['status']==1){
-                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: #228b22;' href='javascript:void(0)'>đang hoạt động</a>");
-                        }
+                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                    }
                     },error:function(){
                         alert("Error");
                     }
@@ -85,6 +85,39 @@ $(document).ready(function(){
             }
         });
     });
+
+     // Update Product Status 
+     $(document).on("click", ".updateProductStatus", function(){
+        var status = $(this).text();
+        var product_id = $(this).attr("product_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type:'post',
+                    url:'/admin/update-product-status',
+                    data:{status:status,product_id:product_id},
+                    success:function(resp){
+                        if(resp['status']==0){
+                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                        }else if(resp['status']==1){
+                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                        }
+                        },error:function(){
+                            alert("Error");
+                        }
+                    })
+                }
+            });
+        });
 
     // Append Categories Level 
     $('#section_id').change(function(){
@@ -101,15 +134,6 @@ $(document).ready(function(){
         });
     });
 
-    // Confirm Deletion of Record
-    // $(".confirmDelete").click(function(){
-    //     var name = $(this).attr("name");
-    //     if(confirm("Xác nhận xóa "+name+"?")){
-    //         return true; 
-    //     }
-    //     return false;
-    // });
-
     // Confirm Deletion of Record with SweetAlert2
     $(document).on("click", ".confirmDelete", function(){
         var record = $(this).attr("record");
@@ -119,8 +143,8 @@ $(document).ready(function(){
             text: "Bạn sẽ không thay đổi được sau khi xóa!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#228B22',
-            cancelButtonColor: '#cb1c22',
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
             confirmButtonText: 'Xóa!',
             cancelButtonText: 'Không xóa.'
           }).then((result) => {
@@ -129,31 +153,31 @@ $(document).ready(function(){
             }
           });
     });
-
-    // Update Product Status 
-    $(document).on("click", ".updateProductStatus", function(){
+    
+    // Update Maxpro Attributes Status 
+    $(document).on("click", ".updateMaxproAttributesStatus", function(){
         var status = $(this).text();
-        var product_id = $(this).attr("product_id");
+        var MaxproAttributes_id = $(this).attr("MaxproAttributes_id");
         Swal.fire({
             title: 'Xác nhận thay đổi trạng thái?',
             text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
             icon: 'info',
             showCancelButton: true,
-            confirmButtonColor: '#228B22',
-            cancelButtonColor: '#cb1c22',
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
             confirmButtonText: 'Thay đổi!',
             cancelButtonText: 'Không thay đổi.'
             }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
                     type:'post',
-                    url:'/admin/update-product-status',
-                    data:{status:status,product_id:product_id},
+                    url:'/admin/update-maxproattributes-status',
+                    data:{status:status,MaxproAttributes_id:MaxproAttributes_id},
                     success:function(resp){
                         if(resp['status']==0){
-                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: #cb1c22;' href='javascript:void(0)'>chưa hoạt động</a>");
+                            $("#MaxproAttributes-"+MaxproAttributes_id).html("<a class='updateMaxproAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
                         }else if(resp['status']==1){
-                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: #228b22;' href='javascript:void(0)'>đang hoạt động</a>");
+                            $("#MaxproAttributes-"+MaxproAttributes_id).html("<a class='updateMaxproAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
                         }
                         },error:function(){
                             alert("Error");
@@ -162,6 +186,72 @@ $(document).ready(function(){
                 }
             });
         });
+
+        // Update Hhose Attributes Status 
+        $(document).on("click", ".updateHhoseAttributesStatus", function(){
+            var status = $(this).text();
+            var HhoseAttributes_id = $(this).attr("HhoseAttributes_id");
+            Swal.fire({
+                title: 'Xác nhận thay đổi trạng thái?',
+                text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--Positive-Green)',
+                cancelButtonColor: 'var(--Delete-Red)',
+                confirmButtonText: 'Thay đổi!',
+                cancelButtonText: 'Không thay đổi.'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/update-hhoseattributes-status',
+                        data:{status:status,HhoseAttributes_id:HhoseAttributes_id},
+                        success:function(resp){
+                            if(resp['status']==0){
+                                $("#HhoseAttributes-"+HhoseAttributes_id).html("<a class='updateHhoseAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                            }else if(resp['status']==1){
+                                $("#HhoseAttributes-"+HhoseAttributes_id).html("<a class='updateHhoseAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                            }
+                            },error:function(){
+                                alert("Error");
+                            }
+                        })
+                    }
+                });
+            });
+
+        // Update Shimge Attributes Status 
+        $(document).on("click", ".updateShimgeAttributesStatus", function(){
+            var status = $(this).text();
+            var ShimgeAttributes_id = $(this).attr("ShimgeAttributes_id");
+            Swal.fire({
+                title: 'Xác nhận thay đổi trạng thái?',
+                text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--Positive-Green)',
+                cancelButtonColor: 'var(--Delete-Red)',
+                confirmButtonText: 'Thay đổi!',
+                cancelButtonText: 'Không thay đổi.'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/update-shimgeattributes-status',
+                        data:{status:status,ShimgeAttributes_id:ShimgeAttributes_id},
+                        success:function(resp){
+                            if(resp['status']==0){
+                                $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                            }else if(resp['status']==1){
+                                $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                            }
+                            },error:function(){
+                                alert("Error");
+                            }
+                        })
+                    }
+                });
+            });
 
     // Product Attributes Add/Remove Script for CONSTRUCTION TOOLS
     var maxField = 10; //Input fields increment limitation

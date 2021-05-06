@@ -42,7 +42,7 @@
               </div>
               <!-- /.card-header -->
               @if(Session::has('error_message'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red); margin-top: 10px;">
                   {{ Session::get('error_message') }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -50,7 +50,7 @@
                 </div>
               @endif
               @if(Session::has('success_message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Postive-Green); background-color: #ffffff; border: 1px solid var(--Postive-Green); margin-top: 10px;">
                   {{ Session::get('success_message') }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -65,24 +65,24 @@
                     <input type="text" class="form-control" value="{{ $adminDetails->name }}" placeholder="Nhập tên quản lý viên" id="admin_name" name="admin_name">
                   </div> */ ?>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email Quản Lý</label>
+                    <label for="exampleInputEmail1">&nbsp;Email Quản Lý</label>
                     <input class="form-control" value="{{ $adminDetails->email }}" readonly="">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Loại Quản Lý</label>
+                    <label for="exampleInputEmail1">&nbsp;Loại Quản Lý</label>
                     <input class="form-control" value="{{ $adminDetails->type }}" readonly="">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Mật Khẩu Hiện Tại</label>
+                    <label for="exampleInputPassword1">&nbsp;Mật Khẩu Hiện Tại</label>
                     <input type="password" class="form-control" name="current_pwd" id="current_pwd" placeholder="Nhập mật khẩu hiện tại" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                     <!-- <span id="checkCurrentPwd"></span> -->
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Mật Khẩu Mới</label>
+                    <label for="exampleInputPassword1">&nbsp;Mật Khẩu Mới</label>
                     <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="Nhập mật khẩu mới" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Xác Nhận Mật Khẩu Mới</label>
+                    <label for="exampleInputPassword1">&nbsp;Xác Nhận Mật Khẩu Mới</label>
                     <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder="Xác nhận mật khẩu mới" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                 </div>

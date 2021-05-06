@@ -8,16 +8,22 @@
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
     #admin-btn{max-width: 150px; float: right; display: inline-block; background-color: var(--MinhHung-Red); border-color: var(--MinhHung-Red); font-size: 1.0rem}
-    .updateProductStatus:hover{color: #563434 !important}
+    .updateProductStatus:hover{color: #4c5158 !important}
     #deleteproduct{color:var(--Delete-Red)}
-    #deleteproduct:hover{color: #563434}
+    #deleteproduct:hover{color: var(--MinhHung-Red-Hover)}
     #updateproduct{color: #000000;}
-    #updateproduct:hover{color: #6c757d;}
+    #updateproduct:hover{color: #4c5158;}
     a{color: inherit;}
     .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
     .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
     .card-title{
       font-size: 1.3rem;
+    }
+    #active:hover{
+      color: #4c5158 !important;
+    }
+    #inactive:hover{
+      color: #4c5158 !important;
     }
 </style>
   <!-- Content Wrapper. Contains page content -->
@@ -67,8 +73,6 @@
                     <th>Mã SP</th>
                     <th>Sản Phẩm</th>
                     <th>Hình Ảnh</th>
-                    {{-- <th>Thể Loại Cấp (1)</th>
-                    <th>Thể Loại Cấp (0)</th> --}}
                     <th>Thể Loại SP</th>
                     <th>Danh Mục SP</th>
                     <th>Trạng Thái</th>
@@ -89,17 +93,16 @@
                       <img style="width: 100px;" src="{{ asset('images/product_images/main_image/small/no-img.jpg') }}">
                       @endif
                     </td>
-                    {{-- <td>{{ $product->subcategory->category_name }}</td> --}}
                     <td>{{ $product->category->category_name }}</td>
                     <td>{{ $product->section->name }}</td>
-                    <td>
+                    <td style="width: 125px;">
                         @if ($product->status==1)
-                            <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    
-                        @else 
-                            <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: var(--MinhHung-Red);">chưa hoạt động</a> 
+                        <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                        @elseif ($product->status==0)
+                        <a class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
                         @endif
                     </td>
-                    <td>
+                    <td style="width: 95px;">
                       <a title="thêm sản phẩm cấp (1)" id="updateproduct" 
                       @if($product->section_id==1)
                       href="{{ url('admin/add-maxpro-attributes/'.$product->id) }}">
@@ -114,6 +117,7 @@
                       @else 
                       @endif
                       <i class="fas fa-plus"></i></a>
+                      &nbsp;&nbsp;<a title="thêm hình ảnh (cấp 1) cho sản phẩm " id="updateproduct" href="{{ url('admin/add-images/'.$product->id) }}"><i class="fas fa-images"></i></a>
                       &nbsp;&nbsp;<a title="sửa sản phẩm" id="updateproduct" href="{{ url('admin/add-edit-product/'.$product->id) }}"><i class="fas fa-edit"></i></a>
                       &nbsp;&nbsp;<a title="xóa sản phẩm" href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}" id="deleteproduct"><i class="fas fa-trash"></i></a>
                     </td>

@@ -15,7 +15,7 @@ class Product extends Model
     // }
 
     public function section(){
-        return $this->belongsTo('App\Section', 'section_id');
+        return $this->belongsTo('App\Section', 'section_id')->select('id','name');;
     }
 
     public function MaxproAttributes(){
@@ -28,5 +28,9 @@ class Product extends Model
 
     public function ShimgeAttributes(){
         return $this->hasMany('App\ShimgeProductAttributes');
+    }
+
+    public function images(){
+        return $this->hasMany('App\productsImage');
     }
 }

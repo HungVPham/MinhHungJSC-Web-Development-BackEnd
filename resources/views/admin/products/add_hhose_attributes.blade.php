@@ -7,6 +7,8 @@
     .dropdown-item.active, .dropdown-item:active {background-color: var(--Hhose-Yellow); color: #000000;}
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
+    .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
+    .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
     input[type="checkbox"]{
       appearance: none;
       -webkit-appearance: none;
@@ -36,7 +38,7 @@
     input[type="checkbox"]:checked{
       appearance: none;
       -webkit-appearance: none;
-      background-color: #228B22;
+      background-color: var(--Positive-Green);
       height: 18px;
       width: 18px;
       align-items: center;
@@ -47,10 +49,10 @@
       display: block;
     }
      /* Add/Remove Attributes Array Btns */
-    .add_button2{color: #228B22;}
-    .add_button2:hover{color: #563434;}
+    .add_button2{color: var(--Positive-Green);}
+    .add_button2:hover{color: var(--Hhose-Yellow-Hover);}
     .remove_button2{color: #cb1c22;}
-    .remove_button2:hover{color: #563434;}
+    .remove_button2:hover{color: var(--Delete-Red-Hover);}
     .card-title{
       color: #000000;
       font-size: 1.2rem;
@@ -72,13 +74,29 @@
     }
     #admin-btn{
       background-color: var(--Hhose-Yellow);
-      color: #000000
+      color: #000000;
+    }
+    #admin-btn:hover{
+      background-color: var(--Hhose-Yellow-Hover) !important;
+      color: #ffffff;
     }
     #add-atr-ic{
       color: var(--Hhose-Yellow);
     }
     #add-atr-ic:hover{
-      color: #563434;
+      color:  var(--Hhose-Yellow-Hover);
+    }
+    #deleteHhoseAttributes{
+      color: var(--Delete-Red);
+    }
+    #deleteHhoseAttributes:hover{
+      color: var(--Delete-Red-Hover);
+    }
+    #active:hover{
+      color: #4c5158 !important;
+    }
+    #inactive:hover{
+      color: #4c5158 !important;
     }
   </style>
   <div class="content-wrapper">
@@ -113,7 +131,7 @@
             </div>
         @endif
         @if (Session::has('success_message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Positive-Green); background-color: #ffffff; border: 1px solid var(--Positive-Green)">
               {{ Session::get('success_message') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -132,14 +150,14 @@
           method="post" action="{{ url('admin/add-hhose-attributes/'.$productdata['id']) }}">@csrf
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title">{{ $title }} <strong>[Ống Tuy Ô - Thủy Lực]</strong></h3>
+              <h3 class="card-title">{{ $title }}</h3>
 
-              <div class="card-tools">
+              {{-- <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
 
-              </div>
+              </div> --}}
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -195,7 +213,7 @@
             <form name="editHhoseAttributeForm" id="editHhoseAttributeForm" method="post" action="{{ url('admin/edit-hhose-attributes/'.$productdata['id']) }}">@csrf
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Sản Phẩm Cấp (1) <Strong>[{{ $productdata['product_name'] }}]</Strong></h3>
+                <h3 class="card-title">Sản Phẩm Cấp (1)</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -209,6 +227,7 @@
                     <th>Mã SKU</th>
                     <th>Giá Bán</th>
                     <th>Tồn Kho</th>
+                    <th>Trạng Thái</th>
                     <th>Hành Động</th>
                   </tr>
                   </thead>
@@ -226,16 +245,16 @@
                     </td>
                     <td>
                       @if($HhoseAttributes['hhose_spflex_embossed']=='Yes')
-                      <p style="color: #228B22">Có</p>
+                      <p style="color: var(--Positive-Green-Hover)">Có</p>
                       @else 
-                      <p style="color: var(--Delete-Red)">Không</p>
+                      <p style="color: var(--Delete-Red-Hover)">Không</p>
                       @endif 
                     </td>
                     <td>
                       @if($HhoseAttributes['hhose_spflex_smoothtexture']=='Yes')
-                      <p style="color: #228B22">Có</p>
+                      <p style="color: var(--Positive-Green-Hover)">Có</p>
                       @else 
-                      <p style="color: var(--Delete-Red)">Không</p>
+                      <p style="color: var(--Delete-Red-Hover)">Không</p>
                       @endif 
                     </td>
                     <td>{{ $HhoseAttributes['sku'] }}</td>
@@ -249,7 +268,16 @@
                     <td>
                       <input style="width: 50%;" type="number" min="0"  name="stock[]" value="{{ $HhoseAttributes['stock'] }}" required=""> [Cái]
                     </td>
-                    <td></td>
+                    <td style="width: 125px;">
+                      @if ($HhoseAttributes['status']==1)
+                      <a class="updateHhoseAttributesStatus" id="HhoseAttributes-{{ $HhoseAttributes['id'] }}" HhoseAttributes_id="{{ $HhoseAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green); font-size: 1.05rem;"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                      @elseif ($HhoseAttributes['status']==0)
+                      <a class="updateHhoseAttributesStatus" id="HhoseAttributes-{{ $HhoseAttributes['id'] }}" HhoseAttributes_id="{{ $HhoseAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red); font-size: 1.05rem;"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                      @endif
+                  </td>
+                  <td style="width: 50px;">
+                      <a title="xóa sản phẩm cấp (1)" href="javascript:void(0)" class="confirmDelete" record="hhoseattributes" recordid="{{ $HhoseAttributes['id'] }}" id="deleteHhoseAttributes"><i class="fas fa-trash"></i></a>
+                  </td>
                   </tr>
                   @endforeach
                   </tbody>
@@ -262,12 +290,7 @@
             </div>
             </form>
             <!-- /.card -->
-          </div>
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
+          </div> font-size: 0.9rem;
     <!-- /.content -->
   </div>
 @endsection

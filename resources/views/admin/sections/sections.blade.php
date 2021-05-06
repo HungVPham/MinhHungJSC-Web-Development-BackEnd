@@ -6,17 +6,26 @@
     .dropdown-item.active, .dropdown-item:active {background-color: var(--MinhHung-Red);}
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
-    .updateSectionStatus:hover{color: #563434 !important}
+    .updateSectionStatus:hover{color: #4c5158 !important}
     #admin-btn{max-width: 180px; float: right; display: inline-block; background-color: var(--MinhHung-Red); border-color: var(--MinhHung-Red); font-size: 1.0rem}
     #deleteSection{color:var(--Delete-Red)}
-    #deleteSection:hover{color: #563434}
+    #deleteSection:hover{color: var(--MinhHung-Red-Hover)}
     #updateSection{color: #000000;}
-    #updateSection:hover{color:#6c757d;}
+    #updateSection:hover{color:#4c5158;}
     a{color: inherit}
     .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
     .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
     .card-title{
       font-size: 1.3rem;
+    }
+    b{
+      font-weight: 600;
+    }
+    #active:hover{
+      color: #4c5158 !important;
+    }
+    #inactive:hover{
+      color: #4c5158 !important;
     }
 </style>
   <!-- Content Wrapper. Contains page content -->
@@ -84,15 +93,16 @@
                       @endif
                     </td>
                     <td>{{ $section->url }}</td>
-                    <td>@if ($section->status==1)
-                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: #228B22;">đang hoạt động</a>    
-                        @else 
-                            <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: var(--MinhHung-Red);">chưa hoạt động</a>
-                        @endif
+                    <td style="width: 125px;">
+                      @if ($section->status==1)
+                      <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="far fa-check-circle"> đang hoạt động</i></a>   
+                      @elseif ($section->status==0)
+                      <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                      @endif
                     </td>
-                    <td>
-                      &nbsp; &nbsp;<a id="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}"><i class="fas fa-edit"></i></a>
-                      &nbsp; &nbsp;<a href="javascript:void(0)" class="confirmDelete" record="section" recordid="{{ $section->id }}"  class="confirmDelete" id="deleteSection"><i class="fas fa-trash"></i></a>
+                    <td style="width: 50px;">
+                      <a title="sửa danh mục" id="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}"><i class="fas fa-edit"></i></a>
+                      &nbsp; &nbsp;<a title="xóa danh mục" href="javascript:void(0)" class="confirmDelete" record="section" recordid="{{ $section->id }}"  class="confirmDelete" id="deleteSection"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

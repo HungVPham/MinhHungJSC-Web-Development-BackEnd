@@ -8,10 +8,12 @@
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
     /* Add/Remove Attributes Array Btns */
-    .add_button1{color: #228B22;}
-    .add_button1:hover{color: #563434;}
+    .add_button1{color: var(--Positive-Green);}
+    .add_button1:hover{color: var(--MaxPro-Orange-Hover);}
     .remove_button1{color: #cb1c22;}
-    .remove_button1:hover{color: #563434;}
+    .remove_button1:hover{color: var(--Delete-Red-Hover);}
+    .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
+    .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
     .card-title{
       color: #ffffff;
       font-size: 1.2rem;
@@ -34,11 +36,26 @@
     #admin-btn{
       background-color: var(--MaxPro-Orange);
     }
+    #admin-btn:hover{
+      background-color: var(--MaxPro-Orange-Hover) !important;
+    }
     #add-atr-ic{
       color: var(--MaxPro-Orange);
     }
     #add-atr-ic:hover{
-      color: #563434;
+      color: var(--MaxPro-Orange-Hover);
+    }
+    #deleteMaxproAttributes{
+      color: var(--Delete-Red);
+    }
+    #deleteMaxproAttributes:hover{
+      color: var(--Delete-Red-Hover);
+    }
+    #active:hover{
+      color: #4c5158 !important;
+    }
+    #inactive:hover{
+      color: #4c5158 !important;
     }
   </style>
   <div class="content-wrapper">
@@ -73,7 +90,7 @@
             </div>
         @endif
         @if (Session::has('success_message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Positive-Green); background-color: #ffffff; border: 1px solid var(--Positive-Green)">
               {{ Session::get('success_message') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -92,14 +109,14 @@
           method="post" action="{{ url('admin/add-maxpro-attributes/'.$productdata['id']) }}">@csrf
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title">{{ $title }} <strong>[Dụng Cụ Công Trường]</strong></h3>
+              <h3 class="card-title">{{ $title }}</h3>
 
-              <div class="card-tools">
+              {{-- <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
 
-              </div>
+              </div> --}}
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -150,7 +167,7 @@
             <form name="editMaxproAttributeForm" id="editMaxproAttributeForm" method="post" action="{{ url('admin/edit-maxpro-attributes/'.$productdata['id']) }}">@csrf
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Sản Phẩm Cấp (1) của <Strong>[{{ $productdata['product_name'] }}]</Strong></h3>
+                  <h3 class="card-title">Sản Phẩm Cấp (1)</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -163,6 +180,7 @@
                       <th>Mã SKU</th>
                       <th>Giá Bán</th>
                       <th>Tồn Kho</th>
+                      <th>Trạng Thái</th>
                       <th>Hành Động</th>
                     </tr>
                     </thead>
@@ -196,7 +214,16 @@
                       <td>
                         <input style="width: 50%;" type="number" min="0" name="stock[]" value="{{ $MaxproAttributes['stock'] }}" required=""> [Cái]
                       </td>
-                      <td></td>
+                      <td style="width: 125px;">
+                          @if ($MaxproAttributes['status']==1)
+                          <a class="updateMaxproAttributesStatus" id="MaxproAttributes-{{ $MaxproAttributes['id'] }}" MaxproAttributes_id="{{ $MaxproAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                          @elseif ($MaxproAttributes['status']==0)
+                          <a class="updateMaxproAttributesStatus" id="MaxproAttributes-{{ $MaxproAttributes['id'] }}" MaxproAttributes_id="{{ $MaxproAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                          @endif
+                      </td>
+                      <td style="width: 50px;">
+                          <a title="xóa sản phẩm cấp (1)" href="javascript:void(0)" class="confirmDelete" record="maxproattributes" recordid="{{ $MaxproAttributes['id'] }}" id="deleteMaxproAttributes"><i class="fas fa-trash"></i></a>
+                      </td>
                     </tr>
                     @endforeach
                     </tbody>

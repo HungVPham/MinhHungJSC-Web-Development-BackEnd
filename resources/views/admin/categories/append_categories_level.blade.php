@@ -9,7 +9,7 @@ option {
 }
 </style>
 <div class="form-group">
-    <label>Cấp Thể Loại</label>
+    <label>&nbsp;Cấp Thể Loại</label>
     <select name="parent_id" id="parent_id" class="form-control select2" style="width: 100%;">
         <option value="0" @if(isset($categorydata['parent_id']) && $categorydata['parent_id']==0) selected=""@endif>cấp gốc (0)</option>
         @if(!empty($getCategories))

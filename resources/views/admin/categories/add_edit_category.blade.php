@@ -45,7 +45,7 @@
     <section class="content">
       <div class="container-fluid">
           @if ($errors->any())
-            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
+            <div class="alert alert-danger" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
@@ -77,7 +77,7 @@
                 <div class="col-md-6">
                   <!-- /.form-group -->
                   <div class="form-group">
-                      <label for="category_name">Tên Thể Loại Sản Phẩm</label>
+                      <label for="category_name">&nbsp;Tên Thể Loại Sản Phẩm</label>
                       <input type="text" class="form-control" name="category_name" id="category_name" placeholder="nhập tên..."
                       @if (!empty($categorydata['category_name'])) value="{{ $categorydata['category_name'] }}"
                       @else value="{{ old("category_name") }}"
@@ -90,7 +90,7 @@
                 <!-- /.col -->
                 <div class="col-md-6">
                 <div class="form-group">
-                    <label for="section_id">Danh Mục của Thể Loại</label>
+                    <label for="section_id">&nbsp;Danh Mục của Thể Loại</label>
                     <select name="section_id" id="section_id" class="form-control select2" style="width: 100%;">
                       <option value="">Chọn danh mục...</option>
                       @foreach($getSections as $section)
@@ -106,14 +106,14 @@
                 <div class="col-12 col-sm-6">
                   <!-- /.form-group -->
                   <div class="form-group">
-                      <label for="category_discount">Giảm Giá toàn Thể Loại [%]</label>
+                      <label for="category_discount">&nbsp;Giảm Giá toàn Thể Loại [%]</label>
                       <input type="number" min="0" max="100" class="form-control" name="category_discount" id="category_discount" placeholder="nhập khoản giảm giá..."
                       @if (!empty($categorydata['category_discount'])) value="{{ $categorydata['category_discount'] }}"
                       @else value="{{ old("category_discount") }}"
                       @endif>
                   </div>
                   <div class="form-group">
-                      <label for="category_description">Mô Tả Thể Loại</label>
+                      <label for="category_description">&nbsp;Mô Tả Thể Loại</label>
                       <textarea name="category_description" id="category_description" class="form-control" rows="3" placeholder=" nhập mô tả...">@if (!empty($categorydata['category_description'])) {{ $categorydata['category_description'] }}@else {{ old("category_description") }}@endif
                       </textarea>
                   </div>
@@ -121,28 +121,28 @@
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                      <label for="url">URL Thể Loại (tên-thể-loại)</label>
+                      <label for="url">&nbsp;URL Thể Loại (tên-thể-loại)</label>
                       <input name="url" id="url" type="text" class="form-control" placeholder="nhập URL..."
                       @if (!empty($categorydata['url'])) value="{{ $categorydata['url'] }}"
                       @else value="{{ old("url") }}"
                       @endif>
                   </div>
                   <div class="form-group">
-                      <label for="meta-title">Metadata Title [SEO]</label>
+                      <label for="meta-title">&nbsp;Metadata Title [SEO]</label>
                       <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($categorydata['meta_title'])) {{ $categorydata['meta_title'] }}@else {{ old("meta_title") }}@endif
                     </textarea>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                      <label for="meta_keywords">Metadata Keywords [SEO]</label>
+                      <label for="meta_keywords">&nbsp;Metadata Keywords [SEO]</label>
                       <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO...">@if (!empty($categorydata['meta_keywords'])) {{ $categorydata['meta_keywords'] }}@else {{ old("meta_keywords") }}@endif
                     </textarea>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                      <label for="meta_description">Metadata Description [SEO]</label>
+                      <label for="meta_description">&nbsp;Metadata Description [SEO]</label>
                       <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO...">@if (!empty($categorydata['meta_description'])) {{ $categorydata['meta_description'] }}@else {{ old("meta_description") }}@endif
                     </textarea>
                   </div>

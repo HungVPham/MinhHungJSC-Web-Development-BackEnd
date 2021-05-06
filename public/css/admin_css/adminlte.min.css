@@ -17,11 +17,18 @@
     --pink: #e83e8c;
     
     /* Custom Colors */
-    --MinhHung-Red: #cb1c22;
+    --MinhHung-Red: rgba(203, 28, 34, 1);
+    --MinhHung-Red-Hover: rgb(165, 24, 29);
     --MaxPro-Orange: #db850e;
+    --MaxPro-Orange-Hover: #be750d;
     --Shimge-Blue: #00a0a8;
+    --Shimge-Blue-Hover: #007980;
     --Hhose-Yellow: #efe649;
+    --Hhose-Yellow-Hover: #c9c243;
     --Delete-Red: #cb1c22;
+    --Delete-Red-Hover: rgb(165, 24, 29);
+    --Positive-Green: #228B22;
+    --Positive-Green-Hover: #196719; 
     --Info-Yellow: #eed202;
 
 
@@ -19140,7 +19147,7 @@ a.disabled.mailbox-attachment-close {
 .login-card-body .input-group .form-control:focus~.input-group-prepend .input-group-text,
 .register-card-body .input-group .form-control:focus~.input-group-append .input-group-text,
 .register-card-body .input-group .form-control:focus~.input-group-prepend .input-group-text {
-    border-color: #80bdff;
+    border-color: var(--MinhHung-Red);
 }
 .login-card-body .input-group .form-control.is-valid:focus,
 .register-card-body .input-group .form-control.is-valid:focus {
@@ -25041,7 +25048,7 @@ select.form-control-sm~.select2-container--default .select2-selection--multiple 
 .small-box .overlay.dark > .fas,
 .small-box .overlay.dark > .ion,
 .small-box .overlay.dark > .svg-inline--fa {
-    color: #ced4da;
+    color: var(--MinhHung-Red);
 }
 .tab-pane > .overlay-wrapper {
     position: relative;
@@ -28409,11 +28416,11 @@ a.text-muted:hover {
 }
 
 #admin-btn-login:hover{
-    background: #563434;
+    background: var(--MinhHung-Red-Hover);
 }
 
 #admin-btn:hover {
-    background: #563434 !important;
+    background: var(--MinhHung-Red-Hover) !important;
     color: #fff !important;
 }
 
@@ -28426,11 +28433,11 @@ a.text-muted:hover {
 }
 
 #admin-home:hover {
-    color: #563434 !important;
+    color: var(--MinhHung-Red-Hover) !important;
 }
 
 #admin-prev {
-    color: #6c757d !important;
+    color: #333 !important;
 }
 
 #admin-prev:hover {
@@ -28446,7 +28453,7 @@ a.text-muted:hover {
 }
 
 #FooterPublicNav:hover{
-    color: #563434;
+    color: var(--MinhHung-Red-Hover);
 }
 
 #AdminPhotoNav{
@@ -28454,7 +28461,7 @@ a.text-muted:hover {
 }
 
 #AdminPhotoNav:hover{
-    color: #563434;
+    color: var(--MinhHung-Red-Hover);
 }
 
 

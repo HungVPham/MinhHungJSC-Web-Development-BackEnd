@@ -31,7 +31,7 @@
     input[type="checkbox"]:checked{
       appearance: none;
       -webkit-appearance: none;
-      background-color: #228B22;
+      background-color: var(--Positive-Green);
       height: 18px;
       width: 18px;
       align-items: center;
@@ -42,12 +42,12 @@
       display: block;
     }
     #dlt-product-img{color: var(--Delete-Red);}
-    #dlt-product-img:hover{color: #563434;}
+    #dlt-product-img:hover{color: var(--Delete-Red-Hover);}
     #dlt-product-vid{color: var(--Delete-Red);}
-    #dlt-product-vid:hover{color: #563434;}
+    #dlt-product-vid:hover{color: var(--Delete-Red-Hover);}
     .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
-    #download-video-btn{color: #228B22;}
-    #download-video-btn:hover{color: #563434;}
+    #download-video-btn{color: var(--Positive-Green);}
+    #download-video-btn:hover{color: var(--Positive-Green-Hover);}
     .card-title{
       color: #ffffff;
       font-size: 1.2rem;
@@ -67,7 +67,7 @@
     .fa-plus:hover{
       color: #333;
     }
-  </style>
+  </style>&nbsp;
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -100,7 +100,7 @@
             </div>
         @endif
         @if (Session::has('success_message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Positive-Green); background-color: #ffffff; border: 1px solid var(--Positive-Green)">
               {{ Session::get('success_message') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -130,7 +130,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="section_id">Thể Loại Cấp (0)</label>
+                    <label for="section_id">&nbsp;Thể Loại Cấp (0)</label>
                     <select name="category_id" id="category_id" class="form-control select2" style="width: 100%;">
                       <option value="">Chọn danh mục...</option>
                       @foreach($categories as $section)
@@ -145,7 +145,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="product_name">Tên Sản Phẩm</label>
+                    <label for="product_name">&nbsp;Tên Sản Phẩm</label>
                     <input type="text" class="form-control" name="product_name" id="product_name" placeholder="nhập tên..."
                     @if (!empty($productdata['product_name'])) value="{{ $productdata['product_name'] }}"
                     @else value="{{ old("product_name") }}"
@@ -154,14 +154,14 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="product_code">Mã Sản Phẩm</label>
+                    <label for="product_code">&nbsp;Mã Sản Phẩm</label>
                     <input type="text" class="form-control" name="product_code" id="product_code" placeholder="nhập mã..."
                     @if (!empty($productdata['product_code'])) value="{{ $productdata['product_code'] }}"
                     @else value="{{ old("product_code") }}"
                     @endif>
                   </div>
                   <div class="form-group">
-                    <label for="product_weight">Trọng Lượng Sản Phẩm [Kg]</label>
+                    <label for="product_weight">&nbsp;Trọng Lượng Sản Phẩm [Kg]</label>
                     <input type="number"  type="number" min="0" class="form-control" name="product_weight" id="product_weight" placeholder="nhập trọng lượng..."
                     @if (!empty($productdata['product_weight'])) value="{{ $productdata['product_weight'] }}"
                     @else value="{{ old("product_weight") }}"
@@ -173,7 +173,7 @@
               <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="product_price">Giá Sản Phẩm (1000000 &#8594; 1,000,000) [VND]</label>
+                  <label for="product_price">&nbsp;Giá Sản Phẩm (1000000 &#8594; 1,000,000) [VND]</label>
                   <input type="number" min="0" class="form-control" name="product_price" id="product_price" placeholder="nhập giá..."
                   @if (!empty($productdata['product_price'])) value="{{ $productdata['product_price'] }}"
                   @else value="{{ old("product_price") }}"
@@ -182,7 +182,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                    <label for="product_discount">Giảm Giá Sản Phẩm [%]</label>
+                    <label for="product_discount">&nbsp;Giảm Giá Sản Phẩm [%]</label>
                   <input type="number" min="0" max="100" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
                   @if (!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}"
                   @else value="{{ old("product_discount") }}"
@@ -195,7 +195,7 @@
                 <div class="col-12 col-sm-6">
                   <!-- /.form-group -->
                   <div class="form-group">
-                    <label for="exampleInputFile">Hình Ảnh Sản Phẩm</label>
+                    <label for="exampleInputFile">&nbsp;Hình Ảnh (Cấp 0)</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" name="main_image" id="main_image" accept="image/*">
@@ -206,13 +206,13 @@
                     <div style="padding-top: 10px"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
                       &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
                     </div>
-                    @else  <div style="color: grey">Độ phân giải đề xuất (750x650)</div>
+                    @else  <div style="color: grey">&nbsp;Độ phân giải đề xuất (750x650)</div>
                     @endif
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="exampleInputFile">Video Demo Sản Phẩm</label>
+                    <label for="exampleInputFile">&nbsp;Video Demo Sản Phẩm</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" name="product_video" id="product_video" accept="video/mp4,video/x-m4v,video/*">
@@ -226,29 +226,29 @@
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="product_description">Mô Tả Sản Phẩm</label>
+                    <label for="product_description">&nbsp;Mô Tả Sản Phẩm</label>
                     <textarea name="product_description" id="product_description" class="form-control" rows="3" placeholder=" nhập mô tả sản phẩm...">@if (!empty($productdata['product_description'])) {{ $productdata['product_description'] }}@else {{ old("product_description") }}@endif
                     </textarea>
                 </div>
                   <div class="form-group">
-                    <label for="meta-title">Metadata Title [SEO]</label>
+                    <label for="meta-title">&nbsp;Metadata Title [SEO]</label>
                     <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($productdata['meta_title'])) {{ $productdata['meta_title'] }}@else {{ old("meta_title") }}@endif
                   </textarea>
                 </div>
                   <div class="form-group">
-                    <label for="is_featured">Sản Phẩm Nổi Bật: Có/Không</label>
+                    <label for="is_featured">&nbsp;Sản Phẩm Nổi Bật: Có/Không</label>
                     <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if(!empty($productdata['is_featured']) && $productdata['is_featured']=="Yes") checked="" @endif>
                   </textarea>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="meta_keywords">Metadata Keywords [SEO]</label>
+                    <label for="meta_keywords">&nbsp;Metadata Keywords [SEO]</label>
                     <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO...">@if (!empty($productdata['meta_keywords'])) {{ $productdata['meta_keywords'] }}@else {{ old("meta_keywords") }}@endif
                   </textarea>
                 </div>
                   <div class="form-group">
-                      <label for="meta_description">Metadata Description [SEO]</label>
+                      <label for="meta_description">&nbsp;Metadata Description [SEO]</label>
                       <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO...">@if (!empty($productdata['meta_description'])) {{ $productdata['meta_description'] }}@else {{ old("meta_description") }}@endif
                     </textarea>
                   </div>

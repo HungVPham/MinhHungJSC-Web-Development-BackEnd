@@ -16,7 +16,9 @@
   <!-- tabbar icon -->
   <link rel = "icon" href="{{ asset('images/admin_images/logo.png') }}" type="image/x-icon"> 
   <style>
-      .fas{color: #cb1c22;}
+      .fas{color: var(--MinhHung-Red); border-color: var(--MinhHung-Red);}
+      .input-group-append{border-color: var(--MinhHung-Red)}
+      .input-group-append:focus{border-color: var(--MinhHung-Red);}
       #admin-btn-login{margin: none !important; height: 2.5rem; font-size: 1.0rem;}
       #btn-wrapper{margin-bottom: none !important;}
       .login-card-body,.register-card-body{padding-bottom: 10px !important;}
@@ -33,16 +35,16 @@
       <p class="login-box-msg">Đăng nhập để bắt đầu</p>
 
       @if(Session::has('error_message'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border: 1px solid var(--Delete-Red); background-color: #ffffff; color: var(--Delete-Red)">
           {{ Session::get('error_message') }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color: var(--Delete-Red)">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
       @endif
 
       @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" style="border: 1px solid var(--Delete-Red); background-color: #ffffff; color: var(--Delete-Red)">
           <ul>
             @foreach ($errors->all() as $error)
               <li>{{ $error }}</li>
@@ -61,7 +63,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input name="password" id="password" type="password" class="form-control" placeholder="Password">
+          <input name="password" id="password" type="password" class="form-control" placeholder="Mật Khẩu">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

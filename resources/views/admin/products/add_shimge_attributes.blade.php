@@ -8,8 +8,10 @@
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
     /* Add/Remove Attributes Array Btns */
-    .remove_button3{color: #cb1c22;}
-    .remove_button3:hover{color: #563434;}
+    .remove_button3{color: var(--Delete-Red);}
+    .remove_button3:hover{color: var(--Delete-Red-Hover);}
+    .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
+    .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
     .card-title{
       color: #ffffff;
       font-size: 1.2rem;
@@ -32,11 +34,26 @@
     #admin-btn{
       background-color: var(--Shimge-Blue);
     }
+    #admin-btn:hover{
+      background-color: var(--Shimge-Blue-Hover) !important;
+    }
     #add-atr-ic{
       color: var(--Shimge-Blue);
     }
     #add-atr-ic:hover{
-      color: #563434;
+      color: var(--Shimge-Blue-Hover);
+    }
+    #deleteShimgeAttributes{
+      color: var(--Delete-Red);
+    }
+    #deleteShimgeAttributes:hover{
+      color: var(--Delete-Red-Hover);
+    }
+    #active:hover{
+      color: #4c5158 !important;
+    }
+    #inactive:hover{
+      color: #4c5158 !important;
     }
   </style>
   <div class="content-wrapper">
@@ -62,7 +79,7 @@
     <section class="content">
       <div class="container-fluid">
         @if ($errors->any())
-            <div class="alert alert-danger" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+            <div class="alert alert-danger" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
@@ -71,7 +88,7 @@
             </div>
         @endif
         @if (Session::has('success_message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Positive-Green); background-color: #ffffff; border: 1px solid var(--Positive-Green)">
               {{ Session::get('success_message') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -90,14 +107,14 @@
           method="post" action="{{ url('admin/add-shimge-attributes/'.$productdata['id']) }}">@csrf
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title">{{ $title }} <strong>[Máy Bơm Thủy Lực]</strong></h3>
+              <h3 class="card-title">{{ $title }}</h3>
 
-              <div class="card-tools">
+              {{-- <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
 
-              </div>
+              </div> --}}
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -151,14 +168,13 @@
             <form name="editShimgeAttributeForm" id="editShimgeAttributeForm" method="post" action="{{ url('admin/edit-shimge-attributes/'.$productdata['id']) }}">@csrf
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Sản Phẩm Cấp (1) của <Strong>[{{ $productdata['product_name'] }}]</Strong></h3>
+                <h3 class="card-title">Sản Phẩm Cấp (1)</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Nguồn Điện</th>
                     <th>Công Suất</th>
                     <th>Lưu Lượng</th>
@@ -168,6 +184,7 @@
                     <th>Mã SKU</th>
                     <th>Giá Bán</th>
                     <th>Tồn Kho</th>
+                    <th>Trạng Thái</th>
                     <th>Hành Động</th>
                   </tr>
                   </thead>
@@ -175,7 +192,6 @@
                   @foreach($productdata['shimge_attributes'] as $ShimgeAttributes)
                   <input style="display: none;" type="text" name="attrId[]" value="{{ $ShimgeAttributes['id'] }}">
                   <tr>
-                    <td>{{ $ShimgeAttributes['id'] }}</td>
                     <td>
                       @if(!empty($ShimgeAttributes['voltage']))
                       {{ $ShimgeAttributes['voltage'] }}&nbsp;[V]
@@ -213,7 +229,7 @@
                     </td>
                     <td>
                       @if(!empty($ShimgeAttributes['outdiameter']))
-                      {{ $ShimgeAttributes['indiameter'] }}&nbsp;[mm]
+                      {{ $ShimgeAttributes['outdiameter'] }}&nbsp;[mm]
                       @else 
                       <i>không có dữ liệu</i>
                       @endif 
@@ -229,8 +245,16 @@
                     <td>
                       <input style="width: 50%;" type="number" min="0" name="stock[]" value="{{ $ShimgeAttributes['stock'] }}" required=""> [Cái]
                     </td>
-                    <td>
-                    </td>
+                    <td style="width: 125px;">
+                      @if ($ShimgeAttributes['status']==1)
+                      <a class="updateShimgeAttributesStatus" id="ShimgeAttributes-{{ $ShimgeAttributes['id'] }}" ShimgeAttributes_id="{{ $ShimgeAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green); font-size: 1.05rem;"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                      @elseif ($ShimgeAttributes['status']==0)
+                      <a class="updateShimgeAttributesStatus" id="ShimgeAttributes-{{ $ShimgeAttributes['id'] }}" ShimgeAttributes_id="{{ $ShimgeAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red); font-size: 1.05rem;"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                      @endif
+                  </td>
+                  <td style="width: 50px;">
+                      <a title="xóa sản phẩm cấp (1)" href="javascript:void(0)" class="confirmDelete" record="shimgeattributes" recordid="{{ $ShimgeAttributes['id'] }}" id="deleteShimgeAttributes"><i class="fas fa-trash"></i></a>
+                  </td>
                   </tr>
                   @endforeach
                   </tbody>

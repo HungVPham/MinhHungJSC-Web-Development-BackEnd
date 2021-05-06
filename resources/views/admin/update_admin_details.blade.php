@@ -50,7 +50,7 @@
                 </div>
                 @endif
                 @if(Session::has('success_message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22; margin-top: 10px;">
                   {{ Session::get('success_message') }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -58,7 +58,7 @@
                 </div>
                 @endif
                 @if ($errors->any())
-                    <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
+                    <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -70,26 +70,29 @@
               <form role="form" method="post" action="{{ url('/admin/update-admin-details') }}" name="updateAdminDetails" id="updateAdminDetails" style="border: 1px solid var(--MinhHung-Red)" enctype="multipart/form-data">@csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email Quản Lý</label>
+                    <label for="exampleInputEmail1">&nbsp;Email Quản Lý</label>
                     <input class="form-control" value="{{ Auth::guard('admin')->user()->email }}" readonly="">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Loại Quản Lý</label>
+                    <label for="exampleInputEmail1">&nbsp;Loại Quản Lý</label>
                     <input class="form-control" value="{{ Auth::guard('admin')->user()->type }}" readonly="">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Tên Quản Lý</label>
+                    <label for="exampleInputPassword1">&nbsp;Tên Quản Lý</label>
                     <input type="text" class="form-control" name="admin_name" id="admin_name" placeholder="Nhập tên quản lý" value="{{ Auth::guard('admin')->user()->name }}" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Số Điện Thoại</label>
+                    <label for="exampleInputPassword1">&nbsp;Số Điện Thoại</label>
                     <input type="text" class="form-control" name="admin_mobile" id="admin_mobile" placeholder="Nhập số điện thoại" value="{{ Auth::guard('admin')->user()->mobile }}" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Hình Ảnh Đại Diện</label>
-                    <input type="file" class="form-control" name="admin_image" id="admin_image" accept="image/*">
+                    <label for="exampleInputPassword1">&nbsp;Hình Ảnh Đại Diện</label>
+                    <div class="custom-file">
+                    <input class="custom-file-input" type="file" name="admin_image" id="admin_image" accept="image/*">
+                    <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
+                    </div>
                     @if(!empty(Auth::guard('admin')->user()->image))
-                      <a id="AdminPhotoNav" target="_blank" href=" {{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}">Xem ảnh</a>
+                      <a id="AdminPhotoNav" target="_blank" href=" {{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}">&nbsp;Xem ảnh</a>
                       <input type="hidden" name="current_admin_image" value="{{ Auth::guard('admin')->user()->image }}">
                     @endif
                   </div>
