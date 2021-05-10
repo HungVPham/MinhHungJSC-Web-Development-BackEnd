@@ -114,7 +114,7 @@
             action="{{ url('admin/add-edit-product/'.$productdata['id']) }}" 
           @endif
           method="post" enctype="multipart/form-data">@csrf
-          <div class="card card-default">
+          <div class="card card-default" style="margin-bottom: 0 !important">
             <div class="card-header">
               <h3 class="card-title">{{ $title }}</h3>
 
@@ -263,7 +263,7 @@
             </div>
             </div>
             <!-- /.card -->
-          </div>
+          </div><div style="color: #f4f6f9; font-size: 0.5rem; margin: none; padding: none;">dummy text margin</div>
         </div>
         <!-- /.row -->
       </div>

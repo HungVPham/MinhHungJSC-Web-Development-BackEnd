@@ -165,7 +165,7 @@
             </div>
 
             <form name="editMaxproAttributeForm" id="editMaxproAttributeForm" method="post" action="{{ url('admin/edit-maxpro-attributes/'.$productdata['id']) }}">@csrf
-              <div class="card">
+              <div class="card" style="margin-bottom: 0 !important">
                 <div class="card-header">
                   <h3 class="card-title">Sản Phẩm Cấp (1)</h3>
                 </div>
@@ -238,7 +238,7 @@
               </div>
             </form>
             <!-- /.card -->
-          </div>
+          </div><div style="color: #f4f6f9; font-size: 0.5rem; margin: none; padding: none;">dummy text margin</div>
         </div>
         <!-- /.row -->
       </div>

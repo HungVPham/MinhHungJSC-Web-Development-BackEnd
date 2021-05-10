@@ -8,6 +8,7 @@ use App\Product;
 use Session;
 use App\Section;
 use App\Category;
+use App\ProductsImage;
 use Image;
 use App\MaxproProductAttributes;
 use App\HhoseProductAttributes;
@@ -403,6 +404,19 @@ class ProductController extends Controller
         }
     }
 
+    public function updateImageStatus(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            if($data['status']=="đang hoạt động"){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            ProductsImage::where('id',$data['Image_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status,'Image_id'=>$data['Image_id']]);
+        }
+    }
+
     public function deleteMaxproAttributes($id){
         // delete product attribute 
         MaxproProductAttributes::where('id',$id)->delete();
@@ -430,7 +444,64 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    public function addImages($id){
+    public function deleteImage($id){
+        // delete product attribute 
+        $productImage = ProductsImage::select('image')->where('id',$id)->first();
+
+        // Get Product Image path
+        $small_image_path = 'images/product_images/main_image/small/';
+        $medium_image_path = 'images/product_images/main_image/medium/';
+        $large_image_path = 'images/product_images/main_image/large/';
+
+        // Delete small Product Image from product folder if exists
+        if(file_exists($small_image_path.$productImage->image)){
+           unlink($small_image_path.$productImage->image);
+        }
+
+         // Delete medium Product Image from product folder if exists
+        if(file_exists($medium_image_path.$productImage->image)){
+            unlink($medium_image_path.$productImage->image);
+        }
+
+         // Delete large Product Image from product folder if exists
+         if(file_exists($large_image_path.$productImage->image)){
+            unlink($large_image_path.$productImage->image);
+        }
+
+        // Delete Product Images from product_images table
+        ProductsImage::where('id',$id)->delete();
+
+        $message = 'Hình ảnh sản phẩm cấp (1) đã được xóa thành công!';
+        session::flash('success_message',$message);
+        return redirect()->back();
+    }
+
+    public function addImages(Request $request, $id){
+        if($request->isMethod('post')){
+            if($request->hasFile('images')){
+                $images = $request->file('images');
+                // echo "<pre>"; print_r($images); die;
+                foreach ($images as $key => $image) {
+                    $productImage = new ProductsImage;
+                    $image_tmp = Image::make($image);
+                    // $originalName = $image->getClientOriginalName();
+                    $extension = $image->getClientOriginalExtension();
+                    $imageName =  rand(1,999999).time().".".$extension;
+                    $large_image_path = 'images/product_images/main_image/large/'.$imageName;
+                    $medium_image_path = 'images/product_images/main_image/medium/'.$imageName;
+                    $small_image_path = 'images/product_images/main_image/small/'.$imageName;
+                    Image::make($image_tmp)->resize(750,650)->save($large_image_path);
+                    Image::make($image_tmp)->resize(450,450)->save($medium_image_path);
+                    Image::make($image_tmp)->resize(225,225)->save($small_image_path);
+                    $productImage->image = $imageName;
+                    $productImage->product_id = $id;
+                    $productImage->save();
+                }
+                $message = 'Hình ảnh cấp (1) đã được thêm thành công!';
+                session::flash('success_message',$message);
+                return redirect()->back();
+            }
+        }
         $productdata = Product::with('images')->select('id', 'product_code', 'product_name', 'product_weight', 'main_image', 'section_id')->find($id);
         $productdata = json_decode(json_encode($productdata), true);
         // echo "<pre>"; print_r($productdata); die;

@@ -50,7 +50,7 @@
                 </div>
                 @endif
                 @if(Session::has('success_message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22; margin-top: 10px;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Positive-Green); background-color: #ffffff; border: 1px solid var(--Positive-Green); margin-top: 10px;">
                   {{ Session::get('success_message') }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

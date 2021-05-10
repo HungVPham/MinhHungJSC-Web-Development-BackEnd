@@ -10,9 +10,9 @@ $(document).ready(function(){
             data:{current_pwd:current_pwd},
             success:function(resp){
                 if(resp=="false"){
-                    $('#checkCurrentPwd').html("<font color=var(--Delete-Red)>Mật Khẩu Hiện Tại Sai</font>");
+                    $('#checkCurrentPwd').html("<span style='color: var(--Delete-Red);'>&nbsp;mật khẩu hiện tại sai</span>");
                 }else if(resp=="true"){
-                    $('#checkCurrentPwd').html("<font color=#333>Mật Khẩu Hiện Tại Đúng</font>");
+                    $('#checkCurrentPwd').html("<span style='color: var(--Positive-Green);'>&nbsp;mật khẩu hiện tại đúng</span>");
                 }
             },error:function(){
                 alert("Error");
@@ -44,6 +44,39 @@ $(document).ready(function(){
                         $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
                     }else if(resp['status']==1){
                         $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                    }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
+            }
+        });
+    });
+
+      // Update Brand Status
+      $(document).on("click", ".updateBrandStatus", function(){
+        var status = $(this).text();
+        var brand_id = $(this).attr("brand_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'post',
+                url:'/admin/update-brand-status',
+                data:{status:status,brand_id:brand_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                    }else if(resp['status']==1){
+                        $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
                     }
                     },error:function(){
                         alert("Error");
@@ -244,6 +277,39 @@ $(document).ready(function(){
                                 $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
                             }else if(resp['status']==1){
                                 $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                            }
+                            },error:function(){
+                                alert("Error");
+                            }
+                        })
+                    }
+                });
+            });
+
+            // Update Image Status 
+        $(document).on("click", ".updateImageStatus", function(){
+            var status = $(this).text();
+            var Image_id = $(this).attr("Image_id");
+            Swal.fire({
+                title: 'Xác nhận thay đổi trạng thái?',
+                text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--Positive-Green)',
+                cancelButtonColor: 'var(--Delete-Red)',
+                confirmButtonText: 'Thay đổi!',
+                cancelButtonText: 'Không thay đổi.'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/update-image-status',
+                        data:{status:status,Image_id:Image_id},
+                        success:function(resp){
+                            if(resp['status']==0){
+                                $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                            }else if(resp['status']==1){
+                                $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
                             }
                             },error:function(){
                                 alert("Error");

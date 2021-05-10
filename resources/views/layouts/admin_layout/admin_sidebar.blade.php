@@ -101,7 +101,7 @@
           </li>
 
           <!-- Catalouges -->
-          @if(Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="products")
+          @if(Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="products" || Session::get('page')=="brands")
               <?php $active = "active"; ?>
             @else
               <?php $active = ""; ?>
@@ -115,16 +115,42 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              @if(Session::get('page')=="sections")
-                <?php $active = "active"; ?>
+              @if(Session::get('page')=="sections" || Session::get('page')=="brands")
+              <?php $active = "active"; ?>
               @else
-                <?php $active = ""; ?>
+              <?php $active = ""; ?>
               @endif
-              <li class="nav-item">
-                <a href="{{ url('admin/sections') }}" class="nav-link {{ $active }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Danh Mục Sản Phẩm</p>
+              <li class="nav-item menu-open">
+                <a href="#" class="nav-link {{ $active }}">
+                  <p>
+                    Danh Mục - Thương Hiệu
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
                 </a>
+                <ul class="nav nav-treeview">
+                @if(Session::get('page')=="sections")
+                  <?php $active = "active"; ?>
+                @else
+                  <?php $active = ""; ?>
+                @endif
+                <li class="nav-item">
+                  <a href="{{ url('admin/sections') }}" class="nav-link {{ $active }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Danh Mục</p>
+                  </a>
+                </li>
+                @if(Session::get('page')=="brands")
+                  <?php $active = "active"; ?>
+                @else
+                  <?php $active = ""; ?>
+                @endif
+                <li class="nav-item">
+                  <a href="{{ url('admin/brands') }}" class="nav-link {{ $active }} subtab">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Thương Hiệu</p>
+                  </a>
+                </li>
+                </ul>
               </li>
               @if(Session::get('page')=="categories")
                 <?php $active = "active"; ?>
@@ -134,7 +160,7 @@
               <li class="nav-item">
                 <a href="{{ url('admin/categories') }}" class="nav-link {{ $active }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thể Loại Sản Phẩm</p>
+                  <p>Thể Loại</p>
                 </a>
               </li>
               @if(Session::get('page')=="products")

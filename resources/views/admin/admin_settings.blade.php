@@ -50,7 +50,7 @@
                 </div>
               @endif
               @if(Session::has('success_message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Postive-Green); background-color: #ffffff; border: 1px solid var(--Postive-Green); margin-top: 10px;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: var(--Positive-Green); background-color: #ffffff; border: 1px solid var(--Positive-Green); margin-top: 10px;">
                   {{ Session::get('success_message') }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -60,10 +60,6 @@
               <!-- form start -->
               <form role="form" method="post" action="{{ url('/admin/update-current-pwd') }}" name="updatePasswordForm" id="updatePasswordForm" style="border: 1px solid var(--MinhHung-Red)">@csrf
                 <div class="card-body">
-                  <?php /*<div class="form-group">
-                    <label for="exampleInputEmail1">Tên Quản Lý Viên</label>
-                    <input type="text" class="form-control" value="{{ $adminDetails->name }}" placeholder="Nhập tên quản lý viên" id="admin_name" name="admin_name">
-                  </div> */ ?>
                   <div class="form-group">
                     <label for="exampleInputEmail1">&nbsp;Email Quản Lý</label>
                     <input class="form-control" value="{{ $adminDetails->email }}" readonly="">
@@ -75,7 +71,7 @@
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Mật Khẩu Hiện Tại</label>
                     <input type="password" class="form-control" name="current_pwd" id="current_pwd" placeholder="Nhập mật khẩu hiện tại" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
-                    <!-- <span id="checkCurrentPwd"></span> -->
+                    <span id="checkCurrentPwd"></span>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Mật Khẩu Mới</label>
