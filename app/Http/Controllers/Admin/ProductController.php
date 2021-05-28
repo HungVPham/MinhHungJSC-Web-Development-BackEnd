@@ -13,6 +13,7 @@ use Image;
 use App\MaxproProductAttributes;
 use App\HhoseProductAttributes;
 use App\ShimgeProductAttributes;
+use App\Brand;
 
 
 class ProductController extends Controller
@@ -43,7 +44,7 @@ class ProductController extends Controller
     }
 
     public function deleteProduct($id){
-        // delete Product 
+        // Delete Product 
         Product::where('id',$id)->delete();
 
         $message = 'Sản phẩm đã được xóa thành công!';
@@ -71,18 +72,20 @@ class ProductController extends Controller
             // echo "<pre>"; print_r($data); die;
 
              // Product Validations
-             $rules = [
+            $rules = [
                 'product_name' => 'required',
                 'category_id' => 'required',
                 'product_code' => 'required|regex:/^[\w-]*$/',
+                'brand_id' => 'required',
                 // 'main_image' => 'required',
             ];  
             $customMessages = [
                 'category_id.required' => 'Vui lòng chọn thể loại sản phẩm.',
-                'product_name.required' => 'Vui lòng đặt tên cho sản phẩm.',
-                //'main_image.required' => 'Vui lòng chọn hình ảnh đại diện cho SP.',
-                'product_code.required' => 'Vui lòng đăt mã cho sản phẩm.',
-                'product_code.regex' => 'Vui lòng đạt mã hợp lệ cho sản phẩm. Ví dụ: SGP01, MP01, SPF01,...',
+                'product_name.required' => 'Vui lòng đặt tên sản phẩm.',
+                'brand_id.required' => 'Vui lòng chọn thương hiệu sản phẩm.',
+                //'main_image.required' => 'Vui lòng chọn hình ảnh đại diện SP.',
+                'product_code.required' => 'Vui lòng đăt mã sản phẩm.',
+                'product_code.regex' => 'Vui lòng đạt mã hợp lệ sản phẩm. Ví dụ: SGP01, MP01, SPF01,...',
             ];
             $this->validate($request, $rules, $customMessages);
 
@@ -128,6 +131,7 @@ class ProductController extends Controller
             $product->section_id = $categoryDetails['section_id'];
             $product->category_id = $data['category_id'];
             $product->product_name = $data['product_name'];
+            $product->brand_id = $data['brand_id'];
             $product->product_weight = $data['product_weight'];
             $product->product_code = $data['product_code'];
             $product->product_price = $data['product_price'];
@@ -146,8 +150,12 @@ class ProductController extends Controller
         $categories = Section::with('categories')->get();
         $categories = json_decode(json_encode($categories), true);
 
+        // Get all Brands
+        $brands = Brand::where('status', 1)->get();
+        $brands = json_decode(json_encode($brands), true);
 
-        return view('admin.products.add_edit_product')->with(compact('title', 'categories', 'productdata',));
+
+        return view('admin.products.add_edit_product')->with(compact('title', 'categories', 'productdata', 'brands'));
     }   
 
     public function deleteProductImage($id){
@@ -243,11 +251,11 @@ class ProductController extends Controller
             // echo "<pre>"; print_r( $data); die;
             foreach ($data['sku'] as $key => $value){
                 if(empty($data['hhose_spflex_embossed'])){
-                    $data['hhose_spflex_embossed'][$key] = "No";
+                    $data['hhose_spflex_embossed'][$key] = "";
                 }
         
                 if(empty($data['hhose_spflex_smoothtexture'])){
-                    $data['hhose_spflex_smoothtexture'][$key] = "No";
+                    $data['hhose_spflex_smoothtexture'][$key] = "";
                 }
                 if(!empty($value)){
 

@@ -22,6 +22,7 @@
       justify-content: center;
       display: flex;
       float: right;
+      margin-top: 7px;
     }
     input[type="checkbox"]:after{
       font-family: "Font Awesome 5 Free";
@@ -78,7 +79,7 @@
     }
     #admin-btn:hover{
       background-color: var(--Hhose-Yellow-Hover) !important;
-      color: #ffffff;
+      color: #000000 !important; 
     }
     #add-atr-ic{
       color: var(--Hhose-Yellow);
@@ -170,7 +171,12 @@
                             <label for="product_code">Mã SP: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
+                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">
+                              @if(!empty($productdata['product_weight']))
+                              &nbsp;{{ $productdata['product_weight'] }}&nbsp;[Kg]
+                              @else 
+                              <i>&nbsp;không có dữ liệu</i>
+                              @endif</p></label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -186,18 +192,19 @@
                       <div class="form-group">
                         <div class="field_wrapper2">
                           <div>
-                            <input name="diameter[]" placeholder="đường kính [Inch]" value="" id="diameter[]" style="width: 130px;" type="text" name="diameter[]"/>
+                            <input id="diameter[]" name="diameter[]" type="text" name="diameter[]" value="" placeholder="đường kính [Inch]" style="width: 130px;"/>
                             <input required id="sku"  name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px;"/>
                             <input required id="price"  name="price[]" type="number" min="0" name="price[]" value="" placeholder="giá bán" style="width: 100px;"/>
                             <input required id="stock"  name="stock[]" type="number" min="0" name="stock[]" value="" placeholder="tồn kho" style="width: 100px;"/>
                             <div style="width: 100%; margin-top: 10px;">
-                                <label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_embossed">Da Trơn: Có/Không</label>
-                                <input id="hhose_spflex_embossed"  name="hhose_spflex_embossed[]" type="checkbox" name="hhose_spflex_embossed[]" value="Yes"/></div>
-                                <div style="width: 100%;">
+                                <label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_embossed">Chữ Nổi: Có/Không</label>
+                                <input id="hhose_spflex_embossed"  name="hhose_spflex_embossed[]" type="checkbox" name="hhose_spflex_embossed[]" value="Yes"/>
+                            </div>
+                            <div style="width: 100%;">
                                 <label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_smoothtexture">Da Trơn: Có/Không</label>
                                 <input id="hhose_spflex_smoothtexture"  name="hhose_spflex_smoothtexture[]" type="checkbox" name="hhose_spflex_smoothtexture[]" value="Yes"/>
                             </div>
-                              <a href="javascript:void(0);" class="add_button2" title="thêm dòng dữ liệu"><i id="add-atr-ic" class="fas fa-plus"></i></a>
+                              {{-- <a href="javascript:void(0);" class="add_button2" title="thêm dòng dữ liệu"><i id="add-atr-ic" class="fas fa-plus"></i></a> --}}
                           </div>
                         </div>
                       </div>
@@ -220,9 +227,8 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Đường Kính</th>
-                    <th>In Nổi</th>
+                    <th>Chữ Nổi</th>
                     <th>Da Trơn</th>
                     <th>Mã SKU</th>
                     <th>Giá Bán</th>
@@ -235,7 +241,6 @@
                   @foreach($productdata['hhose_attributes'] as $HhoseAttributes)
                   <input style="display: none;" type="text" name="attrId[]" value="{{ $HhoseAttributes['id'] }}">
                   <tr>
-                    <td>{{ $HhoseAttributes['id'] }}</td>
                     <td>
                       @if(!empty($HhoseAttributes['diameter']))
                       {{ $HhoseAttributes['diameter'] }}&nbsp;[Inch]
@@ -259,20 +264,20 @@
                     </td>
                     <td>{{ $HhoseAttributes['sku'] }}</td>
                     <td>
-                      <input style="width: 50%;" type="number" min="0"  name="price[]" value="{{ $HhoseAttributes['price'] }}" required=""> = <?php 
+                      <input disabled style="width: 50%;" type="number" min="0"  name="price[]" value="{{ $HhoseAttributes['price'] }}" required=""> = <?php 
                       $num = $HhoseAttributes['price'];
                       $format = number_format($num);
                       echo $format;
                       ?> [VNĐ]
                     </td>
                     <td>
-                      <input style="width: 50%;" type="number" min="0"  name="stock[]" value="{{ $HhoseAttributes['stock'] }}" required=""> [Cái]
+                      <input disabled style="width: 50%;" type="number" min="0"  name="stock[]" value="{{ $HhoseAttributes['stock'] }}" required=""> [Cái]
                     </td>
-                    <td style="width: 125px;">
+                    <td style="width: 135px;">
                       @if ($HhoseAttributes['status']==1)
-                      <a class="updateHhoseAttributesStatus" id="HhoseAttributes-{{ $HhoseAttributes['id'] }}" HhoseAttributes_id="{{ $HhoseAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green); font-size: 1.05rem;"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                      <a class="updateHhoseAttributesStatus" id="HhoseAttributes-{{ $HhoseAttributes['id'] }}" HhoseAttributes_id="{{ $HhoseAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green); font-size: 1.05rem;"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
                       @elseif ($HhoseAttributes['status']==0)
-                      <a class="updateHhoseAttributesStatus" id="HhoseAttributes-{{ $HhoseAttributes['id'] }}" HhoseAttributes_id="{{ $HhoseAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red); font-size: 1.05rem;"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                      <a class="updateHhoseAttributesStatus" id="HhoseAttributes-{{ $HhoseAttributes['id'] }}" HhoseAttributes_id="{{ $HhoseAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red); font-size: 1.05rem;"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                       @endif
                   </td>
                   <td style="width: 50px;">
@@ -285,7 +290,7 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Cập Nhật SP (Cấp 1)</button>
+                <button disabled type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Cập Nhật SP (Cấp 1)</button>
               </div>
             </div>
             </form>

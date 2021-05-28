@@ -41,9 +41,9 @@ $(document).ready(function(){
                 data:{status:status,section_id:section_id},
                 success:function(resp){
                     if(resp['status']==0){
-                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                     }else if(resp['status']==1){
-                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                        $("#section-"+section_id).html("<a class='updateSectionStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                     }
                     },error:function(){
                         alert("Error");
@@ -74,9 +74,9 @@ $(document).ready(function(){
                 data:{status:status,brand_id:brand_id},
                 success:function(resp){
                     if(resp['status']==0){
-                        $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                        $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                     }else if(resp['status']==1){
-                        $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                        $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                     }
                     },error:function(){
                         alert("Error");
@@ -107,9 +107,9 @@ $(document).ready(function(){
                 data:{status:status,category_id:category_id},
                 success:function(resp){
                     if(resp['status']==0){
-                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                     }else if(resp['status']==1){
-                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                        $("#category-"+category_id).html("<a class='updateCategoryStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                     }
                     },error:function(){
                         alert("Error");
@@ -140,9 +140,9 @@ $(document).ready(function(){
                     data:{status:status,product_id:product_id},
                     success:function(resp){
                         if(resp['status']==0){
-                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                         }else if(resp['status']==1){
-                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                         }
                         },error:function(){
                             alert("Error");
@@ -208,9 +208,9 @@ $(document).ready(function(){
                     data:{status:status,MaxproAttributes_id:MaxproAttributes_id},
                     success:function(resp){
                         if(resp['status']==0){
-                            $("#MaxproAttributes-"+MaxproAttributes_id).html("<a class='updateMaxproAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                            $("#MaxproAttributes-"+MaxproAttributes_id).html("<a class='updateMaxproAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                         }else if(resp['status']==1){
-                            $("#MaxproAttributes-"+MaxproAttributes_id).html("<a class='updateMaxproAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                            $("#MaxproAttributes-"+MaxproAttributes_id).html("<a class='updateMaxproAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                         }
                         },error:function(){
                             alert("Error");
@@ -241,9 +241,9 @@ $(document).ready(function(){
                         data:{status:status,HhoseAttributes_id:HhoseAttributes_id},
                         success:function(resp){
                             if(resp['status']==0){
-                                $("#HhoseAttributes-"+HhoseAttributes_id).html("<a class='updateHhoseAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                                $("#HhoseAttributes-"+HhoseAttributes_id).html("<a class='updateHhoseAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                             }else if(resp['status']==1){
-                                $("#HhoseAttributes-"+HhoseAttributes_id).html("<a class='updateHhoseAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                                $("#HhoseAttributes-"+HhoseAttributes_id).html("<a class='updateHhoseAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                             }
                             },error:function(){
                                 alert("Error");
@@ -274,9 +274,9 @@ $(document).ready(function(){
                         data:{status:status,ShimgeAttributes_id:ShimgeAttributes_id},
                         success:function(resp){
                             if(resp['status']==0){
-                                $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                                $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                             }else if(resp['status']==1){
-                                $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                                $("#ShimgeAttributes-"+ShimgeAttributes_id).html("<a class='updateShimgeAttributesStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                             }
                             },error:function(){
                                 alert("Error");
@@ -307,9 +307,9 @@ $(document).ready(function(){
                         data:{status:status,Image_id:Image_id},
                         success:function(resp){
                             if(resp['status']==0){
-                                $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='far fa-circle'> chưa hoạt động</i></a>");
+                                $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                             }else if(resp['status']==1){
-                                $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='far fa-check-circle'> đang hoạt động</i></a>");
+                                $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                             }
                             },error:function(){
                                 alert("Error");
@@ -346,7 +346,7 @@ $(document).ready(function(){
      var maxField = 10; //Input fields increment limitation
      var addButton2 = $('.add_button2'); //Add button selector
      var wrapper2 = $('.field_wrapper2'); //Input field wrapper
-     var fieldHTML2 = '<div style="margin-top: 10px;"><input placeholder="đường kính [Inch]" style="width: 130px;" type="text" name="diameter[]"/>&nbsp;<input required placeholder="mã SKU" style="width: 100px;" type="text" name="sku[]"/>&nbsp;<input required placeholder="giá bán" style="width: 100px;" type="number" min="0" name="price[]"/>&nbsp;<input placeholder="tồn kho" style="width: 100px;" type="number" min="0" required name="stock[]"/><div style="width: 100%; margin-top: 10px;"><label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_embossed">In nổi: Có/Không</label><input id="hhose_spflex_embossed"  name="hhose_spflex_embossed[]" type="checkbox" name="hhose_spflex_embossed[]"/></div><div style="width: 100%;"><label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_smoothtexture">Da Trơn: Có/Không</label><input id="hhose_spflex_smoothtexture"  name="hhose_spflex_smoothtexture[]" type="checkbox" name="hhose_spflex_smoothtexture[]"/></div><a href="javascript:void(0);" title="xóa dòng dữ liệu" class="remove_button2"><i class="fas fa-trash"></i></a></div>'; //New input field html 
+     var fieldHTML2 = '<div style="margin-top: 10px;"><input id="diameter[]" name="diameter[]" type="text" name="diameter[]" value="" placeholder="đường kính [Inch]" style="width: 130px;"/>&nbsp;<input required id="sku" name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px;"/>&nbsp;<input required id="price"  name="price[]" type="number" min="0" name="price[]" value="" placeholder="giá bán" style="width: 100px;"/>&nbsp;<input required id="stock" name="stock[]" type="number" min="0" name="stock[]" value="" placeholder="tồn kho" style="width: 100px;"/><div style="width: 100%; margin-top: 10px;"><label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_embossed">Chữ Nổi: Có/Không</label><input id="hhose_spflex_embossed"  name="hhose_spflex_embossed[]" type="checkbox" name="hhose_spflex_embossed[]" value="Yes"/></div><div style="width: 100%;"><label style="font-weight: 500; color: #5c5c5c" for="hhose_spflex_smoothtexture">Da Trơn: Có/Không</label> <input id="hhose_spflex_smoothtexture"  name="hhose_spflex_smoothtexture[]" type="checkbox" name="hhose_spflex_smoothtexture[]" value="Yes"/></div><a href="javascript:void(0);" title="xóa dòng dữ liệu" class="remove_button2"><i class="fas fa-trash"></i></a></div>'; //New input field html 
      var x = 1; //Initial field counter is 1
      
      //Once add button is clicked
@@ -369,7 +369,7 @@ $(document).ready(function(){
     var maxField = 10; //Input fields increment limitation
     var addButton3 = $('.add_button3'); //Add button selector
     var wrapper3 = $('.field_wrapper3'); //Input field wrapper
-    var fieldHTML3 = '<div style="margin-top: 10px;"><input placeholder="nguồn điện [V]" style="width: 125px; margin-top: 5px;" type="number" min="0" name="voltage[]"/>&nbsp;<input placeholder="công suất [W]" style="width: 125px; margin-top: 5px;" type="number" min="0" name="power[]"/>&nbsp;<input id="maxflow"  name="maxflow[]" type="number" min="0" name="maxflow[]" placeholder="lưu lượng [m³/h]" style="width: 135px; margin-top: 5px;"/>&nbsp;<input placeholder="đẩy cao [m]" style="width: 100px; margin-top: 5px;" type="number" min="0" name="vertical[]"/>&nbsp;<input placeholder="họng hút [mm]" style="width: 125px; margin-top: 5px;" type="number" min="0" name="indiameter[]"/>&nbsp;<input placeholder="họng xả [mm]" style="width: 125px; margin-top: 5px;" type="number" min="0" name="oudiameter[]"/>&nbsp;<input required placeholder="mã SKU" style="width: 100px; margin-top: 5px;" type="text" name="sku[]"/>&nbsp;<input required placeholder="giá bán" style="width: 100px; margin-top: 5px;" type="number" min="0" name="price[]"/>&nbsp;<input placeholder="tồn kho" style="width: 100px; margin-top: 5px;" type="number" min="0" required name="stock[]"/><a href="javascript:void(0);" title="xóa dòng dữ liệu" class="remove_button3">&nbsp;&nbsp;<i class="fas fa-trash"></i></a></div>'; //New input field html 
+    var fieldHTML3 = '<div style="margin-top: 10px;"><input id="voltage"  name="voltage[]" type="number" min="0" name="voltage[]" value="" placeholder="nguồn điện [V]" style="width: 125px; margin-top: 5px;"/>&nbsp;<input id="power"  name="power[]" type="number" min="0" name="power[]" value="" placeholder="công suất [W]" style="width: 125px; margin-top: 5px;"/>&nbsp;<input id="maxflow"  name="maxflow[]" type="number" min="0" step="0.1" name="maxflow[]" value="" placeholder="lưu lượng [m³/h]" style="width: 135px; margin-top: 5px;"/>&nbsp;<input id="vertical"  name="vertical[]" type="number" min="0" step="0.1" name="vertical[]" value="" placeholder="đẩy cao [m]" style="width: 100px; margin-top: 5px;"/>&nbsp;<input id="indiameter"  name="indiameter[]" type="number" min="0" name="indiameter[]" value="" placeholder="họng hút [mm]" style="width: 125px; margin-top: 5px;"/>&nbsp;<input id="outdiameter"  name="outdiameter[]" type="number" min="0" name="outdiameter[]" value="" placeholder="họng xả [mm]" style="width: 125px; margin-top: 5px;"/>&nbsp;<input required id="sku"  name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px; margin-top: 5px;"/>&nbsp;<input required id="price"  name="price[]" type="number" min="0" name="price[]" value="" placeholder="giá bán" style="width: 100px; margin-top: 5px;"/>&nbsp;<input required id="stock"  name="stock[]" type="number" min="0" name="stock[]" value="" placeholder="tồn kho" style="width: 100px; margin-top: 5px;"/><a href="javascript:void(0);" title="xóa dòng dữ liệu" class="remove_button3">&nbsp;&nbsp;<i class="fas fa-trash"></i></a></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     
     //Once add button is clicked

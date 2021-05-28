@@ -21,9 +21,7 @@
       color: #a09f9f;
     }
   </style>
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -38,9 +36,8 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-     <!-- Main content -->
      <section class="content">
       <div class="container-fluid">
         @if ($errors->any())
@@ -67,43 +64,34 @@
             action="{{ url('admin/add-edit-brand/'.$branddata['id']) }}" 
           @endif
             method="post" enctype="multipart/form-data">@csrf
-          <div class="card card-default" style="margin-bottom: 0 !important">
+          <div class="card card-default" style="margin-bottom: 0 !important; width: 50%">
             <div class="card-header">
               <h3 class="card-title">{{ $title }}</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
+              @if(empty($branddata['id']))
+              <p aria-hidden="true" id="required-description" style="width: 100%;">
+                <label><span aria-hidden="true" class="required">&nbsp;*</span></label> &nbsp;trường nhập bắt buộc
+              </p>
+              @endif
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                      <label for="name">&nbsp;Tên Thương Hiệu Sản Phẩm</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên..."
+                  <div class="form-group" style="width: 100%;">
+                      <label for="name">&nbsp;Tên Thương Hiệu Sản Phẩm @if(empty($sectiondata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên thương hiệu..."
                       @if (!empty($branddata['name'])) value="{{ $branddata['name'] }}"
                       @else value="{{ old("name") }}"
                       @endif>
                   </div>
-                </div>
               </div>
           </div>
         </form>
-              <!-- /.card-body -->
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
             </div>
             </div>
-            <!-- /.card -->
           </div><div style="color: #f4f6f9; font-size: 0.5rem; margin: none; padding: none;">dummy text margin</div>
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
 @endsection

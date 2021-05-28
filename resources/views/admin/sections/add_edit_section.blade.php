@@ -24,9 +24,8 @@
       color: #a09f9f;
     }
   </style>
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -41,9 +40,9 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-     <!-- Main content -->
+
      <section class="content">
       <div class="container-fluid">
         @if ($errors->any())
@@ -73,69 +72,72 @@
           <div class="card card-default" style="margin-bottom: 0 !important">
             <div class="card-header">
               <h3 class="card-title">{{ $title }}</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
               <div class="row">
+                @if(empty($sectiondata['id']))
+                <p aria-hidden="true" id="required-description" style="width: 100%;">
+                  <label><span aria-hidden="true" class="required">&nbsp;*</span></label> &nbsp;trường nhập bắt buộc
+                </p>
+                @endif
                 <div class="col-md-6">
-                  <!-- /.form-group -->
                   <div class="form-group">
-                      <label for="name">&nbsp;Tên Danh Mục Sản Phẩm</label>
+                      <label for="name">&nbsp;Tên Danh Mục Sản Phẩm @if(empty($sectiondata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                       <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên..."
                       @if (!empty($sectiondata['name'])) value="{{ $sectiondata['name'] }}"
                       @else value="{{ old("name") }}"
                       @endif>
                   </div>
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                      <label for="exampleInputFile">&nbsp;Hình Ảnh Danh Mục</label>
-                      <div class="input-group">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" name="section_image" id="section_image" accept="image/*">
-                          <label class="custom-file-label" for="section_image">chọn hình ảnh...</label>
-                        </div>
-                      </div>
-                  </div>
-                  @if(!empty($sectiondata['section_image']))
-                    <div style="padding-bottom: 10px"><img style="width: 80px" src="{{ asset('images/section_images/'.$sectiondata['section_image']) }}">
-                      &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="section-image" recordid="{{ $sectiondata['id'] }}" id="dlt-section-img"><i class="fas fa-trash"></i></a>
-                    </div>
-                  @endif
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="section_discount">&nbsp;Giảm Giá toàn Danh Mục [%]</label>
-                    <input type="number" min="0" max="100" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá..."
+                    <label for="section_discount">&nbsp;Giảm Giá toàn Danh Mục @if(empty($sectiondata['id']))(00.0) [%]@endif</label>
+                    <input type="number" min="0" step="0.1" max="100" name="section_discount" id="section_discount" class="form-control" id="section_name" placeholder="nhập khoản giảm giá..."
                     @if (!empty($sectiondata['section_discount'])) value="{{ $sectiondata['section_discount'] }}"
                     @else value="{{ old("section_discount") }}"
                     @endif>
+                    @if(!empty($sectiondata['section_discount']))
+                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  {{ $sectiondata['section_discount'] }} [%]</div>
+                    @elseif(!empty($sectiondata['id']))
+                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  0 [%]</div>
+                    @endif
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="url">URL Danh Mục (tên-danh-mục)</label>
+                    <label for="exampleInputFile">&nbsp;Hình Ảnh Danh Mục</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="section_image" id="section_image" accept="image/*">
+                        <label class="custom-file-label" for="section_image">chọn hình ảnh...</label>
+                      </div>
+                    </div>
+                </div>
+                @if(!empty($sectiondata['section_image']))
+                  <div style="padding-bottom: 10px"><img style="width: 80px" src="{{ asset('images/section_images/'.$sectiondata['section_image']) }}">
+                    &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="section-image" recordid="{{ $sectiondata['id'] }}" id="dlt-section-img"><i class="fas fa-trash"></i></a>
+                  </div>
+                @endif
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="url">URL Danh Mục (tên-danh-mục) @if(empty($sectiondata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <input name="url" id="url" type="text" class="form-control" id="category_name" placeholder="nhập URL..."
                     @if (!empty($sectiondata['url'])) value="{{ $sectiondata['url'] }}"
                     @else value="{{ old("url") }}"
                     @endif>
+                  </div>
                 </div>
-                </div>
-                <!-- /.col -->
               </div>
-              <!-- /.row -->
               <div class="row">
                 <div class="col-12 col-sm-6">
-                  <!-- /.form-group -->
                   <div class="form-group">
                       <label for="section_description">&nbsp;Mô Tả Danh Mục</label>
                       <textarea name="section_description" id="section_description" class="form-control" rows="3" placeholder="nhập mô tả...">@if (!empty($sectiondata['section_description'])) {{ $sectiondata['section_description'] }}@else {{ old("section_description") }}@endif
                       </textarea>
                   </div>
-                  <!-- /.form-group -->
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
@@ -159,21 +161,18 @@
                   </div>
                 </div>
               </div>
-              <!-- /.row -->
           </div>
         </form>
-              <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
+              <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
             </div>
             </div>
-            <!-- /.card -->
+        
           </div><div style="color: #f4f6f9; font-size: 0.5rem; margin: none; padding: none;">dummy text margin</div>
         </div>
-        <!-- /.row -->
+    
       </div>
-      <!-- /.container-fluid -->
+  
     </section>
-    <!-- /.content -->
   </div>
 @endsection

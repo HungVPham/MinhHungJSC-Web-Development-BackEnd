@@ -129,7 +129,12 @@
                             <label for="product_code">Mã SP: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
+                            <label for="product_weight">Trọng Lượng: <p style="display: inline; font-weight: lighter;">
+                              @if(!empty($productdata['product_weight']))
+                              &nbsp;{{ $productdata['product_weight'] }}&nbsp;[Kg]
+                              @else 
+                              <i>&nbsp;không có dữ liệu</i>
+                              @endif</p></label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -174,7 +179,6 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>ID</th>
                       <th>Nguồn Điện</th>
                       <th>Công Suất</th>
                       <th>Mã SKU</th>
@@ -188,7 +192,6 @@
                     @foreach($productdata['maxpro_attributes'] as $MaxproAttributes)
                     <input style="display: none;" type="text" name="attrId[]" value="{{ $MaxproAttributes['id'] }}">
                     <tr>
-                      <td>{{ $MaxproAttributes['id'] }}</td>
                       <td>
                         @if(!empty($MaxproAttributes['voltage']))
                         {{ $MaxproAttributes['voltage'] }}&nbsp;[V]
@@ -214,11 +217,11 @@
                       <td>
                         <input style="width: 50%;" type="number" min="0" name="stock[]" value="{{ $MaxproAttributes['stock'] }}" required=""> [Cái]
                       </td>
-                      <td style="width: 125px;">
+                      <td style="width: 135px;">
                           @if ($MaxproAttributes['status']==1)
-                          <a class="updateMaxproAttributesStatus" id="MaxproAttributes-{{ $MaxproAttributes['id'] }}" MaxproAttributes_id="{{ $MaxproAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                          <a class="updateMaxproAttributesStatus" id="MaxproAttributes-{{ $MaxproAttributes['id'] }}" MaxproAttributes_id="{{ $MaxproAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
                           @elseif ($MaxproAttributes['status']==0)
-                          <a class="updateMaxproAttributesStatus" id="MaxproAttributes-{{ $MaxproAttributes['id'] }}" MaxproAttributes_id="{{ $MaxproAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                          <a class="updateMaxproAttributesStatus" id="MaxproAttributes-{{ $MaxproAttributes['id'] }}" MaxproAttributes_id="{{ $MaxproAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                           @endif
                       </td>
                       <td style="width: 50px;">

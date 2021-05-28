@@ -135,7 +135,7 @@
                         <div class="form-group">
                             <div class="field_wrapper1">
                               <div class="custom-file">
-                                <input class="custom-file-input" multiple="" id="images" name="images[]" type="file" accept="image/*"/>
+                                <input required class="custom-file-input" multiple="" id="images" name="images[]" type="file" accept="image/*"/>
                                 <label class="custom-file-label" for="images">chọn hình ảnh...</label>
                               </div>
                             </div>
@@ -160,13 +160,13 @@
                         <tr>
                           {{-- <td>{{ $image['id'] }}</td> --}}
                           <td style="text-align: center;">
-                            <img style="width: 150px;" src="{{ asset('images/product_images/main_image/small/'.$image['image']) }}">
+                            <img style="width: 150px;" src="{{ asset('images/product_images/main_image/large/'.$image['image']) }}">
                           </td>
-                          <td style="width: 125px;">
+                          <td style="width: 135px;">
                               @if ($image['status']==1)
-                              <a class="updateImageStatus" id="Image-{{ $image['id'] }}" Image_id="{{ $image['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                              <a class="updateImageStatus" id="Image-{{ $image['id'] }}" Image_id="{{ $image['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
                               @elseif ($image['status']==0)
-                              <a class="updateImageStatus" id="Image-{{ $image['id'] }}" Image_id="{{ $image['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                              <a class="updateImageStatus" id="Image-{{ $image['id'] }}" Image_id="{{ $image['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                               @endif
                           </td>
                           <td style="width: 50px;">

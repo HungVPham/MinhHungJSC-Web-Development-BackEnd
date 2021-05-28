@@ -127,7 +127,11 @@
                             <label for="product_code">Mã SP: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
+                            <label for="product_code">Trọng Lượng: <p style="display: inline; font-weight: lighter;">@if(!empty($productdata['product_weight']))
+                              &nbsp;{{ $productdata['product_weight'] }}&nbsp;[Kg]
+                              @else 
+                              <i>&nbsp;không có dữ liệu</i>
+                              @endif</p></label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -145,8 +149,8 @@
                           <div>
                             <input id="voltage"  name="voltage[]" type="number" min="0" name="voltage[]" value="" placeholder="nguồn điện [V]" style="width: 125px; margin-top: 5px;"/>
                             <input id="power"  name="power[]" type="number" min="0" name="power[]" value="" placeholder="công suất [W]" style="width: 125px; margin-top: 5px;"/>
-                            <input id="maxflow"  name="maxflow[]" type="number" min="0" name="maxflow[]" value="" placeholder="lưu lượng [m³/h]" style="width: 135px; margin-top: 5px;"/>
-                            <input id="vertical"  name="vertical[]" type="number" min="0" name="vertical[]" value="" placeholder="đẩy cao [m]" style="width: 100px; margin-top: 5px;"/>
+                            <input id="maxflow"  name="maxflow[]" type="number" min="0" step="0.1" name="maxflow[]" value="" placeholder="lưu lượng [m³/h]" style="width: 135px; margin-top: 5px;"/>
+                            <input id="vertical"  name="vertical[]" type="number" min="0" step="0.1" name="vertical[]" value="" placeholder="đẩy cao [m]" style="width: 100px; margin-top: 5px;"/>
                             <input id="indiameter"  name="indiameter[]" type="number" min="0" name="indiameter[]" value="" placeholder="họng hút [mm]" style="width: 125px; margin-top: 5px;"/>
                             <input id="outdiameter"  name="outdiameter[]" type="number" min="0" name="outdiameter[]" value="" placeholder="họng xả [mm]" style="width: 125px; margin-top: 5px;"/>
                             <input required id="sku"  name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px; margin-top: 5px;"/>
@@ -236,20 +240,22 @@
                     </td>
                     <td>{{ $ShimgeAttributes['sku'] }}</td>
                     <td>
-                      <input style="width: 50%;" type="number" min="0" name="price[]" value="{{ $ShimgeAttributes['price'] }}" required=""> = <?php 
+                      <input style="width: 80%;" type="number" min="0" name="price[]" value="{{ $ShimgeAttributes['price'] }}" required=""> 
+                      <div>= <?php 
                       $num = $ShimgeAttributes['price'];
                       $format = number_format($num);
                       echo $format;
                       ?> [VNĐ]
+                      </div>
                     </td>
                     <td>
-                      <input style="width: 50%;" type="number" min="0" name="stock[]" value="{{ $ShimgeAttributes['stock'] }}" required=""> [Cái]
+                      <input style="width: 70%;" type="number" min="0" name="stock[]" value="{{ $ShimgeAttributes['stock'] }}" required=""> [Cái]
                     </td>
-                    <td style="width: 125px;">
+                    <td style="width: 135px;">
                       @if ($ShimgeAttributes['status']==1)
-                      <a class="updateShimgeAttributesStatus" id="ShimgeAttributes-{{ $ShimgeAttributes['id'] }}" ShimgeAttributes_id="{{ $ShimgeAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green); font-size: 1.05rem;"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="far fa-check-circle"> đang hoạt động</i></a>   
+                      <a class="updateShimgeAttributesStatus" id="ShimgeAttributes-{{ $ShimgeAttributes['id'] }}" ShimgeAttributes_id="{{ $ShimgeAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Positive-Green); font-size: 1.05rem;"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;"  class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
                       @elseif ($ShimgeAttributes['status']==0)
-                      <a class="updateShimgeAttributesStatus" id="ShimgeAttributes-{{ $ShimgeAttributes['id'] }}" ShimgeAttributes_id="{{ $ShimgeAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red); font-size: 1.05rem;"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-circle"> chưa hoạt động</i></a> 
+                      <a class="updateShimgeAttributesStatus" id="ShimgeAttributes-{{ $ShimgeAttributes['id'] }}" ShimgeAttributes_id="{{ $ShimgeAttributes['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red); font-size: 1.05rem;"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                       @endif
                   </td>
                   <td style="width: 50px;">

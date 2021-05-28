@@ -11136,13 +11136,13 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:focus,
 [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:hover {
     background-color: rgba(255,255,255,.9);
-    color: #343a40;
+    color: #000000;
 }
-[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active,
-[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:focus,
-[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:hover {
-    background-color: rgba(255,255,255,.9);
-    color: #343a40;
+[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active.subtab,
+[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active.subtab:focus,
+[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active.subtab:hover {
+    background-color: rgba(255,255,255,.6);
+    color: #000000;
 }
 [class*=sidebar-dark-] .nav-flat .nav-item .nav-treeview .nav-treeview {
     border-color: rgba(255,255,255,.9);
@@ -28468,6 +28468,10 @@ a.text-muted:hover {
 
 #AdminPhotoNav:hover{
     color: var(--MinhHung-Red-Hover);
+}
+
+.required{
+    color: var(--Delete-Red);
 }
 
 

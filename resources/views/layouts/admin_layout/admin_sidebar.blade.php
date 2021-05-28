@@ -134,7 +134,7 @@
                   <?php $active = ""; ?>
                 @endif
                 <li class="nav-item">
-                  <a href="{{ url('admin/sections') }}" class="nav-link {{ $active }}">
+                  <a href="{{ url('admin/sections') }}" class="nav-link {{ $active }} subtab">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Danh Mục</p>
                   </a>

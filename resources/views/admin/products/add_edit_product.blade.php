@@ -15,6 +15,7 @@
       justify-content: center;
       display: flex;
       float: right;
+      margin-top: 7px;
     }
     input[type="checkbox"]:after{
       font-family: "Font Awesome 5 Free";
@@ -67,7 +68,33 @@
     .fa-plus:hover{
       color: #333;
     }
-  </style>&nbsp;
+  </style>
+  @if(!empty($productdata['section_id']))
+  @if($productdata['section_id']==1)
+  <style>
+    .card-title{color: #ffffff; font-size: 1.2rem;}
+    .card-header{background-color: var(--MaxPro-Orange) !important;}
+    #admin-btn{background-color:  var(--MaxPro-Orange);}
+    #admin-btn:hover{background-color:  var(--MaxPro-Orange-Hover) !important;}
+  </style>
+  @endif
+  @if($productdata['section_id']==2)
+  <style>
+    .card-title{color: #000000; font-size: 1.2rem;}
+    .card-header{background-color: var(--Hhose-Yellow) !important;}
+    #admin-btn{color: #000000; background-color:  var(--Hhose-Yellow);}
+    #admin-btn:hover{color: #000000 !important; background-color:  var(--Hhose-Yellow-Hover) !important;}
+  </style>
+  @endif
+  @if($productdata['section_id']==3)
+  <style>
+    .card-title{color: #ffffff;font-size: 1.2rem;}
+    .card-header{background-color: var(--Shimge-Blue) !important;}
+    #admin-btn{background-color:  var(--Shimge-Blue);}
+    #admin-btn:hover{background-color:  var(--Shimge-Blue-Hover) !important;}
+  </style>
+  @endif
+  @endif
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -117,22 +144,19 @@
           <div class="card card-default" style="margin-bottom: 0 !important">
             <div class="card-header">
               <h3 class="card-title">{{ $title }}</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-
-              </div>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
               <div class="row">
+                @if(empty($productdata['section_id']))
+                <p aria-hidden="true" id="required-description" style="width: 100%;">
+                  <label><span aria-hidden="true" class="required">&nbsp;*</span></label> &nbsp;trường nhập bắt buộc
+                </p>
+                @endif
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="section_id">&nbsp;Thể Loại Cấp (0)</label>
+                    <label for="category_id">&nbsp;Thể Loại Cấp (0) @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <select name="category_id" id="category_id" class="form-control select2" style="width: 100%;">
-                      <option value="">Chọn danh mục...</option>
+                      <option value="">chọn danh mục...</option>
                       @foreach($categories as $section)
                         <optgroup label="{{ $section['name'] }}"></optgroup>
                         @foreach($section['categories'] as $category)
@@ -145,72 +169,68 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="product_name">&nbsp;Tên Sản Phẩm</label>
+                    <label for="product_name">&nbsp;Tên Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <input type="text" class="form-control" name="product_name" id="product_name" placeholder="nhập tên..."
                     @if (!empty($productdata['product_name'])) value="{{ $productdata['product_name'] }}"
                     @else value="{{ old("product_name") }}"
                     @endif>
+                  </div>
+                  <div class="form-group">
+                    <label for="product_price">&nbsp;Giá Sản Phẩm @if(empty($productdata['product_price']))(1000000 &#8594; 1,000,000) [VND]@endif</label>
+                    <input type="number" min="0" class="form-control" name="product_price" id="product_price" placeholder="nhập giá..."
+                    @if (!empty($productdata['product_price'])) value="{{ $productdata['product_price'] }}"
+                    @else value="{{ old("product_price") }}"
+                    @endif>
+                    @if(!empty($productdata['product_price']))
+                    <div style="color: grey">&nbsp;&nbsp;giá hiện tại = <?php 
+                          $num = $productdata['product_price'];
+                          $format = number_format($num);
+                          echo $format;
+                        ?> [VNĐ]
+                    </div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="product_discount">&nbsp;Giảm Giá Sản Phẩm @if(empty($productdata['id']))(00.0) [%]@endif</label>
+                  <input type="number" min="0" max="100" step="0.1" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
+                  @if (!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}"
+                  @else value="{{ old("product_discount") }}"
+                  @endif>
+                  @if(!empty($productdata['product_discount']))
+                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  {{ $productdata['product_discount'] }} [%]</div>
+                  @elseif(!empty($productdata['id']))
+                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  0 [%]</div>
+                  @endif
                 </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="product_code">&nbsp;Mã Sản Phẩm</label>
+                    <label>&nbsp;Chọn Thương Hiệu Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <select name="brand_id" id="brand_id" class="form-control select2" style="width: 100%;">
+                      <option value="">chọn thương hiệu</option>
+                      @foreach($brands as $brand)
+                      <option value="{{ $brand['id'] }}" @if(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected="" @endif>{{ $brand['name'] }}</option>
+                      @endforeach
+                    </select> 
+                  </div>
+                  <div class="form-group">
+                    <label for="product_code">&nbsp;Mã Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <input type="text" class="form-control" name="product_code" id="product_code" placeholder="nhập mã..."
                     @if (!empty($productdata['product_code'])) value="{{ $productdata['product_code'] }}"
                     @else value="{{ old("product_code") }}"
                     @endif>
                   </div>
                   <div class="form-group">
-                    <label for="product_weight">&nbsp;Trọng Lượng Sản Phẩm [Kg]</label>
-                    <input type="number"  type="number" min="0" class="form-control" name="product_weight" id="product_weight" placeholder="nhập trọng lượng..."
+                    <label for="product_weight">&nbsp;Trọng Lượng Sản Phẩm @if(empty($productdata['product_weight']))(0.0) [Kg]@endif</label>
+                    <input type="number" step="0.1" type="number" min="0" class="form-control" name="product_weight" id="product_weight" placeholder="nhập trọng lượng..."
                     @if (!empty($productdata['product_weight'])) value="{{ $productdata['product_weight'] }}"
                     @else value="{{ old("product_weight") }}"
                     @endif>
-                  </div>
-                </div>
-                </div>
-                <!-- /.col -->
-              <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="product_price">&nbsp;Giá Sản Phẩm (1000000 &#8594; 1,000,000) [VND]</label>
-                  <input type="number" min="0" class="form-control" name="product_price" id="product_price" placeholder="nhập giá..."
-                  @if (!empty($productdata['product_price'])) value="{{ $productdata['product_price'] }}"
-                  @else value="{{ old("product_price") }}"
-                  @endif>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                    <label for="product_discount">&nbsp;Giảm Giá Sản Phẩm [%]</label>
-                  <input type="number" min="0" max="100" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
-                  @if (!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}"
-                  @else value="{{ old("product_discount") }}"
-                  @endif>
-                </div>
-              </div>
-              </div>
-              <!-- /.row -->
-              <div class="row">
-                <div class="col-12 col-sm-6">
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                    <label for="exampleInputFile">&nbsp;Hình Ảnh (Cấp 0)</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="main_image" id="main_image" accept="image/*">
-                        <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
-                      </div>
+                    @if(!empty($productdata['product_weight']))
+                    <div style="color: grey">&nbsp;&nbsp;trọng lượng hiện tại =  {{ $productdata['product_weight'] }} [Kg]
                     </div>
-                    @if(!empty($productdata['main_image']))
-                    <div style="padding-top: 10px"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
-                      &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
-                    </div>
-                    @else  <div style="color: grey">&nbsp;Độ phân giải đề xuất (750x650)</div>
                     @endif
                   </div>
-                </div>
-                <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <label for="exampleInputFile">&nbsp;Video Demo Sản Phẩm</label>
                     <div class="input-group">
@@ -220,27 +240,38 @@
                       </div>
                     </div>
                     @if(!empty($productdata['product_video']))
-                      <div>&nbsp;&nbsp;<a title="tải video" id="download-video-btn" href="{{ url('videos/product_videos/'.$productdata['product_video']) }}" download><i class="fas fa-file-video"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="confirmDelete" href="javascript:void(0)" class="confirmDelete" title="xóa video" record="product-video" recordid="{{ $productdata['id'] }}" id="dlt-product-vid"><i class="fas fa-trash"></i></a></div>
+                      <div style="color: grey;">&nbsp;&nbsp;tải hoặc xóa video hiện tại:&nbsp;&nbsp;<a title="tải video" id="download-video-btn" href="{{ url('videos/product_videos/'.$productdata['product_video']) }}" download><i class="fas fa-file-video"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="confirmDelete" href="javascript:void(0)" class="confirmDelete" title="xóa video" record="product-video" recordid="{{ $productdata['id'] }}" id="dlt-product-vid"><i class="fas fa-trash"></i></a></div>
                     @endif
                   </div>
                 </div>
-                <div class="col-12 col-sm-6">
+              </div>
+              <div class="row">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="product_description">&nbsp;Mô Tả Sản Phẩm</label>
-                    <textarea name="product_description" id="product_description" class="form-control" rows="3" placeholder=" nhập mô tả sản phẩm...">@if (!empty($productdata['product_description'])) {{ $productdata['product_description'] }}@else {{ old("product_description") }}@endif
-                    </textarea>
+                    <label for="exampleInputFile">&nbsp;Hình Ảnh (Cấp 0)</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="main_image" id="main_image" accept="image/*">
+                        <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
+                      </div>
+                    </div>
+                    @if(!empty($productdata['main_image']))
+                    <div style="padding-top: 10px;"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
+                      &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
+                    </div>
+                    @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (750x650)</div>
+                    @endif
+                  </div>
                 </div>
-                  <div class="form-group">
-                    <label for="meta-title">&nbsp;Metadata Title [SEO]</label>
-                    <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($productdata['meta_title'])) {{ $productdata['meta_title'] }}@else {{ old("meta_title") }}@endif
-                  </textarea>
-                </div>
-                  <div class="form-group">
+                <div class="col-md-6" style="display: flex; align-items: center;">
+                  <div class="form-group" style="width: 100%;">
                     <label for="is_featured">&nbsp;Sản Phẩm Nổi Bật: Có/Không</label>
                     <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if(!empty($productdata['is_featured']) && $productdata['is_featured']=="Yes") checked="" @endif>
                   </textarea>
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <label for="meta_keywords">&nbsp;Metadata Keywords [SEO]</label>
@@ -253,22 +284,28 @@
                     </textarea>
                   </div>
                 </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="product_description">&nbsp;Mô Tả Sản Phẩm</label>
+                    <textarea name="product_description" id="product_description" class="form-control" rows="3" placeholder=" nhập mô tả sản phẩm...">@if (!empty($productdata['product_description'])) {{ $productdata['product_description'] }}@else {{ old("product_description") }}@endif
+                    </textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="meta-title">&nbsp;Metadata Title [SEO]</label>
+                    <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($productdata['meta_title'])) {{ $productdata['meta_title'] }}@else {{ old("meta_title") }}@endif
+                  </textarea>
+                  </div>
+                </div>
               </div>
-              <!-- /.row -->
           </div>
         </form>
-              <!-- /.card-body -->
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
             </div>
             </div>
-            <!-- /.card -->
           </div><div style="color: #f4f6f9; font-size: 0.5rem; margin: none; padding: none;">dummy text margin</div>
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
 @endsection
