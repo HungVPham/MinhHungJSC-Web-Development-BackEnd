@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Sản Phẩm | Minh Hưng JSC</title>
+    <link rel = "icon" href="images/logo.png" type="image/x-icon"> 
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/197ff1d829.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head> 
+<body>
+<!------header------->
+    <div class="container">
+        <div class="navbar">
+            <div class="logo"> 
+                <a href="index.html"><img id="company-logo" src="images/logo.png" alt="logo công ty"></a> 
+            </div>
+            <nav>
+                <ul id="MenuItems">   
+                    <li><a class="index-nav" href="index.html">Trang Chủ</a></li>
+                    <li><a class="index-nav" href="about.html">Giới Thiệu</a></li>
+                    <li><a class="index-nav" id="active-page" href="products.html">Sản Phẩm</a></li>
+                    <li><a class="index-nav" href="news-events.html">Tin Tức - Sự Kiện</a></li>
+                    <li><a class="index-nav" href="contact.html">Liên Hệ</a></li>
+                    <li><a class="index-nav" href="account.html">Tài Khoản</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" width="30px" height="30px" alt="biệu tượng giỏ hàng"></a>
+            <img src="images/menu.png" class="menu-icon" alt="biệu tượng menu" 
+            onclick="menutoggle()">
+        </div>
+    </div> 
+<!------single product details------->
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2 single-product">
+            <img src="images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro_thumbnail.jpg" id="ProductImg" width="100%" alt="hình ảnh sản phẩm">
+            <div class="small-img-row">
+                <div class="small-img-col">
+                    <img src="images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro_thumbnail.jpg" class="small-img" width="100%" alt="hình ảnh sản phẩm 1">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro(2).jpg" class="small-img" width="100%" alt="hình ảnh sản phẩm 2">
+                </div>
+                <div class="small-img-col"> 
+                    <img src="images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro(3).jpg" class="small-img" width="100%" alt="hình ảnh sản phẩm 3">
+                </div>
+                <div class="small-img-col">
+                    <img src="images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro(4).jpg" class="small-img" width="100%" alt="hình ảnh sản phẩm 4">
+                </div>
+            </div>
+        </div>
+        <div class="col-2"> 
+            <p>Sản Phẩm / Dụng Cụ Điện MaxPro / Máy Khoan Pin</p>
+            <h1>Máy khoan pin 18V 2 cấp độ + Chế độ khoan búa (MPCD18HLI/2E)</h1>
+            <h4>Giá Liên Hệ</h4>
+            Số Lượng Mua: <input type="number" value="1">
+            <a href="" class="btn">Thêm Vào Giỏ</a>
+            <h3>Thông Tin Sản Phẩm <i class="fa fa-indent"></i></h3>
+            <br>
+            <p>Sử dụng viên pin 18V, 1.5Ah cùng với lực mô-men xoắn cực đại lên đến 45N.m, giúp máy bắt vít lên gỗ hay thép một cách nhanh chóng, đường khoan chuẩn xác với thiết kế gọn nhẹ chỉ nặng 1.6Kg.</p>
+        </div>
+    </div>
+</div>
+<!------Title------->
+<div class="small-container">
+    <div class="row row-2">
+        <h2>Sản Phẩm Tương Tự</h2>
+        <a id="products-nav" href="products.html"><p>Xem Thêm</p></a>
+    </div>
+</div>
+<!------Products------->
+<div class="small-container">
+    <div class="row">
+        <div class="col-4">
+             <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-khoan-điện/mayKhoandienVUF_maxpro_thumbnail.jpg" alt="sản phẩm tương tự 1"></a>
+             <a id="singlePro-nav" href=""><h4>Máy Khoan Điện MPED320VUF</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+             <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-khoan-động-lực/mayKhoandongLuc_maxpro.png" alt="sản phẩm tương tự 2"></a>
+             <a id="singlePro-nav" href=""><h4>Máy Khoan Động Lực MPID1050VD</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-alt"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div></a>
+        <div class="col-4">
+             <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-khoan-búa/mayKhoanbua_maxpro_thumbnail.jpg" alt="sản phẩm tương tự 3"></a>
+             <a id="singlePro-nav" href=""><h4>Máy Khoan Búa MPRH1500</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-alt"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+             <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-khoan-điện/mayKhoandien_maxpro_thumbnail.jpg" alt="sản phẩm tương tự 4"></a>
+             <a id="singlePro-nav" href=""><h4>Máy Khoan Điện MPED321V</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+    </div>
+</div>
+<!------footer------->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Tải ứng dụng Minh Hưng</h3>
+                <p>Tải trên nền tảng Android hoặc IOS trên thiết bị điện thoại di động.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png" alt:"Google Playstore">
+                    <img src="images/app-store.png" alt:"Apple Store"> 
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <div class="footerLogo">    
+                    <a href="index.html"><img src="images/logo.png" alt="logo công ty"></a>
+                </div>
+                <p>Địa chỉ: 56 Trương Phước Phan, Phường Bình Trị Đông, Quận Bình Tân, TP. HCM</p>
+                <p>Tel: (028) 62 666 333 - Fax: (028) 62 666 555</p>
+                <p>Email: salesminhhung@gmail.com </p>
+            </div>
+            <div class="footer-col-3">  
+                <h3>Thống Kê Truy Cập</h3>
+                <ul>
+                    <li>placeholder</li>
+                    <li>placeholder</li>
+                    <li>placeholder</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <ul>
+                    <a id="footer-nav" href="https://www.facebook.com/pages/C%C3%B4ng%20ty%20CP%20%C4%90%E1%BA%A7u%20T%C6%B0%20v%C3%A0%20Ph%C3%A1t%20Tri%E1%BB%83n%20Minh%20H%C6%B0ng/1966408697008473/" target="_blank"><li>Facebook</li></a>
+                    <a id="footer-nav" href="https://www.youtube.com/channel/UCG5dwZKUAWetHU3BAkSl8Og" target="_blank"><li>Youtube</li></a>
+                    <a id="footer-nav" href="https://nemgalaxy.vn/galaxy/" target="_blank"><li>Nệm Galaxy</li></a>
+                </ul>
+            </div>
+        </div>
+        <hr>
+            <p class="copyright">2021 &#169; MINH HUNG JSC. ALL RIGHT RESERVED</p>
+    </div>
+</div>
+<!--js for toggle menu-->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle(){
+        if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "250px";
+            }
+        else
+            {
+                MenuItems.style.maxHeight = "0px";
+            }
+    }
+</script>
+<!--js for product gallery-->
+<script>
+    var ProductImg = document.getElementById("ProductImg");
+    var SmallImg = document.getElementsByClassName("small-img");
+
+    SmallImg[0].onclick = function()
+    {
+        ProductImg.src = SmallImg[0].src
+    }    
+    SmallImg[1].onclick = function()
+    {
+        ProductImg.src = SmallImg[1].src
+    }    
+    SmallImg[2].onclick = function()
+    {
+        ProductImg.src = SmallImg[2].src
+    }    
+    SmallImg[3].onclick = function()
+    {
+        ProductImg.src = SmallImg[3].src
+    }    
+</script>
+</body>
+</html>

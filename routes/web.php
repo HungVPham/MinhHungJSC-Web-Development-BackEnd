@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -93,3 +93,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
     });
 });
 
+// demo Stack Developers frontend routes
+Route::namespace('Front')->group(function(){
+   Route::get('/','IndexController@index');
+});

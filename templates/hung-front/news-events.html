@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức - Sự Kiện | Minh Hưng JSC</title>
+    <link rel = "icon" href="images/logo.png" type="image/x-icon"> 
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/197ff1d829.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head> 
+<body>
+<!------header------->
+    <div class="container">
+        <div class="navbar">
+            <div class="logo"> 
+                <a href="index.html"><img id="company-logo" src="images/logo.png" alt="logo công ty"></a> 
+            </div>
+            <nav>
+                <ul id="MenuItems">   
+                    <li><a class="index-nav" href="index.html">Trang Chủ</a></li>
+                    <li><a class="index-nav" href="about.html">Giới Thiệu</a></li>
+                    <li><a class="index-nav" href="products.html">Sản Phẩm</a></li>
+                    <li><a class="index-nav" id="active-page" href="news-events.html">Tin Tức - Sự Kiện</a></li>
+                    <li><a class="index-nav" href="contact.html">Liên Hệ</a></li>
+                    <li><a class="index-nav" href="account.html">Tài Khoản</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" width="30px" height="30px" alt="biệu tượng giỏ hàng"></a>
+            <img src="images/menu.png" class="menu-icon" alt="biệu tượng menu" 
+            onclick="menutoggle()">
+        </div>
+    </div> 
+<!---News/Events Page-->
+<div class="page-wrapper">
+    <!--post slider-->
+    <div class="post-slider">
+        <h1 class="slider-title">Tin Tức - Sự Kiện</h1>
+        <div class="slider-nav-container" style=" width: 1500px; margin: 0 auto; position: relative;">
+        <i class="fas fa-chevron-left prev"></i>
+        <i class="fas fa-chevron-right next"></i>
+        <div class="post-wrapper">
+            <div class="post slider">
+                <a href="single.html" class="sliderpost-nav"><div class="postcard-background">
+                <img src="images/companyGroup1(CNY2021)_thumbnail.jpg" alt="post image slider 1" class="slider-image">  
+                <div class="post-info">
+                    <h4><a href="single.html">Mừng Năm Mới Tân Sửu 2021</a></h4>
+                    <div class="user-date-container">
+                    <a href=""><i id="slider-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                    &nbsp;
+                    <i class="fas fa-calendar"> 19 Tháng 02, 2021</i>
+                    </div>       
+                </div>
+                </div></a>
+            </div>
+            <div class="post slider">
+                <a href="" class="sliderpost-nav"><div class="postcard-background">
+                <img src="images/companyGroup1(SAPA2021)_thumbnail.jpg" alt="post image slider 2" class="slider-image">  
+                <div class="post-info">
+                    <h4><a href="">Hành Trình Về Phía Bắc Tổ Quốc</a></h4>
+                    <div class="user-date-container">
+                    <a href=""><i id="slider-user-nav" class="fas fa-user">Người Minh Hưng</i></a>
+                    &nbsp;
+                    <i class="fas fa-calendar"> 19 Tháng 01, 2021</i> 
+                    </div>      
+                </div>
+                </div></a>
+            </div>
+            <div class="post slider">
+                <a href="" class="sliderpost-nav"><div class="postcard-background">
+                <img src="images/birthday-stock/1_thumbnail.jpg" alt="post image slider 3" class="slider-image">  
+                <div class="post-info">
+                    <h4><a href="">[Happy Birthday] chị Hoàng Thị Đông</a></h4>
+                    <div class="user-date-container">
+                    <a href=""><i id="slider-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                    &nbsp;
+                    <i class="fas fa-calendar"> 25 Tháng 09, 2020</i>
+                    </div>       
+                </div>
+                </div></a>
+            </div>
+            <div class="post slider">
+                <a href="" class="sliderpost-nav"><div class="postcard-background">
+                <img src="images/birthday-stock/2_thumbnail.jpg" alt="post image slider 4" class="slider-image">  
+                <div class="post-info">
+                    <h4><a href="">[Happy Birthday] chị Hoàng Thị Khánh Thảo</a></h4>
+                    <div class="user-date-container">
+                     <a href=""><i id="slider-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                    &nbsp;
+                    <i class="fas fa-calendar"> 13 Tháng 08, 2020</i>
+                    </div>       
+                </div>
+                </div></a>
+            </div>
+            <div class="post slider">
+                <a href="" class="sliderpost-nav"><div class="postcard-background">
+                <img src="images/birthday-stock/3_thumbnail.jpg" alt="post image slider 5" class="slider-image">  
+                <div class="post-info">
+                    <h4><a href="">[Happy Birthday] anh Nguyễn Minh Tần</a></h4>
+                    <div class="user-date-container">
+                     <a href=""><i id="slider-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                    &nbsp;
+                    <i class="fas fa-calendar"> 13 Tháng 08, 2020</i>   
+                    </div>    
+                </div>
+                </div></a>
+            </div>
+        </div>
+        </div>
+    </div>
+<!--Content-->
+<div class="content clearfix">
+    <div class="main-content">
+        <h1 class="recent-post-title">Bài Viết Mới</h1>
+        <div class="post clearfix">
+            <img src="images/companyGroup1(CNY2021)_thumbnail.jpg" class="post-image" alt="post image 1">
+            <div class="post-preview">  
+                <h2><a href="single.html">Mừng Năm Mới Tân Sửu 2021</a></h2>
+                 <a href=""><i id="content-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                &nbsp;
+                <i class="fas fa-calendar"> 19 Tháng 02, 2021</i>
+                <p class="preview-text">Mừng ngày đầu tiên trở lại làm việc sau tuần nghỉ Tết Nguyên Đán (17.02.2021).</p>
+                <a href="single.html" class="btn read-more">Chi Tiết</a>
+            </div>
+        </div>
+        <div class="post clearfix">
+            <img src="images/companyGroup1(SAPA2021)_thumbnail.jpg" class="post-image" alt="post image 2">
+            <div class="post-preview">  
+                <h2><a href="" >Hành Trình Về Phía Bắc Tổ Quốc</a></h2>
+                <a href=""><i id="content-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                &nbsp;
+                <i class="fas fa-calendar"> 19 Tháng 01, 2021</i>
+                <p class="preview-text">Người Minh Hưng chúng tôi đã có 1 chuyến đi với rất nhiều kỉ niệm, sự trải nghiệm, nhìn nhận sự việc ở thế giới bên ngoài, xung quanh ta với nhiều tình yêu thương bằng ánh mắt trìu mến...</p>
+                <a href="" class="btn read-more">Chi Tiết</a>
+            </div>
+        </div>
+        <div class="post clearfix">
+            <img src="images/birthday-stock/1_thumbnail.jpg" class="post-image" alt="post image 3">
+            <div class="post-preview">  
+                <h2><a href="">[Happy Birthday] chị Hoàng Thị Đông</a></h2>
+                 <a href=""><i id="content-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                &nbsp;
+                <i class="fas fa-calendar"> 25 Tháng 09, 2020</i>
+                <p class="preview-text">Gia đình Minh Hưng JSC xin chúc chị Hoàng Thị Đông (Nhân viên Phòng Tài Chính - Kế Toán) ngày sinh nhật thật hạnh phúc!</p>
+                <a href="" class="btn read-more">Chi Tiết</a>
+            </div>
+        </div>
+        <div class="post clearfix">
+            <img src="images/birthday-stock/2_thumbnail.jpg" class="post-image" alt="post image 4">
+            <div class="post-preview">  
+                <h2><a href="">[Happy Birthday] chị Hoàng Thị Khánh Thảo</a></h2>
+                 <a href=""><i id="content-user-nav" class="fas fa-user"> Người Minh Hưng</i></a>
+                &nbsp;
+                <i class="fas fa-calendar"> 13 Tháng 08, 2020</i>
+                <p class="preview-text">Gia đình Minh Hưng JSC xin chúc chị Hoàng Thị Khánh Thảo (Nhân viên kinh doanh) ngày sinh nhật thật hạnh phúc!</p>
+                <a href="" class="btn read-more">Chi Tiết</a>
+            </div>
+        </div>
+        <div id="news_page-selector" class="page-btn">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>&#8594;</span>
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="section search">
+            <h2 class="section-title-search">Tìm Kiếm</h2>
+            <form action="news-events.html" method="post">
+                <input type="text" name="search-term" class="search-input" placeholder="tìm kiếm...">
+            </form>
+        </div>
+        <div class="section topics">
+            <h2 class="section-title-topics">Chủ đề</h2>
+            <ul>
+                <li><a href=""><b>Tất Cả</b></a></li>
+                <li><a href="">Tin Nội Bộ</a></li>
+                <li><a href="">Tin Thị Trường</a></li>
+                <li><a href="">Tin Khuyến Mãi</a></li>
+                <li><a href="">Video Clip</a></li>  
+            </ul>
+        </div>
+    </div>
+</div>
+<!------footer------->
+<div class="footer news">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Tải ứng dụng Minh Hưng</h3>
+                <p>Tải trên nền tảng Android hoặc IOS trên thiết bị điện thoại di động.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png" alt:"Google Playstore">
+                    <img src="images/app-store.png" alt:"Apple Store"> 
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <div class="footerLogo">    
+                    <a href="index.html"><img src="images/logo.png" alt="logo công ty"></a>
+                </div>
+                <p>Địa chỉ: 56 Trương Phước Phan, Phường Bình Trị Đông, Quận Bình Tân, TP. HCM</p>
+                <p>Tel: (028) 62 666 333 - Fax: (028) 62 666 555</p>
+                <p>Email: salesminhhung@gmail.com </p>
+            </div>
+            <div class="footer-col-3">  
+                <h3>Thống Kê Truy Cập</h3>
+                <ul>
+                    <li>placeholder</li>
+                    <li>placeholder</li>
+                    <li>placeholder</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <ul>
+                    <a id="footer-nav" href="https://www.facebook.com/pages/C%C3%B4ng%20ty%20CP%20%C4%90%E1%BA%A7u%20T%C6%B0%20v%C3%A0%20Ph%C3%A1t%20Tri%E1%BB%83n%20Minh%20H%C6%B0ng/1966408697008473/" target="_blank"><li>Facebook</li></a>
+                    <a id="footer-nav" href="https://www.youtube.com/channel/UCG5dwZKUAWetHU3BAkSl8Og" target="_blank"><li>Youtube</li></a>
+                    <a id="footer-nav" href="https://nemgalaxy.vn/galaxy/" target="_blank"><li>Nệm Galaxy</li></a>
+                </ul>
+            </div>
+        </div>
+        <hr>
+            <p class="copyright">2021 &#169; MINH HUNG JSC. ALL RIGHT RESERVED</p>
+    </div>
+</div>
+<!--js for toggle menu-->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle(){
+        if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "250px";
+            }
+        else
+            {
+                MenuItems.style.maxHeight = "0px";
+            }
+    }
+</script>
+<!--JQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<!--Slick Carousel-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!--Custom Script-->
+<script src="js/script.js"></script>
+<script type="text/javascript" src="js/vanilla-tilt.js"></script>
+<script type="text/javascript">
+	VanillaTilt.init(document.querySelectorAll(".post.slider"), {
+		max: 15,
+		speed: 100,
+        scale: "0.98",
+	});
+</script>
+<script type="text/javascript">
+	VanillaTilt.init(document.querySelectorAll(".post"), {
+		max: 15,
+		speed: 100,
+        axis: "y"
+	});
+</script>
+</body>
+</html>

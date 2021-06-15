@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toàn Bộ Sản Phẩm | Minh Hưng JSC</title>
+    <link rel = "icon" href="images/logo.png" type="image/x-icon"> 
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/197ff1d829.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head> 
+<body>
+<!------header------->
+    <div class="container">
+        <div class="navbar">
+            <div class="logo"> 
+                <a href="index.html"><img id="company-logo" src="images/logo.png" alt="logo công ty"></a> 
+            </div>
+            <nav>
+                <ul id="MenuItems">   
+                    <li><a class="index-nav" href="index.html">Trang Chủ</a></li>
+                    <li><a class="index-nav" href="about.html">Giới Thiệu</a></li>
+                    <li><a class="index-nav" id="active-page" href="products.html">Sản Phẩm</a></li>
+                    <li><a class="index-nav" href="news-events.html">Tin Tức - Sự Kiện</a></li>
+                    <li><a class="index-nav" href="contact.html">Liên Hệ</a></li>
+                    <li><a class="index-nav" href="account.html">Tài Khoản</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" width="30px" height="30px" alt="biệu tượng giỏ hàng"></a>
+            <img src="images/menu.png" class="menu-icon" alt="biệu tượng menu" 
+            onclick="menutoggle()">
+        </div>
+    </div> 
+<div class="small-container">
+    <div class="row row-2">
+        <h2>Sản Phẩm </h2>
+        <select>
+            <optgroup label="Dụng Cụ Điện MaxPro">
+                <option>Máy Khoan Pin</option>
+                <option>Máy Khoan Điện</option>
+                <option>Máy Khoan Búa</option>
+                <option>Máy Đục Bê Tông</option>
+                <option>Máy Máy Mài</option>
+                <option>Máy Nén Khí</option>
+                <option>Máy Trong Xưởng Mộc</option>
+                <option>Máy Phun Sơn</option>
+            </optgroup>
+            <optgroup label="Máy Bơm Shimge">
+                <option>Máy Bơm WSD</option>
+                <option>Máy Bơm SGJW</option>
+                <option>Máy Bơm Tăng Áp</option>
+                <option>Máy Bơm QB 80</option>
+                <option>Máy Bơm SHFm</option>
+                <option>Máy Bơm CPm</option>
+            </optgroup>
+            <optgroup label="Ống Thủy Lực">
+                <option>SP Flex</option>
+            </optgroup>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <a id="singlePro-nav" href="product-details.html"><img src="images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro(productsPage)_thumbnail.jpg" alt="sản phẩm 1"></a>
+            <a id="singlePro-nav" href="product-details.html"><h4>Máy Khoan Pin 18V</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+            <a id="singlePro-nav" href=""><img src="images/product/Shimge/máy-bơm-wsd/wsd55-70_shimge(productPage)_thumbnail.jpg" alt="sản phẩm 2"></a>
+            <a id="singlePro-nav" href=""><h4>Máy Bơm WSD 55/70</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-alt"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+            <a id="singlePro-nav" href=""><img src="images/product/Shimge/máy-bơm-wsd/wsd55-50_shimge(productPage)_thumbnail.jpg" alt="sản phẩm 3"></a>
+            <a id="singlePro-nav" href=""><h4>Máy Bơm WSD 55/50</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-alt"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+            <a id="singlePro-nav" href=""><img src="images/product/Shimge/máy-bơm-pwf/pw-f_shimge(productPage)_thumbnail.jpg" alt="sản phẩm 4"></a>
+            <a id="singlePro-nav" href=""><h4>Máy Bơm Tăng Áp PW-F</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <a id="singlePro-nav" href=""><img src="images/product/HydraulicHose/sp-flex/dayChuyencongNghiep_spflex_thumbnail.jpg" alt="sản phẩm 5"></a>
+            <a id="singlePro-nav" href=""><h4>Ống Thủy Lực SP Flex</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+            <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-bào/mayBao_maxpro_thumbnail.jpg" alt="sản phẩm 6"></a>
+            <a id="singlePro-nav" href=""><h4>Máy Bào MPPL900/3DR1</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-alt"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+            <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-cưa-bàn/mayCuaban_maxpro_thumbnail.jpg" alt="sản phẩm 7"></a>
+            <a id="singlePro-nav" href=""><h4>Máy Cưa Bàn MPBTS254L</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-alt"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="col-4">
+            <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-đục-bê-tông/mayDucbeTong_maxpro_thumbnail.jpg" alt="sản phẩm 8"></a>
+            <a id="singlePro-nav" href=""><h4>Máy Đục Bê Tông MPDH1500</h4></a>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Giá Liên Hệ</p>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-khoan-búa/mayKhoanbua_maxpro_thumbnail.jpg" alt="sản phẩm 9"></a>
+                <a id="singlePro-nav" href=""><h4>Máy Khoan Búa MPRH1500/32V</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div>
+            <div class="col-4">
+                <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-mài/mayMai_maxpro_thumbnail.jpg" alt="sản phẩm 10"></a>
+                <a id="singlePro-nav" href=""><h4>Máy Mài Góc Thân Dài MPAG951/125L</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-alt"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div>
+            <div class="col-4">
+                <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-nén-khí/mayNenkhi_maxpro_thumbnail.jpg" alt="sản phẩm 11"></a>
+                <a id="singlePro-nav" href=""><h4>Máy Nén Khí MPEAC800/24</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-alt"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div>
+            <div class="col-4">
+                <a id="singlePro-nav" href=""><img src="images/product/MaxPro/máy-phun-sơn/mayPhunson_maxpro_thumbnail.jpg" alt="sản phẩm 12"></a>
+                <a id="singlePro-nav" href=""><h4>Máy Phun Sơn  MPSG400/800V</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div>
+        </div>
+    </div>
+    <div class="page-btn">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>&#8594;</span>
+    </div>
+</div>
+<!------footer------->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Tải ứng dụng Minh Hưng</h3>
+                <p>Tải trên nền tảng Android hoặc IOS trên thiết bị điện thoại di động.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png" alt:"Google Playstore">
+                    <img src="images/app-store.png" alt:"Apple Store"> 
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <div class="footerLogo">    
+                    <a href="index.html"><img src="images/logo.png" alt="logo công ty"></a>
+                </div>
+                <p>Địa chỉ: 56 Trương Phước Phan, Phường Bình Trị Đông, Quận Bình Tân, TP. HCM</p>
+                <p>Tel: (028) 62 666 333 - Fax: (028) 62 666 555</p>
+                <p>Email: salesminhhung@gmail.com</p>
+            </div>
+            <div class="footer-col-3">  
+                <h3>Thống Kê Truy Cập</h3>
+                <ul>
+                    <li>placeholder</li>
+                    <li>placeholder</li>
+                    <li>placeholder</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Theo Dõi Chúng Tôi</h3>
+                <ul>
+                    <a id="footer-nav" href="https://www.facebook.com/pages/C%C3%B4ng%20ty%20CP%20%C4%90%E1%BA%A7u%20T%C6%B0%20v%C3%A0%20Ph%C3%A1t%20Tri%E1%BB%83n%20Minh%20H%C6%B0ng/1966408697008473/" target="_blank"><li>Facebook</li></a>
+                    <a id="footer-nav" href="https://www.youtube.com/channel/UCG5dwZKUAWetHU3BAkSl8Og" target="_blank"><li>Youtube</li></a>
+                    <a id="footer-nav" href="https://nemgalaxy.vn/galaxy/" target="_blank"><li>Nệm Galaxy</li></a>
+                </ul>
+            </div>
+        </div>
+        <hr>
+            <p class="copyright">2021 &#169; MINH HUNG JSC. ALL RIGHT RESERVED</p>
+    </div>
+</div>
+<!--js for toggle menu-->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle(){
+        if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "250px";
+            }
+        else
+            {
+                MenuItems.style.maxHeight = "0px";
+            }
+    }
+</script>
+</body>
+</html>
