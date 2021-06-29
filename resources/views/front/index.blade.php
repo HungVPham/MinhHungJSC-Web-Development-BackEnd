@@ -55,7 +55,7 @@ $sections = Section::sections();
                     </div>
                     <p>
                         @if(!empty($item['product_price']))
-                        ₫ <?php 
+                        @if($item['section_id']!=1)từ@endif ₫<?php 
                         $num = $item['product_price'];
                         $format = number_format($num);
                         echo $format;

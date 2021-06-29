@@ -2385,6 +2385,16 @@ form a{
     }
 }
 /* product overlay responsive css */
+@media only screen and (max-width: 1300px){
+    .next{
+        right: -25px !important;
+        top: 30% !important;
+    }
+    .prev{
+        left: -25px !important;
+        top: 30% !important;
+    }
+}
 @media only screen and (max-width: 1045px){
     .col-4 .product-overlay{
         top: 200px;
@@ -2412,158 +2422,166 @@ form a{
 }
 @media only screen and (max-width: 892px){
     .col-4 .product-overlay{
-        top: 57%;
+        top: 235px;
     }     
 }
 @media only screen and (max-width: 868px){
     .col-4 .product-overlay{
-        top: 56%;
+        top: 225px;
     }     
 }
 @media only screen and (max-width: 832px){
     .col-4 .product-overlay{
-        top: 55%;
+        top: 215px;
     }     
 }
 @media only screen and (max-width: 812px){
     .col-4 .product-overlay{
-        top: 54%;
+        top: 205px;
     }     
 }
 @media only screen and (max-width: 792px){
     .col-4 .product-overlay{
-        top: 53%;
+        top: 195px;
     }     
 }
 @media only screen and (max-width: 762px){
     .col-4 .product-overlay{
-        top: 52%;
+        top: 185px;
     }     
 }
 @media only screen and (max-width: 742px){
     .col-4 .product-overlay{
-        top: 51%;
+        top: 178px;
     }     
 }
 @media only screen and (max-width: 722px){
     .col-4 .product-overlay{
-        top: 50%;
+        top: 171px;
     }     
 }
 @media only screen and (max-width: 702px){
     .col-4 .product-overlay{
-        top: 49%;
+        top: 164px;
     }     
 }
 @media only screen and (max-width: 682px){
     .col-4 .product-overlay{
-        top: 48%;
+        top: 158px;
     }     
 }
 @media only screen and (max-width: 662px){
     .col-4 .product-overlay{
-        top: 47%;
+        top: 153px;
     }     
 }
 @media only screen and (max-width: 642px){
     .col-4 .product-overlay{
-        top: 46%;
+        top: 145px;
     }     
 }
 @media only screen and (max-width: 623px){
     .col-4 .product-overlay{
-        top: 45%;
+        top: 139px;
     }     
     .slider-nav-container{
         height: 400px !important;
     }
     .next{
         right: -25px !important;
-        top: 30% !important;
+        top: 35% !important;
     }
     .prev{
         left: -15px !important;
-        top: 30% !important;
+        top: 35% !important;
     }
 }
 @media only screen and (max-width: 582px){
     .col-4 .product-overlay{
-        top: 74% !important;
+        top: 500px !important;
     }     
 }
 @media only screen and (max-width: 562px){
     .col-4 .product-overlay{
-        top: 73% !important;
+        top: 480px !important;
     }     
 }
 @media only screen and (max-width: 542px){
     .col-4 .product-overlay{
-        top: 72% !important;
+        top: 460px !important;
     }     
 }
 @media only screen and (max-width: 522px){
     .col-4 .product-overlay{
-        top: 71% !important;
+        top: 440px !important;
     }     
 }
 @media only screen and (max-width: 502px){
     .col-4 .product-overlay{
-        top: 70% !important;
+        top: 420px !important;
     }     
 }
 @media only screen and (max-width: 482px){
     .col-4 .product-overlay{
-        top: 69% !important;
+        top: 400px !important;
     }     
 }
 @media only screen and (max-width: 462px){
     .col-4 .product-overlay{
-        top: 68% !important;
+        top: 380px !important;
     }     
 }
 @media only screen and (max-width: 442px){
     .col-4 .product-overlay{
-        top: 67% !important;
+        top: 360px !important;
     }     
 }
 @media only screen and (max-width: 422px){
     .col-4 .product-overlay{
-        top: 66% !important;
+        top: 340px !important;
     }     
 }
 @media only screen and (max-width: 402px){
     .col-4 .product-overlay{
-        top: 65% !important;
+        top: 320px !important;
     }     
 }
 @media only screen and (max-width: 382px){
     .col-4 .product-overlay{
-        top: 63% !important;
+        top: 300px !important;
     }     
+    .next{
+        right: 0px !important;
+        top: 35% !important;
+    }
+    .prev{
+        left: 0px !important;
+        top: 35% !important;
+    }
 }
 @media only screen and (max-width: 362px){
     .col-4 .product-overlay{
-        top: 62% !important;
+        top: 280px !important;
     }     
 }
 @media only screen and (max-width: 342px){
     .col-4 .product-overlay{
-        top: 60% !important;
+        top: 260px !important;
     }     
 }
 @media only screen and (max-width: 322px){
     .col-4 .product-overlay{
-        top: 58% !important;
+        top: 240px !important;
     }     
 }
 @media only screen and (max-width: 302px){
     .col-4 .product-overlay{
-        top: 56% !important;
+        top: 220px !important;
     }     
 }
 @media only screen and (max-width: 282px){
     .col-4 .product-overlay{
-        top: 54% !important;
+        top: 200px !important;
     }     
 }
 /* end of product overlay responsive css */
@@ -3042,15 +3060,11 @@ form a{
         font-size: 13px;
     }
 }
-@media only screen and (max-width: 385px){
-    .next{
-        right: 0px !important;
-        top: 35% !important;
-    }
-    .prev{
-        left: 0px !important;
-        top: 35% !important;
-    }
+/* Iphone X Media Queries */
+@media only screen and (max-width: 376px){
+    .col-4 .product-overlay{
+        top: 290px !important;
+    }     
 }
 @media only screen and (max-width: 281px){
     .post-info h4{
