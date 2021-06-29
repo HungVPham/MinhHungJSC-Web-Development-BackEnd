@@ -4,7 +4,6 @@
 use App\Section;
 $sections = Section::sections();
 ?>
-<test-commit></test-commit>
 <div class="categories">    
     <div id="section-container" class="small-container">
         <div class="row">
