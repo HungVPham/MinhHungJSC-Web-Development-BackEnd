@@ -621,7 +621,7 @@ p{
 
 .row .col-4 h4{
     padding-top: 8px;
-    transition: all 0.1s ease;
+    transition: all 0.3s ease;
 }
 
 .flexbox-center{
@@ -811,8 +811,8 @@ h4{
 
 /* feature products slider */
 .col-4 .product-overlay{
+    top: 205px;
     position: absolute;
-    top: 54%;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -850,10 +850,6 @@ h4{
     transform: translateY(0px);
     opacity: 1 !important;
     visibility: visible;
-}
-
-.col-4:hover h4{
-    transform: translateY(10px) !important;
 }
 /* exclusive offer CSS */
 .offer{
@@ -2391,27 +2387,27 @@ form a{
 /* product overlay responsive css */
 @media only screen and (max-width: 1045px){
     .col-4 .product-overlay{
-        top: 53%;
+        top: 200px;
     }     
 }
 @media only screen and (max-width: 1024px){
     .col-4 .product-overlay{
-        top: 61%;
+        top: 275px;
     }     
 }
 @media only screen and (max-width: 983px){
     .col-4 .product-overlay{
-        top: 60%;
+        top: 265px;
     }     
 }
 @media only screen and (max-width: 948px){
     .col-4 .product-overlay{
-        top: 59%;
+        top: 255px;
     }     
 }
 @media only screen and (max-width: 927px){
     .col-4 .product-overlay{
-        top: 58%;
+        top: 245px;
     }     
 }
 @media only screen and (max-width: 892px){
