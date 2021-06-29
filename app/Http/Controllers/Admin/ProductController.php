@@ -25,6 +25,9 @@ class ProductController extends Controller
         }
         ,'section'=>function($query){
             $query->select('id', 'name');
+        }
+        ,'brand'=>function($query){
+            $query->select('id', 'name');
         }])->get();
         $products = json_decode(json_encode($products));
         return view('admin.products.products')->with(compact('products'));
@@ -89,11 +92,11 @@ class ProductController extends Controller
             ];
             $this->validate($request, $rules, $customMessages);
 
-            if(empty($data['is_featured'])){
-                $is_featured = "No";
-            }else{
-                $is_featured = "Yes";
-            }
+            // if(empty($data['is_featured'])){
+            //     $is_featured = "No";
+            // }else{
+            //     $is_featured = "Yes";
+            // }
 
             // Upload Product Images
             if($request->hasFile('main_image')){
@@ -101,8 +104,7 @@ class ProductController extends Controller
                 if($image_tmp->isValid()){
                     // get image original name
                     $image_name = $image_tmp->getClientOriginalName();
-                    $extension = $image_tmp->getClientOriginalExtension();
-                    $imageName = $image_name.'-'.rand(1,999999).'.'.$extension;
+                    $imageName = rand(1,999999).'_'.$image_name;
                     $large_image_path = 'images/product_images/main_image/large/'.$imageName;
                     $medium_image_path = 'images/product_images/main_image/medium/'.$imageName;
                     $small_image_path = 'images/product_images/main_image/small/'.$imageName;
@@ -140,7 +142,11 @@ class ProductController extends Controller
             $product->meta_title = $data['meta_title'];
             $product->meta_description = $data['meta_description'];
             $product->meta_keywords = $data['meta_keywords'];
-            $product->is_featured = $is_featured;
+            if(!empty($data['is_featured'])){
+                $product->is_featured = $data['is_featured'];
+            }else{
+                $product->is_featured = "No";
+            }
             $product->save();
             session::flash('success_message',$message);
             return redirect('admin/products');

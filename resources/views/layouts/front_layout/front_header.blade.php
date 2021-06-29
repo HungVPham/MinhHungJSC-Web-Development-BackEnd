@@ -80,7 +80,7 @@ $sections = Section::sections();
 			</li>
 		</ul>
 		<div style="display: flex">
-			<div class="navbar-cart">
+			<div class="navbar-cart" cartCount="0">
 				<a href="#"><img src="{{ url('images/front_images/cart.png') }}"></a>
 			</div>
 			<div class="action">

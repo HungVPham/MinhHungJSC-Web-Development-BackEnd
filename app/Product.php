@@ -14,8 +14,12 @@ class Product extends Model
     //     return $this->belongsTo('App\Category', 'subcategory_id');
     // }
 
+    public function brand(){
+        return $this->belongsTo('App\Brand', 'brand_id')->select('id','name');
+    }
+
     public function section(){
-        return $this->belongsTo('App\Section', 'section_id')->select('id','name');;
+        return $this->belongsTo('App\Section', 'section_id')->select('id','name');
     }
 
     public function MaxproAttributes(){

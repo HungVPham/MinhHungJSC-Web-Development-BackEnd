@@ -26,22 +26,50 @@ $sections = Section::sections();
 <!------sản phẩm nổi bật------->
 <div class="small-container"> 
     <h2 class="title">Sản Phẩm Nổi Bật</h2>
-    <div class="owl-carousel" id="product-slider">
-        <div class="row">
-            <div class="col-4">
-                <a href="product-details.html"><img src="{{ url('images/front_images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro_thumbnail.jpg') }}" alt="sản phẩm nổi bật 1"></a>
-                <a href="product-details.html"><h4>Máy Khoan Pin 18V</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
+    <div class="slider-nav-container" style="width: 100%; margin: 0 auto !important; position: relative;">
+        <i class="fas fa-chevron-left prev"></i>
+        <i class="fas fa-chevron-right next"></i>
+        <p style="float: right;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount  }}+</span> sản phẩm nổi bật !</p>
+        <div class="row" id="featuredCarousel">
+            @foreach($featuredItemsChunk as $key => $featuredItem)
+                @foreach($featuredItem as $item)
+                <div class="col-4">
+                    <a href="#">
+                        <?php $product_image_path = 'images/product_images/main_image/medium/'.$item['main_image']; ?>
+                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm nổi bật">
+                        @else
+                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        @endif
+                    </a>
+                    <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                    <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                    <a href="#"><h4>{{ $item['product_name'] }}</h4></a>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        {{-- <i class="fa fa-star-o"></i> --}}
+                    </div>
+                    <p>
+                        @if(!empty($item['product_price']))
+                        ₫ <?php 
+                        $num = $item['product_price'];
+                        $format = number_format($num);
+                        echo $format;
+                        ?>
+                        @else 
+                        <i>giá liên hệ</i>
+                        @endif   
+                    </p>
                 </div>
-                <p>Giá Liên Hệ</p>
-            </div>
-            <div class="col-4">
+                @endforeach
+            {{-- <div class="col-4">
                 <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-70_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 2"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                 <a href=""><h4>Máy Bơm WSD 55/70</h4></a>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -54,6 +82,8 @@ $sections = Section::sections();
             </div>
             <div class="col-4">
                 <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-50_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 3"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                 <a href=""><h4>Máy Bơm WSD 55/50</h4></a>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -66,6 +96,8 @@ $sections = Section::sections();
             </div>
             <div class="col-4">
                 <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                 <a href=""><h4>Máy Bơm Tăng Áp PW-F</h4></a>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -76,13 +108,72 @@ $sections = Section::sections();
                 </div>
                 <p>Giá Liên Hệ</p>
             </div>
+            <div class="col-4">
+                <a href="#"><img src="{{ url('images/front_images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro_thumbnail.jpg') }}" alt="sản phẩm nổi bật 1"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <a href="#"><h4>Máy Khoan Pin 18V</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div>
+            <div class="col-4">
+                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-70_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 2"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <a href=""><h4>Máy Bơm WSD 55/70</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-alt"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div>
+            <div class="col-4">
+                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-50_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 3"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <a href=""><h4>Máy Bơm WSD 55/50</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-alt"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div>
+            <div class="col-4">
+                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <a href=""><h4>Máy Bơm Tăng Áp PW-F</h4></a>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>Giá Liên Hệ</p>
+            </div> --}}
+            @endforeach
         </div>
     </div>
     <!------sản phẩm mới nhất------->
     <h2 class="title">Sản Phẩm Mới Nhất</h2>
     <div class="row">
         <div class="col-4">
-             <a href=""><img src="{{ url('images/front_images/product/HydraulicHose/sp-flex/dayChuyencongNghiep_spflex_thumbnail.jpg') }}" alt="sản phẩm mới 1"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
              <a href=""><h4>Ống Thủy Lực SP Flex</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -94,7 +185,9 @@ $sections = Section::sections();
             <p>Giá Liên Hệ</p>
         </div>
         <div class="col-4">
-             <a href=""><img src="{{ url('images/front_images/product/MaxPro/máy-bào/mayBao_maxpro_thumbnail.jpg') }}" alt="sản phẩm mới 2"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
              <a href=""><h4>Máy Bào MPPL900/3DR1</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -106,7 +199,9 @@ $sections = Section::sections();
             <p>Giá Liên Hệ</p>
         </div>
         <div class="col-4">
-             <a href=""><img src="{{ url('images/front_images/product/MaxPro/máy-cưa-bàn/mayCuaban_maxpro_thumbnail.jpg') }}" alt="sản phẩm mới 3"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
              <a href=""><h4>Máy Cưa Bàn MPBTS254L</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -118,7 +213,9 @@ $sections = Section::sections();
             <p>Giá Liên Hệ</p>
         </div>
         <div class="col-4">
-             <a href=""><img src="{{ url('images/front_images/product/MaxPro/máy-đục-bê-tông/mayDucbeTong_maxpro_thumbnail.jpg') }}" alt="sản phẩm mới 4"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
              <a href=""><h4>Máy Đục Bê Tông MPDH1500</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -132,7 +229,9 @@ $sections = Section::sections();
     </div>
     <div class="row">
         <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/MaxPro/máy-khoan-búa/mayKhoanbua_maxpro_thumbnail.jpg') }}" alt="sản phẩm mới 5"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                 <a href=""><h4>Máy Khoan Búa MPRH1500/32V</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -144,7 +243,9 @@ $sections = Section::sections();
             <p>Giá Liên Hệ</p>
         </div>
         <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/MaxPro/máy-mài/mayMai_maxpro_thumbnail.jpg') }}" alt="sản phẩm mới 6"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                 <a href=""><h4>Máy Mài Góc Thân Dài MPAG951/125L</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -156,7 +257,9 @@ $sections = Section::sections();
             <p>Giá Liên Hệ</p>
         </div>
         <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/MaxPro/máy-nén-khí/mayNenkhi_maxpro_thumbnail.jpg') }}" alt="sản phẩm mới 7"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                 <a href=""><h4>Máy Nén Khí MPEAC800/24</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -168,7 +271,9 @@ $sections = Section::sections();
             <p>Giá Liên Hệ</p>
         </div>
         <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/MaxPro/máy-phun-sơn/mayPhunson_maxpro_thumbnail.jpg') }}" alt="sản phẩm mới 8"></a>
+            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                 <a href=""><h4>Máy Phun Sơn  MPSG400/800V</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
@@ -236,6 +341,7 @@ $sections = Section::sections();
 <!------Đối Tác------->
 <div class="partners">
     <div class="small-container">
+        <h2 class="title" id="affiliates-title">Doanh Nghiệp Đối Tác</h2>
         <div class="row">
             <div class="col-5">
                 <a href="http://www.krebs-tools.com/?fbclid=IwAR1U8FZK8dU29apTKYhsYsIDSa2_cl83iOLouj6RsPj2TPFRorMMh0k2bEo" target="_blank"><img src="{{ url('images/front_images/logoPartner1.png') }}" alt="đối tác MaxPro"></a>

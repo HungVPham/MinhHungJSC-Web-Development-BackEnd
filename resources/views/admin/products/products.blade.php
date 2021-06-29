@@ -71,7 +71,8 @@
                   <tr>
                     <th>ID</th>
                     <th>Mã SP</th>
-                    <th>Sản Phẩm</th>
+                    <th>Thương Hiệu</th>
+                    <th>Tên SP</th>
                     <th>Hình Ảnh</th>
                     <th>Thể Loại SP</th>
                     <th>Danh Mục SP</th>
@@ -84,6 +85,7 @@
                   <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->product_code }}</td>
+                    <td>{{ $product->brand->name }}</td>
                     <td>{{ $product->product_name }}</td>
                     <td style="text-align: center;">
                       <?php $product_image_path = "images/product_images/main_image/small/".$product->main_image; ?>
