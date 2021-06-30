@@ -66,104 +66,6 @@ $sections = Section::sections();
                     </p>
                 </div>
                 @endforeach
-            {{-- <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-70_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 2"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Bơm WSD 55/70</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-alt"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>Giá Liên Hệ</p>
-            </div>
-            <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-50_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 3"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Bơm WSD 55/50</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-alt"></i>
-                </div>
-                <p>Giá Liên Hệ</p>
-            </div>
-            <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Bơm Tăng Áp PW-F</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>Giá Liên Hệ</p>
-            </div>
-            <div class="col-4">
-                <a href="#"><img src="{{ url('images/front_images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro_thumbnail.jpg') }}" alt="sản phẩm nổi bật 1"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href="#"><h4>Máy Khoan Pin 18V</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>Giá Liên Hệ</p>
-            </div>
-            <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-70_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 2"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Bơm WSD 55/70</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-alt"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>Giá Liên Hệ</p>
-            </div>
-            <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-wsd/wsd55-50_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 3"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Bơm WSD 55/50</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-alt"></i>
-                </div>
-                <p>Giá Liên Hệ</p>
-            </div>
-            <div class="col-4">
-                <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Bơm Tăng Áp PW-F</h4></a>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>Giá Liên Hệ</p>
-            </div> --}}
             @endforeach
         </div>
     </div>
@@ -226,8 +128,6 @@ $sections = Section::sections();
             </div>
             <p>Giá Liên Hệ</p>
         </div>
-    </div>
-    <div class="row">
         <div class="col-4">
             <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
                 <div class="product-overlay navDetail"><a>xem chi tiết</a></div>

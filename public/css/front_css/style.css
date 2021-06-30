@@ -2166,16 +2166,12 @@ form a{
         margin-left: 10px;
     }
     .next{
-        z-index: 998;
-        top: 40%; 
-        right: 10px !important;
-       
+        right: -25px !important;
+        top: 30% !important;
     }
     .prev{
-        z-index: 998;
-        top: 40%;
-        left: 10px !important;
-       
+        left: -25px !important;
+        top: 30% !important;
     }
     .post-slider .next{
         z-index: 998;
@@ -2384,208 +2380,11 @@ form a{
         margin-left: 15px !important;
     }
 }
-/* product overlay responsive css */
-@media only screen and (max-width: 1300px){
-    .next{
-        right: -25px !important;
-        top: 30% !important;
-    }
-    .prev{
-        left: -25px !important;
-        top: 30% !important;
-    }
-}
 @media only screen and (max-width: 1045px){
     .col-4 .product-overlay{
-        top: 200px;
+        display: none;
     }     
 }
-@media only screen and (max-width: 1024px){
-    .col-4 .product-overlay{
-        top: 275px;
-    }     
-}
-@media only screen and (max-width: 983px){
-    .col-4 .product-overlay{
-        top: 265px;
-    }     
-}
-@media only screen and (max-width: 948px){
-    .col-4 .product-overlay{
-        top: 255px;
-    }     
-}
-@media only screen and (max-width: 927px){
-    .col-4 .product-overlay{
-        top: 245px;
-    }     
-}
-@media only screen and (max-width: 892px){
-    .col-4 .product-overlay{
-        top: 235px;
-    }     
-}
-@media only screen and (max-width: 868px){
-    .col-4 .product-overlay{
-        top: 225px;
-    }     
-}
-@media only screen and (max-width: 832px){
-    .col-4 .product-overlay{
-        top: 215px;
-    }     
-}
-@media only screen and (max-width: 812px){
-    .col-4 .product-overlay{
-        top: 205px;
-    }     
-}
-@media only screen and (max-width: 792px){
-    .col-4 .product-overlay{
-        top: 195px;
-    }     
-}
-@media only screen and (max-width: 762px){
-    .col-4 .product-overlay{
-        top: 185px;
-    }     
-}
-@media only screen and (max-width: 742px){
-    .col-4 .product-overlay{
-        top: 178px;
-    }     
-}
-@media only screen and (max-width: 722px){
-    .col-4 .product-overlay{
-        top: 171px;
-    }     
-}
-@media only screen and (max-width: 702px){
-    .col-4 .product-overlay{
-        top: 164px;
-    }     
-}
-@media only screen and (max-width: 682px){
-    .col-4 .product-overlay{
-        top: 158px;
-    }     
-}
-@media only screen and (max-width: 662px){
-    .col-4 .product-overlay{
-        top: 153px;
-    }     
-}
-@media only screen and (max-width: 642px){
-    .col-4 .product-overlay{
-        top: 145px;
-    }     
-}
-@media only screen and (max-width: 623px){
-    .col-4 .product-overlay{
-        top: 139px;
-    }     
-    .slider-nav-container{
-        height: 400px !important;
-    }
-    .next{
-        right: -25px !important;
-        top: 35% !important;
-    }
-    .prev{
-        left: -15px !important;
-        top: 35% !important;
-    }
-}
-@media only screen and (max-width: 582px){
-    .col-4 .product-overlay{
-        top: 500px !important;
-    }     
-}
-@media only screen and (max-width: 562px){
-    .col-4 .product-overlay{
-        top: 480px !important;
-    }     
-}
-@media only screen and (max-width: 542px){
-    .col-4 .product-overlay{
-        top: 460px !important;
-    }     
-}
-@media only screen and (max-width: 522px){
-    .col-4 .product-overlay{
-        top: 440px !important;
-    }     
-}
-@media only screen and (max-width: 502px){
-    .col-4 .product-overlay{
-        top: 420px !important;
-    }     
-}
-@media only screen and (max-width: 482px){
-    .col-4 .product-overlay{
-        top: 400px !important;
-    }     
-}
-@media only screen and (max-width: 462px){
-    .col-4 .product-overlay{
-        top: 380px !important;
-    }     
-}
-@media only screen and (max-width: 442px){
-    .col-4 .product-overlay{
-        top: 360px !important;
-    }     
-}
-@media only screen and (max-width: 422px){
-    .col-4 .product-overlay{
-        top: 340px !important;
-    }     
-}
-@media only screen and (max-width: 402px){
-    .col-4 .product-overlay{
-        top: 320px !important;
-    }     
-}
-@media only screen and (max-width: 382px){
-    .col-4 .product-overlay{
-        top: 300px !important;
-    }     
-    .next{
-        right: 0px !important;
-        top: 35% !important;
-    }
-    .prev{
-        left: 0px !important;
-        top: 35% !important;
-    }
-}
-@media only screen and (max-width: 362px){
-    .col-4 .product-overlay{
-        top: 280px !important;
-    }     
-}
-@media only screen and (max-width: 342px){
-    .col-4 .product-overlay{
-        top: 260px !important;
-    }     
-}
-@media only screen and (max-width: 322px){
-    .col-4 .product-overlay{
-        top: 240px !important;
-    }     
-}
-@media only screen and (max-width: 302px){
-    .col-4 .product-overlay{
-        top: 220px !important;
-    }     
-}
-@media only screen and (max-width: 282px){
-    .col-4 .product-overlay{
-        top: 200px !important;
-    }     
-}
-/* end of product overlay responsive css */
-
 @media only screen and (max-width: 972px){
     /* news and events queries */
     .post-preview i{

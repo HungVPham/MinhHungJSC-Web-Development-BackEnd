@@ -10,8 +10,8 @@
     <script src="https://kit.fontawesome.com/197ff1d829.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-	<link href="{{ url('js/front_js/google-code-prettify/prettify.css') }}" rel="stylesheet"/>
-	<style type="text/css" id="enject"></style>
+	  <link href="{{ url('js/front_js/google-code-prettify/prettify.css') }}" rel="stylesheet"/>
+	  <style type="text/css" id="enject"></style>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 </head> 
 <body>
