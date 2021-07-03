@@ -498,9 +498,8 @@ class ProductController extends Controller
                 foreach ($images as $key => $image) {
                     $productImage = new ProductsImage;
                     $image_tmp = Image::make($image);
-                    // $originalName = $image->getClientOriginalName();
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName =  rand(1,999999).time().".".$extension;
+                    $originalName = $image->getClientOriginalName();
+                    $imageName =  rand(1,999999).'_'.$originalName;
                     $large_image_path = 'images/product_images/main_image/large/'.$imageName;
                     $medium_image_path = 'images/product_images/main_image/medium/'.$imageName;
                     $small_image_path = 'images/product_images/main_image/small/'.$imageName;

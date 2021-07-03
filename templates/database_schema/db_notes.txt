@@ -1,0 +1,33 @@
+product variations options
+
+id      optionName
+
+1       tiêu đề
+
+
+product variations options values
+
+id      valueName       variation_id
+
+1       đỏ 
+2       xanh
+
+so the product combination becomes
+
+tiêu đề đỏ
+tiêu đề xanh
+
+id      combination_string      sku       pricing      unique_id
+1       tiêu đề đỏ                                      tdd
+2       tiêu đề xanh                                    tdx
+
+the combination compare problem
+
+selected combination needs to be in order.
+
+product stock
+
+id      combination_id      totalStock      unitPrice       totalPrice      status
+1       1                   10              2               20              completed
+1       1                   -2              2               15              completed                            
+1       1                   20              2               50              completed                            
