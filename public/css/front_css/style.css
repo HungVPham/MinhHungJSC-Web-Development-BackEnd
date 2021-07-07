@@ -862,29 +862,62 @@ h4{
     color: var(--Solid-White);
 }
 
+.offer .small-container .row .col-2 small{
+    color: var(--Solid-White);
+    font-size: 20px;
+    font-weight: 400;
+}
+
 .offer .small-container .row .col-2 p span{
     color: var(--Solid-Gold);
     font-weight: bolder;
 }
 
-.offer .small-container .row .col-2 h1{
-    color: var(--Solid-White);
+.offer .small-container .row .col-2 h1 p{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: var(--Solid-Gold);
+    font-size: 90px;
+    line-height: 50px;
+    font-weight: 500;
+}
+
+.offer .small-container .row .col-2 h1 p::first-line{
+    color: var(--Solid-Black);
+    font-weight: 400;
 }
 
 .offer .small-container .row .col-2 .btn{
     background-color: var(--Solid-White);
     color: #000000;
+    transition: all 0.3s ease-in-out;
+    font-weight: 500;
 }
 
 .offer .small-container .row .col-2 .btn:hover{
-    color: rgb(139, 19, 23) !important;
-    background-color: var(--Solid-White);
+    color: var(--Solid-Gold) !important;
+    background-color: var(--Solid-Black);
 }
 
 .col-2 .offer-img{
     opacity: 150%;
-    padding: 50px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: -30px;
+    border-radius: 100%;
+    background-color: #f1f1f1;
+    overflow: hidden !important;
+}
+
+.col-2 .offer-img img{
+    width: 85%;
+    margin-right: 15px;
 }
 
 small{
@@ -2148,7 +2181,23 @@ form a{
         width: 100% !important;
         margin: none !important;
     }
+}
+@media only screen and (max-width: 470px){
+    .offer .small-container .row .col-2 h1 p{
+        color: var(--Solid-Gold);
+        line-height: auto;
+        font-size: 50px;
+        margin-top: -20px !important;
+        margin-bottom: -20px !important;
+    }
+    
+    .offer .small-container .row .col-2 h1 p::first-line{
+        color: var(--Solid-Black);
+    }
 
+    .col-2 .offer-img{
+        margin-left: 0px;
+    }
 }
 @media only screen and (max-width: 1300px){
     .post-info h4{

@@ -147,6 +147,11 @@ class ProductController extends Controller
             }else{
                 $product->is_featured = "No";
             }
+            if(!empty($data['is_exclusive'])){
+                $product->is_exclusive = $data['is_exclusive'];
+            }else{
+                $product->is_exclusive = "No";
+            }
             $product->save();
             session::flash('success_message',$message);
             return redirect('admin/products');

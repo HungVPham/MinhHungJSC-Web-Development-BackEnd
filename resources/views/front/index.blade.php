@@ -72,11 +72,19 @@ $sections = Section::sections();
     <!------sản phẩm mới nhất------->
     <h2 class="title">Sản Phẩm Mới Nhất</h2>
     <div class="row">
+        @foreach($newMaxproProducts as $new)
         <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+            <a href="">
+                <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
+                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        @else
+                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        @endif
+            </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4>Ống Thủy Lực SP Flex</h4></a>
+             <a href=""><h4>{{ $new['product_name']}}</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -84,41 +92,65 @@ $sections = Section::sections();
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star-o"></i>
             </div>
-            <p>Giá Liên Hệ</p>
+            <p>
+                @if(!empty($new['product_price']))
+                    @if($new['section_id']!=1)từ@endif ₫<?php 
+                    $num = $new['product_price'];
+                    $format = number_format($num);
+                    echo $format;
+                    ?>
+                    @else 
+                    <i>giá liên hệ</i>
+                @endif   
+            </p>
         </div>
+        @endforeach
+        @foreach($newHhoseProducts as $new)
         <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+            <a href="">
+                <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
+                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        @else
+                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        @endif
+            </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4>Máy Bào MPPL900/3DR1</h4></a>
+             <a href=""><h4>{{ $new['product_name']}}</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-alt"></i>
+                <i class="fa fa-star"></i>
                 <i class="fa fa-star-o"></i>
             </div>
-            <p>Giá Liên Hệ</p>
+            <p>
+                @if(!empty($new['product_price']))
+                    @if($new['section_id']!=1)từ@endif ₫<?php 
+                    $num = $new['product_price'];
+                    $format = number_format($num);
+                    echo $format;
+                    ?>
+                    @else 
+                    <i>giá liên hệ</i>
+                @endif   
+            </p>
         </div>
+        @endforeach
+        @foreach($newShimgeProducts as $new)
         <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
+            <a href="">
+                <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
+                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        @else
+                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        @endif
+            </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4>Máy Cưa Bàn MPBTS254L</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-alt"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div>
-        <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
-             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4>Máy Đục Bê Tông MPDH1500</h4></a>
+             <a href=""><h4>{{ $new['product_name']}}</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -126,83 +158,47 @@ $sections = Section::sections();
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star-o"></i>
             </div>
-            <p>Giá Liên Hệ</p>
+            <p>
+                @if(!empty($new['product_price']))
+                    @if($new['section_id']!=1)từ@endif ₫<?php 
+                    $num = $new['product_price'];
+                    $format = number_format($num);
+                    echo $format;
+                    ?>
+                    @else 
+                    <i>giá liên hệ</i>
+                @endif   
+            </p>
         </div>
-        <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Khoan Búa MPRH1500/32V</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div>
-        <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Mài Góc Thân Dài MPAG951/125L</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-alt"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div>
-        <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Nén Khí MPEAC800/24</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-alt"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div>
-        <div class="col-4">
-            <a href=""><img src="{{ url('images/front_images/product/Shimge/máy-bơm-pwf/pw-f_shimge(indexPage)_thumbnail.jpg') }}" alt="sản phẩm nổi bật 4"></a>
-                <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                <a href=""><h4>Máy Phun Sơn  MPSG400/800V</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div>
+        @endforeach
     </div>
 </div>
 <!------sản phẩm độc quyền------->
+@foreach($exclusiveProduct as $exclusive)
 <div class="offer">
     <div class="small-container">
         <div class="row">
             <div class="col-2">
-                <img src="{{ url('images/front_images/product/MaxPro/máy-khoan-động-lực/mayKhoandongLuc_maxpro.png') }}" class="offer-img" alt="sản phẩm độc quyền">
+                <div class="offer-img">
+                <?php $product_image_path = 'images/product_images/main_image/large/'.$exclusive['main_image']; ?>
+                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm độc quyền">
+                        @else
+                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        @endif
+                </div>
             </div>
             <div class="col-2"> 
                 <p><span>Độc Quyền </span>Của Nhà Phân Phối Minh Hưng!</p>
-                <h1>Máy Khoan Động Lực MPID1050VD</h1>
-                <small>Máy khoan động lực MPID1050VD là dòng khoan động lực khoẻ nhất của MaxPro với công suất 1050W, độ rung thấp. Báng cầm vừa vặn và được thiết kế chống trượt, vừa không gây mỏi tay khi cầm lâu vừa giúp thao tác điều khiển dễ dàng, linh hoạt và an toàn hơn.</small>
+                <h1><p>{{ $exclusive['product_name']}}</p></h1>
+                <small>{{ $exclusive['product_description']}}</small>
                 <br>
                 <a href="" class="btn">Tìm Hiểu Thêm &#8594;</a>
             </div>
         </div>
     </div>
 </div>
+@endforeach
 <!------ tin tức - sự kiện ------->
 <div class="stories">
     <div class="small-container">

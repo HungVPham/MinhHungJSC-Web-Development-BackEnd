@@ -263,10 +263,15 @@
                     @endif
                   </div>
                 </div>
-                <div class="col-md-6" style="display: flex; align-items: center;">
+                <div class="col-md-6" style="display: flex; flex-direction: column; justify-content: center;">
                   <div class="form-group" style="width: 100%;">
                     <label for="is_featured">&nbsp;Sản Phẩm Nổi Bật: Có/Không</label>
                     <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if(!empty($productdata['is_featured']) && $productdata['is_featured']=="Yes") checked="" @endif>
+                  </textarea>
+                  </div>
+                  <div class="form-group" style="width: 100%;">
+                    <label for="is_exclusive">&nbsp;Sản Phẩm Độc Quyền: Có/Không</label>
+                    <input type="checkbox" name="is_exclusive" id="is_exclusive" value="Yes" @if(!empty($productdata['is_exclusive']) && $productdata['is_exclusive']=="Yes") checked="" @endif>
                   </textarea>
                   </div>
                 </div>
