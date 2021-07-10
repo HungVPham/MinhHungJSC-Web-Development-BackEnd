@@ -8,7 +8,7 @@ $sections = Section::sections();
     <div id="section-container" class="small-container">
         <div class="row">
             @foreach($sections as $section)
-            {{-- @if(count($section['categories'])>0) --}}
+            @if(count($section['categories'])>0)
             <div id="section" class="col-3">
                 <?php $section_image_path = "images/section_images/".$section['section_image']; ?>
                 @if(!empty($section['section_image']) && file_exists($section_image_path))
@@ -18,7 +18,7 @@ $sections = Section::sections();
                     <div class="image_title" style="text-align: center;">{{ $section['name'] }}</div>
                 </div></a>
             </div>
-            {{-- @endif --}}
+            @endif
             @endforeach
         </div>
     </div>
@@ -27,10 +27,12 @@ $sections = Section::sections();
 <div class="small-container"> 
     <h2 class="title">Sản Phẩm Nổi Bật</h2>
     <div class="slider-nav-container" style="width: 100%; margin: 0 auto !important; position: relative;">
+        @if($featuredItemsCount > 4)
         <i class="fas fa-chevron-left prev"></i>
         <i class="fas fa-chevron-right next"></i>
+        @endif
         <p style="float: right;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount  }}+</span> sản phẩm nổi bật !</p>
-        <div class="row" id="featuredCarousel">
+        <div class="row" @if($featuredItemsCount > 4) id="featuredCarousel" @endif>
             @foreach($featuredItemsChunk as $key => $featuredItem)
                 @foreach($featuredItem as $item)
                 <div class="col-4">
@@ -44,7 +46,7 @@ $sections = Section::sections();
                     </a>
                     <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                     <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                    <a href="#"><h4>{{ $item['product_name'] }}</h4></a>
+                    <a href="#"><h4 title="{{ $item['product_name'] }}">{{ $item['product_name'] }}</h4></a>
                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -72,11 +74,14 @@ $sections = Section::sections();
     <!------sản phẩm mới nhất------->
     <h2 class="title">Sản Phẩm Mới Nhất</h2>
     <div class="row">
+        <div class="flexleft-container">
+            <p style="float: right !important;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">8+</span> sản phẩm mới nhất !</p>
+        </div>
         @foreach($newMaxproProducts as $new)
         <div class="col-4">
             <a href="">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
-                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        @if(!empty($new['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
@@ -84,13 +89,13 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4>{{ $new['product_name']}}</h4></a>
+             <a href=""><h4 title="{{ $new['product_name'] }}">{{ $new['product_name']}}</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star"></i>
             </div>
             <p>
                 @if(!empty($new['product_price']))
@@ -109,7 +114,7 @@ $sections = Section::sections();
         <div class="col-4">
             <a href="">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
-                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        @if(!empty($new['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
@@ -117,13 +122,13 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4>{{ $new['product_name']}}</h4></a>
+             <a href=""><h4 title="{{ $new['product_name'] }}">{{ $new['product_name']}}</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star"></i>
             </div>
             <p>
                 @if(!empty($new['product_price']))
@@ -142,7 +147,7 @@ $sections = Section::sections();
         <div class="col-4">
             <a href="">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
-                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                        @if(!empty($new['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
@@ -150,13 +155,13 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4>{{ $new['product_name']}}</h4></a>
+             <a href=""><h4 title="{{ $new['product_name'] }}">{{ $new['product_name']}}</h4></a>
             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star"></i>
             </div>
             <p>
                 @if(!empty($new['product_price']))
@@ -207,7 +212,7 @@ $sections = Section::sections();
             <div class="col-3">
                 <i class="fa fa-quote-left"></i>
                 <h4>Hành Trình Về Phía Bắc Tổ Quốc!</h4>
-                <p style="line-height: 25px; overflow-y: hidden;">Người Minh Hưng chúng tôi đã có 1 chuyến đi với rất nhiều kỉ niệm, sự trải nghiệm, nhìn nhận sự việc ở thế giới bên ngoài, xung quanh ta với nhiều tình yêu thương bằng ánh mắt trìu mến...</p>
+                <p style="line-height: 25px;">Người Minh Hưng chúng tôi đã có 1 chuyến đi với rất nhiều kỉ niệm, sự trải nghiệm, nhìn nhận sự việc ở thế giới bên ngoài, xung quanh ta với nhiều tình yêu thương bằng ánh mắt trìu mến</p>
                 <div class="subdiv">
                     <img src="{{ url('images/front_images/logoMinhHung.png') }}" alt="tác giả bài biết">
                     <h4>Người Minh Hưng</h4>

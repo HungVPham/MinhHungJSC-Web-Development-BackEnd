@@ -526,6 +526,12 @@ class ProductController extends Controller
         $title = "Thêm Hình Ảnh Cấp (1)";
         return view('admin.products.add_images')->with(compact('productdata', 'title'));
     }
+
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('product', compact('product'));
+    }
 }
 
 

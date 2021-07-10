@@ -10,8 +10,8 @@ class IndexController extends Controller
 {
     public function index(){
         // Get Featured Items
-        $featuredItemsCount = Product::where('is_featured', 'Yes')->count();
-        $featuredItems = Product::where('is_featured', 'Yes')->get()->toArray();
+        $featuredItemsCount = Product::where('is_featured', 'Yes')->where('status', 1)->count();
+        $featuredItems = Product::where('is_featured', 'Yes')->where('status', 1)->get()->toArray();
         $featuredItemsChunk = array_chunk($featuredItems, 4);
 
         // Get New Products 

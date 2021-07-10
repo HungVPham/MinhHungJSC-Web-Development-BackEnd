@@ -37,7 +37,7 @@ body a:hover{
 }
 
 body a:focus{
-    color: #563434;
+    color: var(--Solid-White);
     outline: none;
 }
 
@@ -622,6 +622,9 @@ p{
 .row .col-4 h4{
     padding-top: 8px;
     transition: all 0.3s ease;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .flexbox-center{
@@ -637,15 +640,14 @@ p{
     color: var(--Solid-White);
     padding: 8px 30px;
     margin: 30px 0px;
-    transition: all 0.3s ease;
-    border-color: var(--MinhHung-Red);
     font-size: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease-out;
 }
 
 .btn:hover{
-   background: rgb(139, 19, 23);
-   color: var(--Solid-White) !important;
-   border-color: rgb(139, 19, 23);
+   background-color: var(--Solid-Black);
+   color: var(--Solid-Gold) !important;
 }
 
 ul{
@@ -866,6 +868,10 @@ h4{
     color: var(--Solid-White);
     font-size: 20px;
     font-weight: 400;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
 }
 
 .offer .small-container .row .col-2 p span{
@@ -892,6 +898,7 @@ h4{
     color: #000000;
     transition: all 0.3s ease-in-out;
     font-weight: 500;
+    margin-top: -5px;
 }
 
 .offer .small-container .row .col-2 .btn:hover{
@@ -957,11 +964,15 @@ small{
     margin: 10px;
 }   
 
-.col-3 p{
+.stories .small-container .row .col-3 p{
     font-size: 20px;
     margin: 12px 0px;
     color: #555;
     opacity: 90%;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
 }
 
 .stories .col-3{
@@ -980,6 +991,10 @@ small{
 }
 
 /* business partners CSS */
+.partners{
+    margin-bottom: 50px;
+}
+
 
 .col-5{
     margin: 75px auto;
@@ -1059,11 +1074,19 @@ small{
 }
 
 .footer-col-3 ul a, .footer-col-4 ul a{
-   color: #7a7a7a;
+   color: #b5b5b5;
 }
 
 #footer-nav{
     padding: 0 !important;
+}
+
+#footer-nav li{
+    transition: all 0.3s;
+}
+
+#footer-nav li:hover{
+    color: var(--MinhHung-Red);
 }
 
 #footer-nav:focus{

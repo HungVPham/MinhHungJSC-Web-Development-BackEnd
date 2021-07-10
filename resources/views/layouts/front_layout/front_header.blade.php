@@ -152,7 +152,7 @@ $sections = Section::sections();
 					<span style="color: #cb1c22; font-weight: bolder;">Giá trị</span> đến từ <span style="color: #cb1c22; font-weight: bolder;">con người!</span></p>
 					</div>
 					<div class="overlay-btn">
-					<a href="#" class="btn">Đăng Ký Ngay!</a>
+					<a href="" class="btn">Đăng Ký Ngay &#8594;</a>
 					</div>
 				</div>
 			</div>

@@ -37,4 +37,9 @@ class Product extends Model
     public function images(){
         return $this->hasMany('App\productsImage');
     }
+
+    public function ratings()
+    {
+        return $this->hasMany('App\Models\Rating');
+    }
 }
