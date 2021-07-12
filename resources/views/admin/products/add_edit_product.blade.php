@@ -259,7 +259,7 @@
                     <div style="padding-top: 10px;"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
                       &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
                     </div>
-                    @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (750x650)</div>
+                    @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (750x650) [px]</div>
                     @endif
                   </div>
                 </div>
@@ -291,7 +291,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="product_description">&nbsp;Mô Tả Sản Phẩm</label>
+                    <label for="product_description">&nbsp;Mô Tả Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <textarea name="product_description" id="product_description" class="form-control" rows="3" placeholder=" nhập mô tả sản phẩm...">@if (!empty($productdata['product_description'])) {{ $productdata['product_description'] }}@else {{ old("product_description") }}@endif
                     </textarea>
                   </div>

@@ -6,12 +6,12 @@
     .dropdown-item.active, .dropdown-item:active {background-color: var(--MinhHung-Red);}
     .page-item .page-link {color: #333}
     .page-item .page-link:focus{box-shadow: none}
-    .updateSectionStatus:hover{color: #4c5158 !important}
+    .updateBannerStatus:hover{color: #4c5158 !important}
     #admin-btn{max-width: 180px; float: right; display: inline-block; background-color: var(--MinhHung-Red); border-color: var(--MinhHung-Red); font-size: 1.0rem}
-    #deleteSection{color:var(--Delete-Red)}
-    #deleteSection:hover{color: var(--MinhHung-Red-Hover)}
-    #updateSection{color: #000000;}
-    #updateSection:hover{color:#4c5158;}
+    #deleteBanner{color:var(--Delete-Red)}
+    #deleteBanner:hover{color: var(--MinhHung-Red-Hover)}
+    #updateBanner{color: #000000;}
+    #updateBanner:hover{color:#4c5158;}
     a{color: inherit}
     .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
     .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
@@ -35,12 +35,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Catalogue</h1>
+            <h1>Hình Thức</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
-              <li class="breadcrumb-item active">Danh Mục SP</li>
+              <li class="breadcrumb-item active">Banner</li>
             </ol>
           </div>
         </div>
@@ -63,8 +63,8 @@
             @endif
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Danh Mục Sản Phẩm</h3>
-                <a href="{{ url('admin/add-edit-section') }}" class="btn btn-block btn-success" id="admin-btn" disabled="">Thêm Danh Mục SP</a>
+                <h3 class="card-title">Banner</h3>
+                <a href="{{ url('admin/add-edit-banner') }}" class="btn btn-block btn-success" id="admin-btn">Thêm Banner</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -72,37 +72,38 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Danh Mục</th>
-                    <th>Hình Ảnh</th>
-                    <th>URL</th>
+                    <th>Ảnh Banner</th>
+                    <th>Link Điểm Đến</th>
+                    <th>Cấp Banner</th>
                     <th>Trạng Thái</th>
                     <th>Hành Động</th>
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($sections as $section)
+                  @foreach($banners as $banner)
                   <tr>
-                    <td>{{ $section->id }}</td>
-                    <td>{{ $section->name }}</td>
-                    <td style="text-align: center;">
-                      <?php $section_image_path = "images/section_images/".$section->section_image; ?>
-                      @if(!empty($section->section_image) && file_exists($section_image_path))
-                      <img style="width: 150px;" src="{{ asset('images/section_images/'.$section->section_image) }}">
-                       @else
-                      <img style="width: 150px;" src="{{ asset('images/section_images/no-img.jpg') }}">
-                      @endif
+                    <td>{{ $banner['id'] }}</td>
+                    <td style="text-align: center">
+                      <img width="200px" height="100px" src="{{ asset('images/banner_images/'.$banner['image']) }}">
                     </td>
-                    <td>{{ $section->url }}</td>
+                    <td>{{ $banner['link'] }}</td>
+                    <td>
+                        @if ($banner['is_main']=="Yes")
+                        banner chính
+                        @else
+                        banner phụ
+                        @endif
+                    </td>
                     <td style="width: 135px;">
-                      @if ($section->status==1)
-                      <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: var(--Positive-Green);"><i id="active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
-                      @elseif ($section->status==0)
-                      <a class="updateSectionStatus" id="section-{{ $section->id }}" section_id="{{ $section->id }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="far fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
+                      @if ($banner['status']==1)
+                      <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}" href="javascript:void(0)"><i id="active"  status="Active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
+                      @elseif ($banner['status']==0)
+                      <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}" href="javascript:void(0)"><i id="inactive" status="Inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                       @endif
                     </td>
                     <td style="width: 50px;">
-                      <a title="sửa danh mục" id="updateSection" href="{{ url('admin/add-edit-section/'.$section->id) }}"><i class="fas fa-edit"></i></a>
-                      &nbsp; &nbsp;<a title="xóa danh mục" href="javascript:void(0)" class="confirmDelete" record="section" recordid="{{ $section->id }}"  class="confirmDelete" id="deleteSection"><i class="fas fa-trash"></i></a>
+                      <a title="sửa banner" id="updateBanner" href="{{ url('admin/add-edit-banner/'.$banner['id']) }}"><i class="fas fa-edit"></i></a>
+                      &nbsp; &nbsp;<a title="xóa banner" href="javascript:void(0)" class="confirmDelete" record="banner" recordid="{{ $banner['id'] }}"  class="confirmDelete" id="deleteBanner"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

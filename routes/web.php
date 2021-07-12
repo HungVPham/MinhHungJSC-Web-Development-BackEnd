@@ -11,7 +11,7 @@
 |
 */
 
-// Route::get('/', function () {
+// Route::get('/', function () {\
 //     return view('welcome');
 // });
 
@@ -90,10 +90,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::match(['get', 'post'],'add-images/{id}','ProductController@addImages');
         Route::post('update-image-status', 'ProductController@updateImageStatus');
         Route::get('delete-image/{id}','ProductController@deleteImage');
+
+        // banners
+        Route::get('banners', 'BannersController@banners');
+        Route::match(['get', 'post'], 'add-edit-banner/{id?}', 'BannersController@addEditBanner');
+        Route::post('update-banner-status', 'BannersController@updateBannerStatus');
+        Route::get('delete-banner/{id}','BannersController@deleteBanner');
     });
 });
 
-// demo Stack Developers frontend routes
+// frontend routes
 Route::namespace('Front')->group(function(){
    Route::get('/','IndexController@index');
 });

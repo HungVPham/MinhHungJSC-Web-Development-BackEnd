@@ -192,7 +192,8 @@
                       <div class="form-group">
                         <div class="field_wrapper2">
                           <div>
-                            <input id="diameter[]" name="diameter[]" type="text" name="diameter[]" value="" placeholder="đường kính [Inch]" style="width: 130px;"/>
+                            <input id="diameter[]" name="diameter[]" type="text" name="diameter[]" value="" placeholder="đường kính [in.]" style="width: 130px;"/>
+                            <input id="length_per_unit[]" name="length_per_unit[]" type="text" name="length_per_unit[]" value="" placeholder="độ dài/cuộn [m]" style="width: 130px;"/>
                             <input required id="sku"  name="sku[]" type="text" name="sku[]" value="" placeholder="mã SKU" style="width: 100px;"/>
                             <input required id="price"  name="price[]" type="number" min="0" name="price[]" value="" placeholder="giá bán" style="width: 100px;"/>
                             <input required id="stock"  name="stock[]" type="number" min="0" name="stock[]" value="" placeholder="tồn kho" style="width: 100px;"/>
@@ -228,6 +229,7 @@
                   <thead>
                   <tr>
                     <th>Đường Kính</th>
+                    <th>Dộ Dài/Cuộn</th>
                     <th>Chữ Nổi</th>
                     <th>Da Trơn</th>
                     <th>Mã SKU</th>
@@ -243,7 +245,14 @@
                   <tr>
                     <td>
                       @if(!empty($HhoseAttributes['diameter']))
-                      {{ $HhoseAttributes['diameter'] }}&nbsp;[Inch]
+                      {{ $HhoseAttributes['diameter'] }}&nbsp;[in.]
+                      @else 
+                      <i>không có dữ liệu</i>
+                      @endif
+                    </td>
+                    <td>
+                      @if(!empty($HhoseAttributes['length_per_unit']))
+                      {{ $HhoseAttributes['length_per_unit'] }}&nbsp;[m]
                       @else 
                       <i>không có dữ liệu</i>
                       @endif
@@ -271,7 +280,7 @@
                       ?> [VNĐ]
                     </td>
                     <td>
-                      <input disabled style="width: 50%;" type="number" min="0"  name="stock[]" value="{{ $HhoseAttributes['stock'] }}" required=""> [Cái]
+                      <input disabled style="width: 50%;" type="number" min="0"  name="stock[]" value="{{ $HhoseAttributes['stock'] }}" required=""> [Cuộn]
                     </td>
                     <td style="width: 135px;">
                       @if ($HhoseAttributes['status']==1)

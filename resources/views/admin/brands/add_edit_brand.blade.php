@@ -41,7 +41,7 @@
      <section class="content">
       <div class="container-fluid">
         @if ($errors->any())
-            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red)">
+            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red); width: 50%;">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
@@ -76,7 +76,7 @@
               @endif
               <div class="row">
                   <div class="form-group" style="width: 100%;">
-                      <label for="name">&nbsp;Tên Thương Hiệu Sản Phẩm @if(empty($sectiondata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                      <label for="name">&nbsp;Tên Thương Hiệu Sản Phẩm @if(empty($branddata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                       <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên thương hiệu..."
                       @if (!empty($branddata['name'])) value="{{ $branddata['name'] }}"
                       @else value="{{ old("name") }}"

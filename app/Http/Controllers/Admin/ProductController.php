@@ -283,9 +283,10 @@ class ProductController extends Controller
                     $attribute-> sku = $value;
                     $attribute-> price = $data['price'][$key];
                     $attribute-> diameter = $data['diameter'][$key];
+                    $attribute-> length_per_unit = $data['length_per_unit'][$key];
                     $attribute-> hhose_spflex_embossed = $data['hhose_spflex_embossed'][$key];
                     $attribute-> hhose_spflex_smoothtexture = $data['hhose_spflex_smoothtexture'][$key];
-                    $attribute-> stock = $data['stock'][$key];
+                    $attribute-> stock = 0;
                     $attribute-> save();
                 }
             }

@@ -79,11 +79,11 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Tên Quản Lý</label>
-                    <input type="text" class="form-control" name="admin_name" id="admin_name" placeholder="Nhập tên quản lý" value="{{ Auth::guard('admin')->user()->name }}" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
+                    <input type="text" class="form-control" name="admin_name" id="admin_name" placeholder="nhập tên quản lý..." value="{{ Auth::guard('admin')->user()->name }}" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Số Điện Thoại</label>
-                    <input type="text" class="form-control" name="admin_mobile" id="admin_mobile" placeholder="Nhập số điện thoại" value="{{ Auth::guard('admin')->user()->mobile }}" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
+                    <input type="text" class="form-control" name="admin_mobile" id="admin_mobile" placeholder="nhập số điện thoại..." value="{{ Auth::guard('admin')->user()->mobile }}" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Hình Ảnh Đại Diện</label>
@@ -92,7 +92,7 @@
                     <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
                     </div>
                     @if(!empty(Auth::guard('admin')->user()->image))
-                      <a id="AdminPhotoNav" target="_blank" href=" {{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}">&nbsp;Xem ảnh</a>
+                      <a id="AdminPhotoNav" target="_blank" href=" {{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}">&nbsp;xem ảnh</a>
                       <input type="hidden" name="current_admin_image" value="{{ Auth::guard('admin')->user()->image }}">
                     @endif
                   </div>

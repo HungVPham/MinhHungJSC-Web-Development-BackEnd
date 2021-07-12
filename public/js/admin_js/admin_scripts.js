@@ -54,7 +54,7 @@ $(document).ready(function(){
     });
 
       // Update Brand Status
-      $(document).on("click", ".updateBrandStatus", function(){
+    $(document).on("click", ".updateBrandStatus", function(){
         var status = $(this).text();
         var brand_id = $(this).attr("brand_id");
         Swal.fire({
@@ -77,6 +77,39 @@ $(document).ready(function(){
                         $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                     }else if(resp['status']==1){
                         $("#brand-"+brand_id).html("<a class='updateBrandStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                    }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
+            }
+        });
+    });
+
+    // Update Banner Status
+    $(document).on("click", ".updateBannerStatus", function(){
+        var status = $(this).text();
+        var banner_id = $(this).attr("banner_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type:'post',
+                url:'/admin/update-banner-status',
+                data:{status:status,banner_id:banner_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#banner-"+banner_id).html("<a class='updateBannerStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                    }else if(resp['status']==1){
+                        $("#banner-"+banner_id).html("<a class='updateBannerStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                     }
                     },error:function(){
                         alert("Error");

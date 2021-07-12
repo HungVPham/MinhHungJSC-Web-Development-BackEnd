@@ -70,16 +70,16 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Mật Khẩu Hiện Tại</label>
-                    <input type="password" class="form-control" name="current_pwd" id="current_pwd" placeholder="Nhập mật khẩu hiện tại" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
+                    <input type="password" class="form-control" name="current_pwd" id="current_pwd" placeholder="nhập mật khẩu hiện tại..." required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                     <span id="checkCurrentPwd"></span>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Mật Khẩu Mới</label>
-                    <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="Nhập mật khẩu mới" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
+                    <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="nhập mật khẩu mới..." required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">&nbsp;Xác Nhận Mật Khẩu Mới</label>
-                    <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder="Xác nhận mật khẩu mới" required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
+                    <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder="xác nhận mật khẩu mới..." required="" oninvalid="this.setCustomValidity('Xin vui lòng điền vào ô trống.')"  oninput="setCustomValidity('')">
                   </div>
                 </div>
                 <!-- /.card-body -->
