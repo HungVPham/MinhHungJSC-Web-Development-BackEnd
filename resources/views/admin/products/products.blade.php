@@ -72,12 +72,12 @@
                     <th>ID</th>
                     <th>Mã SP</th>
                     <th>Thương Hiệu</th>
-                    <th>Tên SP</th>
+                    <th>Sản Phẩm</th>
                     <th>Hình Ảnh</th>
                     <th>Thể Loại SP</th>
                     <th>Danh Mục SP</th>
                     <th>Trạng Thái</th>
-                    <th>Hành Động</th>
+                    <th>Điều Khiển</th>
                   </tr>
                   </thead>
                   <tbody>

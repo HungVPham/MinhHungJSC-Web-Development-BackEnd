@@ -21,13 +21,14 @@ class BannersController extends Controller
             // add banner
             $banner = new Banner;
             $title = "Thêm Banner";
-            $message = 'Banner đã được thêm thành công!';
+            $messageSub = 'Banner [phụ] đã được thêm thành công!';
+            $messageMain = 'Banner [chính] đã được thêm, vui lòng kiểm tra thông điệp trong điều khiển [sửa]!';
         }else{
             // edit banner
             $banner = Banner::find($id);
             $title = "Sửa Banner";
-            $message = 'Banner đã được sửa thành công!';
-
+            $messageMain = 'Banner [chính] đã được sửa thành công, kiểm tra thông điệp trong điều khiển [sửa]!';
+            $messageSub = 'Banner [phụ] đã được sửa thành công!';
         }
 
         if($request->isMethod('post')){
@@ -36,6 +37,36 @@ class BannersController extends Controller
             $banner->link = $data['link'];
             $banner->title = $data['title'];
             $banner->alt = $data['alt'];
+            if(!empty($data['bRed_1'])){
+                $banner->bRed_1 = $data['bRed_1'];
+            }else{
+                $banner->bRed_1 = NULL;
+            }
+            if(!empty($data['nBlack_1'])){
+                $banner->nBlack_1 = $data['nBlack_1'];
+            }else{
+                $banner->nBlack_1 = NULL;
+            }
+            if(!empty($data['bRed_2'])){
+                $banner->bRed_2 = $data['bRed_2'];
+            }else{
+                $banner->bRed_2 = NULL;
+            }
+            if(!empty($data['bRed_3'])){
+                $banner->bRed_3 = $data['bRed_3'];
+            }else{
+                $banner->bRed_3 = NULL;
+            }
+            if(!empty($data['bRed_1'])){
+                $banner->nBlack_2 = $data['nBlack_2'];
+            }else{
+                $banner->nBlack_2 = NULL;
+            }
+            if(!empty($data['bRed_4'])){
+                $banner->bRed_4 = $data['bRed_4'];
+            }else{
+                $banner->bRed_4 = NULL;
+            }
             if(!empty($data['is_main'])){
                 $banner->is_main = $data['is_main'];
             }else{
@@ -55,7 +86,11 @@ class BannersController extends Controller
                 }
             }
             $banner->save();
-            Session::flash('success_message', $message);
+            if($banner->is_main == 'Yes'){
+            Session::flash('success_message', $messageMain);
+            }else{
+            Session::flash('success_message', $messageSub);
+            }
             return redirect('admin/banners');
         }
         return view('admin.banners.add_edit_banner')->with(compact('title', 'banner'));

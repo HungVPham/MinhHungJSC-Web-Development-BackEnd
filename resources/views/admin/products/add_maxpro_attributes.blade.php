@@ -185,7 +185,7 @@
                       <th>Giá Bán</th>
                       <th>Tồn Kho</th>
                       <th>Trạng Thái</th>
-                      <th>Hành Động</th>
+                      <th>Điều Khiển</th>
                     </tr>
                     </thead>
                     <tbody>

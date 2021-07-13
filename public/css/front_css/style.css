@@ -69,7 +69,7 @@ p{
 }
 /* header CSS */
 .header{
-    background: radial-gradient(var(--MinhHung-Red),rgb(202, 29, 35),rgb(187, 27, 32),rgb(139, 19, 23));
+    background: radial-gradient(var(--MinhHung-Red), var(--MinhHung-Red), var(--MinhHung-Red), var(--MinhHung-Red-Hover));
     width: 100%;
     z-index: 999;
     height: 85px;
@@ -2155,6 +2155,10 @@ form a{
     top: 0;
     transition: opacity 0.3s ease;
     background-position: center;
+}
+
+.overlay-image a{
+    padding: 0;
 }
 
 .overlay-image img{

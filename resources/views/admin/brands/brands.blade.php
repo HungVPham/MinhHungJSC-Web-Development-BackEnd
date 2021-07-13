@@ -74,7 +74,7 @@
                     <th>ID</th>
                     <th>Thương Hiệu</th>
                     <th>Trạng Thái</th>
-                    <th>Hành Động</th>
+                    <th>Điều Khiển</th>
                   </tr>
                   </thead>
                   <tbody>

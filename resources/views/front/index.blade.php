@@ -180,6 +180,36 @@ $sections = Section::sections();
 </div>
 <!------sản phẩm độc quyền------->
 @foreach($exclusiveProduct as $exclusive)
+  @if($exclusive['section_id']==1)
+  <style>
+  .offer{
+    background: radial-gradient(var(--MaxPro-Orange), var(--MaxPro-Orange), var(--MaxPro-Orange), var(--MaxPro-Orange-Hover));
+    }
+  </style>
+  @endif
+  @if($exclusive['section_id']==2)
+  <style>
+    .offer{
+    background: radial-gradient(var(--Hhose-Yellow), var(--Hhose-Yellow), var(--Hhose-Yellow), var(--Hhose-Yellow-Hover));
+    }
+    .offer .small-container .row .col-2 p{
+    color: var(--Solid-Black);
+    }
+
+
+    .offer .small-container .row .col-2 small{
+    color: var(--Solid-Black);
+    }
+}
+  </style>
+  @endif
+  @if($exclusive['section_id']==3)
+  <style>
+    .offer{
+    background: radial-gradient(var(--Shimge-Blue), var(--Shimge-Blue), var(--Shimge-Blue), var(--Shimge-Blue-Hover));
+    }
+  </style>
+  @endif
 <div class="offer">
     <div class="small-container">
         <div class="row">

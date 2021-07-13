@@ -133,38 +133,43 @@ $sections = Section::sections();
 			</div>
 		</div>
 	</div>
-</div>  
+</div> 
+<?php 
+use App\Banner;
+$getBanners = Banner::getBanners();
+$getMainBanner = Banner::getMainBanner();
+$getSubBanners = Banner::getSubBanners();
+?> 
 @if(isset($page_name) && $page_name=="index")
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="display: flex; border-top: black 2px solid">
 		<div class="carousel-indicators">
-			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+			@foreach($getBanners as $key => $count)
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $key }}" @if($key==0) class="active" aria-current="true" @endif aria-label="Slide {{ $key }}"></button>
+			@endforeach
 		</div>
 		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="15000">
-				<div class="overlay-image""><img src="{{ url('images/front_images/carousel/company-banner1.jpg') }}" alt=""></div>
+			@foreach($getMainBanner as $key => $main)
+			<div class="carousel-item @if($key==0) active @endif" data-bs-interval="15000">
+				<div class="overlay-image""><img src="{{ asset('images/banner_images/'.$main['image']) }}" alt="{{ $main['alt'] }}"></div>
 				<div class="index-carousel-container">
 					<div class="overlay-credo">
-					<p><span style="color: #cb1c22; font-weight: bolder;">Sức mạnh</span> đến từ sự <span style="color: #cb1c22; font-weight: bolder;">đoàn kết</span>,
+					<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
 					<br>
-					<span style="color: #cb1c22; font-weight: bolder;">Giá trị</span> đến từ <span style="color: #cb1c22; font-weight: bolder;">con người!</span></p>
+					<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>
 					</div>
+					@if(!empty($main['link']))
 					<div class="overlay-btn">
-					<a href="" class="btn">Đăng Ký Ngay &#8594;</a>
+					<a href="https://www.{{ $main['link'] }}" class="btn">{{ $main['title'] }} &#8594;</a>
 					</div>
+					@endif
 				</div>
 			</div>
+			@endforeach
+			@foreach($getSubBanners as $key => $sub)
 			<div class="carousel-item">
-				<div class="overlay-image""><img src="{{ url('images/front_images/carousel/7.jpg') }}" alt=""></div>
+				<div class="overlay-image""><a title="{{ $sub['title'] }}" @if(!empty($sub['link'])) href="https://www.{{ $sub['link'] }}" @endif><img src="{{ asset('images/banner_images/'.$sub['image']) }}" alt="{{ $sub['alt'] }}"></a></div>
 			</div>
-			<div class="carousel-item">
-				<div class="overlay-image""><img src="{{ url('images/front_images/carousel/8.jpg') }}" alt=""></div>
-			</div>
-			<div class="carousel-item">
-				<div class="overlay-image""><img src="{{ url('images/front_images/carousel/9.jpg') }}" alt=""></div>
-			</div>
+			@endforeach
 		</div>
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>

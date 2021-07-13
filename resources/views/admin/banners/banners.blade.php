@@ -72,11 +72,13 @@
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Ảnh Banner</th>
-                    <th>Link Điểm Đến</th>
-                    <th>Cấp Banner</th>
+                    <th>Ảnh</th>
+                    <th>Link</th>
+                    <th>Thẻ ALT</th>
+                    <th>Hành Động Con Trỏ</th>
+                    <th>Cấp</th>
                     <th>Trạng Thái</th>
-                    <th>Hành Động</th>
+                    <th>Điều Khiển</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -86,12 +88,32 @@
                     <td style="text-align: center">
                       <img width="200px" height="100px" src="{{ asset('images/banner_images/'.$banner['image']) }}">
                     </td>
-                    <td>{{ $banner['link'] }}</td>
+                    <td>
+                      @if (!empty($banner['link']))
+                      {{ $banner['link'] }}
+                      @else
+                      <i>không có dữ liệu</i>
+                      @endif
+                    </td>
+                    <td>
+                      @if (!empty($banner['alt']))
+                      {{ $banner['alt'] }}
+                      @else
+                      <i>không có dữ liệu</i>
+                      @endif
+                    </td>
+                    <td>
+                      @if (!empty($banner['title']))
+                      {{ $banner['title'] }}
+                      @else
+                      <i>không có dữ liệu</i>
+                      @endif
+                    </td>
                     <td>
                         @if ($banner['is_main']=="Yes")
-                        banner chính
+                        <strong>chính</strong>
                         @else
-                        banner phụ
+                        phụ
                         @endif
                     </td>
                     <td style="width: 135px;">
