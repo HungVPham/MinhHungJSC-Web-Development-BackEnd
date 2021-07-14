@@ -101,7 +101,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
 
 // frontend routes
 Route::namespace('Front')->group(function(){
+    // home page route
    Route::get('/','IndexController@index');
+    // listing page route
+   Route::get('/{url}','ProductsController@listing');
 });
 
 use App\Http\Controllers\Admin\ProductController;

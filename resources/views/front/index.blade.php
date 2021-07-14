@@ -36,36 +36,41 @@ $sections = Section::sections();
             @foreach($featuredItemsChunk as $key => $featuredItem)
                 @foreach($featuredItem as $item)
                 <div class="col-4">
-                    <a href="#">
+                    <a href="">
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$item['main_image']; ?>
-                        @if(!empty($item['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm nổi bật">
-                        @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
-                        @endif
+                                @if(!empty($item['main_image'])&&file_exists($product_image_path))
+                                <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                                @else
+                                <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                                @endif
                     </a>
-                    <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
-                    <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                    <a href="#"><h4 title="{{ $item['product_name'] }}">{{ $item['product_name'] }}</h4></a>
-                    <div class="rating">
+                     <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                        <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                    <small class="brand-title"> <span
+                        @if($item['brand_id']==1) style="color: var(--MaxPro-Orange);" @endif
+                        @if($item['brand_id']==2) style="color: var(--Hhose-Yellow);" @endif
+                        @if($item['brand_id']==3) style="color: var(--Hammer-Turquoise);" @endif
+                        @if($item['brand_id']==4) style="color: var(--Shimge-Blue);" @endif
+                        >{{ $item['brand']['name'] }}</span></small>
+                     <a href=""><h4 title="{{ $item['product_name'] }}">{{ $item['product_name']}}</h4></a>
+                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        {{-- <i class="fa fa-star-o"></i> --}}
                     </div>
-                    <p>
-                        @if(!empty($item['product_price']))
-                        @if($item['section_id']!=1)từ@endif ₫<?php 
-                        $num = $item['product_price'];
-                        $format = number_format($num);
-                        echo $format;
-                        ?>
-                        @else 
-                        <i>giá liên hệ</i>
-                        @endif   
-                    </p>
+                        <p class="price">
+                            @if(!empty($item['product_price']))
+                                @if($item['section_id']!=1)từ@endif ₫<?php 
+                                $num = $item['product_price'];
+                                $format = number_format($num);
+                                echo $format;
+                                ?>
+                                @else 
+                                <i>giá liên hệ</i>
+                            @endif   
+                        </p>
                 </div>
                 @endforeach
             @endforeach
@@ -77,11 +82,11 @@ $sections = Section::sections();
         <div class="flexleft-container">
             <p style="float: right !important;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">8+</span> sản phẩm mới nhất !</p>
         </div>
-        @foreach($newMaxproProducts as $new)
+        @foreach($newMaxproProducts as $newTool)
         <div class="col-4">
             <a href="">
-                <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
-                        @if(!empty($new['main_image'])&&file_exists($product_image_path))
+                <?php $product_image_path = 'images/product_images/main_image/medium/'.$newTool['main_image']; ?>
+                        @if(!empty($newTool['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
@@ -89,32 +94,35 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4 title="{{ $new['product_name'] }}">{{ $new['product_name']}}</h4></a>
-            <div class="rating">
+            <small class="brand-title"> <span
+                @if($newTool['brand_id']==1) style="color: var(--MaxPro-Orange);" @endif
+                >{{ $newTool['brand']['name'] }}</span></small>
+             <a href=""><h4 title="{{ $newTool['product_name'] }}">{{ $newTool['product_name']}}</h4></a>
+             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-            <p>
-                @if(!empty($new['product_price']))
-                    @if($new['section_id']!=1)từ@endif ₫<?php 
-                    $num = $new['product_price'];
-                    $format = number_format($num);
-                    echo $format;
-                    ?>
-                    @else 
-                    <i>giá liên hệ</i>
-                @endif   
-            </p>
+                <p class="price">
+                    @if(!empty($newTool['product_price']))
+                        @if($newTool['section_id']!=1)từ@endif ₫<?php 
+                        $num = $newTool['product_price'];
+                        $format = number_format($num);
+                        echo $format;
+                        ?>
+                        @else 
+                        <i>giá liên hệ</i>
+                    @endif   
+                </p>
         </div>
         @endforeach
-        @foreach($newHhoseProducts as $new)
+        @foreach($newHhoseProducts as $newHose)
         <div class="col-4">
             <a href="">
-                <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
-                        @if(!empty($new['main_image'])&&file_exists($product_image_path))
+                <?php $product_image_path = 'images/product_images/main_image/medium/'.$newHose['main_image']; ?>
+                        @if(!empty($newHose['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
@@ -122,32 +130,36 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4 title="{{ $new['product_name'] }}">{{ $new['product_name']}}</h4></a>
-            <div class="rating">
+            <small class="brand-title"> <span 
+                @if($newHose['brand_id']==2) style="color: var(--Hhose-Yellow);" @endif
+                @if($newHose['brand_id']==3) style="color: var(--Hammer-Turquoise);" @endif
+            >{{ $newHose['brand']['name'] }}</span></small>
+             <a href=""><h4 title="{{ $newHose['product_name'] }}">{{ $newHose['product_name']}}</h4></a>
+             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-            <p>
-                @if(!empty($new['product_price']))
-                    @if($new['section_id']!=1)từ@endif ₫<?php 
-                    $num = $new['product_price'];
-                    $format = number_format($num);
-                    echo $format;
-                    ?>
-                    @else 
-                    <i>giá liên hệ</i>
-                @endif   
-            </p>
+                <p class="price">
+                    @if(!empty($newHose['product_price']))
+                        @if($newHose['section_id']!=1)từ@endif ₫<?php 
+                        $num = $newHose['product_price'];
+                        $format = number_format($num);
+                        echo $format;
+                        ?>
+                        @else 
+                        <i>giá liên hệ</i>
+                    @endif   
+                </p>
         </div>
         @endforeach
-        @foreach($newShimgeProducts as $new)
+        @foreach($newShimgeProducts as $newPump)
         <div class="col-4">
             <a href="">
-                <?php $product_image_path = 'images/product_images/main_image/medium/'.$new['main_image']; ?>
-                        @if(!empty($new['main_image'])&&file_exists($product_image_path))
+                <?php $product_image_path = 'images/product_images/main_image/medium/'.$newPump['main_image']; ?>
+                        @if(!empty($newPump['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
@@ -155,25 +167,28 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-             <a href=""><h4 title="{{ $new['product_name'] }}">{{ $new['product_name']}}</h4></a>
-            <div class="rating">
+            <small class="brand-title"> <span
+                @if($newPump['brand_id']==4) style="color: var(--Shimge-Blue);" @endif
+                >{{ $newPump['brand']['name'] }}</span></small>
+             <a href=""><h4 title="{{ $newPump['product_name'] }}">{{ $newPump['product_name']}}</h4></a>
+             <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-            <p>
-                @if(!empty($new['product_price']))
-                    @if($new['section_id']!=1)từ@endif ₫<?php 
-                    $num = $new['product_price'];
-                    $format = number_format($num);
-                    echo $format;
-                    ?>
-                    @else 
-                    <i>giá liên hệ</i>
-                @endif   
-            </p>
+                <p class="price">
+                    @if(!empty($newPump['product_price']))
+                        @if($newPump['section_id']!=1)từ@endif ₫<?php 
+                        $num = $newPump['product_price'];
+                        $format = number_format($num);
+                        echo $format;
+                        ?>
+                        @else 
+                        <i>giá liên hệ</i>
+                    @endif   
+                </p>
         </div>
         @endforeach
     </div>

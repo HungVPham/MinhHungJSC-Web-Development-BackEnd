@@ -123,6 +123,7 @@ $sections = Section::sections();
 			<label id="open-nav" for="menu-btn"><i class="fas fa-bars"></i></label>
 		</div>
 	</div>
+	@if(isset($page_name) && $page_name=="index")
 	<div class="container">
 		<div class="row">
 			<div class="col-2 index">
@@ -133,6 +134,7 @@ $sections = Section::sections();
 			</div>
 		</div>
 	</div>
+	@endif
 </div> 
 <?php 
 use App\Banner;

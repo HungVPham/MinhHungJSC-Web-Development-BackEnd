@@ -73,7 +73,7 @@ class SectionController extends Controller
                     $imageName = rand(111,99999).'.'.$extension;
                     $imagePath = 'images/section_images/'.$imageName;
                     // Upload the Image
-                    Image::make($image_tmp)->resize(550, 604)->save($imagePath);
+                    Image::make($image_tmp)->resize(550, 605)->save($imagePath);
                     // save Category Image
                     $section->section_image = $imageName;
                 }

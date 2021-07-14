@@ -17,4 +17,19 @@ class Category extends Model
     public function parentcategory(){
         return $this->belongsTo('App\Category','parent_id')->select('id','category_name');
     }
+
+    public static function catDetails($url){
+        $catDetails = Category::select('id', 'category_name', 'url', 'category_description')->with(['subcategories'=>
+        function($query){
+            $query->select('id','parent_id', 'category_name', 'url')->where('status',1);
+        }])->where('url',$url)->first()->toArray();
+        // dd($catDetails); die;
+        $catIds = array();
+        $catIds[] = $catDetails['id'];
+        foreach ($catDetails['subcategories'] as $key => $subcat){
+            $catIds[] = $subcat['id'];
+        }
+        // dd($catIds); die;
+        return array('catIds'=>$catIds,  'catDetails'=>$catDetails);
+    }
 }

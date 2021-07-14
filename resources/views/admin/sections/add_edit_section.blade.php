@@ -119,6 +119,7 @@
                   <div style="padding-bottom: 10px"><img style="width: 80px" src="{{ asset('images/section_images/'.$sectiondata['section_image']) }}">
                     &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="section-image" recordid="{{ $sectiondata['id'] }}" id="dlt-section-img"><i class="fas fa-trash"></i></a>
                   </div>
+                @else<div style="color: grey; margin-top: -15px; margin-bottom: 20px">&nbsp;&nbsp;độ phân giải đề xuất (550x605) [px]</div>
                 @endif
                 </div>
                 <div class="col-md-6">

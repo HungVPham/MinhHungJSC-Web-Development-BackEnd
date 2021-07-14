@@ -8,12 +8,13 @@
     --Shimge-Blue-Hover: #007980;
     --Hhose-Yellow: #efe649;
     --Hhose-Yellow-Hover: #c9c243;
+    --Hammer-Turquoise: #56a6a5;
+    --Hammer-Turquoise-Hover: #4a9190;
     --Delete-Red: #cb1c22;
     --Delete-Red-Hover: rgb(165, 24, 29);
     --Positive-Green: #228B22;
     --Positive-Green-Hover: #196719; 
     --Info-Yellow: #eed202;
-
     --Solid-White: #ffffff;
     --Solid-Black: #000000;
     --Solid-Gold: #f5bd02;
@@ -37,7 +38,7 @@ body a:hover{
 }
 
 body a:focus{
-    color: var(--Solid-White);
+    color: inherit;
     outline: none;
 }
 
@@ -596,7 +597,7 @@ p{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .col-2{
@@ -620,9 +621,10 @@ p{
 }
 
 .row .col-4 h4{
-    padding-top: 8px;
+    margin-bottom: -5px;
     transition: all 0.3s ease;
     text-overflow: ellipsis;
+    text-align: center;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -633,6 +635,17 @@ p{
     align-items: center;
 }
 
+.brand-title{
+    color: var(--Solid-Black);
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    font-weight: 800;
+}
+
+.price{
+    text-align: center;
+}
 /* button css */
 .btn{
     display: inline-block;
@@ -801,12 +814,14 @@ h4{
 .col-4 p{
     font-size: 20px;
 }
-
+.rating{
+    text-align: center;
+    margin-bottom: 5px;
+}
 .rating .fa{
     color: var(--MinhHung-Red);
     font-size: 80%;
 }
-
 .col-4:hover{
     transform: translateY(-5px);
 }
@@ -979,6 +994,10 @@ small{
     height: 350px;
 }
 
+.stories .small-container .row{
+    justify-content: space-around;
+}
+
 .stories .subdiv{   
     width: 90%;
     position: absolute;
@@ -1142,33 +1161,13 @@ small{
 }
 
 /* all products page */
-.row-2{
-    justify-content: space-between;
-    margin: 100px auto 50px;
-}
-
-.row-2 h2{
-    font-weight: 800;
-}
-select{
-    border: 1px solid var(--MinhHung-Red);
-    padding: 5px;
-    font-family: 'Big Shoulders Display', cursive;
-    font-size: 1.2rem;
-}
-
-select:focus{
-    outline: none;
-}
-
 .page-btn{
-    margin: 0 auto 80px;
+    margin-bottom: 80px;
+    margin-left: -10px;
 }
 
 .page-btn span{
     display: inline-block;
-    /* make btn border circle */
-    /* border-radius: 50px; */
     border: solid 1px var(--MinhHung-Red);
     margin-left: 10px;
     margin-top: 10px;
@@ -1666,6 +1665,80 @@ form a{
     box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
     border: 2px solid var(--Solid-White);  
 }
+/* listing page CSS */
+.listing-head{
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.listing-title-and-count{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listing-head h2{
+    font-size: 2.5rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.listing-head p{
+    text-align: right;
+}
+.row.listing.head.first{
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    margin-left: 2px !important;
+}
+.listing-head h5{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: right;
+}
+.listing-head h5 a{
+    padding: 0;
+    cursor: pointer;
+}
+.listing-head h5 a:last-child{
+    color: #999;
+    cursor: auto;
+}
+.listing-head h5 a:hover:last-child{
+    color: #999;
+}
+.listing-head h5 a:hover:not(:last-child){
+    color: var(--MinhHung-Red) !important;
+}
+.row.listing.head{
+    width: 100%;
+}
+.category_description{
+    text-align: center !important;
+}
+select{
+    border: 1px solid var(--MinhHung-Red);
+    font-family: 'Big Shoulders Display', cursive;
+    padding: 5px;
+    width: 200px !important;
+    margin-bottom: 40px;
+}
+select:focus{
+    outline: none;
+}
+option{
+    font-family: 'Big Shoulders Display', cursive;
+    font-size: 1.2rem;
+}
+.small-container label{
+    margin-right: 20px;
+}
+.row.listing{
+    justify-content: left;
+}
+
 /* news/events page css */
 
 .page-wrapper{
