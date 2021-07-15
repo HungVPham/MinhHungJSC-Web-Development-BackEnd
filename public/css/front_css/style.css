@@ -1163,24 +1163,6 @@ small{
 /* all products page */
 .page-btn{
     margin-bottom: 80px;
-    margin-left: -10px;
-}
-
-.page-btn span{
-    display: inline-block;
-    border: solid 1px var(--MinhHung-Red);
-    margin-left: 10px;
-    margin-top: 10px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-.page-btn span:hover{
-    background: var(--MinhHung-Red);
-    color: var(--Solid-White);
 }
 
 /* single product details */
@@ -1703,11 +1685,11 @@ form a{
     cursor: pointer;
 }
 .listing-head h5 a:last-child{
-    color: #999;
+    color: #888;
     cursor: auto;
 }
 .listing-head h5 a:hover:last-child{
-    color: #999;
+    color: #888;
 }
 .listing-head h5 a:hover:not(:last-child){
     color: var(--MinhHung-Red) !important;
@@ -1762,12 +1744,15 @@ option{
     display: none;
 }
 
-.row.listing.body{
-    transition: all 0.3s ease-in-out;
-}
-
 .row.listing.body.list{
     display: block;
+    margin-left: 1px;
+    animation: slidein 0.5s ease-in-out both;
+}
+
+@keyframes slidein {
+    0% { width: 712px;}
+    100% { width: 100%;}
 }
 
 .row.listing.body.list .col-4{
@@ -1866,13 +1851,14 @@ option{
 }
 
 .btn.compare{
+    float: right;
     margin: 0;
     padding: 5px;
     border-radius: 0%;
-    font-size: 17px;
+    font-size: 20px;
     margin-bottom: 5px;
     opacity: 0;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.5s ease-in-out both;
     visibility: hidden;
 }
 
@@ -1880,6 +1866,7 @@ option{
     opacity: 1;
     visibility: visible;
 }
+
 /* news/events page css */
 
 .page-wrapper{
@@ -2746,28 +2733,7 @@ option{
         margin-top: -5px !important;
     }
 
-    nav ul{
-        position: absolute;
-        top: 70px;
-        left: 0;
-        background: #333;
-        width: 100%;
-        overflow: hidden;
-        transition: max-height 0.5s ease;
-        z-index: 999;
-    }
-    nav ul li{
-        display: block;
-        margin-right: 50px;
-        margin-top: 10px;
-        margin-bottom: 10px;        
-    }
-    nav ul li a{
-        color: var(--Solid-White);
-        padding: 0 !important;
-        background: none;
-        border-radius: 0 !important;
-    }
+    
     .menu-icon{
         display: block;
         cursor: pointer;

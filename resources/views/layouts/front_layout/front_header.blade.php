@@ -36,12 +36,12 @@ $sections = Section::sections();
 							<ul class="mega-links">
 								@foreach($section['categories'] as $key => $category)
 								<li id="megadrop-container">
-									<div style="display: flex; align-items: center;"><a @if(count($category['subcategories'])>0) class="desktop-item" id="first-row" @else @endif href="#">{{ $category['category_name'] }}</a>@if(count($category['subcategories'])>0)<span id="expand-indicator">&nbsp;&#9660;</span>@else @endif</div>
+									<div style="display: flex; align-items: center;"><a @if(count($category['subcategories'])>0) class="desktop-item" id="first-row" @else @endif href="{{ $category['url'] }}">{{ $category['category_name'] }}</a>@if(count($category['subcategories'])>0)<span id="expand-indicator">&nbsp;&#9660;</span>@else @endif</div>
 									<input type="checkbox" id="showMegaDrop-{{ $key+1 }}">
 									@if(count($category['subcategories'])>0) <div style="display: flex; align-items: center;"><label for="showMegaDrop-{{ $key+1 }}" class="mobile-item megadrop">{{ $category['category_name'] }}</label><span id="expand-indicator-megadrop">&nbsp;&#9660;</span></div> @endif
 									<ul class="drop-menu-megabox">
 										@foreach($category['subcategories'] as $subcategory)
-										<li><a style="color: #000000" href="">{{ $subcategory['category_name'] }}</a></li>
+										<li><a style="color: #000000" href="{{ $subcategory['url'] }}">{{ $subcategory['category_name'] }}</a></li>
 										@endforeach
 									</ul>
 								</li>

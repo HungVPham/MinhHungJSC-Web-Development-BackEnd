@@ -41,17 +41,37 @@
     #comparision-container input[type="checkbox"]:checked::after{
       display: block;
     }
+    .page-link{
+        border: none;
+    }
+    
+    .page-item{
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 15px;
+    }
+    .page-item .page-link{
+        color: var(--MinhHung-Red);
+    }
+    .page-item.active .page-link {
+        background-color: var(--MinhHung-Red);
+        color: var(--Solid-White);
+    }
+    .page-item:last-child .page-link, .page-item:first-child .page-link{
+        font-weight: 900;
+    }
+    
 </style>
 <div class="listing-head">
     <div class="row listing head first">
-        <h5><a href="/">Trang Chủ</a> / <a>{{ $categoryDetails['catDetails']['category_name'] }}</a></h5>
+        <h5><a href="{{ url('/') }}">Trang Chủ</a> / <?php echo $categoryDetails['breadcrumbs'] ?></h5>
     </div>
     <div class="listing-title-and-count">
         <div class="row listing head">
         <h2>{{ $categoryDetails['catDetails']['category_name'] }}</h2>
         </div>
         <div class="row listing head">
-        <p><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $productCount }}+</span> sản phẩm có sẵn!</p>
+        <p><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ count($categoryProducts) }}+</span> sản phẩm có sẵn!</p>
         </div>
     </div>
     @if(!empty($categoryDetails['catDetails']['category_description']))
@@ -70,7 +90,6 @@
         <option>Giá: thấp đến cao</option>
         <option>Giá: cao đến thấp</option>
     </select>
-    <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
     <script>
         var MyBtn = document.getElementsByClassName("mybtn");
         var index = 0 ;
@@ -105,16 +124,21 @@
     </script>
     <i title="hiện thị danh sách" class="mybtn fas fa-th-list" onclick="Button(0); listToggleListOff();listToggleBtnOff()"></i>
     <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>
+   
     <div class="row listing body">
         @foreach($categoryProducts as $key => $product)
         <div class="col-4">
             <a href="">
-                <?php $product_image_path = 'images/product_images/main_image/medium/'.$product['main_image']; ?>
-                        @if(!empty($product['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
-                        @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
-                        @endif
+                @if(isset($product['main_image']))
+                    <?php $product_image_path = 'images/product_images/main_image/medium/'.$product['main_image']; ?>
+                @else
+                    <?php $product_image_path = '' ?>
+                @endif
+                    @if(!empty($product['main_image'])&&file_exists($product_image_path))
+                    <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                    @else
+                    <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                @endif
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
@@ -157,14 +181,11 @@
         </div>
         @endforeach
     </div>
+    
     <div class="page-btn">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>5</span>
-        <span>6</span>
-        <span>&#8594;</span>
+        <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
+        {{ $categoryProducts->links() }}
     </div>
+    {{-- {{ $categoryProducts->appends(['sort' => 'price_lowest'])->links() }} --}}
 </div>
 @endsection
