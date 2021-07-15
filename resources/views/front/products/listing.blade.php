@@ -1,5 +1,47 @@
 @extends('layouts.front_layout.front_layout')
 @section('content')
+<style>
+    #comparision-container input[type="checkbox"]{
+      appearance: none;
+      -webkit-appearance: none;
+      height: 18px;
+      width: 18px;
+      background-color: #d5d5d5;
+      outline: none;
+      cursor: pointer;
+      border: 1px solid #333;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      float: right;
+      margin-top: 7px;
+    }
+    #comparision-container input[type="checkbox"]:after{
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f00c";
+      font-size: 13px;
+      color: #ffffff;
+      display: none;
+
+    }
+    #comparision-container input[type="checkbox"]:hover{
+      background-color: #a5a5a5;
+    }
+    #comparision-container input[type="checkbox"]:checked{
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: var(--Positive-Green);
+      height: 18px;
+      width: 18px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+    #comparision-container input[type="checkbox"]:checked::after{
+      display: block;
+    }
+</style>
 <div class="listing-head">
     <div class="row listing head first">
         <h5><a href="/">Trang Chủ</a> / <a>{{ $categoryDetails['catDetails']['category_name'] }}</a></h5>
@@ -20,7 +62,7 @@
     @endif
     <hr>
 </div>
-<div class="small-container">
+<div class="small-container listing">
     <label for="select">Sắp xếp theo:</label>
     <select>
         <option>Tên sản phẩm A - Z</option>
@@ -28,7 +70,42 @@
         <option>Giá: thấp đến cao</option>
         <option>Giá: cao đến thấp</option>
     </select>
-    <div class="row listing">
+    <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
+    <script>
+        var MyBtn = document.getElementsByClassName("mybtn");
+        var index = 0 ;
+
+        function Button(n){
+            CurrentShowButton(index = n);
+        }
+
+        function CurrentShowButton(n){
+            for(var i = 0 ; i < MyBtn.length ; i++){
+                MyBtn[i].className = MyBtn[i].className.replace(" Active","");
+            }
+            MyBtn[n].className +=" Active";
+        }
+
+        function listToggleListOff(){
+			const toggleList = document.querySelector('.row.listing.body');
+			toggleList.classList.add('list')
+		}
+        function listToggleListOn(){
+			const toggleList = document.querySelector('.row.listing.body.list');
+			toggleList.classList.remove('list')
+		}
+        function listToggleBtnOff(){
+			const toggleList = document.querySelector('.btn.compare');
+			toggleList.classList.add('active')
+		}
+        function listToggleBtnOn(){
+			const toggleList = document.querySelector('.btn.compare.active');
+			toggleList.classList.remove('active')
+		}
+    </script>
+    <i title="hiện thị danh sách" class="mybtn fas fa-th-list" onclick="Button(0); listToggleListOff();listToggleBtnOff()"></i>
+    <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>
+    <div class="row listing body">
         @foreach($categoryProducts as $key => $product)
         <div class="col-4">
             <a href="">
@@ -41,6 +118,7 @@
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+            <div class="list-item-container">
             <small class="brand-title"> <span
                 @if($product['brand_id']==1) style="color: var(--MaxPro-Orange);" @endif
                 @if($product['brand_id']==2) style="color: var(--Hhose-Yellow);" @endif
@@ -55,17 +133,27 @@
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-                <p class="price">
-                    @if(!empty($product['product_price']))
-                        @if($product['section_id']!=1)từ@endif ₫<?php 
-                        $num = $product['product_price'];
-                        $format = number_format($num);
-                        echo $format;
-                        ?>
-                        @else 
-                        <i>giá liên hệ</i>
-                    @endif   
-                </p>
+            <p class="price">
+                @if(!empty($product['product_price']))
+                    @if($product['section_id']!=1)từ@endif ₫<?php 
+                    $num = $product['product_price'];
+                    $format = number_format($num);
+                    echo $format;
+                    ?>
+                    @else 
+                    <i>giá liên hệ</i>
+                @endif   
+            </p>
+            </div>
+            <p class="list-product-description">{{ $product['product_description']}}</p>
+            <div class="list-item-container controls">
+                <div id="comparision-container">
+                <label for="comparison-checkbox">So Sánh</label>
+                <input id="comparison-checkbox" name="comparison-checkbox" type="checkbox">
+                </div>
+                <p class="navList-Detail"><a href="">Xem Chi Tiết</a></p>
+                <p class="addList-Cart"><a href="">Thêm Vào Giỏ</a></p>
+            </div>
         </div>
         @endforeach
     </div>
