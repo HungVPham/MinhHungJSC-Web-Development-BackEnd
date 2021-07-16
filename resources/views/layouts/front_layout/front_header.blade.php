@@ -99,13 +99,6 @@ $sections = Section::sections();
 								</div>
 								<span class="clear" onclick="document.getElementById('mySearch').value = ''"></span>
 							</div>
-							<script>
-								const icon = document.querySelector('.icon');
-								const search = document.querySelector('.search');
-								icon.onclick = function(){
-									search.classList.toggle('active')
-								}
-							</script>
 						</li>
 						{{-- <li><img src="{{ url('images/front_images/account_setting.png') }}" alt=""><a href="">Cài Đặt Tài Khoản</a></li>
 						<li><img src="{{ url('images/front_images/help.png') }}" alt=""><a href="">Trợ Giúp</a></li>
@@ -114,12 +107,6 @@ $sections = Section::sections();
 					</ul>
 				</div>
 			</div>
-			<script>
-				function menuToggle(){
-					const toggleMenu = document.querySelector('.menu');
-					toggleMenu.classList.toggle('active')
-				}
-			</script>
 			<label id="open-nav" for="menu-btn"><i class="fas fa-bars"></i></label>
 		</div>
 	</div>

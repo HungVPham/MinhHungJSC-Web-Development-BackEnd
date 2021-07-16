@@ -83,47 +83,22 @@
     <hr>
 </div>
 <div class="small-container listing">
-    <label for="select">Sắp xếp theo:</label>
-    <select>
-        <option>Tên sản phẩm A - Z</option>
-        <option>Tên sản phẩm Z - A</option>
-        <option>Giá: thấp đến cao</option>
-        <option>Giá: cao đến thấp</option>
-    </select>
+    <form class="sorting-dropdown">
+        <label for="sortProducts">Sắp xếp theo:</label>
+        <select name="sortProducts" id="sortProducts" class="select2">
+            <option value="">chọn bộ lọc...</option>
+            <option value="product_latest" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_latest") selected @endif>Mới &rarr; Cũ</option>
+            <option value="product_name_a_z" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_name_a_z") selected @endif>Tên A &rarr; Z</option>
+            <option value="product_name_z_a" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_name_z_a") selected @endif>Tên Z &rarr; A</option>
+            <option value="price_lowest" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="price_lowest") selected @endif>Giá: thấp &rarr; cao</option>
+            <option  value="price_highest" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="price_highest") selected @endif>Giá: cao &rarr; thấp</option>
+        </select>
+        <i title="hiện thị danh sách" class="mybtn fas fa-th-list" onclick="Button(0); listToggleListOff();listToggleBtnOff()"></i>
+        <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>
+    </form>
     <script>
-        var MyBtn = document.getElementsByClassName("mybtn");
-        var index = 0 ;
-
-        function Button(n){
-            CurrentShowButton(index = n);
-        }
-
-        function CurrentShowButton(n){
-            for(var i = 0 ; i < MyBtn.length ; i++){
-                MyBtn[i].className = MyBtn[i].className.replace(" Active","");
-            }
-            MyBtn[n].className +=" Active";
-        }
-
-        function listToggleListOff(){
-			const toggleList = document.querySelector('.row.listing.body');
-			toggleList.classList.add('list')
-		}
-        function listToggleListOn(){
-			const toggleList = document.querySelector('.row.listing.body.list');
-			toggleList.classList.remove('list')
-		}
-        function listToggleBtnOff(){
-			const toggleList = document.querySelector('.btn.compare');
-			toggleList.classList.add('active')
-		}
-        function listToggleBtnOn(){
-			const toggleList = document.querySelector('.btn.compare.active');
-			toggleList.classList.remove('active')
-		}
+        
     </script>
-    <i title="hiện thị danh sách" class="mybtn fas fa-th-list" onclick="Button(0); listToggleListOff();listToggleBtnOff()"></i>
-    <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>
    
     <div class="row listing body">
         @foreach($categoryProducts as $key => $product)
@@ -184,8 +159,11 @@
     
     <div class="page-btn">
         <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
+        @if(isset($_GET['sortProducts']) && !empty($_GET['sortProducts']))
+        {{ $categoryProducts->appends(['sortProducts' => $_GET['sortProducts']])->links() }}
+        @else
         {{ $categoryProducts->links() }}
+        @endif
     </div>
-    {{-- {{ $categoryProducts->appends(['sort' => 'price_lowest'])->links() }} --}}
 </div>
 @endsection

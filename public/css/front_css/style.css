@@ -1162,7 +1162,7 @@ small{
 
 /* all products page */
 .page-btn{
-    margin-bottom: 80px;
+    margin-bottom: 100px;
 }
 
 /* single product details */
@@ -2782,6 +2782,27 @@ option{
     }
 }
 
+@media only screen and (max-width: 762px){
+    .list-product-description{
+        display: none !important;
+    }
+    .row.listing.body.list .col-4 .list-item-container{
+        border-right: none;
+    }
+}
+@media only screen and (max-width: 570px){
+    .mybtn{
+        display: none !important;
+    }
+}
+@media only screen and (max-width: 460px){
+    .listing-title-and-count{
+        display: block !important;
+    }
+    .listing-head p{
+        text-align: center;
+    }
+}
 @media only screen and (max-width: 685px){
     /* index carousel */
     .carousel-item{
@@ -3138,5 +3159,3 @@ option{
         font-size: 0.7rem;
     }
 }
-
-
