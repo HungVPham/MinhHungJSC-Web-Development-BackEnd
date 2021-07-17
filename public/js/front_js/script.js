@@ -101,8 +101,18 @@ $(document).ready(function () {
         }
     });
 
+    // sort filers ajax
     $("#sortProducts").on('change',function(){
-      this.form.submit();
+        var sortProducts = $(this).val();
+        var url = $('#url').val();
+        $.ajax({
+            url:url,
+            method:"get",
+            data:{sortProducts:sortProducts, url:url},
+            success:function(data){
+                $('.filter_products').html(data);
+            }
+        })
     });
 
     // select2 without search fucntion for filter box

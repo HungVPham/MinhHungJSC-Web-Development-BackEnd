@@ -14,6 +14,8 @@
 // Route::get('/', function () {\
 //     return view('welcome');
 // });
+use App\Category;
+
 
 Auth::routes();
 
@@ -103,8 +105,14 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
 Route::namespace('Front')->group(function(){
     // home page route
    Route::get('/','IndexController@index');
-    // listing page route
-   Route::get('/{url}','ProductsController@listing');
+    
+   
+   // listing page route
+   /* get category url */
+   $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($catUrls as $url){
+        Route::get('/'.$url,'ProductsController@listing');
+    }
 });
 
 use App\Http\Controllers\Admin\ProductController;
