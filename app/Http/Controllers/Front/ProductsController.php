@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Pagination\Paginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
@@ -11,6 +12,7 @@ use App\Product;
 class ProductsController extends Controller
 {
     public function listing(Request $request){
+        Paginator::useBootstrap();
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -35,7 +37,7 @@ class ProductsController extends Controller
                 }
             }
 
-            $categoryProducts = $categoryProducts->Paginate(8);
+            $categoryProducts = $categoryProducts->Paginate(30);
             // echo "<pre>"; print_r($categoryProducts); die;
             return view('front.products.ajax_products_listing')->with(compact('categoryDetails', 'categoryProducts', 'url'));
             }else{
@@ -48,12 +50,16 @@ class ProductsController extends Controller
             if($categoryCount>0){
             $categoryDetails = Category::catDetails($url);
             $categoryProducts = Product::with('brand')->whereIn('category_id', $categoryDetails['catIds'])->where('status', 1);
-            $categoryProducts = $categoryProducts->Paginate(8);
+            $categoryProducts = $categoryProducts->Paginate(30);
             // echo "<pre>"; print_r($categoryProducts); die;
             return view('front.products.listing')->with(compact('categoryDetails', 'categoryProducts', 'url'));
             }else{
             abort(404);
             }
         }
+    }
+
+    public function detail($product_code, $id){
+        return view('front.products.detail');
     }
 }

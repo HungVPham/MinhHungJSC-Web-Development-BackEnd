@@ -119,6 +119,35 @@ $(document).ready(function () {
     $('.select2').select2({minimumResultsForSearch: Infinity});
 });
 
+// switch view btn for detail page
+var ViewBtn = document.getElementsByClassName("viewbtn");
+var ViewSw = document.getElementsByClassName("viewsw");
+var count = 0;
+
+function Btn(n) {
+    CurrentShowViewButton(count = n);
+    CurrentShowViewSwitchButton(count = n);
+}
+
+function CurrentShowViewButton(n) {
+    for (var i = 0; i < ViewBtn.length; i++) {
+        ViewBtn[i].className = ViewBtn[i]
+            .className
+            .replace(" Active", "");
+    }
+    ViewBtn[n].className += " Active";
+}
+
+function CurrentShowViewSwitchButton(n) {
+    for (var i = 0; i < ViewSw.length; i++) {
+        ViewSw[i].className = ViewSw[i]
+            .className
+            .replace(" Active", "");
+    }
+    ViewSw[n].className += " Active";
+}
+
+
 // switch view btn for listing page
 var MyBtn = document.getElementsByClassName("mybtn");
 var index = 0;
@@ -135,6 +164,7 @@ function CurrentShowButton(n) {
     }
     MyBtn[n].className += " Active";
 }
+
 
 function listToggleListOff() {
     const toggleList = document.querySelector('.row.listing.body');
@@ -177,3 +207,24 @@ icon.onclick = function () {
         .classList
         .toggle('active')
 }
+
+// switch images on detail page
+var ProductImg = document.getElementById("ProductImg");
+var SmallImg = document.getElementsByClassName("small-img");
+
+SmallImg[0].onclick = function()
+{
+    ProductImg.src = SmallImg[0].src
+}    
+SmallImg[1].onclick = function()
+{
+    ProductImg.src = SmallImg[1].src
+}    
+SmallImg[2].onclick = function()
+{
+    ProductImg.src = SmallImg[2].src
+}    
+SmallImg[3].onclick = function()
+{
+    ProductImg.src = SmallImg[3].src
+}    

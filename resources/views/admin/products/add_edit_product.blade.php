@@ -44,11 +44,11 @@
     }
     #dlt-product-img{color: var(--Delete-Red);}
     #dlt-product-img:hover{color: var(--Delete-Red-Hover);}
-    #dlt-product-vid{color: var(--Delete-Red);}
-    #dlt-product-vid:hover{color: var(--Delete-Red-Hover);}
+    /* #dlt-product-vid{color: var(--Delete-Red);}
+    #dlt-product-vid:hover{color: var(--Delete-Red-Hover);} */
     .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
-    #download-video-btn{color: var(--Positive-Green);}
-    #download-video-btn:hover{color: var(--Positive-Green-Hover);}
+    /* #download-video-btn{color: var(--Positive-Green);}
+    #download-video-btn:hover{color: var(--Positive-Green-Hover);} */
     .card-title{
       color: #ffffff;
       font-size: 1.2rem;
@@ -190,16 +190,20 @@
                     </div>
                     @endif
                   </div>
-                  <div class="form-group">
-                    <label for="product_discount">&nbsp;Giảm Giá Sản Phẩm @if(empty($productdata['id']))(00.0) [%]@endif</label>
-                  <input type="number" min="0" max="100" step="0.1" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
-                  @if (!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}"
-                  @else value="{{ old("product_discount") }}"
-                  @endif>
-                  @if(!empty($productdata['product_discount']))
-                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  {{ $productdata['product_discount'] }} [%]</div>
-                  @elseif(!empty($productdata['id']))
-                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  0 [%]</div>
+                 
+                <div class="form-group">
+                  <label for="exampleInputFile">&nbsp;Hình Ảnh (Cấp 0)</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="main_image" id="main_image" accept="image/*">
+                      <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
+                    </div>
+                  </div>
+                  @if(!empty($productdata['main_image']))
+                  <div style="padding-top: 10px;"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
+                    &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
+                  </div>
+                  @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (750x650) [px]</div>
                   @endif
                 </div>
                 </div>
@@ -231,7 +235,7 @@
                     </div>
                     @endif
                   </div>
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label for="exampleInputFile">&nbsp;Video Demo Sản Phẩm</label>
                     <div class="input-group">
                       <div class="custom-file">
@@ -242,28 +246,38 @@
                     @if(!empty($productdata['product_video']))
                       <div style="color: grey;">&nbsp;&nbsp;tải hoặc xóa video hiện tại:&nbsp;&nbsp;<a title="tải video" id="download-video-btn" href="{{ url('videos/product_videos/'.$productdata['product_video']) }}" download><i class="fas fa-file-video"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="confirmDelete" href="javascript:void(0)" class="confirmDelete" title="xóa video" record="product-video" recordid="{{ $productdata['id'] }}" id="dlt-product-vid"><i class="fas fa-trash"></i></a></div>
                     @endif
-                  </div>
+                  </div> --}}
+                  <div class="form-group">
+                    <label for="product_discount">&nbsp;Giảm Giá Sản Phẩm @if(empty($productdata['id']))(00.0) [%]@endif</label>
+                  <input type="number" min="0" max="100" step="0.1" class="form-control" name="product_discount" id="product_discount" placeholder="nhập khoản giảm giá..."
+                  @if (!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}"
+                  @else value="{{ old("product_discount") }}"
+                  @endif>
+                  @if(!empty($productdata['product_discount']))
+                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  {{ $productdata['product_discount'] }} [%]</div>
+                  @elseif(!empty($productdata['id']))
+                    <div style="color: grey">&nbsp;&nbsp;giảm giá hiện tại =  0 [%]</div>
+                  @endif
+                </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputFile">&nbsp;Hình Ảnh (Cấp 0)</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="main_image" id="main_image" accept="image/*">
-                        <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
-                      </div>
-                    </div>
-                    @if(!empty($productdata['main_image']))
-                    <div style="padding-top: 10px;"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
-                      &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
-                    </div>
-                    @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (750x650) [px]</div>
-                    @endif
+                    <label for="product_video">&nbsp;Link Video Demo Sản Phẩm [Link Youtube]</label>
+                    <div style="padding-top: 10px; padding-bottom: 10px; text-align: center;"><img style="width: 580px;" src="{{ asset('images/admin_images/example-iframe-embed.png') }}"></div>
+                    <input type="text" class="form-control" name="product_video" id="product_video" placeholder="nhập đường dẫn..."
+                    @if (!empty($productdata['product_video'])) value="{{ $productdata['product_video'] }}"
+                    @else value="{{ old("product_video") }}"
+                    @endif>
                   </div>
+                  <div class="form-group">
+                    <label for="meta_description">&nbsp;Metadata Description [SEO]</label>
+                    <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO...">@if (!empty($productdata['meta_description'])) {{ $productdata['meta_description'] }}@else {{ old("meta_description") }}@endif
+                  </textarea>
                 </div>
-                <div class="col-md-6" style="display: flex; flex-direction: column; justify-content: center;">
+                </div>
+                <div class="col-md-6" style="display: flex; flex-direction: column;">
                   <div class="form-group" style="width: 100%;">
                     <label for="is_featured">&nbsp;Sản Phẩm Nổi Bật: Có/Không</label>
                     <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if(!empty($productdata['is_featured']) && $productdata['is_featured']=="Yes") checked="" @endif>
@@ -274,6 +288,16 @@
                     <input type="checkbox" name="is_exclusive" id="is_exclusive" value="Yes" @if(!empty($productdata['is_exclusive']) && $productdata['is_exclusive']=="Yes") checked="" @endif>
                   </textarea>
                   </div>
+                  <div class="form-group">
+                    <label for="product_info">&nbsp;Tính Năng Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <textarea name="product_info" id="product_info" class="form-control mce" rows="3" placeholder="nhập tính năng sản phẩm...">@if (!empty($productdata['product_info'])) {{ $productdata['product_info'] }}@else {{ old("product_info") }}@endif
+                    </textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="product_description">&nbsp;Mô Tả Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <textarea name="product_description" id="product_description" class="form-control mce" rows="3" placeholder=" nhập mô tả sản phẩm...">@if (!empty($productdata['product_description'])) {{ $productdata['product_description'] }}@else {{ old("product_description") }}@endif
+                    </textarea>
+                  </div>
                 </div>
               </div>
               <div class="row">
@@ -283,18 +307,8 @@
                     <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" placeholder="nhập meta keywords cho SEO...">@if (!empty($productdata['meta_keywords'])) {{ $productdata['meta_keywords'] }}@else {{ old("meta_keywords") }}@endif
                   </textarea>
                 </div>
-                  <div class="form-group">
-                      <label for="meta_description">&nbsp;Metadata Description [SEO]</label>
-                      <textarea name="meta_description" id="meta_description" class="form-control" rows="3" placeholder="nhập meta description cho SEO...">@if (!empty($productdata['meta_description'])) {{ $productdata['meta_description'] }}@else {{ old("meta_description") }}@endif
-                    </textarea>
-                  </div>
                 </div>
                 <div class="col-12 col-sm-6">
-                  <div class="form-group">
-                    <label for="product_description">&nbsp;Mô Tả Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
-                    <textarea name="product_description" id="product_description" class="form-control" rows="3" placeholder=" nhập mô tả sản phẩm...">@if (!empty($productdata['product_description'])) {{ $productdata['product_description'] }}@else {{ old("product_description") }}@endif
-                    </textarea>
-                  </div>
                   <div class="form-group">
                     <label for="meta-title">&nbsp;Metadata Title [SEO]</label>
                     <textarea name="meta_title" id="meta_title" class="form-control" rows="3" placeholder="nhập meta title cho SEO...">@if (!empty($productdata['meta_title'])) {{ $productdata['meta_title'] }}@else {{ old("meta_title") }}@endif

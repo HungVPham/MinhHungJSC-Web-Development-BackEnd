@@ -114,9 +114,9 @@
                       <div style="display: flex; align-items: center; justify-content: center;">
                         <div class="form-group">
                             @if(!empty($productdata['main_image']))
-                            <img name="main_image" id="main_image" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
+                            <img name="main_image" id="main_image" src="{{ asset('images/product_images/main_image/large/'.$productdata['main_image']) }}">
                             @else
-                            <img name="main_image" id="main_image" src="{{ asset('images/product_images/main_image/small/no-img.jpg') }}">
+                            <img name="main_image" id="main_image" src="{{ asset('images/product_images/main_image/large/no-img.jpg') }}">
                             @endif
                             <div style="display: flex; align-items: center; justify-content: center; padding-top: 10px; padding-bottom: 10px;">
                             <label style="display: block;" for="main_image">Hình Ảnh Cấp (0)</label>

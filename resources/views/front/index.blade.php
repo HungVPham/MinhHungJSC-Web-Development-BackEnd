@@ -241,7 +241,9 @@ $sections = Section::sections();
             <div class="col-2"> 
                 <p><span>Độc Quyền </span>Của Nhà Phân Phối Minh Hưng!</p>
                 <h1><p>{{ $exclusive['product_name']}}</p></h1>
-                <small>{{ $exclusive['product_description']}}</small>
+                <small>
+                    <?php echo $exclusive['product_description'] ?>
+                </small>
                 <br>
                 <a href="" class="btn">Tìm Hiểu Thêm &#8594;</a>
             </div>

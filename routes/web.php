@@ -106,13 +106,15 @@ Route::namespace('Front')->group(function(){
     // home page route
    Route::get('/','IndexController@index');
     
-   
    // listing page route
    /* get category url */
    $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($catUrls as $url){
         Route::get('/'.$url,'ProductsController@listing');
     }
+
+    // detail page route
+    Route::get('/sản-phẩm/{product_code}/{id}','ProductsController@detail');
 });
 
 use App\Http\Controllers\Admin\ProductController;

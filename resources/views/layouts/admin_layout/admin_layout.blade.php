@@ -137,7 +137,32 @@ $(function () {
 <script src="{{ url('js/admin_js/pages/dashboard.js') }}"></script>
 <!-- Custom Admin JS  -->
 <script src="{{ url('js/admin_js/admin_scripts.js') }}"></script>
+
 <!-- SweetAlert2 Script  -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+  <!-- TinyMCE script -->
+<script src="https://cdn.tiny.cloud/1/zzkx1g678noj1kb5k82swoq778x6mjsj1hvb4y22jnywk0ec/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="{{ url('js/admin_js/vi_tinymce.js') }}"></script>
+<script>
+  tinymce.init({
+    selector: '.form-control.mce',
+    language : 'vi',
+    force_br_newlines : true,
+    force_p_newlines : false,
+    forced_root_block : '',
+	
+    plugins: [
+		"advlist autolink link image lists charmap print preview hr anchor pagebreak",
+		"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+		"save table contextmenu directionality emoticons template paste textcolor"
+	],
+
+    toolbar: "insertfile undo redo | bold italic |  checklist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+    toolbar_mode: 'floating',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+   });
+</script>
 </body>
 </html>

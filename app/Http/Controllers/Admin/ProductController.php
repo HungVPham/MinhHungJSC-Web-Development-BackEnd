@@ -116,17 +116,17 @@ class ProductController extends Controller
             }
 
             // Upload Product Video 
-            if($request->hasFile('product_video')){
-                $video_tmp = $request->file('product_video');
-                if($video_tmp->isValid()){
-                    $video_name = $video_tmp->getClientOriginalName();
-                    $extension = $video_tmp->getClientOriginalExtension();
-                    $videoName = $video_name.'-'.rand(1,999999).'.'.$extension;
-                    $video_path = 'videos/product_videos/';
-                    $video_tmp->move($video_path,$videoName);
-                    $product->product_video = $videoName;
-                }
-            }
+            // if($request->hasFile('product_video')){
+            //     $video_tmp = $request->file('product_video');
+            //     if($video_tmp->isValid()){
+            //         $video_name = $video_tmp->getClientOriginalName();
+            //         $extension = $video_tmp->getClientOriginalExtension();
+            //         $videoName = $video_name.'-'.rand(1,999999).'.'.$extension;
+            //         $video_path = 'videos/product_videos/';
+            //         $video_tmp->move($video_path,$videoName);
+            //         $product->product_video = $videoName;
+            //     }
+            // }
 
             // Save New Products
             $categoryDetails = Category::find($data['category_id']);
@@ -135,10 +135,12 @@ class ProductController extends Controller
             $product->product_name = $data['product_name'];
             $product->brand_id = $data['brand_id'];
             $product->product_weight = $data['product_weight'];
+            $product->product_video = $data['product_video'];
             $product->product_code = $data['product_code'];
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
             $product->product_description = $data['product_description'];
+            $product->product_info = $data['product_info'];
             $product->meta_title = $data['meta_title'];
             $product->meta_description = $data['meta_description'];
             $product->meta_keywords = $data['meta_keywords'];
@@ -201,24 +203,24 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    public function deleteProductVideo($id){
-        // Get product video
-        $productVideo = Product::select('product_video')->where('id', $id)->first();
+    // public function deleteProductVideo($id){
+    //     // Get product video
+    //     $productVideo = Product::select('product_video')->where('id', $id)->first();
 
-        // Get product video path
-        $product_video_path = 'videos/product_videos/';
+    //     // Get product video path
+    //     $product_video_path = 'videos/product_videos/';
 
-        // Delete product video from product video folder if exists
-        if(file_exists($product_video_path.$productVideo->product_video)){
-           unlink($product_video_path.$productVideo->product_video);
-        }
+    //     // Delete product video from product video folder if exists
+    //     if(file_exists($product_video_path.$productVideo->product_video)){
+    //        unlink($product_video_path.$productVideo->product_video);
+    //     }
 
-        // Delete product video from product table
-        Product::where('id',$id)->update(['product_video'=>'']);
-        $message = 'Video đã được xóa thành công!';
-        session::flash('success_message',$message);
-        return redirect()->back();
-    }
+    //     // Delete product video from product table
+    //     Product::where('id',$id)->update(['product_video'=>'']);
+    //     $message = 'Video đã được xóa thành công!';
+    //     session::flash('success_message',$message);
+    //     return redirect()->back();
+    // }
 
     public function addMaxproAttributes(Request $request,$id){
         if($request->isMethod('post')){

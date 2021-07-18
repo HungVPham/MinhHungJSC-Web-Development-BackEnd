@@ -47,13 +47,6 @@ body a:focus{
     border-radius: 5px;
 }
 
-#products-nav{
-    padding: 0 !important;
-}
-
-#products-nav p:hover{
-    color: var(--MinhHung-Red);
-}
 
 #category-nav{
     padding: 0 !important;
@@ -879,7 +872,7 @@ h4{
     color: var(--Solid-White);
 }
 
-.offer .small-container .row .col-2 small{
+.offer .small-container .row .col-2 small > *{
     color: var(--Solid-White);
     font-size: 20px;
     font-weight: 400;
@@ -1166,6 +1159,76 @@ small{
 }
 
 /* single product details */
+.row.info{
+    justify-content: space-between;
+    align-items: inherit;
+    display: none;
+}
+
+.row.video{
+    display: none;
+}
+
+.row.info.Active, .row.video.Active{
+    display: block;
+    animation: opacity 0.3s ease-in-out both;
+}
+
+@keyframes opacity {
+    0% { opacity: 0;}
+    100% { opacity: 100%;}
+}
+
+.row.info > *{
+    flex-basis: 50%;
+    padding: 20px;
+}
+
+.row.info > div:last-child ul{
+    margin-left: 20px;
+}
+
+.row.info > div label{
+    color: var(--MinhHung-Red);
+    font-size: 2rem;
+}
+
+.row-2{
+    justify-content: space-between;
+}
+
+.row-2 > *{
+    width: inherit;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row-2 h2{
+    color: var(--Solid-Black);
+    font-weight: 600;
+}
+
+.row-2 .fas.fa-info-circle, .fab.fa-youtube{
+    padding: 5px;
+    float: right;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-left: 2px;
+    color: var(--MinhHung-Red);
+}
+.row-2 .fas.fa-info-circle.Active, .fab.fa-youtube.Active{
+    padding: 2px;
+    color: var(--Solid-Black);
+    border: 3px solid var(--Solid-Black);
+    cursor: auto;
+}
+.row-2 .fas.fa-info-circle.Active:hover, .fab.fa-youtube.Active:hover{
+    color: var(--Solid-Black);
+}
+.row-2 .fas.fa-info-circle:hover, .fab.fa-youtube:hover{
+    color: var(--Solid-Black);
+}
+
 .single-product{
     margin-top: 30px;
 }
@@ -1183,6 +1246,20 @@ small{
     font-size: 22px;
     font-weight: bold;
 }
+
+#products-nav{
+    float: right;
+    font-size: 1.4rem;
+}
+
+#products-nav a{
+    padding: 0;
+}
+
+#products-nav p:hover{
+    color: var(--MinhHung-Red);
+}
+
 
 .single-product input{
     width: 50px;
@@ -1205,6 +1282,7 @@ small{
 .small-img-row{
     display: flex;
     justify-content: space-between;
+    margin-top: 5px;
 }
 
 .small-img-col{

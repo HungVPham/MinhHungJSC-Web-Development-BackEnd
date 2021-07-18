@@ -6,11 +6,11 @@
                 <p><span>Mã Số Thuế:</span> 0312501361</p>
                 <p><span>Giấy Chứng Nhận Đăng Ký Doanh Nghiệp</span> cấp ngày 11.10.2013</p>
                 <p><span>Cơ Quan Cấp:</span> Phòng đăng ký kinh doanh sở kế hoạch và đầu tư TP.HCM</p>
-                <img width="150px" src="{{ ('images/front_images/tb_cong_thuong.png') }}" alt="logo công ty">
+                <img width="150px" src="{{ ('/images/front_images/tb_cong_thuong.png') }}" alt="dấu xác nhận đã thông báo bộ công thương">
             </div>
             <div class="footer-col-2">
                 <div class="footerLogo">    
-                    <a href="index.html"><img src="{{ ('images/front_images/logoMinhHung.png') }}" alt="logo công ty"></a>
+                    <a href="index.html"><img src="{{ ('/images/front_images/logoMinhHung.png') }}" alt="logo công ty"></a>
                 </div>
                 <p><span>Địa Chỉ:</span> 56 Trương Phước Phan, P.Bình Trị Đông, Q.Bình Tân, TP.HCM</p>
                 <p><span>Tel:</span><a href="tel: 028 62 666 333">(028) 62 666 333</a> -&nbsp;&nbsp;&nbsp;Fax:&nbsp;&nbsp;&nbsp;(028) 62 666 555</p>
