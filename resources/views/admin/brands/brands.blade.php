@@ -81,7 +81,9 @@
                   @foreach($brands as $brand)
                   <tr>
                     <td>{{ $brand->id }}</td>
-                    <td>{{ $brand->name }}</td>
+                    <td>
+                        <?php echo $brand->name ?>
+                    </td>
                     <td style="width: 135px;">
                       @if ($brand->status==1)
                       <a class="updateBrandStatus" id="brand-{{ $brand->id }}" brand_id="{{ $brand->id }}" href="javascript:void(0)"><i id="active"  status="Active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   

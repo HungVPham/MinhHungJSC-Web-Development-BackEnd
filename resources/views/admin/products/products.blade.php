@@ -85,7 +85,7 @@
                   <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->product_code }}</td>
-                    <td>{{ $product->brand->name }}</td>
+                    <td><?php echo $product->brand->name ?></td>
                     <td>{{ $product->product_name }}</td>
                     <td style="text-align: center;">
                       <?php $product_image_path = "images/product_images/main_image/small/".$product->main_image; ?>

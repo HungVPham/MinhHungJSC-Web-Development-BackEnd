@@ -114,7 +114,12 @@ Route::namespace('Front')->group(function(){
     }
 
     // detail page route
-    Route::get('/sản-phẩm/{product_code}/{id}','ProductsController@detail');
+    Route::get('/sản-phẩm/{id}','ProductsController@detail');
+
+    // get maxpro attribute price
+    Route::post('/get-maxpro-product-price', 'ProductsController@getMaxproProductPrice');
+    Route::post('/get-hhose-product-price', 'ProductsController@getHhoseProductPrice');
+    Route::post('/get-shimge-product-price', 'ProductsController@getShimgeProductPrice');
 });
 
 use App\Http\Controllers\Admin\ProductController;

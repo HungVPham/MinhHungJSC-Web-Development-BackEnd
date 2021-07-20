@@ -128,7 +128,7 @@
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <label for="category_description">&nbsp;Mô Tả Thể Loại</label>
-                    <textarea name="category_description" id="category_description" class="form-control" rows="3" placeholder=" nhập mô tả...">@if (!empty($categorydata['category_description'])) {{ $categorydata['category_description'] }}@else {{ old("category_description") }}@endif
+                    <textarea name="category_description" id="category_description" class="form-control mce" rows="3" placeholder=" nhập mô tả...">@if (!empty($categorydata['category_description'])) {{ $categorydata['category_description'] }}@else {{ old("category_description") }}@endif
                     </textarea>
                   </div>
                 </div>

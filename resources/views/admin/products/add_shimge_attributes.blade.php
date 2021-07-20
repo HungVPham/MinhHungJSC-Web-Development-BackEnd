@@ -241,11 +241,11 @@
                     <td>{{ $ShimgeAttributes['sku'] }}</td>
                     <td>
                       <input style="width: 80%;" type="number" min="0" name="price[]" value="{{ $ShimgeAttributes['price'] }}" required=""> 
-                      <div>= <?php 
+                      <div> = <?php 
                       $num = $ShimgeAttributes['price'];
-                      $format = number_format($num);
+                      $format = number_format($num,0,",",".");
                       echo $format;
-                      ?> [VNĐ]
+                      ?> ₫
                       </div>
                     </td>
                     <td>

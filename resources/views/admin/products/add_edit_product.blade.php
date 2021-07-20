@@ -184,9 +184,9 @@
                     @if(!empty($productdata['product_price']))
                     <div style="color: grey">&nbsp;&nbsp;giá hiện tại = <?php 
                           $num = $productdata['product_price'];
-                          $format = number_format($num);
+                          $format = number_format($num,0,",",".");
                           echo $format;
-                        ?> [VNĐ]
+                        ?> ₫
                     </div>
                     @endif
                   </div>
@@ -213,7 +213,7 @@
                     <select name="brand_id" id="brand_id" class="form-control select2" style="width: 100%;">
                       <option value="">chọn thương hiệu</option>
                       @foreach($brands as $brand)
-                      <option value="{{ $brand['id'] }}" @if(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected="" @endif>{{ $brand['name'] }}</option>
+                      <option value="{{ $brand['id'] }}" @if(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected="" @endif><?php echo $brand['name'] ?></option>
                       @endforeach
                     </select> 
                   </div>

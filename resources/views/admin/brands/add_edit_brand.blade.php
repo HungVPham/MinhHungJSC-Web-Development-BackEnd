@@ -77,7 +77,7 @@
               <div class="row">
                   <div class="form-group" style="width: 100%;">
                       <label for="name">&nbsp;Tên Thương Hiệu Sản Phẩm @if(empty($branddata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="nhập tên thương hiệu..."
+                      <input type="text" class="form-control mce" name="name" id="name" placeholder="nhập tên thương hiệu..."
                       @if (!empty($branddata['name'])) value="{{ $branddata['name'] }}"
                       @else value="{{ old("name") }}"
                       @endif>

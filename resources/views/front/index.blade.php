@@ -46,12 +46,13 @@ $sections = Section::sections();
                     </a>
                      <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                         <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-                    <small class="brand-title"> <span
-                        @if($item['brand_id']==1) style="color: var(--MaxPro-Orange);" @endif
-                        @if($item['brand_id']==2) style="color: var(--Hhose-Yellow);" @endif
-                        @if($item['brand_id']==3) style="color: var(--Hammer-Turquoise);" @endif
-                        @if($item['brand_id']==4) style="color: var(--Shimge-Blue);" @endif
-                        >{{ $item['brand']['name'] }}</span></small>
+                    <small class="brand-title">
+                    <span>
+                        <?php echo
+                        $item['brand']['name']
+                        ?>
+                    </span>
+                    </small>
                      <a href=""><h4 title="{{ $item['product_name'] }}">{{ $item['product_name']}}</h4></a>
                      <div class="rating">
                         <i class="fa fa-star"></i>
@@ -61,15 +62,15 @@ $sections = Section::sections();
                         <i class="fa fa-star"></i>
                     </div>
                         <p class="price">
-                            @if(!empty($item['product_price']))
-                                @if($item['section_id']!=1)từ@endif ₫<?php 
-                                $num = $item['product_price'];
-                                $format = number_format($num);
-                                echo $format;
-                                ?>
-                                @else 
-                                <i>giá liên hệ</i>
-                            @endif   
+                        @if(!empty($item['product_price']))
+                            @if($item['section_id']!=1)từ@endif <?php 
+                            $num = $item['product_price'];
+                            $format = number_format($num,0,",",".");
+                            echo $format;
+                            ?> ₫
+                        @else 
+                            <i>giá liên hệ</i>
+                        @endif   
                         </p>
                 </div>
                 @endforeach
@@ -94,9 +95,13 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-            <small class="brand-title"> <span
-                @if($newTool['brand_id']==1) style="color: var(--MaxPro-Orange);" @endif
-                >{{ $newTool['brand']['name'] }}</span></small>
+            <small class="brand-title">
+                <span>
+                    <?php echo
+                    $newTool['brand']['name']
+                    ?>
+                </span>
+            </small>
              <a href=""><h4 title="{{ $newTool['product_name'] }}">{{ $newTool['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
@@ -105,17 +110,17 @@ $sections = Section::sections();
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-                <p class="price">
-                    @if(!empty($newTool['product_price']))
-                        @if($newTool['section_id']!=1)từ@endif ₫<?php 
-                        $num = $newTool['product_price'];
-                        $format = number_format($num);
-                        echo $format;
-                        ?>
-                        @else 
-                        <i>giá liên hệ</i>
-                    @endif   
-                </p>
+            <p class="price">
+                @if(!empty($newTool['product_price']))
+                    @if($newTool['section_id']!=1)từ@endif <?php 
+                    $num = $newTool['product_price'];
+                    $format = number_format($num,0,",",".");
+                    echo $format;
+                    ?> ₫
+                @else 
+                    <i>giá liên hệ</i>
+                @endif   
+            </p>
         </div>
         @endforeach
         @foreach($newHhoseProducts as $newHose)
@@ -130,10 +135,13 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-            <small class="brand-title"> <span 
-                @if($newHose['brand_id']==2) style="color: var(--Hhose-Yellow);" @endif
-                @if($newHose['brand_id']==3) style="color: var(--Hammer-Turquoise);" @endif
-            >{{ $newHose['brand']['name'] }}</span></small>
+            <small class="brand-title">
+                <span>
+                    <?php echo
+                    $newHose['brand']['name']
+                    ?>
+                </span>
+            </small>
              <a href=""><h4 title="{{ $newHose['product_name'] }}">{{ $newHose['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
@@ -142,17 +150,17 @@ $sections = Section::sections();
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-                <p class="price">
-                    @if(!empty($newHose['product_price']))
-                        @if($newHose['section_id']!=1)từ@endif ₫<?php 
-                        $num = $newHose['product_price'];
-                        $format = number_format($num);
-                        echo $format;
-                        ?>
-                        @else 
-                        <i>giá liên hệ</i>
-                    @endif   
-                </p>
+            <p class="price">
+                @if(!empty($newHose['product_price']))
+                    @if($newHose['section_id']!=1)từ@endif <?php 
+                    $num = $newHose['product_price'];
+                    $format = number_format($num,0,",",".");
+                    echo $format;
+                    ?> ₫
+                @else 
+                    <i>giá liên hệ</i>
+                @endif   
+            </p>
         </div>
         @endforeach
         @foreach($newShimgeProducts as $newPump)
@@ -167,9 +175,13 @@ $sections = Section::sections();
             </a>
              <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
-            <small class="brand-title"> <span
-                @if($newPump['brand_id']==4) style="color: var(--Shimge-Blue);" @endif
-                >{{ $newPump['brand']['name'] }}</span></small>
+            <small class="brand-title">
+                <span>
+                    <?php echo
+                    $newPump['brand']['name']
+                    ?>
+                </span>
+            </small>
              <a href=""><h4 title="{{ $newPump['product_name'] }}">{{ $newPump['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
@@ -178,17 +190,17 @@ $sections = Section::sections();
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
-                <p class="price">
-                    @if(!empty($newPump['product_price']))
-                        @if($newPump['section_id']!=1)từ@endif ₫<?php 
-                        $num = $newPump['product_price'];
-                        $format = number_format($num);
-                        echo $format;
-                        ?>
-                        @else 
-                        <i>giá liên hệ</i>
-                    @endif   
-                </p>
+            <p class="price">
+                @if(!empty($newPump['product_price']))
+                    @if($newPump['section_id']!=1)từ@endif <?php 
+                    $num = $newPump['product_price'];
+                    $format = number_format($num,0,",",".");
+                    echo $format;
+                    ?> ₫
+                @else 
+                    <i>giá liên hệ</i>
+                @endif   
+            </p>
         </div>
         @endforeach
     </div>

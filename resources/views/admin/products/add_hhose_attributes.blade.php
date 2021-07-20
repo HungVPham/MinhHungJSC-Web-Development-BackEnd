@@ -275,9 +275,9 @@
                     <td>
                       <input disabled style="width: 50%;" type="number" min="0"  name="price[]" value="{{ $HhoseAttributes['price'] }}" required=""> = <?php 
                       $num = $HhoseAttributes['price'];
-                      $format = number_format($num);
+                      $format = number_format($num,0,",",".");
                       echo $format;
-                      ?> [VNĐ]
+                      ?> ₫
                     </td>
                     <td>
                       <input disabled style="width: 50%;" type="number" min="0"  name="stock[]" value="{{ $HhoseAttributes['stock'] }}" required=""> [Cuộn]

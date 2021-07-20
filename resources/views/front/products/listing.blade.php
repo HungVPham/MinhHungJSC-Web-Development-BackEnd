@@ -77,7 +77,11 @@
     @if(!empty($categoryDetails['catDetails']['category_description']))
     <hr>
     <div class="row listing head">
-        <p class="category_description">{{ $categoryDetails['catDetails']['category_description'] }}</p>
+        <p class="category_description">
+            <?php echo
+            $categoryDetails['catDetails']['category_description']
+            ?>
+        </p>
     </div>
     @endif
     <hr>

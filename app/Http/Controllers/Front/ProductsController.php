@@ -8,9 +8,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use App\MaxproProductAttributes;
+use App\HhoseProductAttributes;
+use App\ShimgeProductAttributes;
 
 class ProductsController extends Controller
 {
+    // listing page general controls
     public function listing(Request $request){
         Paginator::useBootstrap();
         if($request->ajax()){
@@ -59,7 +63,41 @@ class ProductsController extends Controller
         }
     }
 
-    public function detail($product_code, $id){
-        return view('front.products.detail');
+    // listing page general controls
+    public function detail($id){
+        $productDetails = Product::with('category', 'brand', 'MaxproAttributes', 'HhoseAttributes', 'ShimgeAttributes', 'images')->find($id)->toArray();
+        $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
+        $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
+        $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
+        $total_stock =  $total_tools_stock + $total_hhose_stock + $total_pump_stock;
+        // dd($total_stock); die;
+        return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock'));
+    }
+    /* get maxpro price by sku*/
+    public function getMaxproProductPrice(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getMaxproProductPrice = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getMaxproProductPrice->price;
+        }
+    }
+    /* get hhose price by sku*/
+    public function getHhoseProductPrice(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getHhoseProductPrice = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getHhoseProductPrice->price;
+        }
+    }
+    /* get shimge price by sku*/
+    public function getShimgeProductPrice(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductPrice = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductPrice->price;
+        }
     }
 }

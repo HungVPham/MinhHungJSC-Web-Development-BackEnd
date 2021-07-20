@@ -1,31 +1,129 @@
 @extends('layouts.front_layout.front_layout')
 @section('content')
 <div class="small-container single-product">
-    <div class="row">
+    <div class="row listing head first detail" style="margin-bottom: 0; margin-top: 80px; text-align: center">
+        <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a>Sản Phẩm</a> / <a href="{{ url('/'.$productDetails['category']['url']) }}">{{ $productDetails['category']['category_name'] }}</a> / <a>{{ $productDetails['product_name'] }}</a></h5>
+    </div>
+    <div class="row single-product">
         <div class="col-2 single-product">
-            <img src="{{ asset('images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro_thumbnail.jpg') }}" id="ProductImg" width="100%" alt="hình ảnh sản phẩm">
+                @if(isset($productDetails['main_image']))
+                    <?php $product_image_path = 'images/product_images/main_image/large/'.$productDetails['main_image']; ?>
+                @else
+                    <?php $product_image_path = '' ?>
+                @endif
+                @if(!empty($productDetails['main_image'])&&file_exists($product_image_path))
+                    <img src="{{ asset($product_image_path) }}" width="100%" id="ProductImg" alt="sản phẩm mới">
+                @else
+                    <img src="{{ url('images/product_images/main_image/large/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                @endif
             <div class="small-img-row">
                 <div class="small-img-col">
-                    <img src="{{ asset('images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro_thumbnail.jpg') }}" class="small-img" width="100%" alt="hình ảnh sản phẩm 1">
+                @if(isset($productDetails['main_image']))
+                    <?php $product_image_path = 'images/product_images/main_image/large/'.$productDetails['main_image']; ?>
+                @else
+                    <?php $product_image_path = '' ?>
+                @endif
+                @if(!empty($productDetails['main_image'])&&file_exists($product_image_path))
+                    <img src="{{ asset($product_image_path) }}" width="100%" class="small-img" alt="sản phẩm mới">
+                @else
+                    <img src="{{ url('images/product_images/main_image/large/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                @endif
                 </div>
+                @foreach($productDetails['images'] as $image)
                 <div class="small-img-col">
-                    <img src="{{ asset('images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro(2).jpg') }}" class="small-img" width="100%" alt="hình ảnh sản phẩm 2">
+                    <img src="{{ asset('images/product_images/main_image/large/'.$image['image']) }}" class="small-img" width="100%" alt="hình ảnh sản phẩm 2">
                 </div>
-                <div class="small-img-col"> 
-                    <img src="{{ asset('images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro(3).jpg') }}" class="small-img" width="100%" alt="hình ảnh sản phẩm 3">
-                </div>
-                <div class="small-img-col">
-                    <img src="{{ asset('images/product/MaxPro/máy-khoan-pin/mayKhoanpin_maxpro(4).jpg') }}" class="small-img" width="100%" alt="hình ảnh sản phẩm 4">
-                </div>
+                @endforeach
             </div>
         </div>
+       
         <div class="col-2 single-product"> 
-            <p>Sản Phẩm / Dụng Cụ Điện MaxPro / Máy Khoan Pin</p>
-            <h1>Máy khoan pin 18V 2 cấp độ + Chế độ khoan búa (MPCD18HLI/2E)</h1>
-            <h4>Giá Liên Hệ</h4>
+            <small class="brand-title detail"> 
+                <span>
+                    <?php echo
+                    $productDetails['brand']['name']
+                    ?>
+                </span>
+            </small>
+            <h1 style="margin-top: 5px">{{ $productDetails['product_name'] }}</h1>
+            
+            {{-- price --}}
+            @if($total_tools_stock > 0)
+            <h4 class="getMaxproAttrPrice">
+                <?php 
+                $num = $productDetails['product_price'];
+                $format = number_format($num,0,",",".");
+                echo $format;
+                ?> ₫
+            </h4>
+            @endif
+            @if($total_hhose_stock > 0)
+               <h4 class="getHhoseAttrPrice"> 
+                    @if($productDetails['section_id']!=1)từ@endif <?php 
+                    $num = $productDetails['product_price'];
+                    $format = number_format($num,0,",",".");
+                    echo $format;
+                    ?> ₫
+                </h4>
+            @endif
+            @if($total_pump_stock > 0)
+                <h4 class="getShimgeAttrPrice">
+                    @if($productDetails['section_id']!=1)từ@endif <?php 
+                    $num = $productDetails['product_price'];
+                    $format = number_format($num,0,",",".");
+                    echo $format;
+                    ?> ₫
+                </h4>
+            @endif
+            @if($total_stock == 0)
+            <i>(hết hàng)</i>
+            @endif
+            </h4>
+
+            {{-- purchasing quantity --}}
             <p>Số Lượng Mua: <input type="number" value="1"></p>
-            <p>Mẫu Sản Phẩm: <select class="select2"></select></p>
-            <p><a href="" class="btn">Thêm Vào Giỏ</a></p>
+            
+            {{-- select sku dropdown --}}
+            <p>Mã Sản Phẩm: 
+            @if(!empty($productDetails['maxpro_attributes']))
+            <select name="sku" id="getMaxproPrice" product-id="{{ $productDetails['id'] }}" class="select2">
+                <option>chọn mã sản phẩm...</option>
+                @foreach($productDetails['maxpro_attributes'] as $toolAttr)
+                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                @endforeach
+            </select>
+            @endif
+            @if(!empty($productDetails['hhose_attributes']))
+            <select name="sku" id="getHhosePrice" product-id="{{ $productDetails['id'] }}" class="select2">
+                <option>chọn mã sản phẩm...</option>
+                @foreach($productDetails['hhose_attributes'] as $toolAttr)
+                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                @endforeach
+            </select>
+            @endif
+            @if(!empty($productDetails['shimge_attributes']))
+            <select name="sku" id="getShimgePrice" product-id="{{ $productDetails['id'] }}" class="select2">
+                <option>chọn mã sản phẩm...</option>
+                @foreach($productDetails['shimge_attributes'] as $toolAttr)
+                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                @endforeach
+            </select>
+            @endif
+
+            {{-- add to cart or notify when restock btn --}}
+            </p>
+            @if($total_tools_stock > 0)
+            <p><a style="margin-top: 5px" href="" class="btn">Thêm Vào Giỏ</a></p>
+            @endif
+            @if($total_hhose_stock > 0)
+            <p><a style="margin-top: 5px" href="" class="btn">Thêm Vào Giỏ</a></p>
+            @endif
+            @if($total_pump_stock > 0)
+            <p><a style="margin-top: 5px" href="" class="btn">Thêm Vào Giỏ</a></p>
+            @endif
+            @if($total_stock == 0)
+            <p><a style="margin-top: 5px" href="" class="btn">Nhận thông báo khi có hàng!</a></p>
+            @endif
         </div>
     </div>
 </div>
@@ -34,34 +132,46 @@
     <div class="row row-2">
         <div></div>
         <div class="flexleft-container">
-            <i title="hiện thị video" class="viewbtn fab fa-youtube" onclick="Btn(0)"></i>
-            <i title="hiện thị thông tin" class="viewbtn fas fa-info-circle Active" onclick="Btn(1)"></i>
+            @if(!empty($productDetails['product_video']))
+            <i title="hiện thị video" class="viewbtn fab fa-youtube" onclick="Btn(0); playVideo()"></i>
+            <i title="hiện thị thông tin" class="viewbtn fas fa-info-circle Active" onclick="Btn(1); pauseVideo()"></i>
+            @endif
         </div>
     </div>
 </div>
 <div class="small-container" style="margin-top: 20px">
+    @if(!empty($productDetails['product_video']))
     <div class="viewsw row video">
-        <iframe height="560px" src="https://www.youtube.com/embed/vlmiWc6zPAs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+        <iframe id="existing-iframe-example"
+        height="560"
+        src="https://www.youtube.com/embed/{{ $productDetails['product_video'] }}?enablejsapi=1"
+        frameborder="0"
+        ></iframe>
     </div>
+    @endif
     <div class="viewsw row info Active">
         <div>
             <label for="product_description"><strong>Giới Thiệu Sản Phẩm:</strong></label>
             <br>
             <br>
+            @if(!empty($productDetails['product_description']))
             <p name="product_description">
-            Máy khoan pin 18V có chức năng búa là thành viên mới nhất trong gia đình máy khoan chạy pin của thương hiệu MaxPro. Lần đầu được công ty Minh Hưng phân phối vào năm 2019, máy khoan pin búa 18V MaxPro đã nhận được nhiều lời khen từ các khách hàng về chất lượng cũng như độ hoàn thiện của máy. Sử dụng viên pin 18V, 1.5Ah cùng với lực mô-men xoắn cực đại lên đến 45N.m, giúp máy bắt vít lên gỗ hay thép một cách nhanh chóng, đường khoan chuẩn xác. Máy khoan pin 18V có chức năng búa có thiết kế gọn nhẹ (chỉ 1.6kgs), tay cầm chắc chắn. Chức năng búa của máy có lực đập lên đến 6400bpm ở chế độ mạnh nhất giúp người dùng có thể khoan tường 1 cách hiệu quả.</p>
+                <?php echo $productDetails['product_description'] ?>
+            </p>
+            @else
+            <h5><i>chưa có thông tin.</i></h5>
+            @endif
         </div>
         <div> 
             <label for="spec_feature"><strong>Tính Năng Nổi Bật:</strong></label>
             <br>
             <br>
-            <ul name="spec_feature" style="list-style-type: square;">
-                <li>M&ocirc;men xoắn lớn 45N.m gi&uacute;p m&aacute;y bắt v&iacute;t dễ
-                    d&agrave;ng hơn l&ecirc;n chất liệu cứng như gỗ v&agrave; th&eacute;p</li>
-                <li>Thiết kế chắc chắn,đẹp v&agrave; bắt mắt</li>
-                <li>Tay cầm &ecirc;m &aacute;i, chống rung</li>
-                <li>C&oacute; chức năng b&uacute;a</li>
-            </ul> 
+            @if(!empty($productDetails['product_info']))
+            <?php echo $productDetails['product_info'] ?>
+            @else
+            <h5><i>chưa có thông tin.</i></h5>
+            @endif
         </div>
     </div> 
 </div>

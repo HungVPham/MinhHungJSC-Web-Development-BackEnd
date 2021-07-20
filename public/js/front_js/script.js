@@ -1,5 +1,13 @@
 $(document).ready(function () {
-  // Slick Carousel in news-events
+
+    // setup ajax csrf token for post method
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // Slick Carousel in news-events
     var slider2 = $('.post-wrapper').slick({
         slidesToShow: 3,
         infinite: false,
@@ -117,6 +125,61 @@ $(document).ready(function () {
 
     // select2 without search fucntion for filter box
     $('.select2').select2({minimumResultsForSearch: Infinity});
+
+    // change price based on sku selected
+    $("#getMaxproPrice").change(function(){
+        var sku = $(this).val();
+        var product_id = $(this).attr("product-id");
+        $.ajax({
+           url:'/get-maxpro-product-price',
+           data: {sku:sku, product_id:product_id},
+           type: 'post',
+           success:function(resp){
+               let formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }); 
+                let data = formatter.format(resp);
+                // alert(resp);
+                $(".getMaxproAttrPrice").html(data);
+           },error:function(){
+                alert("Vui lòng chọn mã sản phẩm bạn muốn mua!");
+           }
+        });
+    });
+
+    $("#getHhosePrice").change(function(){
+        var sku = $(this).val();
+        var product_id = $(this).attr("product-id");
+        $.ajax({
+            url:'/get-hhose-product-price',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                let formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }); 
+                let data = formatter.format(resp);
+                // alert(resp);
+                $(".getHhoseAttrPrice").html(data);
+            },error:function(){
+                alert("Vui lòng chọn mã sản phẩm bạn muốn mua!");
+            }
+         });
+    });
+
+    $("#getShimgePrice").change(function(){
+        var sku = $(this).val();
+        var product_id = $(this).attr("product-id");
+        $.ajax({
+            url:'/get-shimge-product-price',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                let formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }); 
+                let data = formatter.format(resp);
+                // alert(resp);
+                $(".getShimgeAttrPrice").html(data);
+            },error:function(){
+                alert("Vui lòng chọn mã sản phẩm bạn muốn mua!");
+            }
+         });
+    });
 });
 
 // switch view btn for detail page
@@ -146,7 +209,6 @@ function CurrentShowViewSwitchButton(n) {
     }
     ViewSw[n].className += " Active";
 }
-
 
 // switch view btn for listing page
 var MyBtn = document.getElementsByClassName("mybtn");
@@ -228,3 +290,63 @@ SmallImg[3].onclick = function()
 {
     ProductImg.src = SmallImg[3].src
 }    
+
+var tag = document.createElement('script');
+tag.id = 'iframe-demo';
+tag.src = 'https://www.youtube.com/iframe_api';
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag
+.parentNode
+.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+player = new YT.Player('existing-iframe-example', {
+playerVars: {
+'rel': 0
+},
+events: {
+'onReady': onPlayerReady,
+'onStateChange': onPlayerStateChange
+},
+});
+}
+function onPlayerReady(event) {
+document
+.getElementById('existing-iframe-example')
+.style
+.borderColor = '#FFFFFF';
+}
+function changeBorderColor(playerStatus) {
+var color;
+if (playerStatus == -1) {
+color = "#FFFFFF"; // unstarted = gray
+} else if (playerStatus == 0) {
+color = "#FFFFFF"; // ended = yellow
+} else if (playerStatus == 1) {
+color = "#FFFFFF"; // playing = green
+} else if (playerStatus == 2) {
+color = "#FFFFFF"; // paused = red
+} else if (playerStatus == 3) {
+color = "#FFFFFF"; // buffering = purple
+} else if (playerStatus == 5) {
+color = "#FFFFFF"; // video cued = orange
+}
+if (color) {
+document
+.getElementById('existing-iframe-example')
+.style
+.borderColor = color;
+}
+}
+function onPlayerStateChange(event) {
+changeBorderColor(event.data);
+}
+
+function pauseVideo(){
+    player.pauseVideo();
+}
+
+function playVideo(){
+    player.playVideo();
+}
