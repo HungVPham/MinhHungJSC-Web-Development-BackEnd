@@ -1160,10 +1160,11 @@ small{
 }
 
 /* single product details */
-.row.single-product{
-    align-items: inherit;
-}
 
+.swal2-styled.swal2-confirm{
+    background-color: var(--MinhHung-Red) !important;
+    box-shadow: none !important;
+}
 
 .row.info{
     justify-content: space-between;
@@ -1320,6 +1321,12 @@ small{
 
 .brand-title.detail p{
     margin-bottom: 0px;
+}
+
+.row.listing.head.first.detail{
+    margin-bottom: -50px;
+    margin-top: 80px; 
+    text-align: right;
 }
 
 .row.listing.head.first.detail h5 a{

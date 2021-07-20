@@ -126,7 +126,7 @@ $(document).ready(function () {
     // select2 without search fucntion for filter box
     $('.select2').select2({minimumResultsForSearch: Infinity});
 
-    // change price based on sku selected
+    // get tool products information given sku
     $("#getMaxproPrice").change(function(){
         var sku = $(this).val();
         var product_id = $(this).attr("product-id");
@@ -140,11 +140,28 @@ $(document).ready(function () {
                 // alert(resp);
                 $(".getMaxproAttrPrice").html(data);
            },error:function(){
-                alert("Vui lòng chọn mã sản phẩm bạn muốn mua!");
+            Swal.fire('Vui lòng chọn mã sản phẩm bạn muốn mua!');
            }
         });
+        $.ajax({
+            url:'/get-maxpro-product-voltage',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                 $(".getMaxproVoltage").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-maxpro-product-power',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                 $(".getMaxproPower").html(resp);
+            }
+         });
     });
 
+    // get hhose products information given sku
     $("#getHhosePrice").change(function(){
         var sku = $(this).val();
         var product_id = $(this).attr("product-id");
@@ -158,11 +175,45 @@ $(document).ready(function () {
                 // alert(resp);
                 $(".getHhoseAttrPrice").html(data);
             },error:function(){
-                alert("Vui lòng chọn mã sản phẩm bạn muốn mua!");
+               Swal.fire('Vui lòng chọn mã sản phẩm bạn muốn mua!');
+            }
+         });
+         $.ajax({
+            url:'/get-hhose-product-diameter',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                // alert(resp);
+                $(".getHhoseDiameter").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-hhose-product-length',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getHhoseLength").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-hhose-product-embossed',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getHhoseEmbossed").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-hhose-product-smooth',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getHhoseSmooth").html(resp);
             }
          });
     });
 
+    // get pump products information given sku
     $("#getShimgePrice").change(function(){
         var sku = $(this).val();
         var product_id = $(this).attr("product-id");
@@ -176,7 +227,55 @@ $(document).ready(function () {
                 // alert(resp);
                 $(".getShimgeAttrPrice").html(data);
             },error:function(){
-                alert("Vui lòng chọn mã sản phẩm bạn muốn mua!");
+                Swal.fire('Vui lòng chọn mã sản phẩm bạn muốn mua!');
+            }
+         });
+         $.ajax({
+            url:'/get-shimge-product-voltage',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getShimgeVoltage").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-shimge-product-power',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getShimgePower").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-shimge-product-maxflow',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getShimgeMaxflow").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-shimge-product-vertical',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getShimgeVertical").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-shimge-product-indiameter',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getShimgeIndiameter").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-shimge-product-outdiameter',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getShimgeOutdiameter").html(resp);
             }
          });
     });

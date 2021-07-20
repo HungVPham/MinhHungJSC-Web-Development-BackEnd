@@ -36,7 +36,7 @@ $sections = Section::sections();
             @foreach($featuredItemsChunk as $key => $featuredItem)
                 @foreach($featuredItem as $item)
                 <div class="col-4">
-                    <a href="">
+                    <a href="{{ url('sản-phẩm/'.$item['id']) }}">
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$item['main_image']; ?>
                                 @if(!empty($item['main_image'])&&file_exists($product_image_path))
                                 <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -44,7 +44,7 @@ $sections = Section::sections();
                                 <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                                 @endif
                     </a>
-                     <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+                     <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$item['id']) }}">xem chi tiết</a></div>
                         <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
                     <small class="brand-title">
                     <span>
@@ -53,7 +53,7 @@ $sections = Section::sections();
                         ?>
                     </span>
                     </small>
-                     <a href=""><h4 title="{{ $item['product_name'] }}">{{ $item['product_name']}}</h4></a>
+                     <a href="{{ url('sản-phẩm/'.$item['id']) }}"><h4 title="{{ $item['product_name'] }}">{{ $item['product_name']}}</h4></a>
                      <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -85,7 +85,7 @@ $sections = Section::sections();
         </div>
         @foreach($newMaxproProducts as $newTool)
         <div class="col-4">
-            <a href="">
+            <a href="{{ url('sản-phẩm/'.$newTool['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newTool['main_image']; ?>
                         @if(!empty($newTool['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -93,7 +93,7 @@ $sections = Section::sections();
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$newTool['id']) }}">xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
@@ -102,7 +102,7 @@ $sections = Section::sections();
                     ?>
                 </span>
             </small>
-             <a href=""><h4 title="{{ $newTool['product_name'] }}">{{ $newTool['product_name']}}</h4></a>
+             <a href="{{ url('sản-phẩm/'.$newTool['id']) }}"><h4 title="{{ $newTool['product_name'] }}">{{ $newTool['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -125,7 +125,7 @@ $sections = Section::sections();
         @endforeach
         @foreach($newHhoseProducts as $newHose)
         <div class="col-4">
-            <a href="">
+            <a href="{{ url('sản-phẩm/'.$newHose['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newHose['main_image']; ?>
                         @if(!empty($newHose['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -133,7 +133,7 @@ $sections = Section::sections();
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$newHose['id']) }}">xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
@@ -142,7 +142,7 @@ $sections = Section::sections();
                     ?>
                 </span>
             </small>
-             <a href=""><h4 title="{{ $newHose['product_name'] }}">{{ $newHose['product_name']}}</h4></a>
+             <a href="{{ url('sản-phẩm/'.$newHose['id']) }}"><h4 title="{{ $newHose['product_name'] }}">{{ $newHose['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -165,7 +165,7 @@ $sections = Section::sections();
         @endforeach
         @foreach($newShimgeProducts as $newPump)
         <div class="col-4">
-            <a href="">
+            <a href="{{ url('sản-phẩm/'.$newPump['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newPump['main_image']; ?>
                         @if(!empty($newPump['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -173,7 +173,7 @@ $sections = Section::sections();
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a>xem chi tiết</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$newPump['id']) }}">xem chi tiết</a></div>
                 <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
@@ -182,7 +182,7 @@ $sections = Section::sections();
                     ?>
                 </span>
             </small>
-             <a href=""><h4 title="{{ $newPump['product_name'] }}">{{ $newPump['product_name']}}</h4></a>
+             <a href="{{ url('sản-phẩm/'.$newPump['id']) }}"><h4 title="{{ $newPump['product_name'] }}">{{ $newPump['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -257,7 +257,7 @@ $sections = Section::sections();
                     <?php echo $exclusive['product_description'] ?>
                 </small>
                 <br>
-                <a href="" class="btn">Tìm Hiểu Thêm &#8594;</a>
+                <a href="{{ url('sản-phẩm/'.$exclusive['id']) }}" class="btn">Tìm Hiểu Thêm &#8594;</a>
             </div>
         </div>
     </div>

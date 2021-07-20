@@ -82,6 +82,24 @@ class ProductsController extends Controller
             return $getMaxproProductPrice->price;
         }
     }
+    public function getMaxproProductVoltage(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getMaxproProductVoltage = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getMaxproProductVoltage->voltage;
+        }
+    }
+    public function getMaxproProductPower(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getMaxproProductPower = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getMaxproProductPower->power;
+        }
+    }
+
+
     /* get hhose price by sku*/
     public function getHhoseProductPrice(Request $request){
         if($request->ajax()){
@@ -91,6 +109,41 @@ class ProductsController extends Controller
             return $getHhoseProductPrice->price;
         }
     }
+    public function getHhoseProductDiameter(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getHhoseProductDiameter = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getHhoseProductDiameter->diameter;
+        }
+    }
+    public function getHhoseProductLength(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getHhoseProductLength = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getHhoseProductLength->length_per_unit;
+        }
+    }
+    public function getHhoseProductEmbossed(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getHhoseProductEmbossed = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getHhoseProductEmbossed->hhose_spflex_embossed;
+        }
+    }
+    public function getHhoseProductSmooth(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getHhoseProductSmooth = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getHhoseProductSmooth->hhose_spflex_smoothtexture;
+        }
+    }
+
+
+
     /* get shimge price by sku*/
     public function getShimgeProductPrice(Request $request){
         if($request->ajax()){
@@ -98,6 +151,54 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             $getShimgeProductPrice = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
             return $getShimgeProductPrice->price;
+        }
+    }
+    public function getShimgeProductVoltage(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductVoltage = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductVoltage->voltage;
+        }
+    }
+    public function getShimgeProductPower(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductPower = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductPower->power;
+        }
+    }
+    public function getShimgeProductMaxflow(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductMaxflow = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductMaxflow->maxflow;
+        }
+    }
+    public function getShimgeProductVertical(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductVertical = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductVertical->vertical;
+        }
+    }
+    public function getShimgeProductIndiameter(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductIndiameter = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductIndiameter->indiameter;
+        }
+    }
+    public function getShimgeProductOutdiameter(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductOutdiameter = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductOutdiameter->outdiameter;
         }
     }
 }

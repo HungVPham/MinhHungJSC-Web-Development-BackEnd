@@ -1,7 +1,7 @@
 @extends('layouts.front_layout.front_layout')
 @section('content')
 <div class="small-container single-product">
-    <div class="row listing head first detail" style="margin-bottom: 0; margin-top: 80px; text-align: center">
+    <div class="row listing head first detail">
         <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a>Sản Phẩm</a> / <a href="{{ url('/'.$productDetails['category']['url']) }}">{{ $productDetails['category']['category_name'] }}</a> / <a>{{ $productDetails['product_name'] }}</a></h5>
     </div>
     <div class="row single-product">
@@ -46,7 +46,6 @@
                 </span>
             </small>
             <h1 style="margin-top: 5px">{{ $productDetails['product_name'] }}</h1>
-            
             {{-- price --}}
             @if($total_tools_stock > 0)
             <h4 class="getMaxproAttrPrice">
@@ -136,6 +135,9 @@
             <i title="hiện thị video" class="viewbtn fab fa-youtube" onclick="Btn(0); playVideo()"></i>
             <i title="hiện thị thông tin" class="viewbtn fas fa-info-circle Active" onclick="Btn(1); pauseVideo()"></i>
             @endif
+            @if(empty($productDetails['product_video']))
+            <i title="hiện thị thông tin" class="viewbtn fas fa-info-circle Active"></i>
+            @endif
         </div>
     </div>
 </div>
@@ -150,11 +152,9 @@
         ></iframe>
     </div>
     @endif
-    <div class="viewsw row info Active">
+    <div class="viewsw row info Active" style="border: 3px solid black">
         <div>
             <label for="product_description"><strong>Giới Thiệu Sản Phẩm:</strong></label>
-            <br>
-            <br>
             @if(!empty($productDetails['product_description']))
             <p name="product_description">
                 <?php echo $productDetails['product_description'] ?>
@@ -163,15 +163,87 @@
             <h5><i>chưa có thông tin.</i></h5>
             @endif
         </div>
-        <div> 
-            <label for="spec_feature"><strong>Tính Năng Nổi Bật:</strong></label>
-            <br>
-            <br>
-            @if(!empty($productDetails['product_info']))
-            <?php echo $productDetails['product_info'] ?>
-            @else
-            <h5><i>chưa có thông tin.</i></h5>
+        <div style="display: flex">
+            <div style="flex-basis: 70%; margin-right: 100px">
+                <label for="spec_feature"><strong>Tính Năng:</strong></label>
+                @if(!empty($productDetails['product_info']))
+                <?php echo $productDetails['product_info'] ?>
+                @else
+                <h5><i>chưa có thông tin.</i></h5>
+                @endif
+            </div> 
+            @if($productDetails['section_id']==1)    
+            <table style="width: 50%; border: 3px solid black">
+                <tr>
+                  <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Nguồn Điện:</td>
+                  <td><span class="getMaxproVoltage"></span> <strong>[V]</strong></td>
+                </tr>
+                <tr>
+                  <td>Công Suất:</td>
+                  <td><span class="getMaxproPower"></span> <strong>[W]</strong></td>
+                </tr>
+              </table>
+            @endif 
+            @if($productDetails['section_id']==2)    
+            <table style="width: 50%; border: 3px solid black">
+                <tr>
+                  <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Đường Kính:</td>
+                  <td><span class="getHhoseDiameter"></span> <strong>[in.]</strong></td>
+                </tr>
+                <tr>
+                  <td>Độ dài/1 Cuộn:</td>
+                  <td><span class="getHhoseLength"></span> <strong>[m]</strong></td>
+                </tr>
+                <tr>
+                  <td>In Nổi:</td>
+                  <td><span class="getHhoseEmbossed">no / yes</span></td>
+                </tr>
+                <tr>
+                   <td>Da trơn:</td>
+                   <td><span class="getHhoseSmooth">no / yes</span></td>
+                </tr>
+              </table>
             @endif
+            @if($productDetails['section_id']==3)    
+            <table style="width: 50%; border: 3px solid black">
+                <tr>
+                  <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Nguồn Điện:</td>
+                  <td><span class="getShimgeVoltage"></span> <strong>[V]</strong></td>
+                </tr>
+                <tr>
+                  <td>Công Suất:</td>
+                  <td><span class="getShimgePower"></span> <strong>[W]</strong></td>
+                </tr>
+                <tr>
+                  <td>Lưu Lượng:</td>
+                  <td><span class="getShimgeMaxflow"></span> <strong>[m³/h]</strong></td>
+                </tr>
+                <tr>
+                  <td>Đẩy Cao:</td>
+                  <td><span class="getShimgeVertical"></span> <strong>[m]</strong></td>
+                </tr>
+                <tr>
+                  <td>Họng Hút:</td>
+                  <td><span class="getShimgeIndiameter"></span> <strong>[mm]</strong></td>
+                </tr>
+                <tr>
+                  <td>Họng Xả:</td>
+                  <td><span class="getShimgeOutdiameter"></span> <strong>[mm]</strong></td>
+                </tr>
+              </table>
+            @endif 
         </div>
     </div> 
 </div>
@@ -185,7 +257,7 @@
                 <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>   
             </div>
         </div>
-        <div class="flexleft-container" style="margin-top: 20px"><p id="products-nav"><a href="">Xem Thêm</a></p></div>
+        <div class="flexleft-container" style="margin-top: 20px"><p id="products-nav"><a href="{{ url('/'.$productDetails['category']['url']) }}">Xem Thêm</a></p></div>
         <div class="col-4">
              <a id="singlePro-nav" href=""><img src="{{ asset('images/product/MaxPro/máy-khoan-điện/mayKhoandienVUF_maxpro_thumbnail.jpg') }}" alt="sản phẩm tương tự 1"></a>
              <a id="singlePro-nav" href=""><h4>Máy Khoan Điện MPED320VUF</h4></a>
