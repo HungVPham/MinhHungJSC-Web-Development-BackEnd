@@ -136,6 +136,9 @@ Route::namespace('Front')->group(function(){
     Route::post('/get-shimge-product-vertical', 'ProductsController@getShimgeProductVertical');
     Route::post('/get-shimge-product-indiameter', 'ProductsController@getShimgeProductIndiameter');
     Route::post('/get-shimge-product-outdiameter', 'ProductsController@getShimgeProductOutdiameter');
+
+    // add to cart route
+    Route::post('/add-to-cart', 'ProductsController@addtocart');
 });
 
 use App\Http\Controllers\Admin\ProductController;

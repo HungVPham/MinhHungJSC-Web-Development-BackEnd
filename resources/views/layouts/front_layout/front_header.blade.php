@@ -79,7 +79,7 @@ $sections = Section::sections();
 				<label for="showDrop2" class="mobile-item">Liện Hệ</label>
 			</li>
 		</ul>
-		<div style="display: flex">
+		<div class="user-cart-container">
 			<div class="navbar-cart" cartCount="0">
 				<a href="#"><img src="{{ url('images/front_images/cart.png') }}"></a>
 			</div>
@@ -110,8 +110,9 @@ $sections = Section::sections();
 			<label id="open-nav" for="menu-btn"><i class="fas fa-bars"></i></label>
 		</div>
 	</div>
-	@if(isset($page_name) && $page_name=="index")
-	<div class="container">
+</div> 
+@if(isset($page_name) && $page_name=="index")
+	<div class="container mobile">
 		<div class="row">
 			<div class="col-2 index">
 				<h3 id="company-subtitle">Công Ty Cổ Phần Đầu Tư Và Phát Triển</h3>
@@ -122,7 +123,6 @@ $sections = Section::sections();
 		</div>
 	</div>
 	@endif
-</div> 
 <?php 
 use App\Banner;
 $getBanners = Banner::getBanners();

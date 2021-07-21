@@ -19,7 +19,42 @@
     --Solid-Black: #000000;
     --Solid-Gold: #f5bd02;
 }
-/* Color Variables */
+
+/* pre-loader */
+.preloaderBg {
+    position: fixed;
+    z-index: 9999; 
+    top: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.preloader {
+    margin: auto;
+    background: url('/images/front_images/logoMinhHung.png') no-repeat center;
+    background-size: 150px;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    top: 280px;
+}
+.preloader2 {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #f00;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  animation: spin 1s ease-in-out infinite ;
+  position: relative;
+  margin: auto;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* general css */
 *{
     margin: 0;
     padding: 0;
@@ -65,8 +100,41 @@ p{
 .header{
     background: radial-gradient(var(--MinhHung-Red), var(--MinhHung-Red), var(--MinhHung-Red), var(--MinhHung-Red-Hover));
     width: 100%;
-    z-index: 999;
+    z-index: 1000;
     height: 85px;
+}
+
+.header.sticky{
+    position: fixed;
+    background: var(--Solid-Black);
+    animation: opacity 0.5s ease-in-out;
+    height: 60px;
+    top: 0;
+}
+.header .navbar-wrapper .user-cart-container{
+    display: flex;
+}
+.header.sticky .navbar-wrapper .user-cart-container{
+    display: none;
+}
+
+.header.sticky .navbar-logo{
+    display: none;
+}
+
+.header.sticky .nav-links{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.header.sticky .nav-links li:hover .drop-menu,
+.header.sticky .nav-links li:hover .mega-box{
+    top: 60px;
+}
+
+.header.sticky .nav-links #prime-navlinks{
+    margin-top: 0px;
 }
 
 .navbar-logo img{
@@ -393,7 +461,7 @@ p{
 }
 
 .nav-links .drop-menu{
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     width: 230px;
     line-height: 45px;
     top: 100px;
@@ -446,7 +514,7 @@ p{
 }
 
 .megabox-content{
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -509,7 +577,7 @@ p{
 .megabox-row .mega-links li{
     padding-left: 0 !important;
     width: 100%;
-    padding: 0 20px;
+    line-height: 1.4rem;
 }
 
 .megabox-row .mega-links li a{
@@ -573,10 +641,9 @@ p{
     color: var(--MinhHung-Red) !important;
 }
 
-.header .container{ 
+.container.mobile{
     display: none;
 }
-
 
 /* fundamental container, row, and column CSS */
 .container{
@@ -650,6 +717,11 @@ p{
     font-size: 20px;
     font-weight: 500;
     transition: all 0.3s ease-out;
+    border-radius: 4px !important;
+}
+
+.btn:focus{
+    box-shadow: none !important;
 }
 
 .btn:hover{
@@ -1164,6 +1236,8 @@ small{
 .swal2-styled.swal2-confirm{
     background-color: var(--MinhHung-Red) !important;
     box-shadow: none !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
 }
 
 .row.info{
@@ -1273,16 +1347,15 @@ small{
 
 
 .single-product input{
-    width: 50px;
-    height: 40px;
-    padding-left: 10px;
+    width: 60px;
+    height: 35px;
     font-size: 20px;
-    margin-right: 10px;
-    border: 1px solid var(--MinhHung-Red);
+    border-radius: 4px;
 }
 
-.single-product input:focus{
+.single-product input:focus,.single-product input:hover{
     outline: none;
+    border: 1px solid var(--MinhHung-Red);
 }
 
 .single-product .fa{
@@ -1348,6 +1421,21 @@ small{
 .row.listing.head.first.detail h5 a:nth-child(2){
     color: #444;
 }
+
+.info-containter{
+    display: flex;
+}
+
+.info-containter div{
+    flex-basis: 70%; 
+    margin-right: 100px;
+}
+
+.info-containter table{
+    width: 50%; 
+    border: 3px solid black;
+}
+
 /* cart items */
 .cart-page{
     margin: 80px auto;
@@ -2446,7 +2534,7 @@ option{
 
 /* Index Carousel CSS */
 .carousel-item{
-    height: 680px;
+    height: 90vh;
     background: #777;
     position: relative;
 }
@@ -2457,7 +2545,7 @@ option{
     right: 0;
     bottom: 0;
     border: 1px solid black;
-    height: 680px;
+    height: 90vh;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
     opacity: 0;
     transition: all 0.3s ease;
@@ -2506,7 +2594,7 @@ option{
 .overlay-credo{
     height: 70%;
     width: 45%;
-    padding-top: 400px !important;
+    padding-top: 52vh !important;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -2771,6 +2859,7 @@ option{
     }
     .megabox-row .mega-links li{
         margin: 0;
+        line-height: 1.8;
     }
     .megabox-row header a{
         font-size: 22px;
@@ -2791,6 +2880,35 @@ option{
     .drop-menu-megabox li a{
         color: var(--Solid-White) !important;
         margin-left: 15px !important;
+    }
+    .header.sticky{
+        background: var(--Solid-White);
+        height: 50px;
+        top: 0;
+    }
+    .header.sticky .navbar-wrapper .user-cart-container{
+        display: flex;
+    }
+    .header.sticky .navbar-wrapper .user-cart-container .action .profile{
+        display: none;
+    }
+    .header.sticky .navbar-wrapper .user-cart-container #open-nav{
+        margin-top: -20px;
+    }
+    .header.sticky .navbar-wrapper .user-cart-container #open-nav i{
+        color: var(--Solid-Black);
+    }
+    .header.sticky .navbar-wrapper .user-cart-container .navbar-cart{
+        display: none;
+    }
+    .header.sticky .navbar-logo{
+        display: block;
+        visibility: hidden;
+    }
+    .header.sticky .nav-links{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
     }
 }
 @media only screen and (max-width: 1045px){
@@ -2991,6 +3109,22 @@ option{
     .user-date-container{
         left: 14% !important;
     }
+    #existing-iframe-example{
+        height: 500px !important;
+    }
+    .info-containter{
+        display: block;
+    }
+    
+    .info-containter div{ 
+        margin-right: 0px;
+    }
+    .info-containter table{
+        margin-top: 60px;
+        width: 100%; 
+        border: 3px solid black;
+        text-align: left;
+    }
 }
 
 @media only screen and (max-width: 683px){
@@ -3024,7 +3158,7 @@ option{
     .single-product .row{
         text-align: left;
     }
-    .header .container{ 
+    .container.mobile{ 
         display: block;
     }
     .single-product .col-2{
@@ -3042,7 +3176,6 @@ option{
     }
     
     .categories{
-        margin-top: 375px;
         margin-right: 20px !important;
     }
 
@@ -3270,6 +3403,9 @@ option{
     }
     .copyright{
         font-size: 13px;
+    }
+    #existing-iframe-example{
+        height: 300px !important;
     }
 }
 /* Iphone X Media Queries */

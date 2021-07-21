@@ -200,4 +200,11 @@ class ProductsController extends Controller
             return $getShimgeProductOutdiameter->outdiameter;
         }
     }
+
+    public function addtocart(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            echo "<pre>"; print_r($data); die;
+        }
+    } 
 }

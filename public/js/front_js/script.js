@@ -7,6 +7,16 @@ $(document).ready(function () {
         }
     });
 
+    $(window).on("scroll", function(){
+        if ($(window).scrollTop()){
+            $('.header').addClass('sticky');
+        }
+        else
+        {   
+            $('.header').removeClass('sticky');
+        }
+    });
+
     // Slick Carousel in news-events
     var slider2 = $('.post-wrapper').slick({
         slidesToShow: 3,
@@ -140,7 +150,11 @@ $(document).ready(function () {
                 // alert(resp);
                 $(".getMaxproAttrPrice").html(data);
            },error:function(){
-            Swal.fire('Vui lòng chọn mã sản phẩm bạn muốn mua!');
+            Swal.fire({
+                title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
+                confirmButtonColor: '#cb1c22',
+                confirmButtonText: 'Okay Luôn!'
+              });
            }
         });
         $.ajax({
@@ -175,7 +189,11 @@ $(document).ready(function () {
                 // alert(resp);
                 $(".getHhoseAttrPrice").html(data);
             },error:function(){
-               Swal.fire('Vui lòng chọn mã sản phẩm bạn muốn mua!');
+                Swal.fire({
+                    title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
+                    confirmButtonColor: '#cb1c22',
+                    confirmButtonText: 'Okay Luôn!'
+                  });
             }
          });
          $.ajax({
@@ -200,7 +218,10 @@ $(document).ready(function () {
             data: {sku:sku, product_id:product_id},
             type: 'post',
             success:function(resp){
-                $(".getHhoseEmbossed").html(resp);
+                if(resp=='Yes') 
+                $(".getHhoseEmbossed").html('Có');
+                else
+                $(".getHhoseEmbossed").html('Không');
             }
          });
          $.ajax({
@@ -208,7 +229,10 @@ $(document).ready(function () {
             data: {sku:sku, product_id:product_id},
             type: 'post',
             success:function(resp){
-                $(".getHhoseSmooth").html(resp);
+                if(resp=='Yes') 
+                $(".getHhoseSmooth").html('Có');
+                else
+                $(".getHhoseSmooth").html('Không');
             }
          });
     });
@@ -227,7 +251,11 @@ $(document).ready(function () {
                 // alert(resp);
                 $(".getShimgeAttrPrice").html(data);
             },error:function(){
-                Swal.fire('Vui lòng chọn mã sản phẩm bạn muốn mua!');
+                Swal.fire({
+                    title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
+                    confirmButtonColor: '#cb1c22',
+                    confirmButtonText: 'Okay Luôn!'
+                  });
             }
          });
          $.ajax({

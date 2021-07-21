@@ -18,6 +18,10 @@
   <link rel="stylesheet" href="{{ url('css/front_css/select2.css') }}">
 </head> 
 <body>
+<div class="preloaderBg">
+  <div class="preloader"></div>
+  <div class="preloader2"></div>
+</div>
 @include('layouts.front_layout.front_header')
 @yield('content')
 @include('layouts.front_layout.front_footer')		
@@ -36,5 +40,10 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{{ url('js/front_js/script.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  $(window).on("load",function(){
+     $(".preloaderBg").fadeOut("slow");
+});
+</script>
 </body>
 </html>

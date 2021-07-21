@@ -60,7 +60,9 @@
     .page-item:last-child .page-link, .page-item:first-child .page-link{
         font-weight: 900;
     }
-    
+    form .btn{
+        width: inherit;
+    }
 </style>
 <div class="small-container single-product">
     <div class="row listing head first detail">
@@ -98,7 +100,6 @@
                 @endforeach
             </div>
         </div>
-       
         <div class="col-2 single-product"> 
             <small class="brand-title detail"> 
                 <span>
@@ -108,26 +109,28 @@
                 </span>
             </small>
             <h1 style="margin-top: 5px">{{ $productDetails['product_name'] }}</h1>
-            {{-- price --}}
-            @if($total_tools_stock > 0)
-            <h4 class="getMaxproAttrPrice">
-                <?php 
-                $num = $productDetails['product_price'];
-                $format = number_format($num,0,",",".");
-                echo $format;
-                ?> ₫
-            </h4>
-            @endif
-            @if($total_hhose_stock > 0)
-               <h4 class="getHhoseAttrPrice"> 
-                    @if($productDetails['section_id']!=1)từ@endif <?php 
+            <form action="{{ url('add-to-cart') }}" method="post" enctype="multipart/form-data">@csrf
+                <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
+                {{-- price --}}
+                @if($total_tools_stock > 0)
+                <h4 class="getMaxproAttrPrice">
+                    <?php 
                     $num = $productDetails['product_price'];
                     $format = number_format($num,0,",",".");
                     echo $format;
                     ?> ₫
                 </h4>
-            @endif
-            @if($total_pump_stock > 0)
+                @endif
+                @if($total_hhose_stock > 0)
+                <h4 class="getHhoseAttrPrice"> 
+                        @if($productDetails['section_id']!=1)từ@endif <?php 
+                        $num = $productDetails['product_price'];
+                        $format = number_format($num,0,",",".");
+                        echo $format;
+                        ?> ₫
+                </h4>
+                @endif
+                @if($total_pump_stock > 0)
                 <h4 class="getShimgeAttrPrice">
                     @if($productDetails['section_id']!=1)từ@endif <?php 
                     $num = $productDetails['product_price'];
@@ -135,56 +138,55 @@
                     echo $format;
                     ?> ₫
                 </h4>
-            @endif
-            @if($total_stock == 0)
-            <i>(hết hàng)</i>
-            @endif
-            </h4>
-
-            {{-- purchasing quantity --}}
-            <p>Số Lượng Mua: <input type="number" value="1"></p>
-            
-            {{-- select sku dropdown --}}
-            <p>Mã Sản Phẩm: 
-            @if(!empty($productDetails['maxpro_attributes']))
-            <select name="sku" id="getMaxproPrice" product-id="{{ $productDetails['id'] }}" class="select2">
-                <option>chọn mã sản phẩm...</option>
-                @foreach($productDetails['maxpro_attributes'] as $toolAttr)
-                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
-                @endforeach
-            </select>
-            @endif
-            @if(!empty($productDetails['hhose_attributes']))
-            <select name="sku" id="getHhosePrice" product-id="{{ $productDetails['id'] }}" class="select2">
-                <option>chọn mã sản phẩm...</option>
-                @foreach($productDetails['hhose_attributes'] as $toolAttr)
-                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
-                @endforeach
-            </select>
-            @endif
-            @if(!empty($productDetails['shimge_attributes']))
-            <select name="sku" id="getShimgePrice" product-id="{{ $productDetails['id'] }}" class="select2">
-                <option>chọn mã sản phẩm...</option>
-                @foreach($productDetails['shimge_attributes'] as $toolAttr)
-                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
-                @endforeach
-            </select>
-            @endif
-
-            {{-- add to cart or notify when restock btn --}}
-            </p>
-            @if($total_tools_stock > 0)
-            <p><a style="margin-top: 5px" href="" class="btn">Thêm Vào Giỏ</a></p>
-            @endif
-            @if($total_hhose_stock > 0)
-            <p><a style="margin-top: 5px" href="" class="btn">Thêm Vào Giỏ</a></p>
-            @endif
-            @if($total_pump_stock > 0)
-            <p><a style="margin-top: 5px" href="" class="btn">Thêm Vào Giỏ</a></p>
-            @endif
-            @if($total_stock == 0)
-            <p><a style="margin-top: 5px" href="" class="btn">Nhận thông báo khi có hàng!</a></p>
-            @endif
+                @endif
+                @if($total_stock == 0)
+                <h4 style="color: #888"><i>hết hàng</i></h4>
+                @endif
+                {{-- purchasing quantity --}}
+                @if($total_stock > 0)
+                <p>Số Lượng:&nbsp;&nbsp;<input name="quantity" required="" min="1" type="number" value="1"></p>
+                @endif
+                {{-- select sku dropdown --}}
+                <p>Mã Sản Phẩm:&nbsp;&nbsp; 
+                @if(!empty($productDetails['maxpro_attributes']))
+                <select name="sku" id="getMaxproPrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
+                    <option value="">chọn mã sản phẩm...</option>
+                    @foreach($productDetails['maxpro_attributes'] as $toolAttr)
+                    <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                    @endforeach
+                </select>
+                @endif
+                @if(!empty($productDetails['hhose_attributes']))
+                <select name="sku" id="getHhosePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
+                    <option value="">chọn mã sản phẩm...</option>
+                    @foreach($productDetails['hhose_attributes'] as $toolAttr)
+                    <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                    @endforeach
+                </select>
+                @endif
+                @if(!empty($productDetails['shimge_attributes']))
+                <select name="sku" id="getShimgePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
+                    <option value="">chọn mã sản phẩm...</option>
+                    @foreach($productDetails['shimge_attributes'] as $toolAttr)
+                    <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                    @endforeach
+                </select>
+                @endif
+                </p>
+                @if($total_tools_stock > 0)
+                <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
+                @endif
+                @if($total_hhose_stock > 0)
+                <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
+                @endif
+                @if($total_pump_stock > 0)
+                <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
+                @endif
+            </form>
+                {{-- add to cart or notify when restock btn --}}
+                @if($total_stock == 0)
+                <p><button disabled style="margin-top: 20px" class="btn">Nhận thông báo khi có hàng!</button></p>
+                @endif
         </div>
     </div>
 </div>
@@ -206,7 +208,6 @@
 <div class="small-container" style="margin-top: 20px">
     @if(!empty($productDetails['product_video']))
     <div class="viewsw row video">
-        
         <iframe id="existing-iframe-example"
         height="560"
         src="https://www.youtube.com/embed/{{ $productDetails['product_video'] }}?enablejsapi=1"
@@ -225,8 +226,8 @@
             <h5><i>chưa có thông tin.</i></h5>
             @endif
         </div>
-        <div style="display: flex">
-            <div style="flex-basis: 70%; margin-right: 100px">
+        <div class="info-containter">
+            <div>
                 <label for="spec_feature"><strong>Tính Năng:</strong></label>
                 @if(!empty($productDetails['product_info']))
                 <?php echo $productDetails['product_info'] ?>
@@ -235,7 +236,7 @@
                 @endif
             </div> 
             @if($productDetails['section_id']==1)    
-            <table style="width: 50%; border: 3px solid black">
+            <table>
                 <tr>
                   <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
                   <th></th>
@@ -251,7 +252,7 @@
               </table>
             @endif 
             @if($productDetails['section_id']==2)    
-            <table style="width: 50%; border: 3px solid black">
+            <table>
                 <tr>
                   <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
                   <th></th>
@@ -266,16 +267,16 @@
                 </tr>
                 <tr>
                   <td>In Nổi:</td>
-                  <td><span class="getHhoseEmbossed">no / yes</span></td>
+                  <td><span class="getHhoseEmbossed">không / có</span></td>
                 </tr>
                 <tr>
                    <td>Da trơn:</td>
-                   <td><span class="getHhoseSmooth">no / yes</span></td>
+                   <td><span class="getHhoseSmooth">không / có</span></td>
                 </tr>
               </table>
             @endif
             @if($productDetails['section_id']==3)    
-            <table style="width: 50%; border: 3px solid black">
+            <table>
                 <tr>
                   <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
                   <th></th>
