@@ -63,16 +63,20 @@ class ProductsController extends Controller
         }
     }
 
-    // listing page general controls
+    // detail page general controls
     public function detail($id){
         $productDetails = Product::with('category', 'brand', 'MaxproAttributes', 'HhoseAttributes', 'ShimgeAttributes', 'images')->find($id)->toArray();
         $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_stock =  $total_tools_stock + $total_hhose_stock + $total_pump_stock;
-        // dd($total_stock); die;
-        return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock'));
+        $relatedProducts = Product::with('brand')->where('category_id', $productDetails['category']['id'])->where('id','!=',$id)->where('status', 1)->limit(4)->inRandomOrder()->get()->toArray();
+        // dd($relatedProducts); die;
+        return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock', 'relatedProducts'));
     }
+
+
+
     /* get maxpro price by sku*/
     public function getMaxproProductPrice(Request $request){
         if($request->ajax()){
@@ -98,8 +102,6 @@ class ProductsController extends Controller
             return $getMaxproProductPower->power;
         }
     }
-
-
     /* get hhose price by sku*/
     public function getHhoseProductPrice(Request $request){
         if($request->ajax()){
@@ -141,9 +143,6 @@ class ProductsController extends Controller
             return $getHhoseProductSmooth->hhose_spflex_smoothtexture;
         }
     }
-
-
-
     /* get shimge price by sku*/
     public function getShimgeProductPrice(Request $request){
         if($request->ajax()){

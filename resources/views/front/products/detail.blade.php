@@ -1,5 +1,67 @@
 @extends('layouts.front_layout.front_layout')
 @section('content')
+<style>
+    #comparision-container input[type="checkbox"]{
+      appearance: none;
+      -webkit-appearance: none;
+      height: 18px;
+      width: 18px;
+      background-color: #d5d5d5;
+      outline: none;
+      cursor: pointer;
+      border: 1px solid #333;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      float: right;
+      margin-top: 7px;
+    }
+    #comparision-container input[type="checkbox"]:after{
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f00c";
+      font-size: 13px;
+      color: #ffffff;
+      display: none;
+
+    }
+    #comparision-container input[type="checkbox"]:hover{
+      background-color: #a5a5a5;
+    }
+    #comparision-container input[type="checkbox"]:checked{
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: var(--Positive-Green);
+      height: 18px;
+      width: 18px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+    #comparision-container input[type="checkbox"]:checked::after{
+      display: block;
+    }
+    .page-link{
+        border: none;
+    }
+    
+    .page-item{
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 15px;
+    }
+    .page-item .page-link{
+        color: var(--MinhHung-Red);
+    }
+    .page-item.active .page-link {
+        background-color: var(--MinhHung-Red);
+        color: var(--Solid-White);
+    }
+    .page-item:last-child .page-link, .page-item:first-child .page-link{
+        font-weight: 900;
+    }
+    
+</style>
 <div class="small-container single-product">
     <div class="row listing head first detail">
         <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a>Sản Phẩm</a> / <a href="{{ url('/'.$productDetails['category']['url']) }}">{{ $productDetails['category']['category_name'] }}</a> / <a>{{ $productDetails['product_name'] }}</a></h5>
@@ -258,54 +320,72 @@
             </div>
         </div>
         <div class="flexleft-container" style="margin-top: 20px"><p id="products-nav"><a href="{{ url('/'.$productDetails['category']['url']) }}">Xem Thêm</a></p></div>
-        <div class="col-4">
-             <a id="singlePro-nav" href=""><img src="{{ asset('images/product/MaxPro/máy-khoan-điện/mayKhoandienVUF_maxpro_thumbnail.jpg') }}" alt="sản phẩm tương tự 1"></a>
-             <a id="singlePro-nav" href=""><h4>Máy Khoan Điện MPED320VUF</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
+        <div class="row listing body">
+            @foreach($relatedProducts as $key => $product)
+            <div class="col-4">
+                <a href="{{ url('sản-phẩm/'.$product['id']) }}">
+                    @if(isset($product['main_image']))
+                        <?php $product_image_path = 'images/product_images/main_image/medium/'.$product['main_image']; ?>
+                    @else
+                        <?php $product_image_path = '' ?>
+                    @endif
+                        @if(!empty($product['main_image'])&&file_exists($product_image_path))
+                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        @else
+                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                    @endif
+                </a>
+                 <div class="product-overlay navDetail"><a  href="{{ url('sản-phẩm/'.$product['id']) }}">xem chi tiết</a></div>
+                    <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <div class="list-item-container">
+                <small class="brand-title"> 
+                    <span>
+                        <?php echo
+                        $product['brand']['name']
+                        ?>
+                    </span>
+                </small>
+                 <a href="{{ url('sản-phẩm/'.$product['id']) }}"><h4 title="{{ $product['product_name'] }}">{{ $product['product_name']}}</h4></a>
+                 <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <p class="price">
+                    @if(!empty($product['product_price']))
+                        @if($product['section_id']!=1)từ@endif <?php 
+                        $num = $product['product_price'];
+                        $format = number_format($num,0,",",".");
+                        echo $format;
+                        ?> ₫
+                    @else 
+                        <i>giá liên hệ</i>
+                    @endif   
+                </p>
+                </div>
+                <div class="list-product-description">
+                    @if(!empty($product['product_description']))
+                    <?php echo $product['product_description'] ?>
+                    @else
+                    <h5><i>chưa có thông tin.</i></h5>
+                    @endif
+                </div>
+                <div class="list-item-container controls">
+                    <div id="comparision-container">
+                    <label for="comparison-checkbox">So Sánh</label>
+                    <input id="comparison-checkbox" name="comparison-checkbox" type="checkbox">
+                    </div>
+                    <p class="navList-Detail"><a href="{{ url('sản-phẩm/'.$product['id']) }}">Xem Chi Tiết</a></p>
+                    <p class="addList-Cart"><a>Thêm Vào Giỏ</a></p>
+                </div>
             </div>
-            <p>Giá Liên Hệ</p>
+            @endforeach
         </div>
-        <div class="col-4">
-             <a id="singlePro-nav" href=""><img src="{{ asset('images/product/MaxPro/máy-khoan-động-lực/mayKhoandongLuc_maxpro.png') }}" alt="sản phẩm tương tự 2"></a>
-             <a id="singlePro-nav" href=""><h4>Máy Khoan Động Lực MPID1050VD</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-alt"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div></a>
-        <div class="col-4">
-             <a id="singlePro-nav" href=""><img src="{{ asset('images/product/MaxPro/máy-khoan-búa/mayKhoanbua_maxpro_thumbnail.jpg') }}" alt="sản phẩm tương tự 3"></a>
-             <a id="singlePro-nav" href=""><h4>Máy Khoan Búa MPRH1500</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-alt"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div>
-        <div class="col-4">
-             <a id="singlePro-nav" href=""><img src="{{ asset('images/product/MaxPro/máy-khoan-điện/mayKhoandien_maxpro_thumbnail.jpg') }}" alt="sản phẩm tương tự 4"></a>
-             <a id="singlePro-nav" href=""><h4>Máy Khoan Điện MPED321V</h4></a>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>Giá Liên Hệ</p>
-        </div>
+    </div>
+    <div class="page-btn">
+        <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
     </div>
 </div>
 @endsection
