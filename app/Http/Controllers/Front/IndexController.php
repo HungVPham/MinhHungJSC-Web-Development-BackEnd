@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Banner;
 
 class IndexController extends Controller
 {
@@ -22,7 +23,11 @@ class IndexController extends Controller
         // Get Exclusive Product
         $exclusiveProduct = Product::with('brand')->where('is_exclusive', 'Yes')->where('status', 1)->limit(1)->get();
         
+        // Get 1 Main Banner For Responsive View
+        $bannerResponsive = Banner::where('status', 1)->where('is_main', 'Yes')->limit(1)->get();
+        //dd($bannerResponsive); die;
         $page_name = "index";
-        return view('front.index')->with(compact('page_name', 'featuredItemsCount', 'featuredItemsChunk', 'newMaxproProducts', 'newHhoseProducts', 'newShimgeProducts', "exclusiveProduct"));
+
+        return view('front.index')->with(compact('page_name', 'featuredItemsCount', 'featuredItemsChunk', 'newMaxproProducts', 'newHhoseProducts', 'newShimgeProducts', "exclusiveProduct", 'bannerResponsive'));
     }
 }

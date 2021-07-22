@@ -99,9 +99,6 @@ $(document).ready(function () {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-  });
-  $(window).on("load", function () {
-    $(".preloaderBg").fadeOut("slow");
   }); // scroll to top 
 
   var scrollToTopBtn = document.getElementById("scrollToTopBtn");
@@ -457,74 +454,78 @@ $(document).ready(function () {
       }
     });
   });
+}); // preloader
+
+$(window).on("load", function () {
+  $(".preloaderBg").fadeOut("slow");
 }); // switch view btn for detail page
 
 var ViewBtn = document.getElementsByClassName("viewbtn");
 var ViewSw = document.getElementsByClassName("viewsw");
 var count = 0;
 
-function Btn(n) {
+window.Btn = function (n) {
   CurrentShowViewButton(count = n);
   CurrentShowViewSwitchButton(count = n);
-}
+};
 
-function CurrentShowViewButton(n) {
+window.CurrentShowViewButton = function (n) {
   for (var i = 0; i < ViewBtn.length; i++) {
     ViewBtn[i].className = ViewBtn[i].className.replace(" Active", "");
   }
 
   ViewBtn[n].className += " Active";
-}
+};
 
-function CurrentShowViewSwitchButton(n) {
+window.CurrentShowViewSwitchButton = function (n) {
   for (var i = 0; i < ViewSw.length; i++) {
     ViewSw[i].className = ViewSw[i].className.replace(" Active", "");
   }
 
   ViewSw[n].className += " Active";
-} // switch view btn for listing page
+}; // switch view btn for listing page
 
 
 var MyBtn = document.getElementsByClassName("mybtn");
 var index = 0;
 
-function Button(n) {
+window.Button = function (n) {
   CurrentShowButton(index = n);
-}
+};
 
-function CurrentShowButton(n) {
+window.CurrentShowButton = function (n) {
   for (var i = 0; i < MyBtn.length; i++) {
     MyBtn[i].className = MyBtn[i].className.replace(" Active", "");
   }
 
   MyBtn[n].className += " Active";
-}
+};
 
-function listToggleListOff() {
+window.listToggleListOff = function () {
   var toggleList = document.querySelector('.row.listing.body');
   toggleList.classList.add('list');
-}
+};
 
-function listToggleListOn() {
+window.listToggleListOn = function () {
   var toggleList = document.querySelector('.row.listing.body.list');
   toggleList.classList.remove('list');
-}
+};
 
-function listToggleBtnOff() {
+window.listToggleBtnOff = function () {
   var toggleList = document.querySelector('.btn.compare');
   toggleList.classList.add('active');
-}
+};
 
-function listToggleBtnOn() {
+window.listToggleBtnOn = function () {
   var toggleList = document.querySelector('.btn.compare.active');
   toggleList.classList.remove('active');
-} // toggle nav-sidebar in responsive view
+}; // toggle nav-sidebar in responsive view
 
 
-function menuToggle() {
+window.menuToggle = function () {
   var toggleMenu = document.querySelector('.menu');
   toggleMenu.classList.toggle('active');
-} // toggle search bar in user menu
+}; // toggle search bar in user menu
 
 
 var icon = document.querySelector('.icon');
@@ -561,7 +562,7 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 
-function onYouTubeIframeAPIReady() {
+window.onYouTubeIframeAPIReady = function () {
   player = new YT.Player('existing-iframe-example', {
     playerVars: {
       'rel': 0
@@ -571,13 +572,13 @@ function onYouTubeIframeAPIReady() {
       'onStateChange': onPlayerStateChange
     }
   });
-}
+};
 
-function onPlayerReady(event) {
+window.onPlayerReady = function (event) {
   document.getElementById('existing-iframe-example').style.borderColor = '#FFFFFF';
-}
+};
 
-function changeBorderColor(playerStatus) {
+window.changeBorderColor = function (playerStatus) {
   var color;
 
   if (playerStatus == -1) {
@@ -597,19 +598,19 @@ function changeBorderColor(playerStatus) {
   if (color) {
     document.getElementById('existing-iframe-example').style.borderColor = color;
   }
-}
+};
 
-function onPlayerStateChange(event) {
+window.onPlayerStateChange = function (event) {
   changeBorderColor(event.data);
-}
+};
 
-function pauseVideo() {
+window.pauseVideo = function () {
   player.pauseVideo();
-}
+};
 
-function playVideo() {
+window.playVideo = function () {
   player.playVideo();
-}
+};
 
 /***/ }),
 

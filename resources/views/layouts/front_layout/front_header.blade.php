@@ -117,8 +117,37 @@ $sections = Section::sections();
 			<div class="col-2 index">
 				<h3 id="company-subtitle">Công Ty Cổ Phần Đầu Tư Và Phát Triển</h3>
 				<h1 id="company-title">Minh Hưng</h1>
-				<p id="company-mantra"><span style="color: #cb1c22; font-weight: bolder;">Sức mạnh</span> đến từ sự <span style="color: #cb1c22; font-weight: bolder;">đoàn kết</span>,<br><span style="color: #cb1c22; font-weight: bolder;">Giá trị</span> đến từ <span style="color: #cb1c22; font-weight: bolder;">con người!</span></p>
-				<a href="about.html" class="btn" id="homebtn">Đăng Ký Ngay! &#8594;</a>
+				@foreach($bannerResponsive as $key => $main)
+				<div>
+				@if(empty($main['bRed_3']))
+				<style>
+					.col-2.index div p{
+						font-size: 30px;
+					}
+					.overlay-btn{
+						margin-top: -20px;
+					}
+				</style>
+				@elseif(!empty($main['bRed_3']))
+				<style>
+					.col-2.index div p{
+						font-size: 25px;
+					}
+					.overlay-btn{
+						margin-top: 0px;
+					}
+				</style>
+				@endif
+				<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
+				<br>
+				<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>
+				</div>
+				@if(!empty($main['link']))
+				<div>
+				<a href="https://www.{{ $main['link'] }}" class="btn">{{ $main['title'] }} &#8594;</a>
+				</div>
+				@endif
+				@endforeach
 			</div>
 		</div>
 	</div>
@@ -142,6 +171,25 @@ $getSubBanners = Banner::getSubBanners();
 				<div class="overlay-image""><img src="{{ asset('images/banner_images/'.$main['image']) }}" alt="{{ $main['alt'] }}"></div>
 				<div class="index-carousel-container">
 					<div class="overlay-credo">
+					@if(empty($main['bRed_3']))
+					<style>
+						.overlay-credo p{
+							font-size: 40px;
+						}
+						.overlay-btn{
+							margin-top: -20px;
+						}
+					</style>
+					@elseif(!empty($main['bRed_3']))
+					<style>
+						.overlay-credo p{
+							font-size: 30px;
+						}
+						.overlay-btn{
+							margin-top: 0px;
+						}
+					</style>
+					@endif
 					<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
 					<br>
 					<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>

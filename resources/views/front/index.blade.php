@@ -304,7 +304,7 @@ $sections = Section::sections();
         <h2 class="title" id="affiliates-title">Doanh Nghiệp Đối Tác</h2>
         <div class="row">
             <div class="col-5">
-                <a href="http://www.krebs-tools.com/?fbclid=IwAR1U8FZK8dU29apTKYhsYsIDSa2_cl83iOLouj6RsPj2TPFRorMMh0k2bEo" target="_blank"><img src="{{ url('images/front_images/logoPartner1.png') }}" alt="đối tác MaxPro"></a>
+                <a href="http://kelaibo.ck-163.com/" target="_blank"><img src="{{ url('images/front_images/logoPartner1.png') }}" alt="đối tác MaxPro"></a>
             </div>
             <div class="col-5">
                 <a href="http://shimge-pump.com/" target="_blank"><img src="{{ url('images/front_images/logoPartner2.png') }}" alt="đối tác Shimge"></a>

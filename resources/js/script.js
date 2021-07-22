@@ -7,10 +7,6 @@ $(document).ready(function () {
         }
     });
 
-    $(window).on("load",function(){
-        $(".preloaderBg").fadeOut("slow");
-    });
-
     // scroll to top 
     var scrollToTopBtn = document.getElementById("scrollToTopBtn")
     var rootElement = document.documentElement
@@ -326,17 +322,22 @@ $(document).ready(function () {
     });
 });
 
+// preloader
+$(window).on("load",function(){
+    $(".preloaderBg").fadeOut("slow");
+});
+
 // switch view btn for detail page
 var ViewBtn = document.getElementsByClassName("viewbtn");
 var ViewSw = document.getElementsByClassName("viewsw");
 var count = 0;
 
-function Btn(n) {
+window.Btn = function(n) {
     CurrentShowViewButton(count = n);
     CurrentShowViewSwitchButton(count = n);
 }
 
-function CurrentShowViewButton(n) {
+window.CurrentShowViewButton = function(n) {
     for (var i = 0; i < ViewBtn.length; i++) {
         ViewBtn[i].className = ViewBtn[i]
             .className
@@ -345,7 +346,7 @@ function CurrentShowViewButton(n) {
     ViewBtn[n].className += " Active";
 }
 
-function CurrentShowViewSwitchButton(n) {
+window.CurrentShowViewSwitchButton = function(n) {
     for (var i = 0; i < ViewSw.length; i++) {
         ViewSw[i].className = ViewSw[i]
             .className
@@ -358,11 +359,12 @@ function CurrentShowViewSwitchButton(n) {
 var MyBtn = document.getElementsByClassName("mybtn");
 var index = 0;
 
-function Button(n) {
+window.Button = function(n) {
     CurrentShowButton(index = n);
 }
 
-function CurrentShowButton(n) {
+
+window.CurrentShowButton = function(n) {
     for (var i = 0; i < MyBtn.length; i++) {
         MyBtn[i].className = MyBtn[i]
             .className
@@ -371,26 +373,28 @@ function CurrentShowButton(n) {
     MyBtn[n].className += " Active";
 }
 
-
-function listToggleListOff() {
+window.listToggleListOff = function() {
     const toggleList = document.querySelector('.row.listing.body');
     toggleList
         .classList
         .add('list')
 }
-function listToggleListOn() {
+
+window.listToggleListOn = function() {
     const toggleList = document.querySelector('.row.listing.body.list');
     toggleList
         .classList
         .remove('list')
 }
-function listToggleBtnOff() {
+
+window.listToggleBtnOff = function() {
     const toggleList = document.querySelector('.btn.compare');
     toggleList
         .classList
         .add('active')
 }
-function listToggleBtnOn() {
+
+window.listToggleBtnOn = function() {
     const toggleList = document.querySelector('.btn.compare.active');
     toggleList
         .classList
@@ -398,11 +402,9 @@ function listToggleBtnOn() {
 }
 
 // toggle nav-sidebar in responsive view
-function menuToggle() {
-    const toggleMenu = document.querySelector('.menu');
-    toggleMenu
-        .classList
-        .toggle('active')
+window.menuToggle = function() {
+    var toggleMenu = document.querySelector('.menu');
+    toggleMenu.classList.toggle('active');
 }
 
 // toggle search bar in user menu
@@ -444,7 +446,7 @@ firstScriptTag
 .insertBefore(tag, firstScriptTag);
 
 var player;
-function onYouTubeIframeAPIReady() {
+window.onYouTubeIframeAPIReady = function() {
 player = new YT.Player('existing-iframe-example', {
 playerVars: {
 'rel': 0
@@ -455,13 +457,15 @@ events: {
 },
 });
 }
-function onPlayerReady(event) {
+
+window.onPlayerReady = function(event) {
 document
 .getElementById('existing-iframe-example')
 .style
 .borderColor = '#FFFFFF';
 }
-function changeBorderColor(playerStatus) {
+
+window.changeBorderColor = function(playerStatus) {
 var color;
 if (playerStatus == -1) {
 color = "#FFFFFF"; // unstarted = gray
@@ -483,14 +487,15 @@ document
 .borderColor = color;
 }
 }
-function onPlayerStateChange(event) {
+
+window.onPlayerStateChange = function(event) {
 changeBorderColor(event.data);
 }
 
-function pauseVideo(){
+window.pauseVideo = function() {
     player.pauseVideo();
 }
 
-function playVideo(){
+window.playVideo = function() {
     player.playVideo();
 }
