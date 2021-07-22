@@ -11,5 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/script.js', 'public/js/front_js/')
+   .js('resources/js/vanilla-tilt.js', 'public/js/front_js/')
+   .sass('resources/sass/select2.scss', 'public/css/front_css/')
+   .sass('resources/sass/style.scss', 'public/css/front_css/');

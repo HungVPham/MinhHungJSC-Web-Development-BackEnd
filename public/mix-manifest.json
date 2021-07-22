@@ -1,4 +1,6 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/js/front_js/script.js": "/js/front_js/script.js",
+    "/css/front_css/select2.css": "/css/front_css/select2.css",
+    "/css/front_css/style.css": "/css/front_css/style.css",
+    "/js/front_js/vanilla-tilt.js": "/js/front_js/vanilla-tilt.js"
 }
