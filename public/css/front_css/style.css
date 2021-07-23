@@ -2939,7 +2939,6 @@ option {
     padding: 50px 10px;
     z-index: 999;
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
   }
 
   #menu-btn:checked ~ .nav-links {
@@ -2982,7 +2981,6 @@ option {
     max-height: 0px;
     overflow: hidden;
     border: none;
-    transition: all 0.3s ease !important;
   }
 
   .nav-links .drop-menu li {
@@ -3025,7 +3023,6 @@ option {
     font-weight: 500;
     padding-left: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
   }
 
   .mobile-item.megadrop {
@@ -3043,7 +3040,6 @@ option {
     visibility: visible;
     max-height: 0px;
     overflow: hidden;
-    transition: all 0.3s ease;
   }
 
   #showDrop:checked ~ .drop-menu {
@@ -3060,6 +3056,10 @@ option {
 
   #megadrop-container input:nth-child(n):checked ~ .drop-menu-megabox {
     max-height: 100% !important;
+  }
+
+  #megadrop-container:first-child {
+    padding-top: 10px;
   }
 
   .megabox-content {
@@ -3100,11 +3100,11 @@ option {
     opacity: 1;
     visibility: visible;
     margin-top: 10px !important;
+    margin-bottom: 10px !important;
     transform: none !important;
     color: var(--Solid-White);
     overflow: hidden;
     max-height: 0;
-    transition: all 0.3s ease !important;
   }
 
   .drop-menu-megabox li a {
@@ -3647,6 +3647,13 @@ option {
   .prev {
     left: 0px !important;
     top: 40% !important;
+  }
+
+  .toTopBg {
+    position: fixed;
+    z-index: 9997;
+    top: 90vh;
+    left: 10px;
   }
 }
 
