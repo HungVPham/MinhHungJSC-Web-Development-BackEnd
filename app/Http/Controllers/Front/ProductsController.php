@@ -11,6 +11,7 @@ use App\Product;
 use App\MaxproProductAttributes;
 use App\HhoseProductAttributes;
 use App\ShimgeProductAttributes;
+use Session;
 
 class ProductsController extends Controller
 {
@@ -65,7 +66,13 @@ class ProductsController extends Controller
 
     // detail page general controls
     public function detail($id){
-        $productDetails = Product::with('category', 'brand', 'MaxproAttributes', 'HhoseAttributes', 'ShimgeAttributes', 'images')->find($id)->toArray();
+        $productDetails = Product::with(['category', 'brand', 'MaxproAttributes'=>function($query){
+            $query->where('status', 1);
+        }, 'HhoseAttributes'=>function($query){
+            $query->where('status', 1);
+        }, 'ShimgeAttributes'=>function($query){
+            $query->where('status', 1);
+        }, 'images'])->find($id)->toArray();
         $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
@@ -100,6 +107,14 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             $getMaxproProductPower = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
             return $getMaxproProductPower->power;
+        }
+    }
+    public function getMaxproProductStock(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getMaxproProductStock = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getMaxproProductStock->stock;
         }
     }
     /* get hhose price by sku*/
@@ -141,6 +156,14 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             $getHhoseProductSmooth = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
             return $getHhoseProductSmooth->hhose_spflex_smoothtexture;
+        }
+    }
+    public function getHhoseProductStock(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getHhoseProductStock = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getHhoseProductStock->stock;
         }
     }
     /* get shimge price by sku*/
@@ -200,11 +223,59 @@ class ProductsController extends Controller
             return $getShimgeProductOutdiameter->outdiameter;
         }
     }
+    public function getShimgeProductStock(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getShimgeProductStock = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            return $getShimgeProductStock->stock;
+        }
+    }
 
-    public function addtocart(Request $request){
+    // add to cart maxpro 
+    public function addtocartmaxpro(Request $request){
         if($request->isMethod('post')){
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
+
+            // check if product attr is in stock
+            $getMaxProProductStock = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            
+            if($getMaxProProductStock['stock']<$data['quantity']){
+                $message = "Đã đạt đến số lượng mua tối đa cho phép của mã sp này.";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
+        }
+    }
+    public function addtocarthhose(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            // check if product attr is in stock
+            $getHhoseProductStock = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            
+            if($getHhoseProductStock['stock']<$data['quantity']){
+                $message = "Đã đạt đến số lượng mua tối đa cho phép của mã sp này.";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
         }
     } 
+    public function addtocartshimge(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            // check if product attr is in stock
+            $getShimgeProductStock = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
+            
+            if($getShimgeProductStock['stock']<$data['quantity']){
+                $message = "Đã đạt đến số lượng mua tối đa cho phép của mã sp này.";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
+        }
+    }  
 }

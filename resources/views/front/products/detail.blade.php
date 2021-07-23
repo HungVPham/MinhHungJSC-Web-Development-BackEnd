@@ -101,6 +101,16 @@
             </div>
         </div>
         <div class="col-2 single-product"> 
+        @if(Session::has('success_message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+            {{ Session::get('success_message') }}
+            </div>
+        @endif
+        @if(Session::has('error_message'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+            {{ Session::get('error_message') }}
+            </div>
+        @endif
             <small class="brand-title detail"> 
                 <span>
                     <?php echo
@@ -109,7 +119,17 @@
                 </span>
             </small>
             <h1 style="margin-top: 5px">{{ $productDetails['product_name'] }}</h1>
-            <form action="{{ url('add-to-cart') }}" method="post" enctype="multipart/form-data">@csrf
+            <form action="
+            @if($productDetails['section_id']==1)
+            {{ url('add-to-cart-maxpro') }}
+            @endif
+            @if($productDetails['section_id']==2)
+            {{ url('add-to-cart-hhose') }}
+            @endif
+            @if($productDetails['section_id']==3)
+            {{ url('add-to-cart-shimge') }}
+            @endif
+            " method="post" enctype="multipart/form-data">@csrf
                 <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
                 {{-- price --}}
                 @if($total_tools_stock > 0)
@@ -144,12 +164,33 @@
                 @endif
                 {{-- purchasing quantity --}}
                 @if($total_stock > 0)
-                <p>Số Lượng:&nbsp;&nbsp;<input name="quantity" required="" min="1" type="number" value="1"></p>
+                <p>
+                    @if($productDetails['section_id']==1)
+                    Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxMaxpro" name="quantity" required="" min="1" type="number" value="1">
+                    @endif
+                    @if($productDetails['section_id']==2)
+                    Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxHhose" name="quantity" required="" min="1" type="number" value="1">
+                    @endif
+                    @if($productDetails['section_id']==3)
+                    Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxShimge" name="quantity" required="" min="1" type="number" value="1">
+                    @endif
+                    <small style="color: var(--Solid-Black)">&nbsp;&nbsp;có
+                        @if($productDetails['section_id']==1)
+                         <span class="getMaxproStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_tools_stock }}</span> sản phẩm có sẵn
+                        @endif
+                        @if($productDetails['section_id']==2)
+                         <span class="getHhoseStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_hhose_stock }}</span> sản phẩm có sẵn
+                        @endif
+                        @if($productDetails['section_id']==3)
+                         <span class="getShimgeStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_pump_stock }}</span> sản phẩm có sẵn
+                        @endif
+                    </small>
+                </p>
                 @endif
                 {{-- select sku dropdown --}}
                 <p>Mã Sản Phẩm:&nbsp;&nbsp; 
                 @if(!empty($productDetails['maxpro_attributes']))
-                <select name="sku" id="getMaxproPrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
+                <select autocomplete="off" name="sku" id="getMaxproPrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
                     <option value="">chọn mã sản phẩm...</option>
                     @foreach($productDetails['maxpro_attributes'] as $toolAttr)
                     <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
@@ -157,7 +198,7 @@
                 </select>
                 @endif
                 @if(!empty($productDetails['hhose_attributes']))
-                <select name="sku" id="getHhosePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
+                <select autocomplete="off" name="sku" id="getHhosePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
                     <option value="">chọn mã sản phẩm...</option>
                     @foreach($productDetails['hhose_attributes'] as $toolAttr)
                     <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
@@ -165,7 +206,7 @@
                 </select>
                 @endif
                 @if(!empty($productDetails['shimge_attributes']))
-                <select name="sku" id="getShimgePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
+                <select autocomplete="off" name="sku" id="getShimgePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
                     <option value="">chọn mã sản phẩm...</option>
                     @foreach($productDetails['shimge_attributes'] as $toolAttr)
                     <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>

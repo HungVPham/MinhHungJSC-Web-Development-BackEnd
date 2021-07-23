@@ -120,6 +120,7 @@ Route::namespace('Front')->group(function(){
     Route::post('/get-maxpro-product-price', 'ProductsController@getMaxproProductPrice');
     Route::post('/get-maxpro-product-voltage', 'ProductsController@getMaxproProductVoltage');
     Route::post('/get-maxpro-product-power', 'ProductsController@getMaxproProductPower');
+    Route::post('/get-maxpro-product-stock', 'ProductsController@getMaxproProductStock');
 
     // get hhose attribute price, diameter, lenght_per_unit, embossed, smoothtexture,  
     Route::post('/get-hhose-product-price', 'ProductsController@getHhoseProductPrice');
@@ -127,6 +128,7 @@ Route::namespace('Front')->group(function(){
     Route::post('/get-hhose-product-length', 'ProductsController@getHhoseProductLength');
     Route::post('/get-hhose-product-embossed', 'ProductsController@getHhoseProductEmbossed');
     Route::post('/get-hhose-product-smooth', 'ProductsController@getHhoseProductSmooth');
+    Route::post('/get-hhose-product-stock', 'ProductsController@getHhoseProductStock');
     
     // get shimge attribute price, voltage, power 
     Route::post('/get-shimge-product-price', 'ProductsController@getShimgeProductPrice');
@@ -136,9 +138,12 @@ Route::namespace('Front')->group(function(){
     Route::post('/get-shimge-product-vertical', 'ProductsController@getShimgeProductVertical');
     Route::post('/get-shimge-product-indiameter', 'ProductsController@getShimgeProductIndiameter');
     Route::post('/get-shimge-product-outdiameter', 'ProductsController@getShimgeProductOutdiameter');
+    Route::post('/get-shimge-product-stock', 'ProductsController@getShimgeProductStock');
 
     // add to cart route
-    Route::post('/add-to-cart', 'ProductsController@addtocart');
+    Route::post('/add-to-cart-maxpro', 'ProductsController@addtocartmaxpro');
+    Route::post('/add-to-cart-hhose', 'ProductsController@addtocarthhose');
+    Route::post('/add-to-cart-shimge', 'ProductsController@addtocartshimge');
 });
 
 use App\Http\Controllers\Admin\ProductController;

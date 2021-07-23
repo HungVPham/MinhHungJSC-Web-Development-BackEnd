@@ -284,6 +284,18 @@ $(document).ready(function () {
         $(".getMaxproPower").html(resp);
       }
     });
+    $.ajax({
+      url: '/get-maxpro-product-stock',
+      data: {
+        sku: sku,
+        product_id: product_id
+      },
+      type: 'post',
+      success: function success(resp) {
+        $(".getMaxproStock").html(resp);
+        $(".getMaxMaxpro").prop('max', resp);
+      }
+    });
   }); // get hhose products information given sku
 
   $("#getHhosePrice").change(function () {
@@ -356,6 +368,18 @@ $(document).ready(function () {
       type: 'post',
       success: function success(resp) {
         if (resp == 'Yes') $(".getHhoseSmooth").html('Có');else $(".getHhoseSmooth").html('Không');
+      }
+    });
+    $.ajax({
+      url: '/get-hhose-product-stock',
+      data: {
+        sku: sku,
+        product_id: product_id
+      },
+      type: 'post',
+      success: function success(resp) {
+        $(".getHhoseStock").html(resp);
+        $(".getMaxHhose").prop('max', resp);
       }
     });
   }); // get pump products information given sku
@@ -451,6 +475,18 @@ $(document).ready(function () {
       type: 'post',
       success: function success(resp) {
         $(".getShimgeOutdiameter").html(resp);
+      }
+    });
+    $.ajax({
+      url: '/get-shimge-product-stock',
+      data: {
+        sku: sku,
+        product_id: product_id
+      },
+      type: 'post',
+      success: function success(resp) {
+        $(".getShimgeStock").html(resp);
+        $(".getMaxShimge").prop('max', resp);
       }
     });
   });

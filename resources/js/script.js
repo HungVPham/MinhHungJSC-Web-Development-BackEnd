@@ -186,6 +186,15 @@ $(document).ready(function () {
                  $(".getMaxproPower").html(resp);
             }
          });
+         $.ajax({
+            url:'/get-maxpro-product-stock',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                 $(".getMaxproStock").html(resp);
+                 $(".getMaxMaxpro").prop('max',resp);
+            }
+         });
     });
 
     // get hhose products information given sku
@@ -246,6 +255,15 @@ $(document).ready(function () {
                 $(".getHhoseSmooth").html('Có');
                 else
                 $(".getHhoseSmooth").html('Không');
+            }
+         });
+         $.ajax({
+            url:'/get-hhose-product-stock',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getHhoseStock").html(resp);
+                $(".getMaxHhose").prop('max',resp);
             }
          });
     });
@@ -317,6 +335,15 @@ $(document).ready(function () {
             type: 'post',
             success:function(resp){
                 $(".getShimgeOutdiameter").html(resp);
+            }
+         });
+         $.ajax({
+            url:'/get-shimge-product-stock',
+            data: {sku:sku, product_id:product_id},
+            type: 'post',
+            success:function(resp){
+                $(".getShimgeStock").html(resp);
+                $(".getMaxShimge").prop('max',resp);
             }
          });
     });
