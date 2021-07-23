@@ -347,6 +347,15 @@ $(document).ready(function () {
             }
          });
     });
+
+    $('.small-img').click(function () {
+        $('.small-img').removeClass('checked') //Clear all checked class on .small-img
+        $(this).addClass('checked') //Add checked class to current clicked .small-img
+        $("#ProductImg").fadeOut(0, function() {
+            $("#ProductImg").attr("src",$("#ProductImg").attr("src"));
+        }).fadeIn(300);
+        return false;
+    });
 });
 
 // preloader
@@ -448,7 +457,7 @@ var ProductImg = document.getElementById("ProductImg");
 var SmallImg = document.getElementsByClassName("small-img");
 
 SmallImg[0].onclick = function()
-{
+{   
     ProductImg.src = SmallImg[0].src
 }    
 SmallImg[1].onclick = function()
@@ -462,6 +471,10 @@ SmallImg[2].onclick = function()
 SmallImg[3].onclick = function()
 {
     ProductImg.src = SmallImg[3].src
+}
+SmallImg[4].onclick = function()
+{
+    ProductImg.src = SmallImg[4].src
 }    
 
 var tag = document.createElement('script');

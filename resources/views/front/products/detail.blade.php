@@ -88,15 +88,18 @@
                     <?php $product_image_path = '' ?>
                 @endif
                 @if(!empty($productDetails['main_image'])&&file_exists($product_image_path))
-                    <img src="{{ asset($product_image_path) }}" width="100%" class="small-img" alt="sản phẩm mới">
+                    <img src="{{ asset($product_image_path) }}" width="100%" class="small-img checked" alt="sản phẩm mới">
                 @else
                     <img src="{{ url('images/product_images/main_image/large/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                 @endif
                 </div>
-                @foreach($productDetails['images'] as $image)
+                <?php $count = 0 ?>
+                @foreach($productDetails['images'] as $key => $image)
+                <?php if($count == 4) break; ?>
                 <div class="small-img-col">
                     <img src="{{ asset('images/product_images/main_image/large/'.$image['image']) }}" class="small-img" width="100%" alt="hình ảnh sản phẩm 2">
                 </div>
+                <?php $count++; ?>
                 @endforeach
             </div>
         </div>
