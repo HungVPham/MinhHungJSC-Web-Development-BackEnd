@@ -147,6 +147,7 @@
                     <div class="col-md-6">
                       <table id="example1"  class="table table-bordered table-striped">
                         <label>Danh sách ảnh cấp (1) của {{ $productdata['product_name']}}</label>
+                         <p style="color: var(--MinhHung-Red)">&nbsp;Lưu ý: chỉ [4] hình ảnh cấp (1) sẽ được hiện thị trên website cùng lúc.</p>
                         <thead>
                         <tr>
                           {{-- <th>ID</th> --}}

@@ -102,6 +102,7 @@
                 <?php $count++; ?>
                 @endforeach
             </div>
+            <div class="small-img-col"><img src="" class="small-img" style="display: none"></div><div class="small-img-col"><img src="" class="small-img" style="display: none"></div><div class="small-img-col"><img src="" class="small-img" style="display: none"></div><div class="small-img-col"><img src="" class="small-img" style="display: none"></div>
         </div>
         <div class="col-2 single-product"> 
         @if(Session::has('success_message'))

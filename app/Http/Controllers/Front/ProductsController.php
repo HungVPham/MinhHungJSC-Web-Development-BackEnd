@@ -72,13 +72,14 @@ class ProductsController extends Controller
             $query->where('status', 1);
         }, 'ShimgeAttributes'=>function($query){
             $query->where('status', 1);
-        }, 'images'])->find($id)->toArray();
+        }, 'images'=>function($query){
+            $query->where('status', 1);}])->find($id)->toArray();
         $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_stock =  $total_tools_stock + $total_hhose_stock + $total_pump_stock;
         $relatedProducts = Product::with('brand')->where('category_id', $productDetails['category']['id'])->where('id','!=',$id)->where('status', 1)->limit(4)->inRandomOrder()->get()->toArray();
-        // dd($relatedProducts); die;
+        // dd($productDetails); die;
         return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock', 'relatedProducts'));
     }
 
