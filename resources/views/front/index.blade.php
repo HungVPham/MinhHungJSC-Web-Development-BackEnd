@@ -31,7 +31,12 @@ $sections = Section::sections();
         <i class="fas fa-chevron-left prev"></i>
         <i class="fas fa-chevron-right next"></i>
         @endif
-        <p style="float: right;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount  }}+</span> sản phẩm nổi bật !</p>
+        <div class="row">
+            <div></div>
+            <div class="flexleft-container">
+                <p style="float: right"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount }}+</span> sản phẩm mới nhất !</p>
+            </div>
+        </div>
         <div class="row" @if($featuredItemsCount > 4) id="featuredCarousel" @endif>
             @foreach($featuredItemsChunk as $key => $featuredItem)
                 @foreach($featuredItem as $item)

@@ -69,40 +69,43 @@
         <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a>Sản Phẩm</a> / <a href="{{ url('/'.$productDetails['category']['url']) }}">{{ $productDetails['category']['category_name'] }}</a> / <a>{{ $productDetails['product_name'] }}</a></h5>
     </div>
     <div class="row single-product">
-        <div class="col-2 single-product">
-                @if(isset($productDetails['main_image']))
-                    <?php $product_image_path = 'images/product_images/main_image/large/'.$productDetails['main_image']; ?>
-                @else
-                    <?php $product_image_path = '' ?>
-                @endif
-                @if(!empty($productDetails['main_image'])&&file_exists($product_image_path))
-                    <img src="{{ asset($product_image_path) }}" width="100%" id="ProductImg" alt="sản phẩm mới">
-                @else
-                    <img src="{{ url('images/product_images/main_image/large/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
-                @endif
-            <div class="small-img-row">
-                <div class="small-img-col">
-                @if(isset($productDetails['main_image']))
-                    <?php $product_image_path = 'images/product_images/main_image/large/'.$productDetails['main_image']; ?>
-                @else
-                    <?php $product_image_path = '' ?>
-                @endif
-                @if(!empty($productDetails['main_image'])&&file_exists($product_image_path))
-                    <img src="{{ asset($product_image_path) }}" width="100%" class="small-img checked" alt="sản phẩm mới">
-                @else
-                    <img src="{{ url('images/product_images/main_image/large/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
-                @endif
+        <div class="col-2 single-product image">
+            <div id="primary-slider" class="splide">
+                <div class="splide__arrows custom">
+                    <button class="splide__arrow splide__arrow--prev btnPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="splide__arrow splide__arrow--next btnNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <?php $count = 0 ?>
-                @foreach($productDetails['images'] as $key => $image)
-                <?php if($count == 4) break; ?>
-                <div class="small-img-col">
-                    <img src="{{ asset('images/product_images/main_image/large/'.$image['image']) }}" class="small-img" width="100%" alt="hình ảnh sản phẩm 2">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <img src="{{ asset('images/product_images/main_image/large/'.$productDetails['main_image']) }}">
+                        </li>
+                        @foreach($productDetails['images'] as $key => $image)
+                        <li class="splide__slide">
+                            <img src="{{ asset('images/product_images/main_image/large/'.$image['image']) }}">
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <?php $count++; ?>
-                @endforeach
             </div>
-            <div class="small-img-col"><img src="" class="small-img" style="display: none"></div><div class="small-img-col"><img src="" class="small-img" style="display: none"></div><div class="small-img-col"><img src="" class="small-img" style="display: none"></div><div class="small-img-col"><img src="" class="small-img" style="display: none"></div>
+            <div id="secondary-slider" class="splide">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <img src="{{ asset('images/product_images/main_image/large/'.$productDetails['main_image']) }}">
+                        </li>
+                        @foreach($productDetails['images'] as $key => $image)
+                        <li class="splide__slide">
+                            <img src="{{ asset('images/product_images/main_image/small/'.$image['image']) }}">
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="col-2 single-product"> 
         @if(Session::has('success_message'))

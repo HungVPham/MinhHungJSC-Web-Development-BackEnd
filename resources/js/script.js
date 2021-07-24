@@ -4,7 +4,7 @@ $(document).ready(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
-    }); // scroll to top 
+    }); 
   
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
     var rootElement = document.documentElement;
@@ -25,55 +25,9 @@ $(document).ready(function () {
         $('.header').removeClass('sticky');
       }
     }); // Slick Carousel in news-events
-  
-    var slider2 = $('.post-wrapper').slick({
-      slidesToShow: 3,
-      infinite: false,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 3000,
-      nextArrow: $('.next'),
-      prevArrow: $('.prev'),
-      responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      }, {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }, {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      } // You can unslick at a given breakpoint now by adding: settings: "unslick"
-      // instead of a settings object
-      ]
-    });
-    $('.prev').hide();
-    slider2.on('afterChange', function (event, slick, currentSlide) {
-      console.log(currentSlide); //If we're on the first slide hide the Previous button and show the Next
-  
-      if (currentSlide === 0) {
-        $('.prev').hide();
-        $('.next').show();
-      } else {
-        $('.prev').show();
-      } //If we're on the last slide hide the Next button.
-  
-  
-      if (slick.slideCount === currentSlide + 1) {
-        $('.next').hide();
-      }
-    }); // featured carousel on home page
-  
-    var slider2 = $('#featuredCarousel').slick({
+    
+    
+    var slider1 = $('#featuredCarousel').slick({
       slidesToShow: 4,
       infinite: true,
       slidesToScroll: 4,
@@ -104,6 +58,50 @@ $(document).ready(function () {
       ]
     });
     $('.prev').hide();
+    slider1.on('afterChange', function (event, slick, currentSlide) {
+      console.log(currentSlide); //If we're on the first slide hide the Previous button and show the Next
+  
+      if (currentSlide === 0) {
+        $('.prev').hide();
+        $('.next').show();
+      } else {
+        $('.prev').show();
+      } //If we're on the last slide hide the Next button.
+  
+  
+      if (slick.slideCount === currentSlide + 1) {
+        $('.next').hide();
+      }
+    });// featured carousel on home page 
+
+    var slider2 = $('#smallCarousel').slick({
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      nextArrow: $('.next'),
+      prevArrow: $('.prev'),
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 601,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1
+        }
+      } // You can unslick at a given breakpoint now by adding: settings: "unslick"
+      // instead of a settings object
+      ]
+    });
+    $('.prev').hide();
     slider2.on('afterChange', function (event, slick, currentSlide) {
       console.log(currentSlide); //If we're on the first slide hide the Previous button and show the Next
   
@@ -118,7 +116,56 @@ $(document).ready(function () {
       if (slick.slideCount === currentSlide + 1) {
         $('.next').hide();
       }
-    }); // sort filers ajax
+    });// image carousel on detail page 
+
+    var slider3 = $('.post-wrapper').slick({
+      slidesToShow: 3,
+      infinite: false,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      nextArrow: $('.next'),
+      prevArrow: $('.prev'),
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      }, {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      } // You can unslick at a given breakpoint now by adding: settings: "unslick"
+      // instead of a settings object
+      ]
+    });
+    $('.prev').hide();
+    slider3.on('afterChange', function (event, slick, currentSlide) {
+      console.log(currentSlide); //If we're on the first slide hide the Previous button and show the Next
+  
+      if (currentSlide === 0) {
+        $('.prev').hide();
+        $('.next').show();
+      } else {
+        $('.prev').show();
+      } //If we're on the last slide hide the Next button.
+  
+  
+      if (slick.slideCount === currentSlide + 1) {
+        $('.next').hide();
+      }
+    }); // scroll to top 
+  
+    
   
     $("#sortProducts").on('change', function () {
       var sortProducts = $(this).val();
@@ -134,11 +181,11 @@ $(document).ready(function () {
           $('.filter_products').html(data);
         }
       });
-    }); // select2 without search fucntion for filter box
+    }); // sort filers ajax
   
     $('.select2').select2({
       minimumResultsForSearch: Infinity
-    }); // get tool products information given sku
+    }); // select2 without search fucntion for filter box
   
     $("#getMaxproPrice").change(function () {
       var sku = $(this).val();
@@ -201,7 +248,7 @@ $(document).ready(function () {
           $(".getMaxMaxpro").prop('max', resp);
         }
       });
-    }); // get hhose products information given sku
+    }); // get tool products information given sku
   
     $("#getHhosePrice").change(function () {
       var sku = $(this).val();
@@ -287,7 +334,7 @@ $(document).ready(function () {
           $(".getMaxHhose").prop('max', resp);
         }
       });
-    }); // get pump products information given sku
+    }); // get hhose products information given sku
   
     $("#getShimgePrice").change(function () {
       var sku = $(this).val();
@@ -394,17 +441,18 @@ $(document).ready(function () {
           $(".getMaxShimge").prop('max', resp);
         }
       });
-    });
+    });// get pump products information given sku
 
     $('.small-img').click(function () {
         $('.small-img').removeClass('checked') //Clear all checked class on .small-img
         $(this).addClass('checked') //Add checked class to current clicked .small-img
-    });
-  }); // preloader
+    }); // change small-img class to selected
+
+  }); 
   
   $(window).on("load", function () {
     $(".preloaderBg").fadeOut("slow");
-  }); // switch view btn for detail page
+  }); // preloader 
   
   var ViewBtn = document.getElementsByClassName("viewbtn");
   var ViewSw = document.getElementsByClassName("viewsw");
@@ -429,7 +477,7 @@ $(document).ready(function () {
     }
   
     ViewSw[n].className += " Active";
-  }; // switch view btn for listing page
+  }; // switch view btn for detail page
   
   
   var MyBtn = document.getElementsByClassName("mybtn");
@@ -465,13 +513,13 @@ $(document).ready(function () {
   window.listToggleBtnOn = function () {
     var toggleList = document.querySelector('.btn.compare.active');
     toggleList.classList.remove('active');
-  }; // toggle nav-sidebar in responsive view
+  }; // switch view btn for listing page
   
   
   window.menuToggle = function () {
     var toggleMenu = document.querySelector('.menu');
     toggleMenu.classList.toggle('active');
-  }; // toggle search bar in user menu
+  }; // toggle nav-sidebar in responsive view
   
   
   var icon = document.querySelector('.icon');
@@ -479,30 +527,41 @@ $(document).ready(function () {
   
   icon.onclick = function () {
     search.classList.toggle('active');
-  }; // switch images on detail page
-  
-  
-  var ProductImg = document.getElementById("ProductImg");
-  var SmallImg = document.getElementsByClassName("small-img");
-  
-  SmallImg[0].onclick = function () {
-    ProductImg.src = SmallImg[0].src;
-  };
-  
-  SmallImg[1].onclick = function () {
-    ProductImg.src = SmallImg[1].src;
-  };
-  
-  SmallImg[2].onclick = function () {
-    ProductImg.src = SmallImg[2].src;
-  };
-  
-  SmallImg[3].onclick = function () {
-    ProductImg.src = SmallImg[3].src;
-  };
-  SmallImg[4].onclick = function () {
-    ProductImg.src = SmallImg[4].src;
-  };
+  }; // toggle search bar in user menu
+
+  document.addEventListener('DOMContentLoaded',function(){
+    var secondarySlider = new Splide( '#secondary-slider', {
+            fixedWidth  : 105,
+            height      : 90,
+            gap         : 5,
+            cover       : true,
+            pagination  : false,
+            rewind      : true,
+            isNavigation: true,
+            arrows     : false,
+            breakpoints : {
+            '600': {
+            fixedWidth: 80,
+            height    : 60,
+            },
+        },
+    } ).mount();
+
+    var primarySlider = new Splide('#primary-slider',{
+    type       : 'fade',
+    heightRatio: 0.8666666666,
+    pagination : false,
+    arrows     : true,
+    rewind     : true,
+    cover      : true,
+    classes: {
+        arrows: 'splide__arrows custom',
+        prev  : 'splide__arrow--prev btnPrev',
+        next  : 'splide__arrow--next btnNext',
+    },
+    } ); // do not call mount() here.
+    primarySlider.sync(secondarySlider).mount();
+  }); // image carousel on detail page
   
   var tag = document.createElement('script');
   tag.id = 'iframe-demo';
@@ -559,4 +618,4 @@ $(document).ready(function () {
   
   window.playVideo = function () {
     player.playVideo();
-  };
+  }; // Youtube video auto play/pause function
