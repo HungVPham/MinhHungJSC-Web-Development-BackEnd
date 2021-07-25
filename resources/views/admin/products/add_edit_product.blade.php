@@ -192,7 +192,7 @@
                   </div>
                  
                 <div class="form-group">
-                  <label for="exampleInputFile">&nbsp;Hình Ảnh (Cấp 0)</label>
+                  <label for="main_image">&nbsp;Hình Ảnh (Cấp 0)</label>
                   <div class="input-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" name="main_image" id="main_image" accept="image/*">
@@ -209,7 +209,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>&nbsp;Chọn Thương Hiệu Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <label for="brand_id">&nbsp;Chọn Thương Hiệu Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <select name="brand_id" id="brand_id" class="form-control select2" style="width: 100%;">
                       <option value="">chọn thương hiệu</option>
                       @foreach($brands as $brand)

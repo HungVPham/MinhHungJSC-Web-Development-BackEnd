@@ -121,7 +121,7 @@
                 </textarea>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputFile">&nbsp;Hình Ảnh Banner @if(empty($banner['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                  <label for="image">&nbsp;Hình Ảnh Banner @if(empty($banner['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                   <div class="input-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" name="image" id="image" accept="image/*" @if(empty($banner['image'])) required @endif>

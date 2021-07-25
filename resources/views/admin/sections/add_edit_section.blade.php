@@ -107,7 +107,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputFile">&nbsp;Hình Ảnh Danh Mục @if(empty($sectiondata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <label for="section_image">&nbsp;Hình Ảnh Danh Mục @if(empty($sectiondata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" name="section_image" id="section_image" accept="image/*">

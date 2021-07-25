@@ -34,7 +34,7 @@ $sections = Section::sections();
         <div class="row">
             <div></div>
             <div class="flexleft-container">
-                <p style="float: right"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount }}+</span> sản phẩm mới nhất !</p>
+                <p style="float: right"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount }}+</span> sản phẩm nổi bật!</p>
             </div>
         </div>
         <div class="row" @if($featuredItemsCount > 4) id="featuredCarousel" @endif>
@@ -86,7 +86,7 @@ $sections = Section::sections();
     <h2 class="title">Sản Phẩm Mới Nhất</h2>
     <div class="row">
         <div class="flexleft-container">
-            <p style="float: right !important;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">8+</span> sản phẩm mới nhất !</p>
+            <p style="float: right !important;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">8+</span> sản phẩm mới nhất!</p>
         </div>
         @foreach($newMaxproProducts as $newTool)
         <div class="col-4">

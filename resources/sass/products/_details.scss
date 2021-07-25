@@ -1,0 +1,265 @@
+
+/* single product details */
+
+.swal2-styled.swal2-confirm {
+    background-color: var(--MinhHung-Red) !important;
+    box-shadow: none !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+}
+
+.row {
+    &.info {
+        justify-content: space-between;
+        align-items: inherit;
+        display: none;
+    }
+
+    &.video {
+        display: none;
+    }
+}
+
+.viewsw.row.video iframe {
+    padding-right: 0;
+}
+
+.row {
+    &.info.Active,
+    &.video.Active {
+        display: block;
+        animation: opacity 0.3s ease-in-out both;
+    }
+
+    &.info > {
+        * {
+            flex-basis: 50%;
+            padding: 20px;
+        }
+
+        div {
+            &:last-child ul {
+                margin-left: 20px;
+            }
+
+            label {
+                color: var(--MinhHung-Red);
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+.row-2 {
+    justify-content: space-between;
+
+    > * {
+        width: inherit;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    h2 {
+        color: var(--Solid-Black);
+        font-weight: 600;
+    }
+
+    .fas.fa-info-circle {
+        padding: 5px;
+        float: right;
+        font-size: 2rem;
+        cursor: pointer;
+        margin-left: 2px;
+        color: var(--MinhHung-Red);
+    }
+}
+
+.fab.fa-youtube {
+    padding: 5px;
+    float: right;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-left: 2px;
+    color: var(--MinhHung-Red);
+}
+
+.fab.fa-youtube.Active,
+.row-2 .fas.fa-info-circle.Active {
+    padding: 2px;
+    color: var(--Solid-Black);
+    border: 3px solid var(--Solid-Black);
+    cursor: auto;
+}
+
+.fab.fa-youtube.Active:hover,
+.fab.fa-youtube:hover,
+.row-2 .fas.fa-info-circle.Active:hover,
+.row-2 .fas.fa-info-circle:hover {
+    color: var(--Solid-Black);
+}
+
+.single-product {
+    margin-top: 30px;
+
+    .col-2 {
+        img {
+            padding: 0;
+        }
+
+        padding: 20px;
+    }
+
+    h4 {
+        margin: 20px 0;
+        font-size: 22px;
+        font-weight: bold;
+    }
+}
+
+#products-nav {
+    float: right;
+    font-size: 1.4rem;
+
+    a {
+        padding: 0;
+    }
+
+    p:hover {
+        color: var(--MinhHung-Red);
+    }
+}
+
+.single-product {
+    input {
+        width: 60px;
+        height: 35px;
+        font-size: 20px;
+        border-radius: 4px;
+
+        &:focus,
+        &:hover {
+            outline: none;
+            border: 1px solid var(--MinhHung-Red);
+        }
+    }
+
+    .fa {
+        color: var(--MinhHung-Red);
+        margin-left: 10px;
+    }
+}
+
+.small-img-row {
+    display: flex;
+    justify-content: left;
+    margin-top: 5px;
+}
+
+.small-img-col {
+    flex-basis: 25%;
+    cursor: pointer;
+    margin-right: 5px;
+
+    .small-img {
+        opacity: 0.7;
+        transition: all 0.1s ease-in-out both;
+
+        &:hover {
+            opacity: 1;
+            border: 2px solid var(--MinhHung-Red);
+        }
+
+        &.checked {
+            opacity: 1;
+            border: 2px solid var(--Solid-Black);
+        }
+    }
+}
+
+.brand-title.detail {
+    margin-top: -20px;
+    margin-bottom: -20px;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 800;
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.row.listing.head.first.detail {
+    margin-bottom: -50px;
+    margin-top: 80px;
+    text-align: right;
+
+    h5 a {
+        padding: 0;
+
+        &:last-child {
+            color: #888;
+        }
+
+        &:nth-child(3) {
+            color: #666;
+
+            &:hover {
+                color: var(--MinhHung-Red);
+            }
+        }
+
+        &:nth-child(2) {
+            color: #444;
+        }
+    }
+}
+
+.info-containter {
+    display: flex;
+
+    div {
+        flex-basis: 70%;
+        margin-right: 100px;
+    }
+
+    table {
+        width: 50%;
+        border: 3px solid black;
+    }
+}
+
+#secondary-slider {
+    margin-top: 5px;
+}
+
+.splide__arrow--next.btnNext {
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+
+    i {
+        font-size: 1.5em;
+        color: rgba(0, 0, 0, 0.8);
+        border: 2px solid black;
+
+        &:hover {
+            color: var(--MinhHung-Red);
+        }
+    }
+}
+
+.splide__arrow--prev.btnPrev {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    left: 0;
+
+    i {
+        font-size: 1.5em;
+        color: rgba(0, 0, 0, 0.8);
+        border: 2px solid black;
+
+        &:hover {
+            color: var(--MinhHung-Red);
+        }
+    }
+}

@@ -1,0 +1,63 @@
+/* news and events CSS */
+
+.stories {
+    padding-top: 100px;
+
+    .col-3 {
+        text-align: center;
+        padding: 40px 20px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.5s ease;
+        position: relative;
+
+        img {
+            width: 50px;
+            margin-top: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        &:hover {
+            transform: translateY(-10px);
+        }
+    }
+}
+
+.fa-quote-left {
+    font-size: 34px;
+    color: var(--MinhHung-Red);
+    margin: 10px;
+}
+
+.stories {
+    .small-container .row .col-3 p {
+        font-size: 20px;
+        margin: 12px 0;
+        color: #555;
+        opacity: 90%;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+    }
+
+    .col-3 {
+        height: 350px;
+    }
+
+    .small-container .row {
+        justify-content: space-around;
+    }
+
+    .subdiv {
+        width: 90%;
+        position: absolute;
+        bottom: 5%;
+    }
+
+    .col-3 h4 {
+        font-weight: 700;
+        color: #555;
+    }
+}

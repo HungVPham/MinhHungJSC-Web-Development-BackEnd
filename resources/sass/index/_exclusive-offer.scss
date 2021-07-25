@@ -1,0 +1,81 @@
+/* exclusive offer CSS */
+
+.offer {
+    background: radial-gradient(var(--MinhHung-Red), rgb(202, 29, 35), rgb(187, 27, 32), rgb(139, 19, 23), rgb(119, 15, 19));
+    margin-top: 80px;
+    padding: 30px 0;
+
+    .small-container .row .col-2 {
+        p {
+            color: var(--Solid-White);
+        }
+
+        small > * {
+            color: var(--Solid-White);
+            font-size: 20px;
+            font-weight: 400;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+        }
+
+        p span {
+            color: var(--Solid-Gold);
+            font-weight: bolder;
+        }
+
+        h1 p {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: var(--Solid-Gold);
+            font-size: 90px;
+            line-height: 50px;
+            font-weight: 500;
+
+            &::first-line {
+                color: var(--Solid-Black);
+                font-weight: 400;
+            }
+        }
+
+        .btn {
+            background-color: var(--Solid-White);
+            color: #000000;
+            transition: all 0.3s ease-in-out;
+            font-weight: 500;
+            margin-top: -5px;
+
+            &:hover {
+                color: var(--Solid-Gold) !important;
+                background-color: var(--Solid-Black);
+            }
+        }
+    }
+}
+
+.col-2 .offer-img {
+    opacity: 150%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: -30px;
+    border-radius: 100%;
+    background-color: #f1f1f1;
+    overflow: hidden !important;
+
+    img {
+        width: 85%;
+        margin-right: 15px;
+    }
+}
+
+small {
+    color: var(--Solid-White);
+    font-size: 18px;
+}

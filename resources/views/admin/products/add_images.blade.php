@@ -130,7 +130,7 @@
                             <label for="product_code">&nbsp;Mã SP: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_code'] }}</p></label>
                         </div>
                         <div class="form-group">
-                            <label for="product_code">&nbsp;Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
+                            <label for="product_weight">&nbsp;Trọng Lượng: <p style="display: inline; font-weight: lighter;">&nbsp;{{ $productdata['product_weight'] }} Kg</p></label>
                         </div>
                         <div class="form-group">
                             <div class="field_wrapper1">
