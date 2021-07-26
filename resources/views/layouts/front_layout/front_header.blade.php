@@ -81,7 +81,7 @@ $sections = Section::sections();
 		</ul>
 		<div class="user-cart-container">
 			<div class="navbar-cart" cartCount="0">
-				<a href="#"><img src="{{ url('images/front_images/cart.png') }}"></a>
+				<a href="{{ url('/giỏ-hàng')}}"><img src="{{ url('images/front_images/cart.png') }}"></a>
 			</div>
 			<div class="action">
 				<div class="profile" onclick="menuToggle();">

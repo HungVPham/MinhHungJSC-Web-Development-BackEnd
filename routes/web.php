@@ -144,6 +144,9 @@ Route::namespace('Front')->group(function(){
     Route::post('/add-to-cart-maxpro', 'ProductsController@addtocartmaxpro');
     Route::post('/add-to-cart-hhose', 'ProductsController@addtocarthhose');
     Route::post('/add-to-cart-shimge', 'ProductsController@addtocartshimge');
+
+    // shopping cart route
+    Route::get('/giỏ-hàng','ProductsController@cart');
 });
 
 use App\Http\Controllers\Admin\ProductController;
