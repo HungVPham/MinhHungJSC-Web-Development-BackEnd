@@ -8,7 +8,7 @@ $(document).ready(function () {
   
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
     var rootElement = document.documentElement;
-  
+    
     function scrollToTop() {
       rootElement.scrollTo({
         top: 0,
@@ -16,15 +16,17 @@ $(document).ready(function () {
       });
     }
   
-    scrollToTopBtn.addEventListener("click", scrollToTop); // sticky header
+    scrollToTopBtn.addEventListener("click", scrollToTop); 
   
     $(window).on("scroll", function () {
       if ($(window).scrollTop()) {
         $('.header').addClass('sticky');
+        $('.toTopBg').addClass('active');
       } else {
         $('.header').removeClass('sticky');
+        $('.toTopBg').removeClass('active');
       }
-    }); // Slick Carousel in news-events
+    }); // sticky header
     
     
     var slider1 = $('#featuredCarousel').slick({
@@ -443,11 +445,23 @@ $(document).ready(function () {
       });
     });// get pump products information given sku
 
-    $('.small-img').click(function () {
-        $('.small-img').removeClass('checked') //Clear all checked class on .small-img
-        $(this).addClass('checked') //Add checked class to current clicked .small-img
-    }); // change small-img class to selected
-
+    $( ".getMaxMaxpro, .getMaxHhose, .getMaxShimge" ).change(function() {
+      var max = parseInt($(this).attr('max'));
+      var min = parseInt($(this).attr('min'));
+      if ($(this).val() >= max)
+      {
+          $(this).val(max);
+          $(".max-reached").addClass("active");
+      }
+      else if ($(this).val() < min)
+      {
+          $(this).val(min);
+      }  
+      if ($(this).val() < max)
+      {
+        $(".max-reached").removeClass("active");
+      }     
+    }); // show limit quantity wtb has reached
   }); 
   
   $(window).on("load", function () {

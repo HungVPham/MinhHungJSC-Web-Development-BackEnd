@@ -1,8 +1,12 @@
+// foundation css & animations
 @import 'foundation';
 @import 'keyframes';
 
+// persisting header/footer components
 @import 'header';
+@import 'footer';
 
+// index -  products - blog components
 @import 'index/banner-carousel','index/sections-tile-nav', 'index/exclusive-offer', 'index/news-and-events-tile', 'index/business-partners';
 
 @import 'products/listing', 'products/details', 'products/cart';
@@ -10,6 +14,6 @@
 @import 'misc/about', 'misc/employment', 'misc/contact-us', 'misc/account';
 @import 'blog/overview', 'blog/single';
 
-@import 'footer';
 
+//responsive css
 @import 'responsive';

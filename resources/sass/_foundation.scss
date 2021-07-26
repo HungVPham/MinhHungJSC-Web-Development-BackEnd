@@ -60,6 +60,15 @@
     z-index: 9997;
     top: 90vh;
     left: 50px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.toTopBg.active{
+    visibility: visible;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0);
+    animation: slideInOpacity 0.3s ease-in-out;
 }
 
 #scrollToTopBtn {
@@ -68,11 +77,18 @@
     backdrop-filter: saturate(100%) blur(5px);
     border: none;
     border-radius: 50%;
-    color: white;
+    color: var(--Solid-White);
     cursor: pointer;
     font-size: 16px;
     line-height: 48px;
     width: 48px;
+    transition: all 0.1s ease;
+
+    &:hover{
+        background-color: rgba(255, 255, 255, 0.3);
+        color: var(--Solid-Black);
+        border: 1px solid rgba(0, 0, 0, 0.3);
+    }
 }
 
 /* general css */

@@ -263,3 +263,58 @@
         }
     }
 }
+
+.max-reached{
+    display: none;
+}
+
+.max-reached.active{
+    background-color: rgba(0, 0, 0, 0);
+    display: block;
+}
+
+.alert{
+    padding: 0.5rem 0.5rem;
+}
+
+.alert-dismissible .close,
+.alert-dismissible .mailbox-attachment-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 0.75rem 1.25rem;
+    color: inherit;
+}
+
+button.close,
+button.mailbox-attachment-close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+}
+
+.close,
+.mailbox-attachment-close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.5;
+}
+
+.alert .close,
+.alert .mailbox-attachment-close {
+    color: #000;
+    opacity: 0.2;
+}
+
+.close:not(:disabled):not(.disabled):focus,
+.close:not(:disabled):not(.disabled):hover,
+.mailbox-attachment-close:not(:disabled):not(.disabled):focus,
+.mailbox-attachment-close:not(:disabled):not(.disabled):hover {
+    opacity: 0.75;
+}
+

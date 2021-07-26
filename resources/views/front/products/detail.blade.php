@@ -109,13 +109,19 @@
         </div>
         <div class="col-2 single-product"> 
         @if(Session::has('success_message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
             {{ Session::get('success_message') }}
-            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         @endif
         @if(Session::has('error_message'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+            <div class="alert alert-danger" role="alert" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
             {{ Session::get('error_message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
         @endif
             <small class="brand-title detail"> 
@@ -193,6 +199,7 @@
                         @endif
                     </small>
                 </p>
+                <p class="max-reached" style="color: var(--MinhHung-Red); margin-top: -1rem;  margin-bottom: 2rem">đã đạt đến số lượng mua tối đa cho phép của mã sp này.</p>
                 @endif
                 {{-- select sku dropdown --}}
                 <p>Mã Sản Phẩm:&nbsp;&nbsp; 

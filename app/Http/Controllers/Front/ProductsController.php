@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use App\Cart;
 use App\MaxproProductAttributes;
 use App\HhoseProductAttributes;
 use App\ShimgeProductAttributes;
@@ -239,14 +240,18 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            // check if product attr is in stock
-            $getMaxProProductStock = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
-            
-            if($getMaxProProductStock['stock']<$data['quantity']){
-                $message = "Đã đạt đến số lượng mua tối đa cho phép của mã sp này.";
-                session::flash('error_message', $message);
-                return redirect()->back();
-            }
+           // generate section id if not exists
+           $session_id = Session::get('session_id');
+           if(empty($session_id)){
+               $session_id = Session::getId();
+               Session::put('session_id', $session_id);
+           } 
+
+           // save product in cart
+           Cart::insert(['session_id'=>$session_id, 'product_id'=>$data['product_id'], 'sku'=>$data['sku'], 'quantity'=>$data['quantity']]);
+           $message = "Sản phẩm đã được thêm vào giỏ hàng.";
+           session::flash('success_message', $message);
+           return redirect()->back();
         }
     }
     public function addtocarthhose(Request $request){
@@ -254,14 +259,18 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            // check if product attr is in stock
-            $getHhoseProductStock = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
-            
-            if($getHhoseProductStock['stock']<$data['quantity']){
-                $message = "Đã đạt đến số lượng mua tối đa cho phép của mã sp này.";
-                session::flash('error_message', $message);
-                return redirect()->back();
-            }
+            // generate section id if not exists
+           $session_id = Session::get('session_id');
+           if(empty($session_id)){
+               $session_id = Session::getId();
+               Session::put('session_id', $session_id);
+           } 
+
+           // save product in cart
+           Cart::insert(['session_id'=>$session_id, 'product_id'=>$data['product_id'], 'sku'=>$data['sku'], 'quantity'=>$data['quantity']]);
+           $message = "Sản phẩm đã được thêm vào giỏ hàng.";
+           session::flash('success_message', $message);
+           return redirect()->back();
         }
     } 
     public function addtocartshimge(Request $request){
@@ -269,14 +278,18 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            // check if product attr is in stock
-            $getShimgeProductStock = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
-            
-            if($getShimgeProductStock['stock']<$data['quantity']){
-                $message = "Đã đạt đến số lượng mua tối đa cho phép của mã sp này.";
-                session::flash('error_message', $message);
-                return redirect()->back();
-            }
+            // generate section id if not exists
+           $session_id = Session::get('session_id');
+           if(empty($session_id)){
+               $session_id = Session::getId();
+               Session::put('session_id', $session_id);
+           } 
+
+           // save product in cart
+           Cart::insert(['session_id'=>$session_id, 'product_id'=>$data['product_id'], 'sku'=>$data['sku'], 'quantity'=>$data['quantity']]);
+           $message = "Sản phẩm đã được thêm vào giỏ hàng.";
+           session::flash('success_message', $message);
+           return redirect()->back();
         }
     }  
 }
