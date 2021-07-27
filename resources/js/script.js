@@ -18,14 +18,22 @@ $(document).ready(function () {
   
     scrollToTopBtn.addEventListener("click", scrollToTop); 
   
+    lastScroll = 0;
     $(window).on("scroll", function () {
-      if ($(window).scrollTop()) {
+      var scroll = $(window).scrollTop();
+      if(lastScroll - scroll > 0) {
         $('.header').addClass('sticky');
         $('.toTopBg').addClass('active');
-      } else {
+      }else{
         $('.header').removeClass('sticky');
         $('.toTopBg').removeClass('active');
       }
+
+      if(scroll == 0) {
+        $('.header').removeClass('sticky');
+        $('.toTopBg').removeClass('active');
+      }
+      lastScroll = scroll;
     }); // sticky header
     
     

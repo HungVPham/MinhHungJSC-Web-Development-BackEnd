@@ -2,6 +2,7 @@
 @section('content')
 <?php
 use App\Section;
+use App\Product;
 $sections = Section::sections();
 ?>
 <div class="categories">    
@@ -40,6 +41,7 @@ $sections = Section::sections();
         <div class="row" @if($featuredItemsCount > 4) id="featuredCarousel" @endif>
             @foreach($featuredItemsChunk as $key => $featuredItem)
                 @foreach($featuredItem as $item)
+                <?php $discounted_price = Product::getDiscountedPrice($item['id']); ?>
                 <div class="col-4">
                     <a href="{{ url('sản-phẩm/'.$item['id']) }}">
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$item['main_image']; ?>
@@ -68,11 +70,29 @@ $sections = Section::sections();
                     </div>
                         <p class="price">
                         @if(!empty($item['product_price']))
-                            @if($item['section_id']!=1)từ@endif <?php 
-                            $num = $item['product_price'];
-                            $format = number_format($num,0,",",".");
-                            echo $format;
-                            ?> ₫
+                            @if($item['section_id']!=1)từ@endif
+                            @if($discounted_price>0)
+                                <del> 
+                                    <?php 
+                                    $num = $item['product_price'];
+                                    $format = number_format($num,0,",",".");
+                                    echo $format;
+                                    ?> ₫
+                                </del>
+                                <strong style="color: var(--MinhHung-Red);">&nbsp;
+                                    <?php 
+                                    $num = $discounted_price;
+                                    $format = number_format($num,0,",",".");
+                                    echo $format;
+                                ?> ₫
+                                </strong>
+                            @else
+                                <?php 
+                                $num = $item['product_price'];
+                                $format = number_format($num,0,",",".");
+                                echo $format;
+                                ?> ₫
+                            @endif
                         @else 
                             <i>giá liên hệ</i>
                         @endif   
@@ -89,6 +109,7 @@ $sections = Section::sections();
             <p style="float: right !important;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">8+</span> sản phẩm mới nhất!</p>
         </div>
         @foreach($newMaxproProducts as $newTool)
+        <?php $discounted_price = Product::getDiscountedPrice($newTool['id']); ?>
         <div class="col-4">
             <a href="{{ url('sản-phẩm/'.$newTool['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newTool['main_image']; ?>
@@ -117,11 +138,28 @@ $sections = Section::sections();
             </div>
             <p class="price">
                 @if(!empty($newTool['product_price']))
-                    @if($newTool['section_id']!=1)từ@endif <?php 
-                    $num = $newTool['product_price'];
-                    $format = number_format($num,0,",",".");
-                    echo $format;
-                    ?> ₫
+                        @if($discounted_price>0)
+                        <del> 
+                            <?php 
+                            $num = $newTool['product_price'];
+                            $format = number_format($num,0,",",".");
+                            echo $format;
+                            ?> ₫
+                        </del>
+                        <strong style="color: var(--MinhHung-Red);">&nbsp;
+                            <?php 
+                            $num = $discounted_price;
+                            $format = number_format($num,0,",",".");
+                            echo $format;
+                        ?> ₫
+                        </strong>
+                    @else
+                        <?php 
+                        $num = $newTool['product_price'];
+                        $format = number_format($num,0,",",".");
+                        echo $format;
+                        ?> ₫
+                    @endif
                 @else 
                     <i>giá liên hệ</i>
                 @endif   
@@ -162,13 +200,14 @@ $sections = Section::sections();
                     $format = number_format($num,0,",",".");
                     echo $format;
                     ?> ₫
-                @else 
+                @else
                     <i>giá liên hệ</i>
                 @endif   
             </p>
         </div>
         @endforeach
         @foreach($newShimgeProducts as $newPump)
+        <?php $discounted_price = Product::getDiscountedPrice($newPump['id']); ?>
         <div class="col-4">
             <a href="{{ url('sản-phẩm/'.$newPump['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newPump['main_image']; ?>
@@ -197,11 +236,28 @@ $sections = Section::sections();
             </div>
             <p class="price">
                 @if(!empty($newPump['product_price']))
-                    @if($newPump['section_id']!=1)từ@endif <?php 
-                    $num = $newPump['product_price'];
-                    $format = number_format($num,0,",",".");
-                    echo $format;
-                    ?> ₫
+                        từ @if($discounted_price>0)
+                        <del> 
+                            <?php 
+                            $num = $newPump['product_price'];
+                            $format = number_format($num,0,",",".");
+                            echo $format;
+                            ?> ₫
+                        </del>
+                        <strong style="color: var(--MinhHung-Red);">&nbsp;
+                            <?php 
+                            $num = $discounted_price;
+                            $format = number_format($num,0,",",".");
+                            echo $format;
+                        ?> ₫
+                        </strong>
+                    @else
+                        <?php 
+                        $num = $newPump['product_price'];
+                        $format = number_format($num,0,",",".");
+                        echo $format;
+                        ?> ₫
+                    @endif
                 @else 
                     <i>giá liên hệ</i>
                 @endif   

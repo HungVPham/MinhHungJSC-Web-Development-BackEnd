@@ -1,3 +1,4 @@
+    <?php use App\Product; ?>
     <div class="row listing body">
         @foreach($categoryProducts as $key => $product)
         <div class="col-4">
@@ -31,13 +32,39 @@
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
             </div>
+            <?php $discounted_price = Product::getDiscountedPrice($product['id']); ?>
+            @if($product['section_id']==3)
+            <style>
+            .row.listing.body.list .col-4 .list-item-container .price strong{
+                display: block;
+            }
+            </style>
+            @endif
             <p class="price">
                 @if(!empty($product['product_price']))
-                    @if($product['section_id']!=1)từ@endif <?php 
-                    $num = $product['product_price'];
-                    $format = number_format($num,0,",",".");
-                    echo $format;
-                    ?> ₫
+                    @if($product['section_id']!=1)từ@endif 
+                        @if($discounted_price>0)
+                            <del> 
+                                <?php 
+                                $num = $product['product_price'];
+                                $format = number_format($num,0,",",".");
+                                echo $format;
+                                ?> ₫
+                            </del>
+                            <strong style="color: var(--MinhHung-Red);">&nbsp;
+                                <?php 
+                                $num = $discounted_price;
+                                $format = number_format($num,0,",",".");
+                                echo $format;
+                            ?> ₫
+                            </strong>
+                        @else
+                            <?php 
+                            $num = $product['product_price'];
+                            $format = number_format($num,0,",",".");
+                            echo $format;
+                            ?> ₫
+                        @endif
                 @else 
                     <i>giá liên hệ</i>
                 @endif   

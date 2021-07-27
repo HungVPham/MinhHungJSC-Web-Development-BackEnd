@@ -65,7 +65,7 @@ class ProductsController extends Controller
             }
         }
     }
-
+    
     // detail page general controls
     public function detail($id){
         $productDetails = Product::with(['category', 'brand', 'MaxproAttributes'=>function($query){
@@ -85,9 +85,7 @@ class ProductsController extends Controller
         return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock', 'relatedProducts'));
     }
 
-
-
-    /* get maxpro price by sku*/
+    /* get maxpro info by sku*/
     public function getMaxproProductPrice(Request $request){
         if($request->ajax()){
             $data = $request->all();
@@ -120,7 +118,7 @@ class ProductsController extends Controller
             return $getMaxproProductStock->stock;
         }
     }
-    /* get hhose price by sku*/
+    /* get hhose info by sku*/
     public function getHhoseProductPrice(Request $request){
         if($request->ajax()){
             $data = $request->all();
@@ -169,7 +167,7 @@ class ProductsController extends Controller
             return $getHhoseProductStock->stock;
         }
     }
-    /* get shimge price by sku*/
+    /* get shimge info by sku*/
     public function getShimgeProductPrice(Request $request){
         if($request->ajax()){
             $data = $request->all();

@@ -67,8 +67,8 @@
   visibility: visible;
   opacity: 1;
   background-color: rgba(0, 0, 0, 0);
-  -webkit-animation: slideInOpacity 0.3s ease-in-out;
-          animation: slideInOpacity 0.3s ease-in-out;
+  -webkit-animation: slideInOpacity 0.3s ease-in-out both;
+          animation: slideInOpacity 0.3s ease-in-out both;
 }
 
 #scrollToTopBtn {
