@@ -219,28 +219,40 @@
                     @endif
                     {{-- purchasing quantity --}}
                     @if($total_stock > 0)
-                    <p>
-                        @if($productDetails['section_id']==1)
-                        Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxMaxpro" name="quantity" required="" min="1" type="number" value="1">
-                        @endif
-                        {{-- @if($productDetails['section_id']==2)
-                        Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxHhose" name="quantity" required="" min="1" type="number" value="1">
-                        @endif --}}
-                        @if($productDetails['section_id']==3)
-                        Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxShimge" name="quantity" required="" min="1" type="number" value="1">
-                        @endif
-                        <small style="color: var(--Solid-Black)">&nbsp;&nbsp;có
+                    <div id="num-input-container">
+                        <p>
                             @if($productDetails['section_id']==1)
-                            <span class="getMaxproStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_tools_stock }}</span> sản phẩm có sẵn
+                            Số Lượng:
+                            <div class="number-input">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                                <input  autocomplete="off" class="getMaxMaxpro" min="1" name="quantity" min="1" required="" value="1" type="number">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                            </div>
                             @endif
                             {{-- @if($productDetails['section_id']==2)
-                            <span class="getHhoseStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_hhose_stock }}</span> sản phẩm có sẵn
+                            Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxHhose" name="quantity" required="" min="1" type="number" value="1">
                             @endif --}}
                             @if($productDetails['section_id']==3)
-                            <span class="getShimgeStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_pump_stock }}</span> sản phẩm có sẵn
+                            Số Lượng:
+                            <div class="number-input">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                                <input  autocomplete="off" class="getMaxShimge" min="1" name="quantity" min="1" required="" value="1" type="number">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                            </div>
                             @endif
-                        </small>
-                    </p>
+                            <small style="color: var(--Solid-Black)">&nbsp;&nbsp;có
+                                @if($productDetails['section_id']==1)
+                                <span class="getMaxproStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_tools_stock }}</span> sản phẩm có sẵn
+                                @endif
+                                {{-- @if($productDetails['section_id']==2)
+                                <span class="getHhoseStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_hhose_stock }}</span> sản phẩm có sẵn
+                                @endif --}}
+                                @if($productDetails['section_id']==3)
+                                <span class="getShimgeStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_pump_stock }}</span> sản phẩm có sẵn
+                                @endif
+                            </small>
+                        </p>
+                    </div>
                     <p class="max-reached" style="color: var(--MinhHung-Red); margin-top: -1rem;  margin-bottom: 2rem">đã đạt đến số lượng mua tối đa cho phép của mã sp này.</p>
                     @endif
                 @else 

@@ -132,14 +132,10 @@
 .single-product {
     input {
         width: 60px;
-        height: 35px;
-        font-size: 20px;
-        border-radius: 4px;
+        caret-color: var(--MinhHung-Red);
 
-        &:focus,
-        &:hover {
+        &:focus {
             outline: none;
-            border: 1px solid var(--MinhHung-Red);
         }
     }
 
@@ -318,3 +314,8 @@ button.mailbox-attachment-close {
     opacity: 0.75;
 }
 
+#num-input-container{
+    display: flex;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}

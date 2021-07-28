@@ -228,6 +228,85 @@ ul {
   transition: color 0.3s ease;
 }
 
+input[type=number] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  caret-color: var(--MinhHung-Red);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 2px solid #888;
+  display: inline-flex;
+  height: 28px;
+  margin: 0px 20px 0px 20px;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: "";
+  width: 1rem;
+  height: 2px;
+  background-color: #333;
+  transform: translate(-50%, -50%);
+}
+
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  border: 2px solid #888;
+  border-width: 0px 2px;
+  font-size: 1.2rem;
+  border-radius: 0;
+  height: 24px;
+  margin: 0px !important;
+  font-weight: bold;
+  text-align: center;
+}
+
 @-webkit-keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -1680,13 +1759,10 @@ option {
 
 .single-product input {
   width: 60px;
-  height: 35px;
-  font-size: 20px;
-  border-radius: 4px;
+  caret-color: var(--MinhHung-Red);
 }
-.single-product input:focus, .single-product input:hover {
+.single-product input:focus {
   outline: none;
-  border: 1px solid var(--MinhHung-Red);
 }
 .single-product .fa {
   color: var(--MinhHung-Red);
@@ -1847,6 +1923,12 @@ button.mailbox-attachment-close {
   opacity: 0.75;
 }
 
+#num-input-container {
+  display: flex;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
 /* cart items */
 .cart-page {
   margin: 80px auto;
@@ -1896,6 +1978,12 @@ td input {
   width: 80px;
   height: 30px;
   padding: 5px;
+  font-size: 20px;
+  border-radius: 4px;
+}
+td input:focus, td input:hover {
+  outline: none;
+  border: 1px solid var(--MinhHung-Red);
 }
 td img {
   width: 145px;
