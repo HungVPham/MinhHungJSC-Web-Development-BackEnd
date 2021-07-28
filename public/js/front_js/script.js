@@ -218,9 +218,14 @@ $(document).ready(function () {
           style: 'currency',
           currency: 'VND'
         });
-        var data = formatter.format(resp); // alert(resp);
+        var data = formatter.format(resp['product_price']);
+        var dataDiscounted = formatter.format(resp['discounted_price']);
 
-        $(".getMaxproAttrPrice").html(data);
+        if (resp['discounted_price'] > 0) {
+          $(".getMaxproAttrPrice").html("<del>" + data + "</del>" + "<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;" + dataDiscounted) + '</strong>';
+        } else {
+          $(".getMaxproAttrPrice").html(data);
+        }
       },
       error: function error() {
         Swal.fire({
@@ -281,9 +286,14 @@ $(document).ready(function () {
           style: 'currency',
           currency: 'VND'
         });
-        var data = formatter.format(resp); // alert(resp);
+        var data = formatter.format(resp['product_price']);
+        var dataDiscounted = formatter.format(resp['discounted_price']);
 
-        $(".getHhoseAttrPrice").html(data);
+        if (resp['discounted_price'] > 0) {
+          $(".getHhoseAttrPrice").html("<del>" + data + "</del>" + "<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;" + dataDiscounted) + '</strong>';
+        } else {
+          $(".getHhoseAttrPrice").html(data);
+        }
       },
       error: function error() {
         Swal.fire({
@@ -367,9 +377,14 @@ $(document).ready(function () {
           style: 'currency',
           currency: 'VND'
         });
-        var data = formatter.format(resp); // alert(resp);
+        var data = formatter.format(resp['product_price']);
+        var dataDiscounted = formatter.format(resp['discounted_price']);
 
-        $(".getShimgeAttrPrice").html(data);
+        if (resp['discounted_price'] > 0) {
+          $(".getShimgeAttrPrice").html("<del>" + data + "</del>" + "<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;" + dataDiscounted) + '</strong>';
+        } else {
+          $(".getShimgeAttrPrice").html(data);
+        }
       },
       error: function error() {
         Swal.fire({
@@ -482,6 +497,10 @@ $(window).on("load", function () {
 var ViewBtn = document.getElementsByClassName("viewbtn");
 var ViewSw = document.getElementsByClassName("viewsw");
 var count = 0;
+
+window.goBack = function () {
+  window.history.back();
+};
 
 window.Btn = function (n) {
   CurrentShowViewButton(count = n);

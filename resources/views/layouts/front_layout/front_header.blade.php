@@ -1,6 +1,8 @@
 <?php
 use App\Section;
+use App\Cart;
 $sections = Section::sections();
+$countCartItems = Cart::countCartItems();
 ?>
 <div class="header">
 	<div class="navbar-wrapper">
@@ -80,7 +82,7 @@ $sections = Section::sections();
 			</li>
 		</ul>
 		<div class="user-cart-container">
-			<div class="navbar-cart" cartCount="0">
+			<div class="navbar-cart" cartCount="{{ $countCartItems }}">
 				<a href="{{ url('/giỏ-hàng')}}"><img src="{{ url('images/front_images/cart.png') }}"></a>
 			</div>
 			<div class="action">

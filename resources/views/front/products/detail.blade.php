@@ -145,102 +145,109 @@
             @endif
             " method="post" enctype="multipart/form-data">@csrf
                 <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
-                {{-- price --}}
+                <input type="hidden" name="category_id" value="{{ $productDetails['category_id'] }}">
+                <input type="hidden" name="brand_id" value="{{ $productDetails['brand_id'] }}">
+                {{-- price and number input with conditions --}}
                 <?php $discounted_price = Product::getDiscountedPrice($productDetails['id']); ?>
-                @if($total_tools_stock > 0)
-                <h4 class="getMaxproAttrPrice">
-                    @if($discounted_price>0)
-                        <del> 
+                @if(!empty($productDetails['product_price']))
+                    @if($total_tools_stock > 0)
+                    <h4 class="getMaxproAttrPrice">
+                        @if($discounted_price>0)
+                            <del> 
+                                <?php 
+                                $num = $productDetails['product_price'];
+                                $format = number_format($num,0,",",".");
+                                echo $format;
+                                ?> ₫
+                            </del>
+                            <strong style="color: var(--MinhHung-Red);">&nbsp;
+                                <?php 
+                                $num = $discounted_price;
+                                $format = number_format($num,0,",",".");
+                                echo $format;
+                            ?> ₫
+                            </strong>
+                        @else
                             <?php 
                             $num = $productDetails['product_price'];
                             $format = number_format($num,0,",",".");
                             echo $format;
                             ?> ₫
-                        </del>
-                        <strong style="color: var(--MinhHung-Red);">&nbsp;
-                            <?php 
-                            $num = $discounted_price;
-                            $format = number_format($num,0,",",".");
-                            echo $format;
-                        ?> ₫
-                        </strong>
-                    @else
-                        <?php 
-                        $num = $productDetails['product_price'];
-                        $format = number_format($num,0,",",".");
-                        echo $format;
-                        ?> ₫
+                        @endif
+                    </h4>
                     @endif
-                </h4>
-                @endif
-                {{-- @if($total_hhose_stock > 0)
-                <h4 class="getHhoseAttrPrice"> 
-                        từ
-                        <?php 
-                        $num = $productDetails['product_price'];
-                        $format = number_format($num,0,",",".");
-                        echo $format;
-                        ?> ₫
-                </h4>
-                @endif --}}
-                @if($total_pump_stock > 0)
-                <h4 class="getShimgeAttrPrice">
-                    từ @if($discounted_price>0)
-                        <del> 
+                    {{-- @if($total_hhose_stock > 0)
+                    <h4 class="getHhoseAttrPrice"> 
+                            từ
                             <?php 
                             $num = $productDetails['product_price'];
                             $format = number_format($num,0,",",".");
                             echo $format;
                             ?> ₫
-                        </del>
-                        <strong style="color: var(--MinhHung-Red);">&nbsp;
-                            <?php 
-                            $num = $discounted_price;
-                            $format = number_format($num,0,",",".");
-                            echo $format;
-                        ?> ₫
-                        </strong>
-                    @else
-                        <?php 
-                        $num = $productDetails['product_price'];
-                        $format = number_format($num,0,",",".");
-                        echo $format;
-                        ?> ₫
-                    @endif
-                </h4>
-                @endif
-                @if($total_stock == 0 and $productDetails['section_id']!=2)
-                <h4 style="color: #888"><i>hết hàng</i></h4>
-                @elseif($productDetails['section_id']==2)
-                <h4 style="color: #333">giá liên hệ</h4>
-                @endif
-                {{-- purchasing quantity --}}
-                @if($total_stock > 0)
-                <p>
-                    @if($productDetails['section_id']==1)
-                    Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxMaxpro" name="quantity" required="" min="1" type="number" value="1">
-                    @endif
-                    {{-- @if($productDetails['section_id']==2)
-                    Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxHhose" name="quantity" required="" min="1" type="number" value="1">
+                    </h4>
                     @endif --}}
-                    @if($productDetails['section_id']==3)
-                    Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxShimge" name="quantity" required="" min="1" type="number" value="1">
+                    @if($total_pump_stock > 0)
+                    <h4 class="getShimgeAttrPrice">
+                        từ @if($discounted_price>0)
+                            <del> 
+                                <?php 
+                                $num = $productDetails['product_price'];
+                                $format = number_format($num,0,",",".");
+                                echo $format;
+                                ?> ₫
+                            </del>
+                            <strong style="color: var(--MinhHung-Red);">&nbsp;
+                                <?php 
+                                $num = $discounted_price;
+                                $format = number_format($num,0,",",".");
+                                echo $format;
+                            ?> ₫
+                            </strong>
+                        @else
+                            <?php 
+                            $num = $productDetails['product_price'];
+                            $format = number_format($num,0,",",".");
+                            echo $format;
+                            ?> ₫
+                        @endif
+                    </h4>
                     @endif
-                    <small style="color: var(--Solid-Black)">&nbsp;&nbsp;có
+                    @if($total_stock == 0 and $productDetails['section_id']!=2)
+                    <h4 style="color: #888"><i>hết hàng</i></h4>
+                    @elseif($productDetails['section_id']==2)
+                    <h4 style="color: #333">giá liên hệ</h4>
+                    @endif
+                    {{-- purchasing quantity --}}
+                    @if($total_stock > 0)
+                    <p>
                         @if($productDetails['section_id']==1)
-                         <span class="getMaxproStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_tools_stock }}</span> sản phẩm có sẵn
+                        Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxMaxpro" name="quantity" required="" min="1" type="number" value="1">
                         @endif
                         {{-- @if($productDetails['section_id']==2)
-                         <span class="getHhoseStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_hhose_stock }}</span> sản phẩm có sẵn
+                        Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxHhose" name="quantity" required="" min="1" type="number" value="1">
                         @endif --}}
                         @if($productDetails['section_id']==3)
-                         <span class="getShimgeStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_pump_stock }}</span> sản phẩm có sẵn
+                        Số Lượng:&nbsp;&nbsp;<input autocomplete="off" class="getMaxShimge" name="quantity" required="" min="1" type="number" value="1">
                         @endif
-                    </small>
-                </p>
-                <p class="max-reached" style="color: var(--MinhHung-Red); margin-top: -1rem;  margin-bottom: 2rem">đã đạt đến số lượng mua tối đa cho phép của mã sp này.</p>
+                        <small style="color: var(--Solid-Black)">&nbsp;&nbsp;có
+                            @if($productDetails['section_id']==1)
+                            <span class="getMaxproStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_tools_stock }}</span> sản phẩm có sẵn
+                            @endif
+                            {{-- @if($productDetails['section_id']==2)
+                            <span class="getHhoseStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_hhose_stock }}</span> sản phẩm có sẵn
+                            @endif --}}
+                            @if($productDetails['section_id']==3)
+                            <span class="getShimgeStock" style="color: var(--MinhHung-Red); font-size: 1.2rem; font-weight: 700">{{ $total_pump_stock }}</span> sản phẩm có sẵn
+                            @endif
+                        </small>
+                    </p>
+                    <p class="max-reached" style="color: var(--MinhHung-Red); margin-top: -1rem;  margin-bottom: 2rem">đã đạt đến số lượng mua tối đa cho phép của mã sp này.</p>
+                    @endif
+                @else 
+                    <h4 style="color: #333">giá liên hệ</h4>
                 @endif
-                {{-- select sku dropdown --}}
+
+                {{-- select sku dropdown for ajax info calls --}}
                 <p>Mã Sản Phẩm:&nbsp;&nbsp; 
                 @if(!empty($productDetails['maxpro_attributes']))
                 <select autocomplete="off" name="sku" id="getMaxproPrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
@@ -267,22 +274,29 @@
                 </select>
                 @endif
                 </p>
-                @if($total_tools_stock > 0)
-                <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
+
+
+                @if(!empty($productDetails['product_price']) and $total_stock > 0)
+                    @if(!empty($productDetails['product_price']))
+                        @if($total_tools_stock > 0)
+                        <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
+                        @endif
+                        {{-- @if($total_hhose_stock > 0)
+                        <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
+                        @endif --}}
+                        @if($total_pump_stock > 0)
+                        <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
+                        @endif   
+                    @endif
+                @elseif($total_stock == 0 and $productDetails['section_id'] != 2 and !empty($productDetails['product_price']))
+                <p><button disabled style="margin-top: 20px" type="submit" class="btn">Nhận Thông Báo Khi Tồn Kho</button></p>
                 @endif
-                {{-- @if($total_hhose_stock > 0)
-                <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
-                @endif --}}
-                @if($total_pump_stock > 0)
-                <p><button style="margin-top: 20px" type="submit" class="btn">Thêm Vào Giỏ</button></p>
-                @endif
-            </form>
-                {{-- add to cart or notify when restock btn --}}
-                @if($total_stock == 0 and $productDetails['section_id']!=2)
-                <p><button disabled style="margin-top: 20px" class="btn">Nhận thông báo khi có hàng!</button></p>
-                @elseif($productDetails['section_id']==2)
+
+                {{-- if price is disabled for tool/pump product or if product if hose, get price info via contact  --}}
+                @if(empty($productDetails['product_price']))
                 <p><button disabled style="margin-top: 20px" class="btn">Liên hệ ngay để nhận báo giá sản phẩm!</button></p>
                 @endif
+            </form>
         </div>
     </div>
 </div>

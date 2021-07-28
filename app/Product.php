@@ -55,4 +55,58 @@ class Product extends Model
         }
         return $discounted_price;
     }
+
+    public static function getDiscountedMaxproPrice($product_id, $sku){
+        $proAttrPrice = MaxproProductAttributes::select('price')->where(['product_id'=>$product_id,'sku'=>$sku])->first();
+        $proDetails = Product::select('product_discount', 'category_id')->where('id', $product_id)->first()->toArray();
+        $catDetails = Category::select('category_discount')->where('id', $proDetails['category_id'])->first()->toArray();
+
+        if($proDetails['product_discount']>0){
+            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$proDetails['product_discount']/100);
+            $discount_amount = $proAttrPrice['price'] - $discounted_price;
+        }else if($catDetails['category_discount']>0){
+            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$catDetails['category_discount']/100);
+            $discount_amount = $proAttrPrice['price'] - $discounted_price;
+        }else{
+            $discounted_price = 0;
+            $discount_amount = 0;
+        }
+        return array('product_price'=>$proAttrPrice['price'], 'discounted_price'=>$discounted_price, 'discount_amount'=>$discount_amount);
+    }
+
+    public static function getDiscountedShimgePrice($product_id, $sku){
+        $proAttrPrice = ShimgeProductAttributes::select('price')->where(['product_id'=>$product_id,'sku'=>$sku])->first();
+        $proDetails = Product::select('product_discount', 'category_id')->where('id', $product_id)->first()->toArray();
+        $catDetails = Category::select('category_discount')->where('id', $proDetails['category_id'])->first()->toArray();
+
+        if($proDetails['product_discount']>0){
+            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$proDetails['product_discount']/100);
+            $discount_amount = $proAttrPrice['price'] - $discounted_price;
+        }else if($catDetails['category_discount']>0){
+            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$catDetails['category_discount']/100);
+            $discount_amount = $proAttrPrice['price'] - $discounted_price;
+        }else{
+            $discounted_price = 0;
+            $discount_amount = 0;
+        }
+        return array('product_price'=>$proAttrPrice['price'], 'discounted_price'=>$discounted_price, 'discount_amount'=>$discount_amount);
+    }
+
+    // public static function getDiscountedHhosePrice($product_id, $sku){
+    //     $proHhosePrice = HhoseProductAttributes::where(['product_id'=>$product_id,'sku'=>$sku])->first()->toArray();
+    //     $proDetails = Product::select('product_discount', 'category_id')->where('id', $product_id)->first()->toArray();
+    //     $catDetails = Category::select('category_discount')->where('id', $proDetails['category_id'])->first()->toArray();
+
+    //     if($proDetails['product_discount']>0){
+    //         $discounted_price = $proHhosePrice['price'] - ($proHhosePrice['price']*$proDetails['product_discount']/100);
+    //         $discount_amount = $proHhosePrice['price'] - $discounted_price;
+    //     }else if($catDetails['category_discount']>0){
+    //         $discounted_price = $proHhosePrice['price'] - ($proHhosePrice['price']*$catDetails['category_discount']/100);
+    //         $discount_amount = $proHhosePrice['price'] - $discounted_price;
+    //     }else{
+    //         $discounted_price = 0;
+    //         $discount_amount = 0;
+    //     }
+    //     return array('product_price'=>$proHhosePrice['price'], 'discounted_price'=>$discounted_price);
+    // }
 }

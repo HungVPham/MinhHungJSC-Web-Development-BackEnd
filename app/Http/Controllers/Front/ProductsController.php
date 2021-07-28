@@ -75,7 +75,7 @@ class ProductsController extends Controller
         }, 'ShimgeAttributes'=>function($query){
             $query->where('status', 1);
         }, 'images'=>function($query){
-            $query->where('status', 1);}])->find($id)->toArray();
+            $query->where('status', 1);}])->where('status', 1)->find($id)->toArray();
         $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
@@ -90,8 +90,9 @@ class ProductsController extends Controller
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
-            $getMaxproProductPrice = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
-            return $getMaxproProductPrice->price;
+            $getDiscountedMaxproPrice = Product::getDiscountedMaxproPrice($data['product_id'], $data['sku']);
+            
+            return $getDiscountedMaxproPrice;
         }
     }
     public function getMaxproProductVoltage(Request $request){
@@ -123,8 +124,9 @@ class ProductsController extends Controller
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
-            $getHhoseProductPrice = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
-            return $getHhoseProductPrice->price;
+            $getDiscountedHhosePrice = Product::getDiscountedHhosePrice($data['product_id'], $data['sku']);
+            
+            return $getDiscountedHhosePrice;
         }
     }
     public function getHhoseProductDiameter(Request $request){
@@ -172,8 +174,9 @@ class ProductsController extends Controller
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
-            $getShimgeProductPrice = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
-            return $getShimgeProductPrice->price;
+            $getDiscountedShimgePrice = Product::getDiscountedShimgePrice($data['product_id'], $data['sku']);
+            
+            return $getDiscountedShimgePrice;
         }
     }
     public function getShimgeProductVoltage(Request $request){
@@ -266,6 +269,8 @@ class ProductsController extends Controller
            $cart = new Cart;
            $cart->session_id = $session_id;
            $cart->product_id = $data['product_id'];
+           $cart->category_id = $data['category_id'];
+           $cart->brand_id = $data['brand_id'];
            $cart->sku = $data['sku'];
            $cart->quantity = $data['quantity'];
            $cart->save();
@@ -307,6 +312,8 @@ class ProductsController extends Controller
            $cart = new Cart;
            $cart->session_id = $session_id;
            $cart->product_id = $data['product_id'];
+           $cart->category_id = $data['category_id'];
+           $cart->brand_id = $data['brand_id'];
            $cart->sku = $data['sku'];
            $cart->quantity = $data['quantity'];
            $cart->save();
@@ -348,6 +355,8 @@ class ProductsController extends Controller
            $cart = new Cart;
            $cart->session_id = $session_id;
            $cart->product_id = $data['product_id'];
+           $cart->category_id = $data['category_id'];
+           $cart->brand_id = $data['brand_id'];
            $cart->sku = $data['sku'];
            $cart->quantity = $data['quantity'];
            $cart->save();
