@@ -1,5 +1,7 @@
 <?php 
 use App\Product;
+use App\Cart;
+$countCartItems = Cart::countCartItems();
 ?>
 <style>
     .number-input {
@@ -10,13 +12,14 @@ use App\Product;
     margin-bottom: 8px;
   }
 </style>
-<table>
+<div style="overflow-x:auto;">
+<table class="cart-table">
     <tr>
-        <th>Thông Tin Sản Phẩm</th>
+        <th>Thông Tin</th>
         <th>Số Lượng</th>
         <th>Giảm Giá</th>
         <th>Thao Tác</th>
-        <th>Giá Tổng</th>
+        <th>Số Tiền</th>
     </tr>
     <?php 
     $total_maxpro_price = 0; 
@@ -40,33 +43,27 @@ use App\Product;
                         $cartItems['brand']['name']
                         ?>
                     </h5>
-                    <h4 title="{{ $cartItems['product']['product_name'] }}">{{ $cartItems['product']['product_name'] }}</h4>
-                    <p>Mã: {{ $cartItems['sku'] }}</p>
-                    <p>Giá: 
-                        @if($cartItems['product']['section_id'] == 1)
-                        <?php 
-                        $num = $proMaxproPrice['product_price'];
-                        $format = number_format($num,0,",",".");
-                        echo $format;
-                        ?> ₫
-                        @endif
-                        @if($cartItems['product']['section_id'] == 3)
-                        <?php 
-                        $num = $proShimgePrice['product_price'];
-                        $format = number_format($num,0,",",".");
-                        echo $format;
-                        ?> ₫
-                        @endif
-                    </p>
+                    <h4 title="{{ $cartItems['product']['product_name'] }}"><a href="{{ url('sản-phẩm/'.$cartItems['product']['id']) }}">{{ $cartItems['product']['product_name'] }}</a></h4>
+                    <p>Phân Loại Hàng: {{ $cartItems['sku'] }}</p>
                 </div>
             </div>
         </td>
         <td>
+            @if($cartItems['product']['section_id'] == 1)
             <div class="number-input">
                 <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                 <input class="quantity" min="1" name="quantity" min="1" value="{{ $cartItems['quantity'] }}" type="number">
                 <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
             </div>
+            @elseif($cartItems['product']['section_id'] == 3)
+            <div class="number-input">
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                <input class="quantity" min="1" name="quantity" min="1" value="{{ $cartItems['quantity'] }}" type="number">
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            </div>
+            @endif
+            <a class="search-mobile" href="{{ url('/'.$cartItems['category']['url']) }}"><i class="fas fa-search"></i></a>
+            <a class="trash-mobile" href=""><i class="fas fa-trash"></i></a>
         </td>
         <td>
             @if($cartItems['product']['section_id'] == 1)
@@ -75,8 +72,7 @@ use App\Product;
             $format = number_format($num,0,",",".");
             echo $format;
             ?> ₫
-            @endif
-            @if($cartItems['product']['section_id'] == 3)
+            @elseif($cartItems['product']['section_id'] == 3)
             <?php
             $num = $proShimgePrice['discount_amount']*$cartItems['quantity'];
             $format = number_format($num,0,",",".");
@@ -92,8 +88,7 @@ use App\Product;
                 $format = number_format($num,0,",",".");
                 echo $format;
             ?> ₫
-            @endif
-            @if($cartItems['product']['section_id'] == 3)
+            @elseif($cartItems['product']['section_id'] == 3)
             <?php
             $num = $proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']);
             $format = number_format($num,0,",",".");
@@ -107,8 +102,7 @@ use App\Product;
     $total_maxpro_price+= ($proMaxproPrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proMaxproPrice['discount_amount']));
     $total_maxpro_discount+= $proMaxproPrice['discount_amount']*$cartItems['quantity'];
     ?>
-    @endif
-    @if($cartItems['product']['section_id'] == 3)
+    @elseif($cartItems['product']['section_id'] == 3)
     <?php 
     $total_shimge_price+= ($proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']));
     $total_maxpro_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
@@ -116,6 +110,10 @@ use App\Product;
     @endif
     @endforeach
 </table>
+</div>
+@if($countCartItems == 0)
+<p class="empt-cart-noti">chưa có sản phẩm nào trong giỏ</p>
+@endif
 <div class="total-price">
     <div class="voucher-containter">
         <label for="voucher">Nhập Mã Khuyến Mãi:</label>
@@ -139,7 +137,7 @@ use App\Product;
             </td>
         </tr>
         <tr>
-            <td>Tổng Khuyến Mãi</td>
+            <td>Khuyến Mãi</td>
             <td>
                 <?php 
                $total_voucher = 0; 
@@ -149,7 +147,7 @@ use App\Product;
             </td>
         </tr>
         <tr>
-            <td>Tổng Cộng</td>
+            <td>Tổng Thanh Toán</td>
             <td>
                 <?php 
                 $format = number_format($total_price,0,",",".");

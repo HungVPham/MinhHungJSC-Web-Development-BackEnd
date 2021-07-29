@@ -867,8 +867,67 @@
       top: 90vh;
       left: 10px;
     }
+
+    .cart-table{
+      tr{
+        td{
+          padding: 0;
+        }
+        td:last-child{
+          text-align: right;
+        }
+        th:nth-child(3),
+        td:nth-child(3),
+          th:nth-child(4),
+          td:nth-child(4){
+          display: none;
+        }
+      }
+        .cart-info{
+          h4{
+            width: 115px;
+          }
+        }
+
+        .number-input{
+          margin-left: 0px;
+
+          input{
+            width: 30px;
+          }
+        }
+      }
+
+    .total-price {
+      flex-direction: column-reverse;
+      margin-top: 20px;
+
+      .voucher-containter{
+        margin-right: 0;
+        margin-top: 20px;
+        p{
+          display: flex;
+
+          button{
+            margin: 0;
+            margin-top: 20px;
+            height: 50px;
+          }
+
+          button:first-child{
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+    .search-mobile{
+      display: inline-block;
+    }
+
+    .trash-mobile{
+      display: inline-block;
+    }
   }
-  
   @media only screen and (max-width: 480px) {
     .content {
       .main-content .post {

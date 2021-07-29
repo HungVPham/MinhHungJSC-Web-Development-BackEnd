@@ -1954,12 +1954,20 @@ table {
   font-size: 1.2rem;
   padding: 0;
   margin: 0;
+  color: #888;
 }
 .cart-info h4 {
   width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.cart-info h4 a {
+  padding: 0;
+  color: var(--Solid-Black) !important;
+}
+.cart-info h4 a:hover {
+  color: var(--MinhHung-Red) !important;
 }
 
 th {
@@ -1986,8 +1994,8 @@ td input:focus, td input:hover {
   border: 1px solid var(--MinhHung-Red);
 }
 td img {
-  width: 145px;
-  height: 130px;
+  width: 115px;
+  height: 100px;
   margin-right: 10px;
 }
 td a:last-child {
@@ -2003,12 +2011,12 @@ td a:last-child:hover {
   align-items: center;
 }
 .total-price table {
-  border-top: 3px solid var(--MinhHung-Red);
+  border-top: 1px solid #888;
   width: 100%;
   max-width: 400px;
 }
 .total-price table tr:last-child {
-  border-top: 3px solid var(--MinhHung-Red);
+  border-top: 1px solid #888;
 }
 
 td:nth-child(4),
@@ -2019,6 +2027,10 @@ th:nth-child(4) {
 td:last-child,
 th:last-child {
   text-align: right;
+}
+
+td:last-child {
+  color: var(--MinhHung-Red);
 }
 
 .row.listing.head.first.cart a {
@@ -2077,6 +2089,14 @@ th:last-child {
 .empt-cart-noti {
   text-align: center;
   margin: 20px 0px 40px 0px;
+}
+
+.search-mobile {
+  display: none;
+}
+
+.trash-mobile {
+  display: none;
 }
 
 /* about us css */
@@ -3583,6 +3603,56 @@ form a {
     z-index: 9997;
     top: 90vh;
     left: 10px;
+  }
+
+  .cart-table tr td {
+    padding: 0;
+  }
+  .cart-table tr td:last-child {
+    text-align: right;
+  }
+  .cart-table tr th:nth-child(3),
+.cart-table tr td:nth-child(3),
+.cart-table tr th:nth-child(4),
+.cart-table tr td:nth-child(4) {
+    display: none;
+  }
+  .cart-table .cart-info h4 {
+    width: 115px;
+  }
+  .cart-table .number-input {
+    margin-left: 0px;
+  }
+  .cart-table .number-input input {
+    width: 30px;
+  }
+
+  .total-price {
+    flex-direction: column-reverse;
+    margin-top: 20px;
+  }
+  .total-price .voucher-containter {
+    margin-right: 0;
+    margin-top: 20px;
+  }
+  .total-price .voucher-containter p {
+    display: flex;
+  }
+  .total-price .voucher-containter p button {
+    margin: 0;
+    margin-top: 20px;
+    height: 50px;
+  }
+  .total-price .voucher-containter p button:first-child {
+    margin-right: 5px;
+  }
+
+  .search-mobile {
+    display: inline-block;
+  }
+
+  .trash-mobile {
+    display: inline-block;
   }
 }
 @media only screen and (max-width: 480px) {

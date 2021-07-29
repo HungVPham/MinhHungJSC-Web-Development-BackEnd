@@ -112,7 +112,6 @@ $(document).ready(function () {
     });
     $('.prev').hide();
     slider2.on('afterChange', function (event, slick, currentSlide) {
-      console.log(currentSlide); //If we're on the first slide hide the Previous button and show the Next
   
       if (currentSlide === 0) {
         $('.prev').hide();
@@ -159,7 +158,6 @@ $(document).ready(function () {
     });
     $('.prev').hide();
     slider3.on('afterChange', function (event, slick, currentSlide) {
-      console.log(currentSlide); //If we're on the first slide hide the Previous button and show the Next
   
       if (currentSlide === 0) {
         $('.prev').hide();
@@ -570,40 +568,6 @@ $(document).ready(function () {
   icon.onclick = function () {
     search.classList.toggle('active');
   }; // toggle search bar in user menu
-
-  document.addEventListener('DOMContentLoaded',function(){
-    var secondarySlider = new Splide( '#secondary-slider', {
-            fixedWidth  : 105,
-            height      : 90,
-            gap         : 5,
-            cover       : true,
-            pagination  : false,
-            rewind      : true,
-            isNavigation: true,
-            arrows     : false,
-            breakpoints : {
-            '600': {
-            fixedWidth: 80,
-            height    : 60,
-            },
-        },
-    } ).mount();
-
-    var primarySlider = new Splide('#primary-slider',{
-    type       : 'fade',
-    heightRatio: 0.8666666666,
-    pagination : false,
-    arrows     : true,
-    rewind     : true,
-    cover      : true,
-    classes: {
-        arrows: 'splide__arrows custom',
-        prev  : 'splide__arrow--prev btnPrev',
-        next  : 'splide__arrow--next btnNext',
-    },
-    } ); // do not call mount() here.
-    primarySlider.sync(secondarySlider).mount();
-  }); // image carousel on detail page
   
   var tag = document.createElement('script');
   tag.id = 'iframe-demo';

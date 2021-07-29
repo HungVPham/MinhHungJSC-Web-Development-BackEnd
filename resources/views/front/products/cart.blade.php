@@ -9,8 +9,5 @@
     <div id="AppendCartItems">
        @include('front.products.cart_items')
     </div>  
-    @if(empty($userCartItems))
-        <p class="empt-cart-noti">chưa có sản phẩm nào trong giỏ</p>
-    @endif
 </div>
 @endsection

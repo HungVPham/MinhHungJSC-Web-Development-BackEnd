@@ -65,6 +65,42 @@
         width: inherit;
     }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+<script>
+      document.addEventListener('DOMContentLoaded',function(){
+    var secondarySlider = new Splide( '#secondary-slider', {
+            fixedWidth  : 105,
+            height      : 90,
+            gap         : 5,
+            cover       : true,
+            pagination  : false,
+            rewind      : true,
+            isNavigation: true,
+            arrows     : false,
+            breakpoints : {
+            '600': {
+            fixedWidth: 80,
+            height    : 60,
+            },
+        },
+    } ).mount();
+
+    var primarySlider = new Splide('#primary-slider',{
+    type       : 'fade',
+    heightRatio: 0.8666666666,
+    pagination : false,
+    arrows     : true,
+    rewind     : true,
+    cover      : true,
+    classes: {
+        arrows: 'splide__arrows custom',
+        prev  : 'splide__arrow--prev btnPrev',
+        next  : 'splide__arrow--next btnNext',
+    },
+    } ); // do not call mount() here.
+    primarySlider.sync(secondarySlider).mount();
+  }); // image carousel on detail page
+</script>
 <div class="small-container single-product">
     <div class="row listing head first detail">
         <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a>Sản Phẩm</a> / <a href="{{ url('/'.$productDetails['category']['url']) }}">{{ $productDetails['category']['category_name'] }}</a> / <a>{{ $productDetails['product_name'] }}</a></h5>
@@ -260,10 +296,10 @@
                 @endif
 
                 {{-- select sku dropdown for ajax info calls --}}
-                <p>Mã Sản Phẩm:&nbsp;&nbsp; 
+                <p>Phân Loại Sản Phẩm:&nbsp;&nbsp; 
                 @if(!empty($productDetails['maxpro_attributes']))
                 <select autocomplete="off" name="sku" id="getMaxproPrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
-                    <option value="">chọn mã sản phẩm...</option>
+                    <option value="">chọn sản phẩm...</option>
                     @foreach($productDetails['maxpro_attributes'] as $toolAttr)
                     <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
                     @endforeach
@@ -271,7 +307,7 @@
                 @endif
                 @if(!empty($productDetails['hhose_attributes']))
                 <select autocomplete="off" name="sku" id="getHhosePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
-                    <option value="">chọn mã sản phẩm...</option>
+                    <option value="">chọn sản phẩm...</option>
                     @foreach($productDetails['hhose_attributes'] as $toolAttr)
                     <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
                     @endforeach
@@ -279,7 +315,7 @@
                 @endif
                 @if(!empty($productDetails['shimge_attributes']))
                 <select autocomplete="off" name="sku" id="getShimgePrice" required="" product-id="{{ $productDetails['id'] }}" class="select2">
-                    <option value="">chọn mã sản phẩm...</option>
+                    <option value="">chọn sản phẩm...</option>
                     @foreach($productDetails['shimge_attributes'] as $toolAttr)
                     <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
                     @endforeach
