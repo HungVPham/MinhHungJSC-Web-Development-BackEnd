@@ -136,7 +136,7 @@
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                       <label for="section_description">&nbsp;Mô Tả Danh Mục</label>
-                      <textarea name="section_description" id="section_description" class="form-control" rows="3" placeholder="nhập mô tả...">@if (!empty($sectiondata['section_description'])) {{ $sectiondata['section_description'] }}@else {{ old("section_description") }}@endif
+                      <textarea name="section_description" id="section_description" class="form-control mce" rows="3" placeholder="nhập mô tả...">@if (!empty($sectiondata['section_description'])) {{ $sectiondata['section_description'] }}@else {{ old("section_description") }}@endif
                       </textarea>
                   </div>
                 </div>
@@ -165,7 +165,7 @@
           </div>
         </form>
             <div class="card-footer">
-              <button disabled type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
+              <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
             </div>
             </div>
         

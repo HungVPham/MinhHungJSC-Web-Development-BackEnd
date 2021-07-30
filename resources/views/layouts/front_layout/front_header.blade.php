@@ -16,7 +16,7 @@ $countCartItems = Cart::countCartItems();
 				<label class="mobile-item"><a href="{{ url('/') }}">Trang Chủ</a></label>
 			</li>
 			<li id="prime-navlinks">
-				<div style="display: flex; align-items: center;"><a class="desktop-item" href="#">Giới Thiệu</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
+				<div class="drop-nav"><a class="desktop-item" href="#">Giới Thiệu</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showDrop">
 				<label for="showDrop" class="mobile-item">Giới Thiệu<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
 				<ul class="drop-menu">
@@ -26,7 +26,7 @@ $countCartItems = Cart::countCartItems();
 				</ul>
 			</li>
 			<li id="prime-navlinks">
-				<div style="display: flex; align-items: center;"><a class="desktop-item" href="#">Sản Phẩm</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
+				<div class="drop-nav"><a style="cursor: default;" class="desktop-item">Sản Phẩm</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showMega">
 				<label for="showMega" class="mobile-item">Sản Phẩm<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
 				<div class="mega-box">
@@ -34,7 +34,7 @@ $countCartItems = Cart::countCartItems();
 						@foreach($sections as $section)
 						@if(count($section['categories'])>0)
 						<div class="megabox-row">
-							<header><a href="">{{ $section['name'] }}</a></header>
+							<header><a href="/{{ $section['url'] }}">{{ $section['name'] }}</a></header>
 							<ul class="mega-links">
 								@foreach($section['categories'] as $key => $category)
 								<li id="megadrop-container">
@@ -63,7 +63,7 @@ $countCartItems = Cart::countCartItems();
 				</div>
 			</li>
 			<li id="prime-navlinks">
-				<div style="display: flex; align-items: center;"><a class="desktop-item" href="#">Tin Tức - Sự Kiện</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
+				<div class="drop-nav"><a class="desktop-item" href="#">Tin Tức - Sự Kiện</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showDrop2">
 				<label for="showDrop2" class="mobile-item">Tin Tức - Sự Kiện<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
 				<ul class="drop-menu">

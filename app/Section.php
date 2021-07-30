@@ -16,4 +16,13 @@ class Section extends Model
         // echo "<pre>"; print_r($getSections); die;
         return $getSections;
     }
+
+    public static function secDetails($url){
+        $secDetails = Section::select('id', 'name', 'url', 'section_description')->where('status',1)->where('url',$url)->first()->toArray();
+        // dd($secDetails); die;
+        $secIds = array();
+        $secIds[] = $secDetails['id'];
+        // dd($secIds); die;
+        return array('secIds'=>$secIds,  'secDetails'=>$secDetails);
+    }
 }

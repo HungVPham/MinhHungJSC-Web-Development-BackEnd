@@ -65,28 +65,22 @@
 </style>
 <div class="listing-head">
     <div class="row listing head first">
-        <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a 
-            @if(!empty($categoryDetails['catDetails']['parent_id']))
-            style="color: #222" 
-            @elseif(empty($categoryDetails['catDetails']['parent_id']))
-            style="color: #666" 
-            @endif
-        href="{{ url('/'.$categoryDetails['secDetails']['0']['url']) }}">{{ $categoryDetails['secDetails']['0']['name'] }}</a> / <?php echo $categoryDetails['breadcrumbs'] ?></h5>
+        <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a>{{ $sectionDetails['secDetails']['name'] }}</a></h5>
     </div>
     <div class="listing-title-and-count">
         <div class="row listing head">
-        <h2>{{ $categoryDetails['catDetails']['category_name'] }}</h2>
+        <h2>{{ $sectionDetails['secDetails']['name'] }}</h2>
         </div>
         <div class="row listing head">
-        <p><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $countCategoryProducts }}+</span> sản phẩm có sẵn!</p>
+        <p><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $countSectionProducts }}+</span> sản phẩm có sẵn!</p>
         </div>
     </div>
-    @if(!empty($categoryDetails['catDetails']['category_description']))
+    @if(!empty($sectionDetails['secDetails']['section_description']))
     <hr>
     <div class="row listing head">
         <p class="category_description">
             <?php echo
-            $categoryDetails['catDetails']['category_description']
+            $sectionDetails['secDetails']['section_description']
             ?>
         </p>
     </div>
@@ -95,20 +89,20 @@
 </div>
 <div class="small-container listing">
     <form class="sorting-dropdown">
-        <label for="sortProducts">Sắp xếp theo:</label>
-        <select name="sortProducts" id="sortProducts" class="select2">
+        <label for="sort">Sắp xếp theo:</label>
+        <select name="sort" id="sort" class="select2">
             <option value="">chọn bộ lọc...</option>
-            <option value="product_latest" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_latest") selected @endif>Mới &rarr; Cũ</option>
-            <option value="product_name_a_z" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_name_a_z") selected @endif>Tên A &rarr; Z</option>
-            <option value="product_name_z_a" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_name_z_a") selected @endif>Tên Z &rarr; A</option>
-            <option value="price_lowest" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="price_lowest") selected @endif>Giá: thấp &rarr; cao</option>
-            <option  value="price_highest" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="price_highest") selected @endif>Giá: cao &rarr; thấp</option>
+            <option value="product_latest" @if(isset($_GET['sort']) && $_GET['sort']=="product_latest") selected @endif>Mới &rarr; Cũ</option>
+            <option value="product_name_a_z" @if(isset($_GET['sort']) && $_GET['sort']=="product_name_a_z") selected @endif>Tên A &rarr; Z</option>
+            <option value="product_name_z_a" @if(isset($_GET['sort']) && $_GET['sort']=="product_name_z_a") selected @endif>Tên Z &rarr; A</option>
+            <option value="price_lowest" @if(isset($_GET['sort']) && $_GET['sort']=="price_lowest") selected @endif>Giá: thấp &rarr; cao</option>
+            <option value="price_highest" @if(isset($_GET['sort']) && $_GET['sort']=="price_highest") selected @endif>Giá: cao &rarr; thấp</option>
         </select>
         <i title="hiện thị danh sách" class="mybtn fas fa-th-list" onclick="Button(0); listToggleListOff();listToggleBtnOff()"></i>
         <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>
     </form>
     <div class="row listing body">
-        @foreach($categoryProducts as $key => $product)
+        @foreach($sectionProducts as $key => $product)
         <div class="col-4">
             <a href="{{ url('sản-phẩm/'.$product['id']) }}">
                 @if(isset($product['main_image']))
@@ -198,10 +192,10 @@
     </div>
     <div class="page-btn">
         <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
-        @if(isset($_GET['sortProducts']) && !empty($_GET['sortProducts']))
-        {{ $categoryProducts->appends(['sortProducts' => $_GET['sortProducts']])->links() }}
+        @if(isset($_GET['sort']) && !empty($_GET['sort']))
+        {{ $sectionProducts->appends(['sort' => $_GET['sort']])->links() }}
         @else
-        {{ $categoryProducts->links() }}
+        {{ $sectionProducts->links() }}
         @endif
     </div>
 </div>

@@ -49,19 +49,11 @@ $countCartItems = Cart::countCartItems();
             </div>
         </td>
         <td>
-            @if($cartItems['product']['section_id'] == 1)
             <div class="number-input">
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                <input class="quantity" min="1" name="quantity" min="1" value="{{ $cartItems['quantity'] }}" type="number">
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                <button type="button" data-cartid="{{ $cartItems['id'] }}" class="btnItemUpdate minus"></button>
+                <input class="quantity" id="appendedInputButtons" name="quantity" readonly min="1" value="{{ $cartItems['quantity'] }}" type="number">
+                <button type="button" data-cartid="{{ $cartItems['id'] }}" class="btnItemUpdate plus"></button>
             </div>
-            @elseif($cartItems['product']['section_id'] == 3)
-            <div class="number-input">
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                <input class="quantity" min="1" name="quantity" min="1" value="{{ $cartItems['quantity'] }}" type="number">
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-            </div>
-            @endif
             <a class="search-mobile" href="{{ url('/'.$cartItems['category']['url']) }}"><i class="fas fa-search"></i></a>
             <a class="trash-mobile" href=""><i class="fas fa-trash"></i></a>
         </td>

@@ -15,7 +15,7 @@ $sections = Section::sections();
                 @if(!empty($section['section_image']) && file_exists($section_image_path))
                 <img src="{{ asset('images/section_images/'.$section['section_image']) }}" alt="thể loại sản phẩm">
                 @endif
-                <a id="category-nav" @if(count($section['categories'])>0) href="products.html" @endif><div class="image_overlay image_overlay-blur">
+                <a id="category-nav" @if(count($section['categories'])>0) href="/{{ $section['url'] }}" @endif><div class="image_overlay image_overlay-blur">
                     <div class="image_title" style="text-align: center;">{{ $section['name'] }}</div>
                 </div></a>
             </div>
@@ -52,7 +52,7 @@ $sections = Section::sections();
                                 @endif
                     </a>
                      <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$item['id']) }}">xem chi tiết</a></div>
-                        <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                        <div class="product-overlay addCart"><a href="{{ url('sản-phẩm/'.$item['id']) }}">thêm vào giỏ</a></div>
                     <small class="brand-title">
                     <span>
                         <?php echo
@@ -120,7 +120,7 @@ $sections = Section::sections();
                         @endif
             </a>
              <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$newTool['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('sản-phẩm/'.$newTool['id']) }}">thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -177,7 +177,7 @@ $sections = Section::sections();
                         @endif
             </a>
              <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$newHose['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('sản-phẩm/'.$newHose['id']) }}">thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -218,7 +218,7 @@ $sections = Section::sections();
                         @endif
             </a>
              <div class="product-overlay navDetail"><a href="{{ url('sản-phẩm/'.$newPump['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('sản-phẩm/'.$newPump['id']) }}">thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo

@@ -260,9 +260,9 @@
                             @if($productDetails['section_id']==1)
                             Số Lượng:
                             <div class="number-input">
-                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                                <input  autocomplete="off" class="getMaxMaxpro" min="1" name="quantity" min="1" required="" value="1" type="number">
-                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                <button type="button" onclick="this.parentNode.querySelector('input[class=getMaxMaxpro]').stepDown()"></button>
+                                <input  autocomplete="off" class="getMaxMaxpro" min="1" max="{{ $total_tools_stock }}" name="quantity" required="" value="1" type="number">
+                                <button type="button" onclick="this.parentNode.querySelector('input[class=getMaxMaxpro]').stepUp()" class="plus"></button>
                             </div>
                             @endif
                             {{-- @if($productDetails['section_id']==2)
@@ -271,9 +271,9 @@
                             @if($productDetails['section_id']==3)
                             Số Lượng:
                             <div class="number-input">
-                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                                <input  autocomplete="off" class="getMaxShimge" min="1" name="quantity" min="1" required="" value="1" type="number">
-                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                <button type="button" onclick="this.parentNode.querySelector('input[class=getMaxShimge]').stepDown()"></button>
+                                <input  autocomplete="off" class="getMaxShimge" max="{{ $total_pump_stock }}" min="1" name="quantity" required="" value="1" type="number">
+                                <button type="button" onclick="this.parentNode.querySelector('input[class=getMaxShimge]').stepUp()" class="plus"></button>
                             </div>
                             @endif
                             <small style="color: var(--Solid-Black)">&nbsp;&nbsp;có
@@ -289,7 +289,7 @@
                             </small>
                         </p>
                     </div>
-                    <p class="max-reached" style="color: var(--MinhHung-Red); margin-top: -1rem;  margin-bottom: 2rem">đã đạt đến số lượng mua tối đa cho phép của mã sp này.</p>
+                    {{-- <p class="max-reached" style="color: var(--MinhHung-Red); margin-top: -1rem;  margin-bottom: 2rem">đã đạt đến số lượng mua tối đa cho phép của mã sp này.</p> --}}
                     @endif
                 @else 
                     <h4 style="color: #333">giá liên hệ</h4>
@@ -496,7 +496,7 @@
                     @endif
                 </a>
                  <div class="product-overlay navDetail"><a  href="{{ url('sản-phẩm/'.$product['id']) }}">xem chi tiết</a></div>
-                    <div class="product-overlay addCart"><a>thêm vào giỏ</a></div>
+                    <div class="product-overlay addCart"><a href="{{ url('sản-phẩm/'.$product['id']) }}">thêm vào giỏ</a></div>
                 <div class="list-item-container">
                 <small class="brand-title"> 
                     <span>
@@ -563,7 +563,7 @@
                     <input id="comparison-checkbox" name="comparison-checkbox" type="checkbox">
                     </div>
                     <p class="navList-Detail"><a href="{{ url('sản-phẩm/'.$product['id']) }}">Xem Chi Tiết</a></p>
-                    <p class="addList-Cart"><a>Thêm Vào Giỏ</a></p>
+                    <p class="addList-Cart"><a href="{{ url('sản-phẩm/'.$product['id']) }}">Thêm Vào Giỏ</a></p>
                 </div>
             </div>
             @endforeach

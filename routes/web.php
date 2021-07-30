@@ -15,6 +15,7 @@
 //     return view('welcome');
 // });
 use App\Category;
+use App\Section;
 
 
 Auth::routes();
@@ -98,6 +99,12 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::match(['get', 'post'], 'add-edit-banner/{id?}', 'BannersController@addEditBanner');
         Route::post('update-banner-status', 'BannersController@updateBannerStatus');
         Route::get('delete-banner/{id}','BannersController@deleteBanner');
+
+        // CMS Pages
+        Route::get('cms-pages','CmsController@cmspages');
+        Route::match(['get', 'post'], 'add-edit-cms-page/{id?}', 'CmsController@addEditCmsPage');
+        Route::post('update-cms-page-status', 'CmsController@updateCmsPageStatus');
+        Route::get('delete-cms-page/{id}','CmsController@deleteCmsPage');
     });
 });
 
@@ -108,9 +115,14 @@ Route::namespace('Front')->group(function(){
     
    // listing page route
    /* get category url */
-   $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($catUrls as $url){
         Route::get('/'.$url,'ProductsController@listing');
+    }
+
+    $SecUrls = Section::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($SecUrls as $SecUrl){
+        Route::get('/'.$SecUrl,'ProductsController@Section');
     }
 
     // detail page route
@@ -147,6 +159,9 @@ Route::namespace('Front')->group(function(){
 
     // shopping cart route
     Route::get('/giỏ-hàng','ProductsController@cart');
+
+    // update cart item quantity route
+    Route::post('/update-cart-item-qty','ProductsController@updateCartItemQty');
 });
 
 use App\Http\Controllers\Admin\ProductController;

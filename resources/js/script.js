@@ -2,9 +2,9 @@ $(document).ready(function () {
     // setup ajax csrf token for post method
     $.ajaxSetup({
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
-    }); 
+    });
   
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
     var rootElement = document.documentElement;
@@ -171,24 +171,14 @@ $(document).ready(function () {
         $('.next').hide();
       }
     }); // scroll to top 
-  
-    
-  
+
     $("#sortProducts").on('change', function () {
-      var sortProducts = $(this).val();
-      var url = $('#url').val();
-      $.ajax({
-        url: url,
-        method: "get",
-        data: {
-          sortProducts: sortProducts,
-          url: url
-        },
-        success: function success(data) {
-          $('.filter_products').html(data);
-        }
-      });
-    }); // sort filers ajax
+      this.form.submit();
+    }); // sort filers for category listing page
+
+    $("#sort").on('change', function () {
+        this.form.submit();
+    }); // sort filers for section listing page
   
     $('.select2').select2({
       minimumResultsForSearch: Infinity
@@ -482,6 +472,47 @@ $(document).ready(function () {
         $(".max-reached").removeClass("active");
       }     
     }); // show limit quantity wtb has reached
+
+    $(document).on('click','.btnItemUpdate',function(){
+        if($(this).hasClass('plus')){
+          var $qty = $(this).closest('.number-input').find('.quantity');
+          var currentVal = parseInt($qty.val());
+          if (!isNaN(currentVal)) {
+              $qty.val(currentVal + 1);
+          }
+          new_qty = currentVal + 1;
+        }
+        if($(this).hasClass('minus')){
+          var $qty = $(this).closest('.number-input').find('.quantity');
+          var currentVal = parseInt($qty.val());
+          if (!isNaN(currentVal) && currentVal > 1) {
+              $qty.val(currentVal - 1);
+          }
+          if(currentVal <= 1){
+            Swal.fire({
+              title: 'Số lượng mua phải lớn hơn 0.',
+              confirmButtonColor: '#cb1c22',
+              confirmButtonText: 'Okay Luôn!'
+            });
+            return false;
+          }
+          new_qty = currentVal - 1;
+      };
+      // alert(new_qty);
+      var cartid = $(this).data('cartid');
+      // alert(cartid);
+      $.ajax({
+        data:{"cartid":cartid,"qty":new_qty},
+        url:'/update-cart-item-qty',
+        type: 'post',
+        success:function success(resp){
+          // alert(resp);
+          $("#AppendCartItems").html(resp.view);
+        },error:function(){
+          alert("Error");
+        }
+      });
+    });// update cart items
   }); 
   
   $(window).on("load", function () {
@@ -495,7 +526,7 @@ $(document).ready(function () {
   
   window.goBack = function() {
     window.history.back();
-  }
+  } // back to previous page 
 
 
   window.Btn = function (n) {

@@ -11,22 +11,23 @@ class Category extends Model
     }
 
     public function section(){
-        return $this->belongsTo('App\Section','section_id')->select('id','name');
+        return $this->belongsTo('App\Section','section_id')->where('status',1)->select('id','name','url');
     }
 
     public function parentcategory(){
-        return $this->belongsTo('App\Category','parent_id')->select('id','category_name');
+        return $this->belongsTo('App\Category','parent_id')->where('status',1)->select('id','category_name');
     }
 
     public static function catDetails($url){
-        $catDetails = Category::select('id', 'parent_id', 'category_name', 'url', 'category_description')->with(['subcategories'=>
+        $catDetails = Category::select('id', 'parent_id', 'category_name', 'url', 'category_description', 'section_id')->with(['subcategories'=>
         function($query){
-            $query->select('id', 'parent_id', 'category_name', 'url', 'category_description')->where('status',1);
+            $query->select('id', 'parent_id', 'category_name', 'url', 'category_description', 'section_id')->where('status',1);
         }])->where('url',$url)->first()->toArray();
-        // dd($catDetails); die;
+        $secDetails = Section::where(['id'=>$catDetails['section_id']])->get()->toArray();
+        //dd($secDetails); die;
         if($catDetails['parent_id']==0){
             // only show main category in breadcrumb
-            $breadcrumbs = '<a href="'.url($catDetails['url']).'">'.$catDetails['category_name'].'</a>';
+            $breadcrumbs =  $breadcrumbs = '<a href="'.url($catDetails['url']).'">'.$catDetails['category_name'].'</a>';
         }else{
             // show main + sub category in breadcrumb
             $parentCategory = Category::select('category_name', 'url')->where('id', $catDetails['parent_id'])->first()->toArray();
@@ -37,7 +38,6 @@ class Category extends Model
         foreach ($catDetails['subcategories'] as $key => $subcat){
             $catIds[] = $subcat['id'];
         }
-        // dd($catIds); die;
-        return array('catIds'=>$catIds,  'catDetails'=>$catDetails, 'breadcrumbs'=>$breadcrumbs);
+        return array('catIds'=>$catIds,  'catDetails'=>$catDetails, 'secDetails'=>$secDetails, 'breadcrumbs'=>$breadcrumbs);
     }
 }
