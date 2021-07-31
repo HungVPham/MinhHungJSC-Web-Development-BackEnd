@@ -83,7 +83,7 @@ $countCartItems = Cart::countCartItems();
 		</ul>
 		<div class="user-cart-container">
 			<div class="navbar-cart" cartCount="{{ $countCartItems }}">
-				<a href="{{ url('/giỏ-hàng')}}"><img src="{{ url('images/front_images/cart.png') }}"></a>
+				<a href="{{ url('/gio-hang')}}"><img src="{{ url('images/front_images/cart.png') }}"></a>
 			</div>
 			<div class="action">
 				<div class="profile" onclick="menuToggle();">
@@ -142,7 +142,7 @@ $countCartItems = Cart::countCartItems();
 				@endif
 				<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
 				<br>
-				<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>
+				<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>  
 				</div>
 				@if(!empty($main['link']))
 				<div>
@@ -181,6 +181,9 @@ $getSubBanners = Banner::getSubBanners();
 						.overlay-btn{
 							margin-top: -20px;
 						}
+						.typewriter p {
+							border-right: .10em solid var(--MinhHung-Red); /* The typwriter cursor */
+						}
 					</style>
 					@elseif(!empty($main['bRed_3']))
 					<style>
@@ -192,9 +195,11 @@ $getSubBanners = Banner::getSubBanners();
 						}
 					</style>
 					@endif
-					<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
-					<br>
-					<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>
+					<div class="typewriter">
+						<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
+							<br>
+						<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>
+					</div>
 					</div>
 					@if(!empty($main['link']))
 					<div class="overlay-btn">

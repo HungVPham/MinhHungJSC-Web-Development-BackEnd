@@ -162,7 +162,7 @@
                 </li>
 
                 <!-- Content -->
-                @if(Session::get('page')=="cmspages")
+                @if(Session::get('page')=="cmspages" || Session::get('page')=="aboutpages")
                 <?php $active = "active"; ?>
                 @else
                 <?php $active = ""; ?>
@@ -184,7 +184,18 @@
                         <li class="nav-item">
                             <a href="{{ url('admin/cms-pages') }}" class="nav-link {{ $active }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Các Trang Thông Tin</p>
+                                <p>Chính Sách</p>
+                            </a>
+                        </li>
+                        @if(Session::get('page')=="aboutpages")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/about-pages') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Giới Thiệu</p>
                             </a>
                         </li>
                     </ul>

@@ -81,7 +81,7 @@
     <section class="content">
       <div class="container-fluid">
         @if ($errors->any())
-            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red); width: 50%;">
+            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red);">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
@@ -104,106 +104,117 @@
             action="{{ url('admin/add-edit-banner/'.$banner['id']) }}" 
           @endif
             method="post" enctype="multipart/form-data">@csrf
-          <div class="card card-default" style="margin-bottom: 0 !important; width: 50%">
+          <div class="card card-default" style="margin-bottom: 0 !important;">
             <div class="card-header">
               <h3 class="card-title">{{ $title }}</h3>
             </div>
             <div class="card-body">
               @if(empty($banner['id']))
-              <p aria-hidden="true" id="required-description" style="width: 100%;">
+              <p aria-hidden="true" id="required-description">
                 <label><span aria-hidden="true" class="required">&nbsp;*</span></label> &nbsp;trường nhập bắt buộc
               </p>
               @endif
-              <div class="row" style="display: block">
-                <div class="form-group" style="width: 100%;">
-                  <label for="is_main">&nbsp;Banner Chính: Có/Không</label>
-                  <input type="checkbox" name="is_main" id="is_main" value="Yes" @if(!empty($banner['is_main']) && $banner['is_main']=="Yes") checked="" @endif>
-                </textarea>
-                </div>
-                <div class="form-group">
-                  <label for="image">&nbsp;Hình Ảnh Banner @if(empty($banner['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="image" id="image" accept="image/*" @if(empty($banner['image'])) required @endif>
-                      <label class="custom-file-label" for="image">chọn hình ảnh...</label>
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="image">&nbsp;Hình Ảnh Banner @if(empty($banner['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image" id="image" accept="image/*" @if(empty($banner['image'])) required @endif>
+                        <label class="custom-file-label" for="image">chọn hình ảnh...</label>
+                      </div>
                     </div>
+                    @if(!empty($banner['image']))
+                    <div style="padding-top: 10px;"><img style="width: 200px; height: 100px" src="{{ asset('images/banner_images/'.$banner['image']) }}">
+                    </div>
+                    @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (1850x740) [px]</div>
+                    @endif
                   </div>
-                  @if(!empty($banner['image']))
-                  <div style="padding-top: 10px;"><img style="width: 200px; height: 100px" src="{{ asset('images/banner_images/'.$banner['image']) }}">
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="link">&nbsp;Link Đường Dẫn</label>
+                    <input type="text" class="form-control" name="link" id="link" placeholder="nhập đường dẫn..."
+                    @if (!empty($banner['link'])) value="{{ $banner['link'] }}"
+                    @else value="{{ old("link") }}"
+                    @endif>
                   </div>
-                  @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (1850x740) [px]</div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="title">&nbsp;Hành Động Con Trỏ</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="nhập hành động..."
+                    @if (!empty($banner['title'])) value="{{ $banner['title'] }}"
+                    @else value="{{ old("title") }}"
+                    @endif>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="alt">&nbsp;Thẻ ALT [SEO]</label>
+                    <input type="text" class="form-control" name="alt" id="alt"
+                    @if (!empty($banner['alt'])) value="{{ $banner['alt'] }}"
+                    @else value="{{ old("alt") }}"
+                    @endif>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  @if (($banner['is_main'])=='Yes')
+                  <label>&nbsp;Thông Điệp (Giá Trị Cốt Lõi) Của Công Ty</label>
+                  <div style="padding-top: 10px; padding-bottom: 10px; text-align: center;"><img style="width: 300px;" src="{{ asset('images/admin_images/example-text-assignment.jpg') }}"></div>
+                    <div style="display: flex; justify-content: center;">
+                      <div class="form-group" style="width: 30%;">
+                        <label for="bRed_1">&nbsp;1</label>
+                        <input type="text" class="form-control" name="bRed_1" id="bRed_1"
+                        @if (!empty($banner['bRed_1'])) value="{{ $banner['bRed_1'] }}"
+                        @else value="{{ old("bRed_1") }}"
+                        @endif>
+                      </div>
+                      <div class="form-group" style="width: 30%; margin-left: 5px">
+                        <label for="nBlack_1">&nbsp;2</label>
+                        <input type="text" class="form-control" name="nBlack_1" id="nBlack_1"
+                        @if (!empty($banner['nBlack_1'])) value="{{ $banner['nBlack_1'] }}"
+                        @else value="{{ old("nBlack_1") }}"
+                        @endif>
+                      </div>
+                      <div class="form-group" style="width: 30%;  margin-left: 5px">
+                        <label for="bRed_2">&nbsp;3</label>
+                        <input type="text" class="form-control" name="bRed_2" id="bRed_2"
+                        @if (!empty($banner['bRed_2'])) value="{{ $banner['bRed_2'] }}"
+                        @else value="{{ old("bRed_2") }}"
+                        @endif>
+                      </div>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                      <div class="form-group" style="width: 30%;  margin-left: 5px">
+                        <label for="bRed_3">&nbsp;4</label>
+                        <input type="text" class="form-control" name="bRed_3" id="bRed_3"
+                        @if (!empty($banner['bRed_3'])) value="{{ $banner['bRed_3'] }}"
+                        @else value="{{ old("bRed_3") }}"
+                        @endif>
+                      </div>
+                      <div class="form-group" style="width: 30%;  margin-left: 5px">
+                        <label for="nBlack_2">&nbsp;5</label>
+                        <input type="text" class="form-control" name="nBlack_2" id="nBlack_2"
+                        @if (!empty($banner['nBlack_2'])) value="{{ $banner['nBlack_2'] }}"
+                        @else value="{{ old("nBlack_2") }}"
+                        @endif>
+                      </div>
+                      <div class="form-group" style="width: 30%;  margin-left: 5px">
+                        <label for="bRed_4">&nbsp;6</label>
+                        <input type="text" class="form-control" name="bRed_4" id="bRed_4"
+                        @if (!empty($banner['bRed_4'])) value="{{ $banner['bRed_4'] }}"
+                        @else value="{{ old("bRed_4") }}"
+                        @endif>
+                      </div>
+                    </div>
                   @endif
                 </div>
-                <div class="form-group" style="width: 100%;">
-                  <label for="link">&nbsp;Link Đường Dẫn</label>
-                  <input type="text" class="form-control" name="link" id="link" placeholder="nhập đường dẫn..."
-                  @if (!empty($banner['link'])) value="{{ $banner['link'] }}"
-                  @else value="{{ old("link") }}"
-                  @endif>
-                </div>
-                <div class="form-group" style="width: 100%;">
-                  <label for="title">&nbsp;Hành Động Con Trỏ</label>
-                  <input type="text" class="form-control" name="title" id="title" placeholder="nhập hành động..."
-                  @if (!empty($banner['title'])) value="{{ $banner['title'] }}"
-                  @else value="{{ old("title") }}"
-                  @endif>
-                </div>
-                @if (($banner['is_main'])=='Yes')
-                <label>&nbsp;Thông Điệp (Giá Trị Cốt Lõi) Của Công Ty</label>
-                <div style="padding-top: 10px; padding-bottom: 10px; text-align: center;"><img style="width: 400px;" src="{{ asset('images/admin_images/example-text-assignment.jpg') }}"></div>
-                  <div style="display: flex; justify-content: center;">
-                    <div class="form-group" style="width: 30%;">
-                      <label for="bRed_1">&nbsp;1</label>
-                      <input type="text" class="form-control" name="bRed_1" id="bRed_1"
-                      @if (!empty($banner['bRed_1'])) value="{{ $banner['bRed_1'] }}"
-                      @else value="{{ old("bRed_1") }}"
-                      @endif>
-                    </div>
-                    <div class="form-group" style="width: 30%; margin-left: 5px">
-                      <label for="nBlack_1">&nbsp;2</label>
-                      <input type="text" class="form-control" name="nBlack_1" id="nBlack_1"
-                      @if (!empty($banner['nBlack_1'])) value="{{ $banner['nBlack_1'] }}"
-                      @else value="{{ old("nBlack_1") }}"
-                      @endif>
-                    </div>
-                    <div class="form-group" style="width: 30%;  margin-left: 5px">
-                      <label for="bRed_2">&nbsp;3</label>
-                      <input type="text" class="form-control" name="bRed_2" id="bRed_2"
-                      @if (!empty($banner['bRed_2'])) value="{{ $banner['bRed_2'] }}"
-                      @else value="{{ old("bRed_2") }}"
-                      @endif>
-                    </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="is_main">&nbsp;Banner Chính: Có/Không</label>
+                    <input type="checkbox" name="is_main" id="is_main" value="Yes" @if(!empty($banner['is_main']) && $banner['is_main']=="Yes") checked="" @endif>
                   </div>
-                  <div style="display: flex; justify-content: center;">
-                    <div class="form-group" style="width: 30%;  margin-left: 5px">
-                      <label for="bRed_3">&nbsp;4</label>
-                      <input type="text" class="form-control" name="bRed_3" id="bRed_3"
-                      @if (!empty($banner['bRed_3'])) value="{{ $banner['bRed_3'] }}"
-                      @else value="{{ old("bRed_3") }}"
-                      @endif>
-                    </div>
-                    <div class="form-group" style="width: 30%;  margin-left: 5px">
-                      <label for="nBlack_2">&nbsp;5</label>
-                      <input type="text" class="form-control" name="nBlack_2" id="nBlack_2"
-                      @if (!empty($banner['nBlack_2'])) value="{{ $banner['nBlack_2'] }}"
-                      @else value="{{ old("nBlack_2") }}"
-                      @endif>
-                    </div>
-                    <div class="form-group" style="width: 30%;  margin-left: 5px">
-                      <label for="bRed_4">&nbsp;6</label>
-                      <input type="text" class="form-control" name="bRed_4" id="bRed_4"
-                      @if (!empty($banner['bRed_4'])) value="{{ $banner['bRed_4'] }}"
-                      @else value="{{ old("bRed_4") }}"
-                      @endif>
-                    </div>
-                  </div>
-                @endif
-                <div class="form-group" style="width: 100%;">
-                  <label for="alt">&nbsp;Thẻ ALT [SEO]</label>
-                  <input type="text" class="form-control" name="alt" id="alt"
-                  @if (!empty($banner['alt'])) value="{{ $banner['alt'] }}"
-                  @else value="{{ old("alt") }}"
-                  @endif>
                 </div>
               </div>
           </div>

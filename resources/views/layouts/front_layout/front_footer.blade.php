@@ -1,3 +1,7 @@
+<?php
+    use App\CmsPage;
+    $CmsDetails = CmsPage::CmsPageDetails();
+?>
 <div class="footer">
     <div class="container">
         <div class="row">
@@ -14,14 +18,14 @@
                 </div>
                 <p><span>Địa Chỉ:</span> 56 Trương Phước Phan, P.Bình Trị Đông, Q.Bình Tân, TP.HCM</p>
                 <p><span>Tel:</span><a href="tel: 028 62 666 333">(028) 62 666 333</a> -&nbsp;&nbsp;&nbsp;Fax:&nbsp;&nbsp;&nbsp;(028) 62 666 555</p>
-                <p><span>Email:</span><a href="mailto:salesminhhung@gmail.com?subject= Hỏi/Đáp Minh Hưng JSC">salesminhhung@gmail.com</a> </p>
+                <p><span>Email:</span><a href="mailto:salesminhhung@gmail.com?subject= Hỏi/Đáp: Minh Hưng JSC">salesminhhung@gmail.com</a> </p>
             </div>
             <div class="footer-col-3">
                 <h3>Chính Sách Công Ty</h3>
                 <ul>
-                    <a id="footer-nav" href="" target="_blank"><li>Đổi - Trả</li></a>
-                    <a id="footer-nav" href="" target="_blank"><li>Thanh Toán - Vận Chuyển</li></a>
-                    <a id="footer-nav" href="" target="_blank"><li>Bảo Mật</li></a>
+                    @foreach($CmsDetails as $CmsPage)
+                    <a id="footer-nav" href="{{ url('chinh-sach/'.$CmsPage['url']) }}"><li>{{ $CmsPage['title'] }}</li></a>
+                    @endforeach
                 </ul>
             </div>
             <div class="footer-col-4">

@@ -483,7 +483,7 @@
             @foreach($relatedProducts as $key => $product)
             <?php $discounted_price = Product::getDiscountedPrice($product['id']); ?>
             <div class="col-4">
-                <a href="{{ url('sản-phẩm/'.$product['id']) }}">
+                <a href="{{ url('san-pham/'.$product['id']) }}">
                     @if(isset($product['main_image']))
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$product['main_image']; ?>
                     @else
@@ -495,8 +495,8 @@
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                     @endif
                 </a>
-                 <div class="product-overlay navDetail"><a  href="{{ url('sản-phẩm/'.$product['id']) }}">xem chi tiết</a></div>
-                    <div class="product-overlay addCart"><a href="{{ url('sản-phẩm/'.$product['id']) }}">thêm vào giỏ</a></div>
+                 <div class="product-overlay navDetail"><a  href="{{ url('san-pham/'.$product['id']) }}">xem chi tiết</a></div>
+                    <div class="product-overlay addCart"><a href="{{ url('san-pham/'.$product['id']) }}">thêm vào giỏ</a></div>
                 <div class="list-item-container">
                 <small class="brand-title"> 
                     <span>
@@ -505,7 +505,7 @@
                         ?>
                     </span>
                 </small>
-                 <a href="{{ url('sản-phẩm/'.$product['id']) }}"><h4 title="{{ $product['product_name'] }}">{{ $product['product_name']}}</h4></a>
+                 <a href="{{ url('san-pham/'.$product['id']) }}"><h4 title="{{ $product['product_name'] }}">{{ $product['product_name']}}</h4></a>
                  <div class="rating">
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
@@ -562,8 +562,8 @@
                     <label for="comparison-checkbox">So Sánh</label>
                     <input id="comparison-checkbox" name="comparison-checkbox" type="checkbox">
                     </div>
-                    <p class="navList-Detail"><a href="{{ url('sản-phẩm/'.$product['id']) }}">Xem Chi Tiết</a></p>
-                    <p class="addList-Cart"><a href="{{ url('sản-phẩm/'.$product['id']) }}">Thêm Vào Giỏ</a></p>
+                    <p class="navList-Detail"><a href="{{ url('san-pham/'.$product['id']) }}">Xem Chi Tiết</a></p>
+                    <p class="addList-Cart"><a href="{{ url('san-pham/'.$product['id']) }}">Thêm Vào Giỏ</a></p>
                 </div>
             </div>
             @endforeach

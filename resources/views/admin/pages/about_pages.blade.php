@@ -40,7 +40,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
-              <li class="breadcrumb-item active">Chính Sách Công Ty</li>
+              <li class="breadcrumb-item active">Trang Giới Thiệu Công Ty</li>
             </ol>
           </div>
         </div>
@@ -63,8 +63,8 @@
             @endif
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Chính Sách Công Ty</h3>
-                <a href="{{ url('admin/add-edit-cms-page') }}" class="btn btn-block btn-success" id="admin-btn">Thêm Chính Sách Công Ty</a>
+                <h3 class="card-title">Trang Giới Thiệu Công Ty</h3>
+                <a href="{{ url('admin/add-edit-cms-page') }}" class="btn btn-block btn-success" id="admin-btn">Thêm Trang Giới Thiệu</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -79,25 +79,25 @@
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($cms_pages as $cms_page)
+                  @foreach($about_pages as $about_page)
                   <tr>
-                    <td>{{ $cms_page->id }}</td>
+                    <td>{{ $about_page->id }}</td>
                     <td>
-                        {{ $cms_page->title }}
+                        {{ $about_page->title }}
                     </td>
                     <td>
-                        {{ $cms_page->url }}
+                        {{ $about_page->url }}
                     </td>
                     <td style="width: 135px;">
-                      @if ($cms_page->status==1)
-                      <a class="updateCmsPageStatus" id="page-{{ $cms_page->id }}" page_id="{{ $cms_page->id }}" href="javascript:void(0)"><i id="active"  status="Active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
-                      @elseif ($cms_page->status==0)
-                      <a class="updateCmsPageStatus" id="page-{{ $cms_page->id }}" page_id="{{ $cms_page->id }}" href="javascript:void(0)"><i id="inactive" status="Inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
+                      @if ($about_page->status==1)
+                      <a class="updateCmsPageStatus" id="page-{{ $about_page->id }}" page_id="{{ $about_page->id }}" href="javascript:void(0)"><i id="active"  status="Active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
+                      @elseif ($about_page->status==0)
+                      <a class="updateCmsPageStatus" id="page-{{ $about_page->id }}" page_id="{{ $about_page->id }}" href="javascript:void(0)"><i id="inactive" status="Inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                       @endif
                     </td>
                     <td style="width: 50px;">
-                      <a title="sửa chính sách công ty" id="updatePage" href="{{ url('admin/add-edit-cms-page/'.$cms_page->id) }}"><i class="fas fa-edit"></i></a>
-                      &nbsp; &nbsp;<a title="xóa chính sách công ty" href="javascript:void(0)" class="confirmDelete" record="cms-page" recordid="{{ $cms_page->id }}"  class="confirmDelete" id="deletePage"><i class="fas fa-trash"></i></a>
+                      <a title="sửa trang giới thiệu" id="updatePage" href="{{ url('admin/add-edit-cms-page/'.$about_page->id) }}"><i class="fas fa-edit"></i></a>
+                      &nbsp; &nbsp;<a title="xóa trang giới thiệu" href="javascript:void(0)" class="confirmDelete" record="cms-page" recordid="{{ $about_page->id }}"  class="confirmDelete" id="deletePage"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

@@ -41,7 +41,7 @@
      <section class="content">
       <div class="container-fluid">
         @if ($errors->any())
-            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red); width: 50%;">
+            <div class="alert alert-danger" style="color: var(--MinhHung-Red); background-color: #ffffff; border: 1px solid var(--MinhHung-Red);">
               <ul>
                 @foreach ($errors->all() as $error)
                   <li>{{ $error }}</li>
@@ -64,24 +64,26 @@
             action="{{ url('admin/add-edit-brand/'.$branddata['id']) }}" 
           @endif
             method="post" enctype="multipart/form-data">@csrf
-          <div class="card card-default" style="margin-bottom: 0 !important; width: 50%">
+          <div class="card card-default" style="margin-bottom: 0 !important;">
             <div class="card-header">
               <h3 class="card-title">{{ $title }}</h3>
             </div>
             <div class="card-body">
               @if(empty($branddata['id']))
-              <p aria-hidden="true" id="required-description" style="width: 100%;">
+              <p aria-hidden="true" id="required-description">
                 <label><span aria-hidden="true" class="required">&nbsp;*</span></label> &nbsp;trường nhập bắt buộc
               </p>
               @endif
               <div class="row">
-                  <div class="form-group" style="width: 100%;">
-                      <label for="name">&nbsp;Tên Thương Hiệu Sản Phẩm @if(empty($branddata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
-                      <input type="text" class="form-control mce" name="name" id="name" placeholder="nhập tên thương hiệu..."
-                      @if (!empty($branddata['name'])) value="{{ $branddata['name'] }}"
-                      @else value="{{ old("name") }}"
-                      @endif>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="name">&nbsp;Tên Thương Hiệu Sản Phẩm @if(empty($branddata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <input type="text" class="form-control mce" name="name" id="name" placeholder="nhập tên thương hiệu..."
+                    @if (!empty($branddata['name'])) value="{{ $branddata['name'] }}"
+                    @else value="{{ old("name") }}"
+                    @endif>
                   </div>
+                </div>
               </div>
           </div>
         </form>

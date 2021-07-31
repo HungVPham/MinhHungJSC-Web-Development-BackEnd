@@ -22,9 +22,10 @@ class Category extends Model
         $catDetails = Category::select('id', 'parent_id', 'category_name', 'url', 'category_description', 'section_id')->with(['subcategories'=>
         function($query){
             $query->select('id', 'parent_id', 'category_name', 'url', 'category_description', 'section_id')->where('status',1);
+        }, 'section'=>
+        function($query){
+            $query->select('id', 'url', 'name')->where('status',1);
         }])->where('url',$url)->first()->toArray();
-        $secDetails = Section::where(['id'=>$catDetails['section_id']])->get()->toArray();
-        //dd($secDetails); die;
         if($catDetails['parent_id']==0){
             // only show main category in breadcrumb
             $breadcrumbs =  $breadcrumbs = '<a href="'.url($catDetails['url']).'">'.$catDetails['category_name'].'</a>';
@@ -38,6 +39,6 @@ class Category extends Model
         foreach ($catDetails['subcategories'] as $key => $subcat){
             $catIds[] = $subcat['id'];
         }
-        return array('catIds'=>$catIds,  'catDetails'=>$catDetails, 'secDetails'=>$secDetails, 'breadcrumbs'=>$breadcrumbs);
+        return array('catIds'=>$catIds,  'catDetails'=>$catDetails, 'breadcrumbs'=>$breadcrumbs);
     }
 }

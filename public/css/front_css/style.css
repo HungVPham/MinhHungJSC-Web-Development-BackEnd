@@ -392,6 +392,64 @@ input[type=number]::-webkit-outer-spin-button {
     width: 100%;
   }
 }
+/* The typing effect */
+@-webkit-keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@-webkit-keyframes waitSlideUp {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+@keyframes waitSlideUp {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+/* The typewriter cursor effect */
+@-webkit-keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--MinhHung-Red);
+  }
+}
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--MinhHung-Red);
+  }
+}
 /* header CSS */
 .header {
   background: radial-gradient(var(--MinhHung-Red), var(--MinhHung-Red), var(--MinhHung-Red), var(--MinhHung-Red-Hover));
@@ -1060,7 +1118,23 @@ input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
 }
 .index-carousel-container:hover > .overlay-btn {
-  transform: translateY(0);
+  -webkit-animation: waitSlideUp 2s ease-in-out both;
+          animation: waitSlideUp 2s ease-in-out both;
+}
+.index-carousel-container:hover .typewriter p {
+  padding-left: 30px;
+  overflow: hidden;
+  /* Ensures the content is not revealed until the animation */
+  border-right: 0.1em solid var(--MinhHung-Red);
+  /* The typwriter cursor */
+  white-space: nowrap;
+  /* Keeps the content on a single line */
+  margin: 0 auto;
+  /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.1em;
+  /* Adjust as needed */
+  -webkit-animation: typing 1.5s steps(40, end), blink-caret 0.75s step-end infinite;
+          animation: typing 1.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 .index-carousel-container > .btn {
   font-size: 22px;

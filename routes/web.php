@@ -16,6 +16,8 @@
 // });
 use App\Category;
 use App\Section;
+use App\CmsPage;
+use App\AboutPage;
 
 
 Auth::routes();
@@ -100,11 +102,17 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('update-banner-status', 'BannersController@updateBannerStatus');
         Route::get('delete-banner/{id}','BannersController@deleteBanner');
 
-        // CMS Pages
-        Route::get('cms-pages','CmsController@cmspages');
+        // cms pages
+        Route::get('cms-pages','CmsController@CmsPages');
         Route::match(['get', 'post'], 'add-edit-cms-page/{id?}', 'CmsController@addEditCmsPage');
         Route::post('update-cms-page-status', 'CmsController@updateCmsPageStatus');
         Route::get('delete-cms-page/{id}','CmsController@deleteCmsPage');
+
+         // about pages
+         Route::get('about-pages','AboutController@AboutPages');
+         Route::match(['get', 'post'], 'add-edit-cms-page/{id?}', 'CmsController@addEditCmsPage');
+         Route::post('update-cms-page-status', 'CmsController@updateCmsPageStatus');
+         Route::get('delete-cms-page/{id}','CmsController@deleteCmsPage');
     });
 });
 
@@ -114,19 +122,26 @@ Route::namespace('Front')->group(function(){
    Route::get('/','IndexController@index');
     
    // listing page route
-   /* get category url */
+   /* get categorys url */
     $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($catUrls as $url){
         Route::get('/'.$url,'ProductsController@listing');
     }
-
+    /* get sections url */
     $SecUrls = Section::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($SecUrls as $SecUrl){
         Route::get('/'.$SecUrl,'ProductsController@Section');
     }
 
+    // cms page route
+    /* get cms pages url */
+    $cmsUrls = CmsPage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($cmsUrls as $url){
+        Route::get('chinh-sach/'.$url,'CmsController@CmsPage');
+    }
+
     // detail page route
-    Route::get('/sản-phẩm/{id}','ProductsController@detail');
+    Route::get('/san-pham/{id}','ProductsController@detail');
 
     // get maxpro attribute price, voltage, power 
     Route::post('/get-maxpro-product-price', 'ProductsController@getMaxproProductPrice');
@@ -158,7 +173,7 @@ Route::namespace('Front')->group(function(){
     Route::post('/add-to-cart-shimge', 'ProductsController@addtocartshimge');
 
     // shopping cart route
-    Route::get('/giỏ-hàng','ProductsController@cart');
+    Route::get('/gio-hang','ProductsController@cart');
 
     // update cart item quantity route
     Route::post('/update-cart-item-qty','ProductsController@updateCartItemQty');
