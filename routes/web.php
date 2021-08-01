@@ -114,6 +114,13 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
          Route::match(['get', 'post'], 'add-edit-about-page/{id?}', 'AboutController@addEditAboutPage');
          Route::post('update-about-page-status', 'AboutController@updateAboutPageStatus');
          Route::get('delete-about-page/{id}','AboutController@deleteAboutPage');
+
+        // catalogue pages
+        Route::get('catalogue-pages','CatalogueController@CataloguePages');
+        // Route::get('delete-infographic-image/{id}','CatalogueController@deleteInfographicImage');
+        Route::match(['get', 'post'], 'add-edit-catalogue-page/{id?}', 'CatalogueController@addEditCataloguePage');
+        Route::post('update-catalogue-page-status', 'CatalogueController@updateCataloguePageStatus');
+        Route::get('delete-catalogue-page/{id}','CatalogueController@deleteCataloguePage');
     });
 });
 

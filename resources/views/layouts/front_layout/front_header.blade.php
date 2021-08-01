@@ -55,10 +55,10 @@ $countCartItems = Cart::countCartItems();
 						@endif
 						@endforeach
 						<div class="megabox-row">
-							<header><a href>Catalouge Sản Phẩm</a></header>
-							<ul class="mega-links" id="catalouge-col">
-								<li><a href="">Dụng Cụ Điện MaxPro</a></li>
-								<li><a href="">Máy Bơm Thủy Lực Shimge</a></li>
+							<header><a href>Catalogue Sản Phẩm</a></header>
+							<ul class="mega-links" id="catalogue-col">
+								<li><a href="">Catalog MAXPRO POWER TOOLS</a></li>
+								<li><a href="">Catalog SHIMGE PUMPS</a></li>
 							</ul>
 						</div>
 					</div>

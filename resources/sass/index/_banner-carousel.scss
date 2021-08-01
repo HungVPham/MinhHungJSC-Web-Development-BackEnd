@@ -33,7 +33,7 @@
             margin: 0 auto; /* Gives that scrolling effect as the typing happens */
             letter-spacing: 0.05em; /* Adjust as needed */
             animation: 
-            typing 1.5s steps(240, end),
+            typing 1.5s steps(90, end),
             blink-caret .75s step-end infinite;
         }
     }

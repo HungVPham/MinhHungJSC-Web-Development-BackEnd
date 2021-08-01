@@ -162,7 +162,7 @@
                 </li>
 
                 <!-- Content -->
-                @if(Session::get('page')=="cmspages" || Session::get('page')=="aboutpages")
+                @if(Session::get('page')=="cmspages" || Session::get('page')=="aboutpages" || Session::get('page')=="cataloguepages")
                 <?php $active = "active"; ?>
                 @else
                 <?php $active = ""; ?>
@@ -198,6 +198,17 @@
                                 <p>Chính Sách</p>
                             </a>
                         </li>
+                        @if(Session::get('page')=="cataloguepages")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/catalogue-pages') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Booklet Catalogue</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- Catalouges -->
@@ -211,7 +222,7 @@
                     <a href="#" class="nav-link {{ $active }}">
                         <i class="nav-icon fas fa-th-list"></i>
                         <p>
-                            Catalouge
+                            Catalogue
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
