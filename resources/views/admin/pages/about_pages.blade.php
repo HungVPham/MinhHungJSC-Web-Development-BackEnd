@@ -64,7 +64,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Trang Giới Thiệu Công Ty</h3>
-                <a href="{{ url('admin/add-edit-cms-page') }}" class="btn btn-block btn-success" id="admin-btn">Thêm Trang Giới Thiệu</a>
+                <a href="{{ url('admin/add-edit-about-page') }}" class="btn btn-block btn-success" id="admin-btn">Thêm Trang Giới Thiệu</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -90,14 +90,14 @@
                     </td>
                     <td style="width: 135px;">
                       @if ($about_page->status==1)
-                      <a class="updateCmsPageStatus" id="page-{{ $about_page->id }}" page_id="{{ $about_page->id }}" href="javascript:void(0)"><i id="active"  status="Active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
+                      <a class="updateAboutPageStatus" id="page-{{ $about_page->id }}" page_id="{{ $about_page->id }}" href="javascript:void(0)"><i id="active"  status="Active" style="color: var(--Positive-Green); font-size: 1.05rem;" class="fas fa-toggle-on" aria-hidden="true"> đang hoạt động</i></a>   
                       @elseif ($about_page->status==0)
-                      <a class="updateCmsPageStatus" id="page-{{ $about_page->id }}" page_id="{{ $about_page->id }}" href="javascript:void(0)"><i id="inactive" status="Inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
+                      <a class="updateAboutPageStatus" id="page-{{ $about_page->id }}" page_id="{{ $about_page->id }}" href="javascript:void(0)"><i id="inactive" status="Inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                       @endif
                     </td>
                     <td style="width: 50px;">
-                      <a title="sửa trang giới thiệu" id="updatePage" href="{{ url('admin/add-edit-cms-page/'.$about_page->id) }}"><i class="fas fa-edit"></i></a>
-                      &nbsp; &nbsp;<a title="xóa trang giới thiệu" href="javascript:void(0)" class="confirmDelete" record="cms-page" recordid="{{ $about_page->id }}"  class="confirmDelete" id="deletePage"><i class="fas fa-trash"></i></a>
+                      <a title="sửa trang giới thiệu" id="updatePage" href="{{ url('admin/add-edit-about-page/'.$about_page->id) }}"><i class="fas fa-edit"></i></a>
+                      &nbsp; &nbsp;<a title="xóa trang giới thiệu" href="javascript:void(0)" class="confirmDelete" record="about-page" recordid="{{ $about_page->id }}"  class="confirmDelete" id="deletePage"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

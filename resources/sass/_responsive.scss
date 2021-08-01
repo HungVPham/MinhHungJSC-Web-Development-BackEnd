@@ -640,6 +640,15 @@
     .user-date-container {
       left: 14% !important;
     }
+
+    .about-col-1 {
+      flex-basis: inherit;
+      margin-bottom: 20px;
+    }
+
+    .about-col-2 {
+      margin-left: 0;
+    }
   }
   
   /* media query for less than 600 screen size */

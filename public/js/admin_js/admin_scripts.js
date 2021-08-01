@@ -122,6 +122,42 @@ $(document).ready(function(){
         });
     });
 
+    // Update CmsPage Status
+    $(document).on("click", ".updateAboutPageStatus", function(){
+        var status = $(this).text();
+        var page_id = $(this).attr("page_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'post',
+                url:'/admin/update-about-page-status',
+                data:{status:status,page_id:page_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#page-"+page_id).html("<a class='updateAboutPageStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                    }else if(resp['status']==1){
+                        $("#page-"+page_id).html("<a class='updateAboutPageStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                    }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
+            }
+        });
+    });
+
     // Update Banner Status
     $(document).on("click", ".updateBannerStatus", function(){
         var status = $(this).text();

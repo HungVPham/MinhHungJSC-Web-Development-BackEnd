@@ -1122,6 +1122,7 @@ input[type=number]::-webkit-outer-spin-button {
           animation: waitSlideUp 2s ease-in-out both;
 }
 .index-carousel-container:hover .typewriter p {
+  font-family: "Style Script", cursive;
   padding-left: 30px;
   overflow: hidden;
   /* Ensures the content is not revealed until the animation */
@@ -1131,10 +1132,10 @@ input[type=number]::-webkit-outer-spin-button {
   /* Keeps the content on a single line */
   margin: 0 auto;
   /* Gives that scrolling effect as the typing happens */
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   /* Adjust as needed */
-  -webkit-animation: typing 1.5s steps(40, end), blink-caret 0.75s step-end infinite;
-          animation: typing 1.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  -webkit-animation: typing 1.5s steps(240, end), blink-caret 0.75s step-end infinite;
+          animation: typing 1.5s steps(240, end), blink-caret 0.75s step-end infinite;
 }
 .index-carousel-container > .btn {
   font-size: 22px;
@@ -1228,7 +1229,7 @@ input[type=number]::-webkit-outer-spin-button {
   left: 0;
   width: 94%;
   height: 95%;
-  background: rgba(202, 28, 33, 0.6);
+  background: linear-gradient(0deg, #00000088 50%, #ffffff44 100%);
   color: var(--Solid-White);
   display: flex;
   flex-direction: column;
@@ -1237,11 +1238,7 @@ input[type=number]::-webkit-outer-spin-button {
   opacity: 0;
   transition: opacity 0.25s ease;
   margin: 10px !important;
-}
-
-.image_overlay-blur {
-  -webkit-backdrop-filter: saturate(100%) blur(0.5px);
-          backdrop-filter: saturate(100%) blur(0.5px);
+  font-weight: 600;
 }
 
 .image_overlay > * {
@@ -2108,7 +2105,7 @@ th:last-child {
   text-align: right;
 }
 
-td:last-child {
+#AppendCartItems td:last-child {
   color: var(--MinhHung-Red);
 }
 
@@ -2180,57 +2177,66 @@ td:last-child {
 
 /* about us css */
 .about-page {
-  margin-top: 80px;
+  margin-top: 40px;
   padding: 30px 0;
   margin-bottom: 80px;
 }
+.about-page .small-container .row {
+  align-items: inherit;
+}
 
+.about-col-2 .tabcontent {
+  border: 1px solid rgba(136, 136, 136, 0.7);
+  padding: 10px;
+}
 .about-col-2 .tabcontent .tabcontent-content {
   padding: 8px;
   border: 3px solid var(--MinhHung-Red);
 }
 .about-col-2 .tabcontent .tabcontent-title {
-  border: 1px solid;
   background-color: var(--MinhHung-Red);
   color: var(--Solid-White);
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-.tablinks {
-  padding: 0 10px;
-  margin: 10px 0;
-  border: none;
-  background: none;
-  font-family: "Big Shoulders Display";
-  font-size: 20px;
-  cursor: pointer;
-  text-align: left;
+.tab {
+  padding: 10px;
+  border: 1px solid rgba(136, 136, 136, 0.7);
 }
-.tablinks:focus {
-  color: var(--MinhHung-Red);
-  outline: none;
-}
-
-#Separator {
-  height: 1px;
-}
-
-.tab .btn {
+.tab a:first-child {
   width: 100%;
+  font-family: 900;
   text-align: center;
-  border-radius: 0;
-  margin-bottom: 0;
-  font-weight: bold;
+  background-color: var(--MinhHung-Red);
+  font-size: 1.8rem;
+  color: var(--Solid-White);
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.tab a:not(:first-child) {
+  padding: 0;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  font-size: 1.5rem;
+  width: 100%;
+  display: inline-block;
+  border-bottom: 1px solid var(--Solid-Black);
 }
 
 .about-page h2 {
   text-align: center;
+  margin: 1px 0;
 }
 .about-page h4,
 .about-page h5 {
   text-align: right;
   margin: 10px 30px 10px 10px;
+}
+.about-page h6 {
+  font-family: "Style Script", cursive;
 }
 
 .about-col-1,
@@ -2239,14 +2245,18 @@ td:last-child {
 }
 
 .about-col-1 {
-  flex-basis: 30%;
+  flex-basis: 25%;
+}
+.about-col-1 .tab .btn {
+  margin: 0;
 }
 
 .about-col-2 {
   flex: 1;
-  margin-left: 40px;
-  border: 1px solid rgba(255, 0, 0, 0.5);
-  padding: 10px;
+  margin-left: 20px;
+}
+.about-col-2 .text-data {
+  margin-top: 10px;
 }
 
 #Separator {
@@ -2260,6 +2270,8 @@ td:last-child {
 
 .about-col-2 img {
   width: 100%;
+  margin-top: 10px;
+  padding: 5px;
 }
 
 .slideshow-container {
@@ -3464,6 +3476,15 @@ form a {
 
   .user-date-container {
     left: 14% !important;
+  }
+
+  .about-col-1 {
+    flex-basis: inherit;
+    margin-bottom: 20px;
+  }
+
+  .about-col-2 {
+    margin-left: 0;
   }
 }
 /* media query for less than 600 screen size */

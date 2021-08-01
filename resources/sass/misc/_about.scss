@@ -2,19 +2,26 @@
 /* about us css */
 
 .about-page {
-    margin-top: 80px;
+    margin-top: 40px;
     padding: 30px 0;
     margin-bottom: 80px;
+
+    .small-container{
+        .row{
+            align-items: inherit;
+        }
+    }
 }
 
 .about-col-2 .tabcontent {
+    border: 1px solid rgba($color: #888, $alpha: 0.7);
+    padding: 10px;
     .tabcontent-content {
         padding: 8px;
         border: 3px solid var(--MinhHung-Red);
     }
 
     .tabcontent-title {
-        border: 1px solid;
         background-color: var(--MinhHung-Red);
         color: var(--Solid-White);
         padding-top: 2px;
@@ -22,43 +29,45 @@
     }
 }
 
-.tablinks {
-    padding: 0 10px;
-    margin: 10px 0;
-    border: none;
-    background: none;
-    font-family: 'Big Shoulders Display';
-    font-size: 20px;
-    cursor: pointer;
-    text-align: left;
-
-    &:focus {
-        color: var(--MinhHung-Red);
-        outline: none;
+.tab{
+    padding: 10px;
+    border: 1px solid rgba($color: #888, $alpha: 0.7);
+    a:first-child{
+        width: 100%;
+        font-family: 900;
+        text-align: center;
+        background-color: var(--MinhHung-Red);
+        font-size: 1.8rem;
+        color: var(--Solid-White);
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 10px;
     }
-}
-
-#Separator {
-    height: 1px;
-}
-
-.tab .btn {
-    width: 100%;
-    text-align: center;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-weight: bold;
+    a:not(:first-child){
+        padding: 0;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        font-size: 1.5rem;
+        width: 100%;
+        display: inline-block;
+        border-bottom: 1px solid var(--Solid-Black);
+    }
 }
 
 .about-page {
     h2 {
         text-align: center;
+        margin: 1px 0;
     }
 
     h4,
     h5 {
         text-align: right;
         margin: 10px 30px 10px 10px;
+    }
+    h6{
+        font-family: 'Style Script', cursive;
     }
 }
 
@@ -68,14 +77,21 @@
 }
 
 .about-col-1 {
-    flex-basis: 30%;
+    flex-basis: 25%;
+    .tab{
+        .btn{
+            margin: 0;
+        }
+    }
 }
 
 .about-col-2 {
     flex: 1;
-    margin-left: 40px;
-    border: 1px solid rgba(255, 0, 0, 0.5);
-    padding: 10px;
+    margin-left: 20px;
+
+    .text-data{
+        margin-top: 10px;
+    }
 }
 
 #Separator {
@@ -89,6 +105,8 @@
 
 .about-col-2 img {
     width: 100%;
+    margin-top: 10px;
+    padding: 5px;
 }
 
 .slideshow-container {

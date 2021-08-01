@@ -165,7 +165,7 @@
           </div>
         </form>
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
+              <button @if(empty($sectiondata['id']))) disabled @endif type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">{{ $title }}</button>
             </div>
             </div>
         

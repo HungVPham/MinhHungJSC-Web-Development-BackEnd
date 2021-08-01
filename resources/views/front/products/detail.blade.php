@@ -108,6 +108,13 @@
     <div class="row single-product">
         <div class="col-2 single-product image">
             <div id="primary-slider" class="splide">
+                @if(empty($productDetails['images']))
+                <style>
+                    .splide__arrows{
+                        display: none;
+                    }
+                </style>
+                @endif
                 <div class="splide__arrows custom">
                     <button class="splide__arrow splide__arrow--prev btnPrev">
                         <i class="fas fa-chevron-left"></i>
@@ -381,7 +388,7 @@
                 <?php echo $productDetails['product_description'] ?>
             </p>
             @else
-            <h5><i>chưa có thông tin.</i></h5>
+            <h5>chưa có thông tin.</h5>
             @endif
         </div>
         <div class="info-containter">
@@ -390,24 +397,43 @@
                 @if(!empty($productDetails['product_info']))
                 <?php echo $productDetails['product_info'] ?>
                 @else
-                <h5><i>chưa có thông tin.</i></h5>
+                <h5>chưa có thông tin.</h5>
                 @endif
             </div> 
             @if($productDetails['section_id']==1)    
             <table>
                 <tr>
-                  <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
-                  <th></th>
+                    <th>
+                        <strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong>
+                    </th>
+                    <th></th>
                 </tr>
                 <tr>
-                  <td>Nguồn Điện:</td>
-                  <td><span class="getMaxproVoltage"></span> <strong>[V]</strong></td>
+                    <td>Nguồn Điện:</td>
+                    <td>
+                        <span class="getMaxproVoltage"></span>
+                        <strong>[V]</strong>
+                    </td>
                 </tr>
                 <tr>
-                  <td>Công Suất:</td>
-                  <td><span class="getMaxproPower"></span> <strong>[W]</strong></td>
+                    <td>Công Suất:</td>
+                    <td>
+                        <span class="getMaxproPower"></span>
+                        <strong>[W]</strong>
+                    </td>
                 </tr>
-              </table>
+                <tr>
+                    <td>Cân Nặng:</td>
+                    <td>
+                        @if(!empty($productDetails['product_weight']))
+                        <span>{{ $productDetails['product_weight'] }}</span>
+                        @else
+                        chưa có thông tin
+                        @endif
+                        <strong>[Kg]</strong>
+                    </td>
+                </tr>
+            </table>
             @endif 
             @if($productDetails['section_id']==2)    
             <table>
@@ -436,34 +462,65 @@
             @if($productDetails['section_id']==3)    
             <table>
                 <tr>
-                  <th><strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong></th>
-                  <th></th>
+                    <th>
+                        <strong style="font-size: 1.5rem">Thông Số Kỹ Thuật</strong>
+                    </th>
+                    <th></th>
                 </tr>
                 <tr>
-                  <td>Nguồn Điện:</td>
-                  <td><span class="getShimgeVoltage"></span> <strong>[V]</strong></td>
+                    <td>Nguồn Điện:</td>
+                    <td>
+                        <span class="getShimgeVoltage"></span>
+                        <strong>[V]</strong>
+                    </td>
                 </tr>
                 <tr>
-                  <td>Công Suất:</td>
-                  <td><span class="getShimgePower"></span> <strong>[W]</strong></td>
+                    <td>Công Suất:</td>
+                    <td>
+                        <span class="getShimgePower"></span>
+                        <strong>[W]</strong>
+                    </td>
                 </tr>
                 <tr>
-                  <td>Lưu Lượng:</td>
-                  <td><span class="getShimgeMaxflow"></span> <strong>[m³/h]</strong></td>
+                    <td>Lưu Lượng:</td>
+                    <td>
+                        <span class="getShimgeMaxflow"></span>
+                        <strong>[m³/h]</strong>
+                    </td>
                 </tr>
                 <tr>
-                  <td>Đẩy Cao:</td>
-                  <td><span class="getShimgeVertical"></span> <strong>[m]</strong></td>
+                    <td>Đẩy Cao:</td>
+                    <td>
+                        <span class="getShimgeVertical"></span>
+                        <strong>[m]</strong>
+                    </td>
                 </tr>
                 <tr>
-                  <td>Họng Hút:</td>
-                  <td><span class="getShimgeIndiameter"></span> <strong>[mm]</strong></td>
+                    <td>Họng Hút:</td>
+                    <td>
+                        <span class="getShimgeIndiameter"></span>
+                        <strong>[mm]</strong>
+                    </td>
                 </tr>
                 <tr>
-                  <td>Họng Xả:</td>
-                  <td><span class="getShimgeOutdiameter"></span> <strong>[mm]</strong></td>
+                    <td>Họng Xả:</td>
+                    <td>
+                        <span class="getShimgeOutdiameter"></span>
+                        <strong>[mm]</strong>
+                    </td>
                 </tr>
-              </table>
+                <tr>
+                    <td>Cân Nặng:</td>
+                    <td>
+                        @if(!empty($productDetails['product_weight']))
+                        <span>{{ $productDetails['product_weight'] }}</span>
+                        @else
+                        chưa có thông tin
+                        @endif
+                        <strong>[Kg]</strong>
+                    </td>
+                </tr>
+            </table>
             @endif 
         </div>
     </div> 

@@ -1,6 +1,8 @@
 <?php
 use App\Section;
 use App\Cart;
+use App\AboutPage;
+$AboutDetails = AboutPage::aboutPageDetails();
 $sections = Section::sections();
 $countCartItems = Cart::countCartItems();
 ?>
@@ -16,13 +18,13 @@ $countCartItems = Cart::countCartItems();
 				<label class="mobile-item"><a href="{{ url('/') }}">Trang Chủ</a></label>
 			</li>
 			<li id="prime-navlinks">
-				<div class="drop-nav"><a class="desktop-item" href="#">Giới Thiệu</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
+				<div class="drop-nav"><a class="desktop-item" style="cursor: default;">Giới Thiệu</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showDrop">
 				<label for="showDrop" class="mobile-item">Giới Thiệu<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
 				<ul class="drop-menu">
-					<li><a href="">Lịch Sử Hình Thành</a></li>
-					<li><a href="">Tầm Nhìn - Sứ Mệnh</a></li>
-					<li><a href="">Chiến Lược Phát Triển</a></li>
+					@foreach($AboutDetails as $NavLinks)
+					<li><a href="{{ url('gioi-thieu/'.$NavLinks['url'])}}">{{ $NavLinks['title'] }}</a></li>
+					@endforeach
 				</ul>
 			</li>
 			<li id="prime-navlinks">

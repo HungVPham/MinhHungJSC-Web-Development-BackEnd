@@ -110,9 +110,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
 
          // about pages
          Route::get('about-pages','AboutController@AboutPages');
-         Route::match(['get', 'post'], 'add-edit-cms-page/{id?}', 'CmsController@addEditCmsPage');
-         Route::post('update-cms-page-status', 'CmsController@updateCmsPageStatus');
-         Route::get('delete-cms-page/{id}','CmsController@deleteCmsPage');
+         Route::get('delete-infographic-image/{id}','AboutController@deleteInfographicImage');
+         Route::match(['get', 'post'], 'add-edit-about-page/{id?}', 'AboutController@addEditAboutPage');
+         Route::post('update-about-page-status', 'AboutController@updateAboutPageStatus');
+         Route::get('delete-about-page/{id}','AboutController@deleteAboutPage');
     });
 });
 
@@ -139,6 +140,14 @@ Route::namespace('Front')->group(function(){
     foreach ($cmsUrls as $url){
         Route::get('chinh-sach/'.$url,'CmsController@CmsPage');
     }
+
+    // cms page route
+    /* get cms pages url */
+    $aboutUrls = AboutPage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($aboutUrls as $url){
+        Route::get('gioi-thieu/'.$url,'AboutController@AboutPage');
+    }
+
 
     // detail page route
     Route::get('/san-pham/{id}','ProductsController@detail');
