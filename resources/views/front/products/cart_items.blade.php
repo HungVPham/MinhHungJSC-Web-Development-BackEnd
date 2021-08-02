@@ -36,7 +36,12 @@ $countCartItems = Cart::countCartItems();
     <tr>
         <td>
             <div class="cart-info">
-                <img src="{{ asset('images/product_images/main_image/small/'.$cartItems['product']['main_image']) }}">
+                <?php $product_image_path = "images/product_images/main_image/small/".$cartItems['product']['main_image']; ?>
+                @if(!empty($cartItems['product']['main_image']) && file_exists($product_image_path))
+                <img style="width: 100px;" src="{{ asset('images/product_images/main_image/small/'.$cartItems['product']['main_image']) }}">
+                @else
+                <img style="width: 100px;" src="{{ asset('images/product_images/main_image/small/no-img.jpg') }}">
+                @endif
                 <div>
                     <h5> 
                         <?php echo

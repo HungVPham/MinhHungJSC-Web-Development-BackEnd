@@ -20,6 +20,10 @@
     .fa-plus:hover{
       color: #a09f9f;
     }
+    #downloadFile{color: var(--Positive-Green);}
+    #downloadFile:hover{color: var(--Positive-Green-Hover);}
+    #dltFile{color: var(--Delete-Red);}
+    #dltFile:hover{color: var(--Delete-Red-Hover);}
   </style>
   <div class="content-wrapper">
     <section class="content-header">
@@ -59,9 +63,9 @@
         @endif
         <form name="catalogueForm" id="catalogueForm" 
           @if(empty($cataloguepage['id'])) 
-            action="{{ url('admin/add-edit-cms-page') }}" 
+            action="{{ url('admin/add-edit-catalogue-page') }}" 
           @else
-            action="{{ url('admin/add-edit-cms-page/'.$cataloguepage['id']) }}" 
+            action="{{ url('admin/add-edit-catalogue-page/'.$cataloguepage['id']) }}" 
           @endif
             method="post" enctype="multipart/form-data">@csrf
           <div class="card card-default" style="margin-bottom: 0 !important;">
@@ -83,6 +87,16 @@
                       @else value="{{ old("title") }}"
                       @endif>
                   </div>
+                  <div class="form-group">
+                    <label for="image">&nbsp;File PDF cho Booklet Catalogue @if(empty($cataloguepage['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="file_path" @if(empty($cataloguepage['file_path'])) required @endif placeholder="Choose file" id="file_path">
+                        <label class="custom-file-label" for="image">chọn file pdf...</label>
+                      </div>
+                    </div>
+                    @if(!empty($cataloguepage['file_path']))<p>&nbsp;(Người dùng nên xóa file cũ trước khi thêm file mới để tối ưu hóa dung lượng.)<p><p style="margin-top: -15px"><span>&nbsp;File Hiện Tại:</span><a title="tải file pdf" id="downloadFile" href="{{ url('files/catalogues/'.$cataloguepage['file_path']) }}"> {{ $cataloguepage['file_path'] }}</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a class="confirmDelete" href="javascript:void(0)" class="confirmDelete" title="xóa file pdf" record="catalogue-file" recordid="{{ $cataloguepage['id'] }}" id="dltFile"><i class="fas fa-trash"></i></a></p>@endif
+                  </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
@@ -92,14 +106,14 @@
                     @else value="{{ old("url") }}"
                     @endif>
                   </div>
-                </div>
                   <div class="form-group" style="width: 100%">
-                    <label for="description">&nbsp;Nội Dung @if(empty($cataloguepage['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
-                    <input type="text" class="form-control mce" name="description" id="description" placeholder="nhập nội dung..."
+                    <label for="description">&nbsp;Miêu Tả Ngắn</label>
+                    <input type="text" class="form-control" name="description" id="description" placeholder="nhập nội dung..."
                     @if (!empty($cataloguepage['description'])) value="{{ $cataloguepage['description'] }}"
                     @else value="{{ old("description") }}"
                     @endif>
                   </div>
+                </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
                       <label for="meta_description">&nbsp;Metadata Description [SEO]</label>

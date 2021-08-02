@@ -14,7 +14,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ url('/') }}" class="brand-link">
+    <a href="{{ url('/') }}" target="_blank" class="brand-link">
         <img
             src="{{ asset('images/admin_images/logo.png') }}"
             alt="MingHungJSC Logo"

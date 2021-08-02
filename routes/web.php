@@ -117,7 +117,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
 
         // catalogue pages
         Route::get('catalogue-pages','CatalogueController@CataloguePages');
-        // Route::get('delete-infographic-image/{id}','CatalogueController@deleteInfographicImage');
+        Route::get('delete-catalogue-file/{id}','CatalogueController@deleteCatalogueFile');
         Route::match(['get', 'post'], 'add-edit-catalogue-page/{id?}', 'CatalogueController@addEditCataloguePage');
         Route::post('update-catalogue-page-status', 'CatalogueController@updateCataloguePageStatus');
         Route::get('delete-catalogue-page/{id}','CatalogueController@deleteCataloguePage');

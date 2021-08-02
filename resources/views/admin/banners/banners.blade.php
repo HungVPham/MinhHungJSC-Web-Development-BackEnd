@@ -73,9 +73,6 @@
                   <tr>
                     <th>ID</th>
                     <th>Ảnh</th>
-                    <th>Link</th>
-                    <th>Thẻ ALT</th>
-                    <th>Hành Động Con Trỏ</th>
                     <th>Cấp</th>
                     <th>Trạng Thái</th>
                     <th>Điều Khiển</th>
@@ -89,31 +86,10 @@
                       <img width="200px" height="100px" src="{{ asset('images/banner_images/'.$banner['image']) }}">
                     </td>
                     <td>
-                      @if (!empty($banner['link']))
-                      {{ $banner['link'] }}
-                      @else
-                      <i>không có dữ liệu</i>
-                      @endif
-                    </td>
-                    <td>
-                      @if (!empty($banner['alt']))
-                      {{ $banner['alt'] }}
-                      @else
-                      <i>không có dữ liệu</i>
-                      @endif
-                    </td>
-                    <td>
-                      @if (!empty($banner['title']))
-                      {{ $banner['title'] }}
-                      @else
-                      <i>không có dữ liệu</i>
-                      @endif
-                    </td>
-                    <td>
                         @if ($banner['is_main']=="Yes")
-                        <strong>chính</strong>
+                        <strong>chính (có overlay)</strong>
                         @else
-                        phụ
+                        phụ (không overlay)
                         @endif
                     </td>
                     <td style="width: 135px;">

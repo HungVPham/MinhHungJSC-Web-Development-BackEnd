@@ -133,7 +133,17 @@
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="link">&nbsp;Link Đường Dẫn</label>
+                    <label for="alt">&nbsp;Thẻ ALT [SEO]</label>
+                    <input type="text" class="form-control" name="alt" id="alt"
+                    @if (!empty($banner['alt'])) value="{{ $banner['alt'] }}"
+                    @else value="{{ old("alt") }}"
+                    @endif>
+                  </div>
+                </div>
+                @if (($banner['is_main'])=='Yes')
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="link">&nbsp;Link Đường Dẫn Nút Cho Overlay (Banner Chính)</label>
                     <input type="text" class="form-control" name="link" id="link" placeholder="nhập đường dẫn..."
                     @if (!empty($banner['link'])) value="{{ $banner['link'] }}"
                     @else value="{{ old("link") }}"
@@ -142,7 +152,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="title">&nbsp;Hành Động Con Trỏ</label>
+                    <label for="title">&nbsp;Tựa Đề Nút Cho Overlay (Banner Chính)</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="nhập hành động..."
                     @if (!empty($banner['title'])) value="{{ $banner['title'] }}"
                     @else value="{{ old("title") }}"
@@ -150,17 +160,7 @@
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
-                  <div class="form-group">
-                    <label for="alt">&nbsp;Thẻ ALT [SEO]</label>
-                    <input type="text" class="form-control" name="alt" id="alt"
-                    @if (!empty($banner['alt'])) value="{{ $banner['alt'] }}"
-                    @else value="{{ old("alt") }}"
-                    @endif>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6">
-                  @if (($banner['is_main'])=='Yes')
-                  <label>&nbsp;Thông Điệp (Giá Trị Cốt Lõi) Của Công Ty</label>
+                  <label>&nbsp;Thông Điệp Cho Overlay (Banner Chính)</label>
                   <div style="padding-top: 10px; padding-bottom: 10px; text-align: center;"><img style="width: 300px;" src="{{ asset('images/admin_images/example-text-assignment.jpg') }}"></div>
                     <div style="display: flex; justify-content: center;">
                       <div class="form-group" style="width: 30%;">
@@ -208,8 +208,8 @@
                         @endif>
                       </div>
                     </div>
-                  @endif
                 </div>
+                @endif
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <label for="is_main">&nbsp;Banner Chính: Có/Không</label>

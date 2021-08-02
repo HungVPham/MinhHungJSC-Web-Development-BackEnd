@@ -11,11 +11,10 @@ $sections = Section::sections();
             @foreach($sections as $section)
             @if(count($section['categories'])>0)
             <div id="section" class="col-3">
-                <?php $section_image_path = "images/section_images/".$section['section_image']; ?>
-                @if(!empty($section['section_image']) && file_exists($section_image_path))
-                <img src="{{ asset('images/section_images/'.$section['section_image']) }}" alt="thể loại sản phẩm">
-                @endif
-                <a id="category-nav" @if(count($section['categories'])>0) href="/{{ $section['url'] }}" @endif><div class="image_overlay">
+                <a id="category-nav" @if(count($section['categories'])>0) href="/{{ $section['url'] }}" @endif><?php $section_image_path = "images/section_images/".$section['section_image']; ?>
+                    @if(!empty($section['section_image']) && file_exists($section_image_path))
+                    <img src="{{ asset('images/section_images/'.$section['section_image']) }}" alt="thể loại sản phẩm">
+                    @endif<div class="image_overlay">
                     <div class="image_title" style="text-align: center;">{{ $section['name'] }}</div>
                 </div></a>
             </div>

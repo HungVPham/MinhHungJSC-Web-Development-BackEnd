@@ -127,15 +127,18 @@ $countCartItems = Cart::countCartItems();
 				<style>
 					.col-2.index div p{
 						font-size: 30px;
+						font-family: 'Style Script', cursive;
 					}
 					.overlay-btn{
 						margin-top: -20px;
 					}
+					
 				</style>
 				@elseif(!empty($main['bRed_3']))
 				<style>
 					.col-2.index div p{
 						font-size: 25px;
+						font-family: 'Style Script', cursive;
 					}
 					.overlay-btn{
 						margin-top: 0px;
@@ -178,7 +181,7 @@ $getSubBanners = Banner::getSubBanners();
 					@if(empty($main['bRed_3']))
 					<style>
 						.overlay-credo p{
-							font-size: 40px;
+							font-size: 3.2rem;
 						}
 						.overlay-btn{
 							margin-top: -20px;
@@ -186,14 +189,25 @@ $getSubBanners = Banner::getSubBanners();
 						.typewriter p {
 							border-right: .10em solid var(--MinhHung-Red); /* The typwriter cursor */
 						}
+
+						@media only screen and (max-width: 1435px) {
+							.overlay-credo p{
+								font-size: unset;
+							}
+						}
 					</style>
 					@elseif(!empty($main['bRed_3']))
 					<style>
 						.overlay-credo p{
-							font-size: 30px;
+							font-size: 3.2rem;
 						}
 						.overlay-btn{
 							margin-top: 0px;
+						}
+						@media only screen and (max-width: 1435px) {
+							.overlay-credo p{
+								font-size: unset;
+							}
 						}
 					</style>
 					@endif

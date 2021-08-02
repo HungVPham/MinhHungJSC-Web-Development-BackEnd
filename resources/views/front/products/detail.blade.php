@@ -126,7 +126,12 @@
                 <div class="splide__track">
                     <ul class="splide__list">
                         <li class="splide__slide">
-                            <img src="{{ asset('images/product_images/main_image/large/'.$productDetails['main_image']) }}">
+                            <?php $product_image_path = "images/product_images/main_image/large/".$productDetails['main_image']; ?>
+                            @if(!empty($productDetails['main_image']) && file_exists($product_image_path))
+                            <img style="width: 100px;" src="{{ asset('images/product_images/main_image/large/'.$productDetails['main_image']) }}">
+                            @else
+                            <img style="width: 100px;" src="{{ asset('images/product_images/main_image/large/no-img.jpg') }}">
+                            @endif
                         </li>
                         @foreach($productDetails['images'] as $key => $image)
                         <li class="splide__slide">
@@ -140,7 +145,12 @@
                 <div class="splide__track">
                     <ul class="splide__list">
                         <li class="splide__slide">
-                            <img src="{{ asset('images/product_images/main_image/large/'.$productDetails['main_image']) }}">
+                            <?php $product_image_path = "images/product_images/main_image/large/".$productDetails['main_image']; ?>
+                            @if(!empty($productDetails['main_image']) && file_exists($product_image_path))
+                            <img style="width: 100px;" src="{{ asset('images/product_images/main_image/large/'.$productDetails['main_image']) }}">
+                            @else
+                            <img style="width: 100px;" src="{{ asset('images/product_images/main_image/large/no-img.jpg') }}">
+                            @endif
                         </li>
                         @foreach($productDetails['images'] as $key => $image)
                         <li class="splide__slide">

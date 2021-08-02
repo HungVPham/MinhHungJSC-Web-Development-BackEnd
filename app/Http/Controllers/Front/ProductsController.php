@@ -85,6 +85,8 @@ class ProductsController extends Controller
     
     // detail page general controls
     public function detail($id){
+
+        
         $productDetails = Product::with(['category', 'brand', 'MaxproAttributes'=>function($query){
             $query->where('status', 1);
         }, 'HhoseAttributes'=>function($query){
@@ -92,7 +94,9 @@ class ProductsController extends Controller
         }, 'ShimgeAttributes'=>function($query){
             $query->where('status', 1);
         }, 'images'=>function($query){
-            $query->where('status', 1);}])->where('status', 1)->find($id)->toArray();
+            $query->where('status', 1);}])->find($id)->toArray();
+        
+        if($productDetails['status'] == 1){
         $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
@@ -100,6 +104,9 @@ class ProductsController extends Controller
         $relatedProducts = Product::with('brand')->where('category_id', $productDetails['category']['id'])->where('id','!=',$id)->where('status', 1)->limit(4)->inRandomOrder()->get()->toArray();
         // dd($productDetails); die;
         return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock', 'relatedProducts'));
+        }else{
+            abort(404);
+        }
     }
 
     /* get maxpro info by sku*/

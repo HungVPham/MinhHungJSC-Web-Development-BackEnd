@@ -199,10 +199,12 @@
                       <label class="custom-file-label" for="main_image">chọn hình ảnh...</label>
                     </div>
                   </div>
-                  @if(!empty($productdata['main_image']))
-                  <div style="padding-top: 10px;"><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
-                    &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
-                  </div>
+                  @if(!empty($productdata['section_id']))
+                    @if(!empty($productdata['main_image']))
+                    <div style="padding-top: 10px;"><p>&nbsp;(Người dùng nên xóa ảnh cũ trước khi thêm ảnh mới để tối ưu hóa dung lượng.)<p><img style="width: 80px" src="{{ asset('images/product_images/main_image/small/'.$productdata['main_image']) }}">
+                      &nbsp;&nbsp;<a title="xóa ảnh" class="confirmDelete" href="javascript:void(0)" class="confirmDelete" record="product-image" recordid="{{ $productdata['id'] }}" id="dlt-product-img"><i class="fas fa-trash"></i></a>
+                    </div>
+                    @endif
                   @else<div style="color: grey">&nbsp;&nbsp;độ phân giải đề xuất (750x650) [px]</div>
                   @endif
                 </div>

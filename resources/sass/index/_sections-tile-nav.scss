@@ -17,13 +17,10 @@
 }
 
 #section {
-    flex-basis: 25% !important;
+    flex-basis: 23% !important;
     min-width: 200px !important;
     margin-bottom: 30px;
-    position: relative;
-    cursor: pointer;
-    padding: 10px !important;
-    margin: none !important;
+    margin: 10px;
 }
 
 #section-container {
@@ -31,6 +28,10 @@
     margin: auto;
     padding-left: 25px;
     padding-right: 25px;
+
+    .row{
+        --bs-gutter-x: none;
+    }
 }
 
 .col-3 img {
@@ -42,8 +43,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 94%;
-    height: 95%;
+    height: 100%;
+    width: 100%;
     background: linear-gradient(0deg, #00000088 50%, #ffffff44 100%);
     color: var(--Solid-White);
     display: flex;
@@ -52,7 +53,6 @@
     justify-content: center;
     opacity: 0;
     transition: opacity 0.25s ease;
-    margin: 10px !important;
     font-weight: 600;
 }
 
