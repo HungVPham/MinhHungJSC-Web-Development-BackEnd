@@ -500,13 +500,20 @@ $(document).ready(function () {
       };
       // alert(new_qty);
       var cartid = $(this).data('cartid');
+      var sectionid = $(this).data('sectionid');
       // alert(cartid);
       $.ajax({
-        data:{"cartid":cartid,"qty":new_qty},
+        data:{"cartid":cartid,"qty":new_qty,"secid":sectionid},
         url:'/update-cart-item-qty',
         type: 'post',
         success:function success(resp){
-          // alert(resp);
+          if(resp.status==false){
+            Swal.fire({
+              title: resp.message,
+              confirmButtonColor: '#cb1c22',
+              confirmButtonText: 'Okay Luôn!'
+            });
+          }
           $("#AppendCartItems").html(resp.view);
         },error:function(){
           alert("Error");

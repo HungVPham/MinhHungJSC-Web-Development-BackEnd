@@ -403,10 +403,71 @@ class ProductsController extends Controller
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die; 
-            // $cartDetails = Cart::find($data['cartid']);
+
+            // get cart details
+            $cartDetails = Cart::find($data['cartid']);
+
+            // get available product stocks
+            if($data['secid']==1){
+                $availableMaxproStock = MaxproProductAttributes::select('stock')->where(['product_id'=>$cartDetails['product_id'], 'sku'=>$cartDetails['sku']])->first()->toArray();
+
+                // check if maxpro product stock is available
+                if($data['qty']>$availableMaxproStock['stock']){
+                    $userCartItems = Cart::userCartItems();
+                    return response()->json([
+                        'status'=>false,
+                        'message'=>'Đã đạt đến số lượng mua tối đa cho phép của sản phẩm này.',
+                        'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+                    ]);
+                }
+            }else if($data['secid']==3){
+                $availableShimgeStock = ShimgeProductAttributes::select('stock')->where(['product_id'=>$cartDetails['product_id'], 'sku'=>$cartDetails['sku']])->first()->toArray();
+
+                // check if shimge pumps stock is available
+                if($data['qty']>$availableShimgeStock['stock']){
+                    $userCartItems = Cart::userCartItems();
+                    return response()->json([
+                        'status'=>false,
+                        'message'=>'Đã đạt đến số lượng mua tối đa cho phép của sản phẩm này.',
+                        'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+                    ]);
+                }
+            }
+
+            // check if sku is available
+            if($data['secid']==1){
+                $availableMaxproSKU = MaxproProductAttributes::where(['product_id'=>$cartDetails['product_id'], 'sku'=>$cartDetails['sku'], 'status'=>1])->count();
+
+                // check if maxpro product stock is available
+                if($availableMaxproSKU==0){
+                    $userCartItems = Cart::userCartItems();
+                    return response()->json([
+                        'status'=>false,
+                        'message'=>'Mã sản phẩm hiện không khả dụng.',
+                        'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+                    ]);
+                }
+            }else if($data['secid']==3){
+                $availableMaxproSKU = ShimgeProductAttributes::where(['product_id'=>$cartDetails['product_id'], 'sku'=>$cartDetails['sku'], 'status'=>1])->count();
+
+                // check if shimge pumps stock is available
+                if($availableMaxproSKU==0){
+                    $userCartItems = Cart::userCartItems();
+                    return response()->json([
+                        'status'=>false,
+                        'message'=>'Mã sản phẩm hiện không khả dụng.',
+                        'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+                    ]);
+                }
+            }
+            
+    
             Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
             $userCartItems = Cart::userCartItems();
-            return response()->json(['view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))]);
+            return response()->json([
+                'status'=>true,
+                'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+            ]);
         }
     }
 }

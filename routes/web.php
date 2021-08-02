@@ -18,6 +18,7 @@ use App\Category;
 use App\Section;
 use App\CmsPage;
 use App\AboutPage;
+use App\CataloguePage;
 
 
 Auth::routes();
@@ -148,11 +149,18 @@ Route::namespace('Front')->group(function(){
         Route::get('chinh-sach/'.$url,'CmsController@CmsPage');
     }
 
-    // cms page route
-    /* get cms pages url */
+    // about page route
+    /* get about pages url */
     $aboutUrls = AboutPage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($aboutUrls as $url){
         Route::get('gioi-thieu/'.$url,'AboutController@AboutPage');
+    }
+
+    // catalogue page route
+    /* get catalogue pages url */
+    $catalogueUrls = CataloguePage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($catalogueUrls as $url){
+        Route::get('catalogue-san-pham/'.$url,'CatalogueController@CataloguePage');
     }
 
 

@@ -2,7 +2,9 @@
 use App\Section;
 use App\Cart;
 use App\AboutPage;
+use App\CataloguePage;
 $AboutDetails = AboutPage::aboutPageDetails();
+$CatalogueDetails = CataloguePage::cataloguePageDetails();
 $sections = Section::sections();
 $countCartItems = Cart::countCartItems();
 ?>
@@ -55,16 +57,17 @@ $countCartItems = Cart::countCartItems();
 						@endif
 						@endforeach
 						<div class="megabox-row">
-							<header><a href>Catalogue Sản Phẩm</a></header>
+							<header><a>Catalogue Sản Phẩm</a></header>
 							<ul class="mega-links" id="catalogue-col">
-								<li><a href="">Catalog MAXPRO POWER TOOLS</a></li>
-								<li><a href="">Catalog SHIMGE PUMPS</a></li>
+								@foreach($CatalogueDetails as $catalogue)
+								<li><a href="{{ url('catalogue-san-pham/'.$catalogue['url']) }}">{{ $catalogue['title'] }}</a></li>
+								@endforeach
 							</ul>
 						</div>
 					</div>
 				</div>
 			</li>
-			<li id="prime-navlinks">
+			{{-- <li id="prime-navlinks">
 				<div class="drop-nav"><a class="desktop-item" href="#">Tin Tức - Sự Kiện</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showDrop2">
 				<label for="showDrop2" class="mobile-item">Tin Tức - Sự Kiện<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
@@ -77,7 +80,7 @@ $countCartItems = Cart::countCartItems();
 			<li id="prime-navlinks">
 				<a class="desktop-item" style="display: flex; align-items: center;" href="#">Tuyển Dụng</a>
 				<label for="showDrop2" class="mobile-item">Tuyển Dụng</label>
-			</li>
+			</li> --}}
 			<li id="prime-navlinks">
 				<a class="desktop-item" style="display: flex; align-items: center;" href="#">Liện Hệ</a>
 				<label for="showDrop2" class="mobile-item">Liện Hệ</label>

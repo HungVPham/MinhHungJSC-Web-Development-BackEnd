@@ -323,7 +323,7 @@ $sections = Section::sections();
     </div>
 </div>
 @endforeach
-<!------ tin tức - sự kiện ------->
+{{-- <!------ tin tức - sự kiện ------->
 <div class="stories">
     <div class="small-container">
         <h2 class="title">Tin Tức - Sự Kiện</h2>
@@ -357,7 +357,7 @@ $sections = Section::sections();
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!------Đối Tác------->
 <div class="partners">
     <div class="small-container">

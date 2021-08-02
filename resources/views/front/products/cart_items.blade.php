@@ -55,9 +55,9 @@ $countCartItems = Cart::countCartItems();
         </td>
         <td>
             <div class="number-input">
-                <button type="button" data-cartid="{{ $cartItems['id'] }}" class="btnItemUpdate minus"></button>
+                <button type="button" data-sectionid="{{ $cartItems['product']['section_id'] }}" data-cartid="{{ $cartItems['id'] }}" class="btnItemUpdate minus"></button>
                 <input class="quantity" id="appendedInputButtons" name="quantity" readonly min="1" value="{{ $cartItems['quantity'] }}" type="number">
-                <button type="button" data-cartid="{{ $cartItems['id'] }}" class="btnItemUpdate plus"></button>
+                <button type="button" data-sectionid="{{ $cartItems['product']['section_id'] }}" data-cartid="{{ $cartItems['id'] }}" class="btnItemUpdate plus"></button>
             </div>
             <a class="search-mobile" href="{{ url('/'.$cartItems['category']['url']) }}"><i class="fas fa-search"></i></a>
             <a class="trash-mobile" href=""><i class="fas fa-trash"></i></a>
