@@ -21,7 +21,7 @@ use App\AboutPage;
 use App\CataloguePage;
 
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -163,6 +163,9 @@ Route::namespace('Front')->group(function(){
         Route::get('catalogue-san-pham/'.$url,'CatalogueController@CataloguePage');
     }
 
+    // contact us page route
+    Route::match(['get', 'post'], '/lien-he', 'CmsController@contact');
+
 
     // detail page route
     Route::get('/san-pham/{id}','ProductsController@detail');
@@ -199,8 +202,14 @@ Route::namespace('Front')->group(function(){
     // shopping cart route
     Route::get('/gio-hang','ProductsController@cart');
 
-    // update cart item quantity route
+    // update cart item
     Route::post('/update-cart-item-qty','ProductsController@updateCartItemQty');
+    Route::post('/delete-cart-item','ProductsController@deleteCartItem');
+
+    // login/register page
+    Route::get('/tai-khoan', 'UsersController@loginRegister');
+    Route::post('/login', 'UsersController@loginUser');
+    Route::post('/register', 'UsersController@registerUser');
 });
 
 use App\Http\Controllers\Admin\ProductController;

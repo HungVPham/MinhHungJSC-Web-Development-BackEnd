@@ -192,3 +192,45 @@ th:last-child {
 .trash-mobile{
     display: none;
 }
+
+.swal2-styled.swal2-cancel {
+    background-color: var(--MinhHung-Red) !important;
+    box-shadow: none !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease-out;
+
+    &:hover{
+        color: var(--Solid-Gold) !important;
+        background-color: var(--Solid-Black) !important;
+    }
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: rgba(0, 0, 0, 0) !important;
+    transition: all 0.3s ease-out;
+    color: rgba(0, 0, 0, 0.3) !important;
+    border: 2px solid var(--Solid-Black) !important;
+    box-shadow: none !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+
+    &:hover{
+        color: var(--Solid-Black) !important;
+        border: 2px solid var(--MinhHung-Red) !important;
+    }
+}
+
+.swal2-styled:hover{
+    background-image: none !important;
+}
+
+.swal2-html-container{
+    font-size: 1.3rem !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.swal2-icon.swal2-warning{
+    color: var(--MinhHung-Red) !important;
+    border-color: var(--MinhHung-Red) !important;
+}

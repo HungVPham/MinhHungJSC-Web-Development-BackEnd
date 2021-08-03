@@ -60,7 +60,7 @@ $countCartItems = Cart::countCartItems();
                 <button type="button" data-sectionid="{{ $cartItems['product']['section_id'] }}" data-cartid="{{ $cartItems['id'] }}" class="btnItemUpdate plus"></button>
             </div>
             <a class="search-mobile" href="{{ url('/'.$cartItems['category']['url']) }}"><i class="fas fa-search"></i></a>
-            <a class="trash-mobile" href=""><i class="fas fa-trash"></i></a>
+            <a class="trash-mobile btnItemDelete" data-cartid="{{ $cartItems['id'] }}"><i class="fas fa-trash"></i></a>
         </td>
         <td>
             @if($cartItems['product']['section_id'] == 1)
@@ -77,7 +77,7 @@ $countCartItems = Cart::countCartItems();
             ?> ₫
             @endif
         </td>
-        <td><a href="{{ url('/'.$cartItems['category']['url']) }}"><i class="fas fa-search"></i> tìm tương tự</a> | <a href=""><i class="fas fa-trash"></i></a></td>
+        <td><a href="{{ url('/'.$cartItems['category']['url']) }}"><i class="fas fa-search"></i> tìm tương tự</a> | <a class="btnItemDelete" data-cartid="{{ $cartItems['id'] }}"><i class="fas fa-trash"></i></a></td>
         <td>
             @if($cartItems['product']['section_id'] == 1)
             <?php

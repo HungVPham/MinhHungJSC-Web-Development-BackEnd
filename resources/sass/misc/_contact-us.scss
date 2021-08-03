@@ -14,14 +14,28 @@
 }
 
 .social {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--Solid-White);
+    box-shadow: 3px 2px 30px rgba(0, 0, 0, 0.1);
+
     a {
-        padding: 20px;
+        padding: 15px;
         color: #7b7b7b;
         font-size: 1.1rem;
+        &:hover {
+            color: var(--MinhHung-Red);
+            transition: all ease 0.3s;
+        }
     }
 
     img {
         filter: grayscale(100%);
+        &:hover {
+            filter: grayscale(0%);
+        }
     }
 }
 
@@ -32,24 +46,6 @@
     transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
-}
-
-.social {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--Solid-White);
-    box-shadow: 3px 2px 30px rgba(0, 0, 0, 0.1);
-
-    a:hover {
-        color: var(--MinhHung-Red);
-        transition: all ease 0.3s;
-    }
-
-    img:hover {
-        filter: grayscale(0%);
-    }
 }
 
 .contact-box {
@@ -101,31 +97,31 @@
         box-sizing: border-box;
         color: #333;
         display: flex;
+        caret-color: var(--MinhHung-Red);
     }
 
     textarea {
         width: 250px !important;
-        height: 200px !important;
+        height: 150px !important;
         outline: none;
-        background-color: #b5b5b5;
+        background-color: rgba(255, 255, 255, 0.3);
         color: #333;
         padding: 10px;
         font-size: 1.2rem;
         box-sizing: border-box;
+        caret-color: var(--MinhHung-Red);
     }
 
     button {
         width: 200px;
-        height: 40px;
         background-color: var(--MinhHung-Red);
         color: var(--Solid-White);
         border: none;
         outline: none;
         margin-top: 20px;
-        border-radius: 10px;
+        font-weight: 600;
+        border-radius: 4px;
         box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
-        letter-spacing: 1px;
-        font-family: 'Big Shoulders Display', cursive;
         font-size: 1.2rem;
     }
 
@@ -136,7 +132,7 @@
 
     textarea:focus {
         border: none;
-        border-bottom: 1px solid var(--MinhHung-Red);
+        border: 1px solid var(--MinhHung-Red);
         transition: all ease 0.5s;
     }
 

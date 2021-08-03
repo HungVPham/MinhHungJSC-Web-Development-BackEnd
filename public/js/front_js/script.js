@@ -496,18 +496,38 @@ $(document).ready(function () {
 
       if (!isNaN(currentVal) && currentVal > 1) {
         $qty.val(currentVal - 1);
+        new_qty = currentVal - 1;
       }
 
       if (currentVal <= 1) {
         Swal.fire({
-          title: 'Số lượng mua phải lớn hơn 0.',
+          title: 'Xác nhận xóa?',
+          text: "Bạn sẽ không thay đổi được sau khi xóa!",
+          icon: 'warning',
+          showCancelButton: true,
           confirmButtonColor: '#cb1c22',
-          confirmButtonText: 'Okay Luôn!'
+          cancelButtonColor: '#cb1c22',
+          confirmButtonText: 'Xóa!',
+          cancelButtonText: 'Không xóa.'
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            $.ajax({
+              data: {
+                "cartid": cartid
+              },
+              url: '/delete-cart-item',
+              type: 'post',
+              success: function success(resp) {
+                $("#AppendCartItems").html(resp.view);
+                location.reload();
+              },
+              error: function error() {
+                alert("Error");
+              }
+            });
+          }
         });
-        return false;
       }
-
-      new_qty = currentVal - 1;
     }
 
     ; // alert(new_qty);
@@ -533,6 +553,25 @@ $(document).ready(function () {
         }
 
         $("#AppendCartItems").html(resp.view);
+      },
+      error: function error() {
+        alert("Error");
+      }
+    });
+  }); // update cart items
+
+  $(document).on('click', '.btnItemDelete', function () {
+    var cartid = $(this).data('cartid'); // alert(cartid); return false;
+
+    $.ajax({
+      data: {
+        "cartid": cartid
+      },
+      url: '/delete-cart-item',
+      type: 'post',
+      success: function success(resp) {
+        $("#AppendCartItems").html(resp.view);
+        location.reload();
       },
       error: function error() {
         alert("Error");
@@ -681,6 +720,23 @@ window.pauseVideo = function () {
 window.playVideo = function () {
   player.playVideo();
 }; // Youtube video auto play/pause function
+
+
+var LoginForm = document.getElementById("LoginForm");
+var RegForm = document.getElementById("RegForm");
+var Indicator = document.getElementById("Indicator");
+
+window.login = function () {
+  RegForm.style.transform = "translateX(0px)";
+  LoginForm.style.transform = "translateX(0px)";
+  Indicator.style.transform = "translateX(100px)";
+};
+
+window.register = function () {
+  RegForm.style.transform = "translateX(400px)";
+  LoginForm.style.transform = "translateX(400px)";
+  Indicator.style.transform = "translateX(0px)";
+};
 
 /***/ }),
 

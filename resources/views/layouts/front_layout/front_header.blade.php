@@ -82,8 +82,8 @@ $countCartItems = Cart::countCartItems();
 				<label for="showDrop2" class="mobile-item">Tuyển Dụng</label>
 			</li> --}}
 			<li id="prime-navlinks">
-				<a class="desktop-item" style="display: flex; align-items: center;" href="#">Liện Hệ</a>
-				<label for="showDrop2" class="mobile-item">Liện Hệ</label>
+				<a class="desktop-item" style="display: flex; align-items: center;" href="{{ url('/lien-he') }}">Liên Hệ</a>
+				<label for="showDrop2" class="mobile-item"><a href="{{ url('/lien-he') }}">Liên Hệ</a></label>
 			</li>
 		</ul>
 		<div class="user-cart-container">
@@ -110,7 +110,7 @@ $countCartItems = Cart::countCartItems();
 						{{-- <li><img src="{{ url('images/front_images/account_setting.png') }}" alt=""><a href="">Cài Đặt Tài Khoản</a></li>
 						<li><img src="{{ url('images/front_images/help.png') }}" alt=""><a href="">Trợ Giúp</a></li>
 						<li><img src="{{ url('images/front_images/logout.png') }}" alt=""><a href="">Đăng Xuất</a></li> --}}
-						<li><img src="{{ url('images/front_images/login.png') }}" alt=""><a href="">Đăng Nhập</a></li>
+						<li><img src="{{ url('images/front_images/login.png') }}" alt=""><a href="{{ url('/tai-khoan') }}">Đăng Nhập</a></li>
 					</ul>
 				</div>
 			</div>
