@@ -37,6 +37,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ url('js/front_js/script.js') }}"></script>
+<script src="{{ url('js/front_js/jquery.validate.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 </body>
 </html>

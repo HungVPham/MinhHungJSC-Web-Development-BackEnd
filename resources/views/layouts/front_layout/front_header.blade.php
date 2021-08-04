@@ -16,7 +16,6 @@ $countCartItems = Cart::countCartItems();
 		<ul class="nav-links">
 			<label id="close-nav" for="cancel-btn"><i class="fas fa-times"></i></label>
 			<li id="prime-navlinks">
-				<a class="desktop-item" href="{{ url('/') }}" style="display: flex; align-items: center;">Trang Chủ</a>
 				<label class="mobile-item"><a href="{{ url('/') }}">Trang Chủ</a></label>
 			</li>
 			<li id="prime-navlinks">
@@ -92,11 +91,18 @@ $countCartItems = Cart::countCartItems();
 			</div>
 			<div class="action">
 				<div class="profile" onclick="menuToggle();">
-				<img src="{{ url('images/front_images/account.png') }}">
+				@if(Auth::check())
+				<img src="{{ url('images/front_images/account_user.png') }}">
+				@else
+				<img src="{{ url('images/front_images/account_generic.png') }}">
+				@endif
 				</div>
 				<div class="menu">
-					{{-- <h3>Phạm Việt Hưng<br><span>Thành Viên</span></h3> --}}
+					@if(Auth::check())
+					<h3>Xin chào, {{ Auth::user()->name }}!<br><span>Thành Viên</span></h3>
+					@else
 					<h3>Đăng Nhập<br><span>Tài Khoản</span></h3>
+					@endif
 					<ul>
 						<li>
 							<div class="search">
@@ -107,10 +113,13 @@ $countCartItems = Cart::countCartItems();
 								<span class="clear" onclick="document.getElementById('mySearch').value = ''"></span>
 							</div>
 						</li>
-						{{-- <li><img src="{{ url('images/front_images/account_setting.png') }}" alt=""><a href="">Cài Đặt Tài Khoản</a></li>
+						@if(Auth::check())
+						<li><img src="{{ url('images/front_images/account_setting.png') }}" alt=""><a href="href="{{ url('/cai-dat-tai-khoan') }}">Cài Đặt Tài Khoản</a></li>
 						<li><img src="{{ url('images/front_images/help.png') }}" alt=""><a href="">Trợ Giúp</a></li>
-						<li><img src="{{ url('images/front_images/logout.png') }}" alt=""><a href="">Đăng Xuất</a></li> --}}
+						<li><img src="{{ url('images/front_images/logout.png') }}" alt=""><a href="{{ url('logout') }}">Đăng Xuất</a></li>
+						@else
 						<li><img src="{{ url('images/front_images/login.png') }}" alt=""><a href="{{ url('/tai-khoan') }}">Đăng Nhập</a></li>
+						@endif
 					</ul>
 				</div>
 			</div>
@@ -220,17 +229,20 @@ $getSubBanners = Banner::getSubBanners();
 						<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>
 					</div>
 					</div>
+					@if(Auth::check())
+					@else
 					@if(!empty($main['link']))
 					<div class="overlay-btn">
-					<a href="https://www.{{ $main['link'] }}" class="btn">{{ $main['title'] }} &#8594;</a>
+					<a href="{{ url('/'.$main['link']) }}" class="btn">{{ $main['title'] }} &#8594;</a>
 					</div>
+					@endif
 					@endif
 				</div>
 			</div>
 			@endforeach
 			@foreach($getSubBanners as $key => $sub)
 			<div class="carousel-item">
-				<div class="overlay-image""><a title="{{ $sub['title'] }}" @if(!empty($sub['link'])) href="https://www.{{ $sub['link'] }}" @endif><img src="{{ asset('images/banner_images/'.$sub['image']) }}" alt="{{ $sub['alt'] }}"></a></div>
+				<div class="overlay-image""><img src="{{ asset('images/banner_images/'.$sub['image']) }}" alt="{{ $sub['alt'] }}"></div>
 			</div>
 			@endforeach
 		</div>

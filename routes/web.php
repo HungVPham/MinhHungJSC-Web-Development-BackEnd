@@ -209,7 +209,10 @@ Route::namespace('Front')->group(function(){
     // login/register page
     Route::get('/tai-khoan', 'UsersController@loginRegister');
     Route::post('/login', 'UsersController@loginUser');
+    Route::match(['get', 'post'], 'check-email', 'UsersController@checkEmail');
+    Route::match(['get', 'post'], 'check-mobile', 'UsersController@checkMobile');
     Route::post('/register', 'UsersController@registerUser');
+    Route::get('/logout', 'UsersController@logoutUser');
 });
 
 use App\Http\Controllers\Admin\ProductController;

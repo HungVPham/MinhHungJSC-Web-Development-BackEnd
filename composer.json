@@ -16,7 +16,8 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
-        "livewire/livewire": "^2.5"
+        "livewire/livewire": "^2.5",
+        "telesign/telesign": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

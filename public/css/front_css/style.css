@@ -2503,20 +2503,47 @@ th:last-child {
 }
 
 /* account page */
+.account-page {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.account-page .alert .close, .account-page .alert .mailbox-attachment-close {
+  color: #ffffff;
+  opacity: 0.3;
+}
+.account-page .alert {
+  margin: 0;
+  border-radius: 0;
+}
+.account-page .col-2 {
+  flex-basis: inherit;
+  min-width: 400px;
+}
+.account-page .col-2 .alert.alert-danger {
+  width: 400px;
+  margin-top: 60px;
+  margin-bottom: -60px;
+  text-align: center;
+  margin-left: 23px;
+}
+
 .form-container {
   background: rgba(255, 255, 255, 0.7);
   width: 400px;
-  height: 400px;
+  min-height: 525px;
   position: relative;
-  text-align: center;
-  margin: auto;
+  margin: 60px auto;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-top: 15vh;
-  margin-bottom: 17vh;
   -webkit-backdrop-filter: saturate(100%) blur(3px);
           backdrop-filter: saturate(100%) blur(3px);
   margin-left: 23px;
+}
+.form-container .form-btn {
+  text-align: center;
+  width: 100%;
 }
 .form-container span {
   font-weight: bold;
@@ -2525,6 +2552,14 @@ th:last-child {
   cursor: pointer;
   width: 100px;
   display: inline-block;
+}
+.form-container label {
+  text-align: left;
+  font-size: 18px;
+  margin: 0;
+  margin-left: 5px;
+  padding: 0;
+  font-weight: 700;
 }
 
 .form-btn {
@@ -2546,7 +2581,6 @@ form input {
   color: #212529;
   text-align: left;
   width: 100%;
-  margin: 10px 0;
   padding: 0 10px;
   border: 1px solid #ccc;
   caret-color: var(--MinhHung-Red);
@@ -2565,6 +2599,16 @@ form .btn:focus {
 #LoginForm {
   left: 0px;
 }
+#LoginForm a {
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+#LoginForm .login-logo-container {
+  display: flex;
+  justify-content: center;
+}
 
 #RegForm {
   left: -400px;
@@ -2576,7 +2620,7 @@ form .btn:focus {
   background: var(--MinhHung-Red);
   height: 3px;
   margin-top: 8px;
-  transform: translateX(100px);
+  transform: translateX(200px);
   transition: transform 0.8s ease;
   opacity: 1 !important;
 }
@@ -2991,22 +3035,6 @@ form .btn:focus {
 
   #logo-404 {
     display: none;
-  }
-}
-@media only screen and (max-width: 470px) {
-  .offer .small-container .row .col-2 h1 p {
-    color: var(--Solid-Gold);
-    line-height: auto;
-    font-size: 50px;
-    margin-top: -20px !important;
-    margin-bottom: -20px !important;
-  }
-  .offer .small-container .row .col-2 h1 p::first-line {
-    color: var(--Solid-Black);
-  }
-
-  .col-2 .offer-img {
-    margin-left: 0px;
   }
 }
 @media only screen and (max-width: 1300px) {
@@ -3816,6 +3844,34 @@ form .btn:focus {
   .trash-mobile {
     display: inline-block;
   }
+
+  .account-page .col-2 {
+    min-width: 325px;
+  }
+  .account-page .col-2 .alert.alert-danger {
+    width: 325px;
+    margin-top: 15vh;
+    margin-bottom: -15vh;
+    text-align: left;
+    margin-left: -10px;
+  }
+  .account-page .close, .account-page .account-page .mailbox-attachment-close {
+    line-height: 1;
+  }
+
+  .form-container {
+    width: 325px;
+    margin-left: -10px;
+  }
+
+  .form-container form {
+    max-width: 325px;
+  }
+
+  #Indicator {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 @media only screen and (max-width: 480px) {
   .content .main-content .post {
@@ -3860,6 +3916,22 @@ form .btn:focus {
   }
   .post-info i {
     font-size: 0.8rem;
+  }
+}
+@media only screen and (max-width: 470px) {
+  .offer .small-container .row .col-2 h1 p {
+    color: var(--Solid-Gold);
+    line-height: auto;
+    font-size: 50px;
+    margin-top: -20px !important;
+    margin-bottom: -20px !important;
+  }
+  .offer .small-container .row .col-2 h1 p::first-line {
+    color: var(--Solid-Black);
+  }
+
+  .col-2 .offer-img {
+    margin-left: 0px;
   }
 }
 @media only screen and (max-width: 400px) {

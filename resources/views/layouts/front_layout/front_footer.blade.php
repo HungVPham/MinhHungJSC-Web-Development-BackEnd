@@ -14,7 +14,7 @@
             </div>
             <div class="footer-col-2">
                 <div class="footerLogo">    
-                    <a href="index.html"><img src="{{ ('/images/front_images/logoMinhHung.png') }}" alt="logo công ty"></a>
+                    <a href="{{ url('') }}"><img src="{{ ('/images/front_images/logoMinhHung.png') }}" alt="logo công ty"></a>
                 </div>
                 <p><span>Địa Chỉ:</span> 56 Trương Phước Phan, P.Bình Trị Đông, Q.Bình Tân, TP.HCM</p>
                 <p><span>Tel:</span><a href="tel: 028 62 666 333">(028) 62 666 333</a> -&nbsp;&nbsp;&nbsp;Fax:&nbsp;&nbsp;&nbsp;(028) 62 666 555</p>

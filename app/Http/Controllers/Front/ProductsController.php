@@ -288,10 +288,17 @@ class ProductsController extends Controller
                 return redirect()->back();
            }
 
+           if(Auth::check()){
+               $user_id = Auth::user()->id;
+           }else{
+               $user_id = 0;
+           }
+
            // save product in cart
 
            $cart = new Cart;
            $cart->session_id = $session_id;
+           $cart->user_id = $user_id;
            $cart->product_id = $data['product_id'];
            $cart->category_id = $data['category_id'];
            $cart->brand_id = $data['brand_id'];
@@ -304,49 +311,49 @@ class ProductsController extends Controller
            return redirect()->back();
         }
     }
-    public function addtocarthhose(Request $request){
-        if($request->isMethod('post')){
-            $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
+    // public function addtocarthhose(Request $request){
+    //     if($request->isMethod('post')){
+    //         $data = $request->all();
+    //         // echo "<pre>"; print_r($data); die;
 
-            // generate section id if not exists
-           $session_id = Session::get('session_id');
-           if(empty($session_id)){
-               $session_id = Session::getId();
-               Session::put('session_id', $session_id);
-           } 
+    //         // generate section id if not exists
+    //        $session_id = Session::get('session_id');
+    //        if(empty($session_id)){
+    //            $session_id = Session::getId();
+    //            Session::put('session_id', $session_id);
+    //        } 
 
-           // check if product sku is already in user/session cart
-           if(Auth::check()){
-            // User is logged in
-                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku'], 'user_id'=>Auth::user()->id])->count();
-           }else{
-                // User is not logged in
-                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku'], 'session_id'=>Session::get('session_id')])->count();   
-           }
+    //        // check if product sku is already in user/session cart
+    //        if(Auth::check()){
+    //         // User is logged in
+    //             $countProducts = Cart::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku'], 'user_id'=>Auth::user()->id])->count();
+    //        }else{
+    //             // User is not logged in
+    //             $countProducts = Cart::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku'], 'session_id'=>Session::get('session_id')])->count();   
+    //        }
            
-           if($countProducts>0){
-                $message = "Mã sản phẩm đã tồn tại trong giỏ hàng.";
-                session::flash('error_message', $message);
-                return redirect()->back();
-           }
+    //        if($countProducts>0){
+    //             $message = "Mã sản phẩm đã tồn tại trong giỏ hàng.";
+    //             session::flash('error_message', $message);
+    //             return redirect()->back();
+    //        }
 
-            // save product in cart
+    //         // save product in cart
 
-           $cart = new Cart;
-           $cart->session_id = $session_id;
-           $cart->product_id = $data['product_id'];
-           $cart->category_id = $data['category_id'];
-           $cart->brand_id = $data['brand_id'];
-           $cart->sku = $data['sku'];
-           $cart->quantity = $data['quantity'];
-           $cart->save();
+    //        $cart = new Cart;
+    //        $cart->session_id = $session_id;
+    //        $cart->product_id = $data['product_id'];
+    //        $cart->category_id = $data['category_id'];
+    //        $cart->brand_id = $data['brand_id'];
+    //        $cart->sku = $data['sku'];
+    //        $cart->quantity = $data['quantity'];
+    //        $cart->save();
            
-           $message = "Sản phẩm đã được thêm vào giỏ hàng.";
-           session::flash('success_message', $message);
-           return redirect()->back();
-        }
-    } 
+    //        $message = "Sản phẩm đã được thêm vào giỏ hàng.";
+    //        session::flash('success_message', $message);
+    //        return redirect()->back();
+    //     }
+    // } 
     public function addtocartshimge(Request $request){
         if($request->isMethod('post')){
             $data = $request->all();
@@ -374,10 +381,18 @@ class ProductsController extends Controller
                 return redirect()->back();
            }
 
+           
+           if(Auth::check()){
+            $user_id = Auth::user()->id;
+            }else{
+                $user_id = 0;
+            }
+
            // save product in cart
         
            $cart = new Cart;
            $cart->session_id = $session_id;
+           $cart->user_id = $user_id;
            $cart->product_id = $data['product_id'];
            $cart->category_id = $data['category_id'];
            $cart->brand_id = $data['brand_id'];

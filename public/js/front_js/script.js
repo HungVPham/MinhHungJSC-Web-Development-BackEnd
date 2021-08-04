@@ -578,6 +578,59 @@ $(document).ready(function () {
       }
     });
   }); // update cart items
+  // validate signup form on keyup and submit
+
+  $("#RegForm").validate({
+    rules: {
+      name: "required",
+      last_name: "required",
+      mobile: {
+        remote: "check-mobile",
+        required: true,
+        minlength: 10,
+        maxlength: 10,
+        digits: true
+      },
+      password: {
+        required: true,
+        minlength: 6
+      },
+      email: {
+        remote: "check-email",
+        required: true,
+        email: true
+      }
+    },
+    messages: {
+      name: "Vui lòng nhập tên.",
+      last_name: "Vui lòng nhập họ.",
+      password: {
+        required: "Vui lòng nhập mật khẩu.",
+        minlength: "Mật khẩu phải dài ít nhất 6 chữ hoặc số."
+      },
+      email: {
+        remote: "Email đã được đăng kí.",
+        required: "Vui lòng nhập Email.",
+        email: "Email không hợp lệ."
+      },
+      mobile: {
+        remote: "Số điện thoại đã được đăng kí.",
+        required: "Vui lòng nhập số điện thoại.",
+        minlength: "Số điện thọai không hợp lệ.",
+        maxlength: "Số điện thọai không hợp lệ."
+      }
+    }
+  });
+  $("#LoginForm").validate({
+    rules: {
+      id: "required",
+      password: "required"
+    },
+    messages: {
+      id: "Vui nhập số điện thoại hoặc email của bạn.",
+      password: "Vui nhập mật khẩu của bạn."
+    }
+  });
 });
 $(window).on("load", function () {
   $(".preloaderBg").fadeOut("slow");
@@ -729,13 +782,13 @@ var Indicator = document.getElementById("Indicator");
 window.login = function () {
   RegForm.style.transform = "translateX(0px)";
   LoginForm.style.transform = "translateX(0px)";
-  Indicator.style.transform = "translateX(100px)";
+  Indicator.style.transform = "translateX(200px)";
 };
 
 window.register = function () {
   RegForm.style.transform = "translateX(400px)";
   LoginForm.style.transform = "translateX(400px)";
-  Indicator.style.transform = "translateX(0px)";
+  Indicator.style.transform = "translateX(100px)";
 };
 
 /***/ }),
