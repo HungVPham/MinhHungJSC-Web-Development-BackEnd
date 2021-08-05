@@ -2534,9 +2534,9 @@ th:last-child {
   width: 400px;
   min-height: 525px;
   position: relative;
+  overflow: hidden;
   margin: 60px auto;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   -webkit-backdrop-filter: saturate(100%) blur(3px);
           backdrop-filter: saturate(100%) blur(3px);
   margin-left: 23px;
@@ -2614,6 +2614,10 @@ form .btn:focus {
   left: -400px;
 }
 
+#ForgotPwdForm {
+  right: -400px;
+}
+
 #Indicator {
   width: 100px;
   border: none;
@@ -2623,6 +2627,15 @@ form .btn:focus {
   transform: translateX(200px);
   transition: transform 0.8s ease;
   opacity: 1 !important;
+}
+
+#LogForNav {
+  display: none;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  cursor: default;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 /* news/events page css */
@@ -3870,7 +3883,7 @@ form .btn:focus {
 
   #Indicator {
     opacity: 0;
-    visibility: hidden;
+    visibility: hidden !important;
   }
 }
 @media only screen and (max-width: 480px) {

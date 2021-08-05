@@ -18,6 +18,22 @@
     <div class="container">
         <div class="row">
             <div class="col-2"> 
+                @if(Session::has('success_message'))
+                <div class="alert alert-danger" role="alert" style="color: #ffffff; background-color: #228B22; border: 1px solid #228B22;">
+                    {{ Session::get('success_message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                @endif
+                @if(Session::has('pending_message'))
+                <div class="alert alert-danger" role="alert" style="color: #ffffff; background-color: var(--Solid-Gold); border: 1px solid var(--Solid-Gold);">
+                    {{ Session::get('pending_message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                @endif
                 @if(Session::has('error_message'))
                     <div class="alert alert-danger" role="alert" style="color: #ffffff ; background-color: var(--Delete-Red); border: 1px solid var(--Delete-Red);">
                     {{ Session::get('error_message') }}
@@ -28,7 +44,8 @@
                 @endif    
                 <div class="form-container"> 
                     <div class="form-btn">
-                        <span onclick="register()">Đăng Ký</span>
+                        <span id="RegLabel" onclick="register()">Đăng Ký</span>
+                        <span id="LogForNav">Đã nhớ?→</span>
                         <span onclick="login()">Đăng Nhập</span>                   
                         <hr id="Indicator">
                     </div>
@@ -45,11 +62,11 @@
                         </div>
                         <div id="reg-int-container">
                             <label for="last_name">Email*:</label>
-                            <input id="email" name="email" placeholder="Nhập email của bạn">
+                            <input id="email" name="email" placeholder="Nhập email của quý khách">
                         </div>
                         <div  id="reg-int-container">
                             <label for="last_name">Số điện thoại*:</label>
-                            <input id="mobile" name="mobile" placeholder="Nhập số điện thoại của bạn">
+                            <input id="mobile" name="mobile" placeholder="Nhập số điện thoại của quý khách">
                         </div>
                         <div  id="reg-int-container">
                             <label for="last_name">Mật khẩu*:</label>
@@ -62,11 +79,17 @@
                         <img src="{{ asset('/images/front_images/logoMinhHung.png')}}" width="200px" style="padding: 20px 0">
                         </div>
                             <label for="last_name">Số điện thoại hoặc email*:</label>
-                            <input  id="id" name="id" placeholder="Vui lòng nhập số điện thoại hoặc email của bạn">
+                            <input  id="id" name="id" placeholder="Vui lòng nhập số điện thoại hoặc email">
                             <label for="last_name">Mật khẩu*:</label>
-                            <input  id="password" name="password" type="password" placeholder="Vui lòng nhập mật khẩu của bạn">
+                            <input  id="password" name="password" type="password" placeholder="Vui lòng nhập mật khẩu">
                         <button type="submit" class="btn">Đăng Nhập</button>
-                        <a href="">Quên Mật Khẩu?</a>
+                        <a style="cursor: pointer;" onclick="forgot()">Quên Mật Khẩu?</a>
+                    </form>
+                    <form id="ForgotPwdForm" action="{{ url('/forgot-pwd') }}" method="post">@csrf
+                        <h3 style="text-align: center; font-weight: 600;">Tìm tài khoản của bạn</h3>  
+                            <label for="last_name">Email*:</label>
+                            <input  id="id" name="id" placeholder="Vui lòng nhập email của quý khách">
+                        <button type="submit" class="btn">Tìm tài khoản</button>
                     </form>
                 </div>
             </div>

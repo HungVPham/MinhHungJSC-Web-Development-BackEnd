@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
@@ -39,20 +40,25 @@ class UsersController extends Controller
                 $user->email = $data['email'];
                 $user->mobile = $data['mobile'];
                 $user->password = bcrypt($data['password']);
-                $user->status = 1;
+                $user->status = 0;
                 $user->save();
 
-                if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
-                    // echo "<pre>"; print_r(Auth::user()); die;
+                // send confirmation email to user
+                $email = $data['email'];
+                $messageData = [
+                    'name'=>$data['name'],  
+                    'code'=>base64_encode($data['email'])
+                ];
 
-                    if(!empty(Session::get('session_id'))){
-                        $user_id = Auth::user()->id;
-                        $session_id = Session::get('session_id');
-                        Cart::where('session_id', $session_id)->update(['user_id'=>$user_id]);
-                    }
+                Mail::send('emails.confirmation', $messageData, function($message) use($email){
+                    $message->to($email)->subject('Kích hoạt tài khoản Minh Hưng JSC của Quý Khách.');
+                });
 
-                    return redirect('/');
-                }
+                // Redirect back with success message
+
+                $message = "Vui lòng kiểm tra email của bạn để kích hoạt tài khoản.";
+                session::flash('success_message', $message);
+                return redirect()->back();
             }
         }
     }
@@ -79,6 +85,40 @@ class UsersController extends Controller
         }
     }
 
+    public function confirmUser($email){
+        // decode user email
+        $email = base64_decode($email);
+
+        //check user email exists
+        $userCount = User::where('email', $email)->count();
+        if($userCount>0){
+            // user status is already active
+            $userDetails = User::where('email', $email)->first();
+            if($userDetails->status == 1){
+                $message = "Tài khoản đã được kích hoạt. Vui lòng đăng nhập.";
+                session::flash('pending_message', $message);
+                return redirect('tai-khoan');
+            }else{
+                // update user status to 1 to activate account
+                User::where('email', $email)->update(['status'=>1]);
+                
+                // send register email 
+                $messageData = ['name'=>$userDetails['name'], 'last_name'=>$userDetails['last_name'],  'mobile'=>$userDetails['mobile'], 'email'=>$userDetails['email']];
+
+                Mail::send('emails.register', $messageData, function($message) use($email){
+                    $message->to($email)->subject('Chào Mừng Quý Khách Từ MinhHưngJSC.');
+                });
+
+                // Redirect to login/register page with success message.
+                $message = "Tài khoản đã được kích hoạt thành công.";
+                session::flash('success_message', $message);
+                return redirect('tai-khoan');
+            }
+        }else{
+            abort(404);
+        }
+    }
+
     public function loginUser(Request $request){
         if($request->isMethod('post')){
 
@@ -87,7 +127,16 @@ class UsersController extends Controller
             if(is_numeric($data['id'])){
                 if(Auth::attempt(['mobile' => $data['id'], 'password' => $data['password']])){
                     // echo "<pre>"; print_r(Auth::user()); die;
-
+                       
+                    // check if email is activated or not
+                    $userStatus = User::where('mobile', $data['id'])->first();
+                    if($userStatus->status == 0){
+                        Auth::logout();
+                        $message = "Tài khoản của quý khách chưa được kích hoạt.";
+                        session::flash('pending_message', $message);
+                        return redirect()->back();
+                    }
+                      
                     // update user cart with user id
                     if(!empty(Session::get('session_id'))){
                         $user_id = Auth::user()->id;
@@ -105,6 +154,15 @@ class UsersController extends Controller
                 if(Auth::attempt(['email' => $data['id'], 'password' => $data['password']])){
                     // echo "<pre>"; print_r(Auth::user()); die;
 
+                     // check if email is activated or not
+                     $userStatus = User::where('email', $data['id'])->first();
+                     if($userStatus->status == 0){
+                         Auth::logout();
+                         $message = "Tài khoản của quý khách chưa được kích hoạt.";
+                         session::flash('pending_message', $message);
+                         return redirect()->back();
+                     }
+
                     if(!empty(Session::get('session_id'))){
                         $user_id = Auth::user()->id;
                         $session_id = Session::get('session_id');
@@ -118,8 +176,12 @@ class UsersController extends Controller
                     return redirect()->back();
                 }
             }
+        }
     }
-}
+
+    public function forgotPwd(){
+        return view('front.users.forgot_pwd');
+    }
 
     public function logoutUser(){
         Auth::logout();

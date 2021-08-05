@@ -556,6 +556,24 @@ $(document).ready(function () {
   });// update cart items
 
   // validate signup form on keyup and submit
+  $("#ContactForm").validate({
+    rules: {
+      name: "required",
+      email: "required",
+      subject: "required",
+      message: "required",
+    },
+    messages: {
+      email: {
+        required: "Vui lòng nhập email của quý khách.",
+        email: "Email không hợp lệ.",
+      },
+      name: "Vui nhập tên của quý khách.",
+      subject: "Vui nhập chủ đề câu hỏi của quý khách.",
+      message: "Vui nhập lời nhắn/câu hỏi của quý khách.",
+    }
+  });
+
   $("#RegForm").validate({
     rules: {
       name: "required",
@@ -586,7 +604,7 @@ $(document).ready(function () {
       },
       email: {
         remote: "Email đã được đăng kí.",
-        required: "Vui lòng nhập Email.",
+        required: "Vui lòng nhập email.",
         email: "Email không hợp lệ.",
       },
       mobile: {
@@ -604,8 +622,8 @@ $(document).ready(function () {
       password: "required",
     },
     messages: {
-      id: "Vui nhập số điện thoại hoặc email của bạn.",
-      password: "Vui nhập mật khẩu của bạn.",
+      id: "Vui nhập số điện thoại hoặc email của quý khách.",
+      password: "Vui nhập mật khẩu của quý khách.",
     }
   });
 }); 
@@ -755,15 +773,31 @@ $(document).ready(function () {
   var LoginForm = document.getElementById("LoginForm");
   var RegForm = document.getElementById("RegForm");
   var Indicator = document.getElementById("Indicator");
+  var RegLabel = document.getElementById("RegLabel");
+  var LogForNav = document.getElementById("LogForNav");
 
   window.login = function() {
   RegForm.style.transform = "translateX(0px)";
+  RegLabel.style.display = "inline-block";
   LoginForm.style.transform = "translateX(0px)";
+  ForgotPwdForm.style.transform = "translateX(0px)";
+  Indicator.style.visibility = "visible";
   Indicator.style.transform = "translateX(200px)";
+  LogForNav.style.display = "none";
   }
 
   window.register = function () {
   RegForm.style.transform = "translateX(400px)";
   LoginForm.style.transform = "translateX(400px)";
+  ForgotPwdForm.style.transform = "translate(0px)";
+  Indicator.style.visibility = "visible";
   Indicator.style.transform = "translateX(100px)";
+  }
+
+  window.forgot = function () {
+  ForgotPwdForm.style.transform = "translateX(-400px)";
+  Indicator.style.visibility = "hidden";
+  RegLabel.style.display = "none";
+  LogForNav.style.display = "inline-block";
+  LoginForm.style.transform = "translateX(-400px)";
   }
