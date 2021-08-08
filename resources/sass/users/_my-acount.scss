@@ -1,0 +1,168 @@
+
+/* about us css */
+
+.myAccount-page {
+    margin-top: 40px;
+    padding: 30px 0;
+    margin-bottom: 80px;
+
+    .small-container{
+        .row{
+            align-items: inherit;
+        }
+    }
+}
+
+.myAccount-page-col-2 .tabcontent {
+    border: 1px solid rgba($color: #888, $alpha: 0.7);
+    padding: 10px;
+    .tabcontent-content {
+        padding: 8px;
+        border: 3px solid var(--MinhHung-Red);
+    }
+
+    .tabcontent-title {
+        color: var(--Solid-Black);
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+}
+
+.tab{
+    padding: 10px;
+    border: 1px solid rgba($color: #888, $alpha: 0.7);
+    a:first-child{
+        width: 100%;
+        font-family: 900;
+        text-align: center;
+        background-color: var(--MinhHung-Red);
+        font-size: 1.8rem;
+        color: var(--Solid-White);
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+    a:not(:first-child){
+        padding: 0;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        font-size: 1.5rem;
+        width: 100%;
+        display: inline-block;
+        border-bottom: 1px solid var(--Solid-Black);
+    }
+}
+
+.myAccount-page-page {
+    h2 {
+        text-align: center;
+        margin: 1px 0;
+    }
+
+    h4,
+    h5 {
+        text-align: right;
+        margin: 10px 30px 10px 10px;
+    }
+    h6{
+        font-family: 'Style Script', cursive;
+    }
+}
+
+.myAccount-page-col-1,
+.myAccount-page-col-2 {
+    min-width: 250px;
+}
+
+.myAccount-page-col-1 {
+    flex-basis: 20%;
+    .tab{
+        .btn{
+            margin: 0;
+        }
+    }
+}
+
+.myAccount-page-col-2 {
+    flex: 1;
+
+    .text-data{
+        margin-top: 10px;
+    }
+}
+
+#Separator {
+    height: 1px;
+}
+
+#active-tab {
+    color: var(--MinhHung-Red);
+    font-weight: bold;
+}
+
+.myAccount-page-col-2 img {
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.slideshow-container {
+    position: relative;
+}
+
+.text {
+    color: #f2f2f2;
+    font-size: 20px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: var(--Solid-White);
+    border: 1px solid var(--MinhHung-Red);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active {
+    background-color: var(--MinhHung-Red);
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 2s;
+    animation-name: fade;
+    animation-duration: 2s;
+}
+
+.form-container-newPwd{
+    display: flex;
+  
+
+    form{
+        flex-basis: 50%;
+        padding: 20px;
+        &:first-child{
+            border-right: 1px solid #00000030;
+        }
+        button{
+            width: max-content;
+        }
+    }
+}

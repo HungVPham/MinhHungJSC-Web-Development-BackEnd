@@ -1,12 +1,10 @@
 <?php
 use App\Section;
-use App\Cart;
 use App\AboutPage;
 use App\CataloguePage;
 $AboutDetails = AboutPage::aboutPageDetails();
 $CatalogueDetails = CataloguePage::cataloguePageDetails();
 $sections = Section::sections();
-$countCartItems = Cart::countCartItems();
 ?>
 <div class="header">
 	<div class="navbar-wrapper">
@@ -24,7 +22,7 @@ $countCartItems = Cart::countCartItems();
 				<label for="showDrop" class="mobile-item">Giới Thiệu<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
 				<ul class="drop-menu">
 					@foreach($AboutDetails as $NavLinks)
-					<li><a href="{{ url('gioi-thieu/'.$NavLinks['url'])}}">{{ $NavLinks['title'] }}</a></li>
+					<li><a href="{{ url('about-us/'.$NavLinks['url'])}}">{{ $NavLinks['title'] }}</a></li>
 					@endforeach
 				</ul>
 			</li>
@@ -59,7 +57,7 @@ $countCartItems = Cart::countCartItems();
 							<header><a>Catalogue Sản Phẩm</a></header>
 							<ul class="mega-links" id="catalogue-col">
 								@foreach($CatalogueDetails as $catalogue)
-								<li><a href="{{ url('catalogue-san-pham/'.$catalogue['url']) }}">{{ $catalogue['title'] }}</a></li>
+								<li><a href="{{ url('catalogues/'.$catalogue['url']) }}">{{ $catalogue['title'] }}</a></li>
 								@endforeach
 							</ul>
 						</div>
@@ -81,13 +79,13 @@ $countCartItems = Cart::countCartItems();
 				<label for="showDrop2" class="mobile-item">Tuyển Dụng</label>
 			</li> --}}
 			<li id="prime-navlinks">
-				<a class="desktop-item" style="display: flex; align-items: center;" href="{{ url('/lien-he') }}">Liên Hệ</a>
-				<label for="showDrop2" class="mobile-item"><a href="{{ url('/lien-he') }}">Liên Hệ</a></label>
+				<a class="desktop-item" style="display: flex; align-items: center;" href="{{ url('/contact-us') }}">Liên Hệ</a>
+				<label for="showDrop2" class="mobile-item"><a href="{{ url('/contact-us') }}">Liên Hệ</a></label>
 			</li>
 		</ul>
 		<div class="user-cart-container">
-			<div class="navbar-cart" cartCount="{{ $countCartItems }}">
-				<a href="{{ url('/gio-hang')}}"><img src="{{ url('images/front_images/cart.png') }}"></a>
+			<div class="navbar-cart" cartCount="{{ totalCartItems() }}">
+				<a href="{{ url('/cart')}}"><img src="{{ url('images/front_images/cart.png') }}"></a>
 			</div>
 			<div class="action">
 				<div class="profile" onclick="menuToggle();">
@@ -114,11 +112,11 @@ $countCartItems = Cart::countCartItems();
 							</div>
 						</li>
 						@if(Auth::check())
-						<li><img src="{{ url('images/front_images/account_setting.png') }}" alt=""><a href="href="{{ url('/cai-dat-tai-khoan') }}">Cài Đặt Tài Khoản</a></li>
-						<li><img src="{{ url('images/front_images/help.png') }}" alt=""><a href="">Trợ Giúp</a></li>
+						<li><img src="{{ url('images/front_images/account_generic.png') }}" alt=""><a href="{{ url('/my-account') }}">Tài Khoản Của Tôi</a></li>
+						{{-- <li><img src="{{ url('images/front_images/help.png') }}" alt=""><a href="">Trợ Giúp</a></li> --}}
 						<li><img src="{{ url('images/front_images/logout.png') }}" alt=""><a href="{{ url('logout') }}">Đăng Xuất</a></li>
 						@else
-						<li><img src="{{ url('images/front_images/login.png') }}" alt=""><a href="{{ url('/tai-khoan') }}">Đăng Nhập</a></li>
+						<li><img src="{{ url('images/front_images/login.png') }}" alt=""><a href="{{ url('/login-register') }}">Đăng Nhập</a></li>
 						@endif
 					</ul>
 				</div>

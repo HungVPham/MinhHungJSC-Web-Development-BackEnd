@@ -146,29 +146,29 @@ Route::namespace('Front')->group(function(){
     /* get cms pages url */
     $cmsUrls = CmsPage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($cmsUrls as $url){
-        Route::get('chinh-sach/'.$url,'CmsController@CmsPage');
+        Route::get('docs/'.$url,'CmsController@CmsPage');
     }
 
     // about page route
     /* get about pages url */
     $aboutUrls = AboutPage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($aboutUrls as $url){
-        Route::get('gioi-thieu/'.$url,'AboutController@AboutPage');
+        Route::get('about-us/'.$url,'AboutController@AboutPage');
     }
 
     // catalogue page route
     /* get catalogue pages url */
     $catalogueUrls = CataloguePage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($catalogueUrls as $url){
-        Route::get('catalogue-san-pham/'.$url,'CatalogueController@CataloguePage');
+        Route::get('catalogues/'.$url,'CatalogueController@CataloguePage');
     }
 
     // contact us page route
-    Route::match(['get', 'post'], '/lien-he', 'CmsController@contact');
+    Route::match(['get', 'post'], '/contact-us', 'CmsController@contact');
 
 
     // detail page route
-    Route::get('/san-pham/{id}','ProductsController@detail');
+    Route::get('/products/{id}','ProductsController@detail');
 
     // get maxpro attribute price, voltage, power 
     Route::post('/get-maxpro-product-price', 'ProductsController@getMaxproProductPrice');
@@ -196,26 +196,37 @@ Route::namespace('Front')->group(function(){
 
     // add to cart route
     Route::post('/add-to-cart-maxpro', 'ProductsController@addtocartmaxpro');
-    Route::post('/add-to-cart-hhose', 'ProductsController@addtocarthhose');
+    // Route::post('/add-to-cart-hhose', 'ProductsController@addtocarthhose');
     Route::post('/add-to-cart-shimge', 'ProductsController@addtocartshimge');
 
+    // Get price quotation
+    Route::match(['get', 'post'],'/price-quotation', 'ProductsController@getPriceQuotation');
+
     // shopping cart route
-    Route::get('/gio-hang','ProductsController@cart');
+    Route::get('/cart','ProductsController@cart');
 
     // update cart item
     Route::post('/update-cart-item-qty','ProductsController@updateCartItemQty');
     Route::post('/delete-cart-item','ProductsController@deleteCartItem');
 
     // login/register page
-    Route::get('/tai-khoan', 'UsersController@loginRegister');
+    Route::get('/login-register',['as'=>'login','uses'=>'UsersController@loginRegister']);
     Route::post('/login', 'UsersController@loginUser');
     Route::match(['get', 'post'], '/check-email', 'UsersController@checkEmail');
     Route::match(['get', 'post'], '/check-mobile', 'UsersController@checkMobile');
     Route::post('/register', 'UsersController@registerUser');
+
+    Route::group(['middleware'=>['auth']], function(){
+        Route::match(['get', 'post'],'/my-account', 'UsersController@account');
+        Route::match(['get', 'post'],'/update-user-pwd', 'UsersController@updateUserPassword');
+        Route::post('/check-user-pwd', 'UsersController@chkUserPassword');
+    });
+
     Route::get('/logout', 'UsersController@logoutUser');
     Route::match(['get', 'post'],'/confirm/{code}', 'UsersController@confirmUser');
-    Route::match(['get', 'post'],'tai-khoan/quen-mat-khau', 'UsersController@forgotPwd');
+    Route::match(['get', 'post'],'/forgot-pwd', 'UsersController@forgotPwd');
+    
 });
 
-use App\Http\Controllers\Admin\ProductController;
-Route::get('/product/{id}', [ProductController::class, 'show']);
+// use App\Http\Controllers\Admin\ProductController;
+// Route::get('/product/{id}', [ProductController::class, 'show']);

@@ -356,11 +356,51 @@
                 @elseif($total_stock == 0 and $productDetails['section_id'] != 2 and !empty($productDetails['product_price']))
                 <p><button disabled style="margin-top: 20px" type="submit" class="btn">Nhận Thông Báo Khi Tồn Kho</button></p>
                 @endif
-
-                {{-- if price is disabled for tool/pump product or if product if hose, get price info via contact  --}}
-                @if(empty($productDetails['product_price']))
-                <p><button disabled style="margin-top: 20px" class="btn">Liên hệ ngay để nhận báo giá sản phẩm!</button></p>
+            </form>
+            {{-- if price is disabled for tool/pump product or if product if hose, get price info via contact  --}}
+            @if(empty($productDetails['product_price']))
+            <form id="PriceQuotationForm" action="{{ url('/price-quotation') }}" method="post">@csrf
+            <input type="hidden" name="product_name" value="{{ $productDetails['product_name'] }}">
+            <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
+            <input type="hidden" name="category_name" value="{{ $productDetails['category']['category_name'] }}">
+            <input type="hidden" name="brand_name" value="{{ $productDetails['brand']['name'] }}">
+            <label><strong>Liên hệ để nhận báo giá sản phẩm!</strong></label>
+            <div style="display: flex">
+            <input style="width:50%; margin: 5px; margin-left: 0;" id="full_name" name="full_name" required="" placeholder="Họ tên (bắt buộc)">
+            <input style="width:50%; margin: 5px; margin-left: 0;" id="mobile" name="mobile" required="" placeholder="Số điện thoại (bắt buộc)">
+            </div>
+            <div style="display: flex">
+            <input style="width:50%; margin: 5px; margin-left: 0;" type="email" id="email" required="" name="email" placeholder="Email (bắt buộc)">
+            <input style="width:50%; margin: 5px; margin-left: 0;" id="company" name="company" required="" placeholder="Tên doanh nghiệp (nếu có)">
+            </div>
+            <div style="display: flex">
+                @if(!empty($productDetails['maxpro_attributes']))
+                <select style="width:49%; margin: 5px; margin-left: 0; padding-right: 0px;"  required="" autocomplete="off" name="sku" class="select2">
+                <option value="">chọn sản phẩm...</option>
+                @foreach($productDetails['maxpro_attributes'] as $toolAttr)
+                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                @endforeach
+                </select>
                 @endif
+                @if(!empty($productDetails['hhose_attributes']))
+                <select style="width:49%; margin: 5px; margin-left: 0; padding-right: 0px;"  required="" autocomplete="off" name="sku" class="select2">
+                <option value="">chọn sản phẩm...</option>
+                @foreach($productDetails['hhose_attributes'] as $toolAttr)
+                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                @endforeach
+                </select>
+                @endif
+                @if(!empty($productDetails['shimge_attributes']))
+                <select style="width:49%; margin: 5px; margin-left: 0; padding-right: 0px;"  required=""autocomplete="off" name="sku"  class="select2">
+                <option value="">chọn sản phẩm...</option>
+                @foreach($productDetails['shimge_attributes'] as $toolAttr)
+                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                @endforeach
+                </select>
+                @endif
+                <button style="margin: 0; width:49%; padding: 0px; margin-left: 5px;" class="btn">Liên hệ để nhận báo giá!</button>
+            </div>
+            @endif
             </form>
         </div>
     </div>
@@ -550,7 +590,7 @@
             @foreach($relatedProducts as $key => $product)
             <?php $discounted_price = Product::getDiscountedPrice($product['id']); ?>
             <div class="col-4">
-                <a href="{{ url('san-pham/'.$product['id']) }}">
+                <a href="{{ url('products/'.$product['id']) }}">
                     @if(isset($product['main_image']))
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$product['main_image']; ?>
                     @else
@@ -562,8 +602,8 @@
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                     @endif
                 </a>
-                 <div class="product-overlay navDetail"><a  href="{{ url('san-pham/'.$product['id']) }}">xem chi tiết</a></div>
-                    <div class="product-overlay addCart"><a href="{{ url('san-pham/'.$product['id']) }}">thêm vào giỏ</a></div>
+                 <div class="product-overlay navDetail"><a  href="{{ url('products/'.$product['id']) }}">xem chi tiết</a></div>
+                    <div class="product-overlay addCart"><a href="{{ url('products/'.$product['id']) }}">thêm vào giỏ</a></div>
                 <div class="list-item-container">
                 <small class="brand-title"> 
                     <span>
@@ -572,7 +612,7 @@
                         ?>
                     </span>
                 </small>
-                 <a href="{{ url('san-pham/'.$product['id']) }}"><h4 title="{{ $product['product_name'] }}">{{ $product['product_name']}}</h4></a>
+                 <a href="{{ url('products/'.$product['id']) }}"><h4 title="{{ $product['product_name'] }}">{{ $product['product_name']}}</h4></a>
                  <div class="rating">
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
@@ -629,8 +669,8 @@
                     <label for="comparison-checkbox">So Sánh</label>
                     <input id="comparison-checkbox" name="comparison-checkbox" type="checkbox">
                     </div>
-                    <p class="navList-Detail"><a href="{{ url('san-pham/'.$product['id']) }}">Xem Chi Tiết</a></p>
-                    <p class="addList-Cart"><a href="{{ url('san-pham/'.$product['id']) }}">Thêm Vào Giỏ</a></p>
+                    <p class="navList-Detail"><a href="{{ url('products/'.$product['id']) }}">Xem Chi Tiết</a></p>
+                    <p class="addList-Cart"><a href="{{ url('products/'.$product['id']) }}">Thêm Vào Giỏ</a></p>
                 </div>
             </div>
             @endforeach

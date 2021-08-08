@@ -1,7 +1,5 @@
 <?php 
 use App\Product;
-use App\Cart;
-$countCartItems = Cart::countCartItems();
 ?>
 <style>
     .number-input {
@@ -108,14 +106,14 @@ $countCartItems = Cart::countCartItems();
     @endforeach
 </table>
 </div>
-@if($countCartItems == 0)
+@if(totalCartItems() == 0)
 <p class="empt-cart-noti">chưa có sản phẩm nào trong giỏ</p>
 @endif
 <div class="total-price">
     <div class="voucher-containter">
         <label for="voucher">Nhập Mã Khuyến Mãi:</label>
         <input class="voucher" type="text">
-        <p style="text-align: center;"><button onclick="goBack()" class="btn">&larr; Mua Sắm Tiếp</button><button @if(empty($userCartItems)) disabled @endif class="btn">Mua Hàng</button></p>
+        <p style="text-align: center;"><button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button><button @if(empty($userCartItems)) disabled @endif class="btn">Mua Hàng</button></p>
     </div>
     <table>
         <tr>

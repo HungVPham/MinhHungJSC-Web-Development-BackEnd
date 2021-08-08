@@ -42,7 +42,7 @@ $sections = Section::sections();
                 @foreach($featuredItem as $item)
                 <?php $discounted_price = Product::getDiscountedPrice($item['id']); ?>
                 <div class="col-4">
-                    <a href="{{ url('san-pham/'.$item['id']) }}">
+                    <a href="{{ url('products/'.$item['id']) }}">
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$item['main_image']; ?>
                                 @if(!empty($item['main_image'])&&file_exists($product_image_path))
                                 <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -50,8 +50,8 @@ $sections = Section::sections();
                                 <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                                 @endif
                     </a>
-                     <div class="product-overlay navDetail"><a href="{{ url('san-pham/'.$item['id']) }}">xem chi tiết</a></div>
-                        <div class="product-overlay addCart"><a href="{{ url('san-pham/'.$item['id']) }}">thêm vào giỏ</a></div>
+                     <div class="product-overlay navDetail"><a href="{{ url('products/'.$item['id']) }}">xem chi tiết</a></div>
+                        <div class="product-overlay addCart"><a href="{{ url('products/'.$item['id']) }}">thêm vào giỏ</a></div>
                     <small class="brand-title">
                     <span>
                         <?php echo
@@ -59,7 +59,7 @@ $sections = Section::sections();
                         ?>
                     </span>
                     </small>
-                     <a href="{{ url('san-pham/'.$item['id']) }}"><h4 title="{{ $item['product_name'] }}">{{ $item['product_name']}}</h4></a>
+                     <a href="{{ url('products/'.$item['id']) }}"><h4 title="{{ $item['product_name'] }}">{{ $item['product_name']}}</h4></a>
                      <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -110,7 +110,7 @@ $sections = Section::sections();
         @foreach($newMaxproProducts as $newTool)
         <?php $discounted_price = Product::getDiscountedPrice($newTool['id']); ?>
         <div class="col-4">
-            <a href="{{ url('san-pham/'.$newTool['id']) }}">
+            <a href="{{ url('products/'.$newTool['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newTool['main_image']; ?>
                         @if(!empty($newTool['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -118,8 +118,8 @@ $sections = Section::sections();
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a href="{{ url('san-pham/'.$newTool['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a href="{{ url('san-pham/'.$newTool['id']) }}">thêm vào giỏ</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newTool['id']) }}">xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('products/'.$newTool['id']) }}">thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -127,7 +127,7 @@ $sections = Section::sections();
                     ?>
                 </span>
             </small>
-             <a href="{{ url('san-pham/'.$newTool['id']) }}"><h4 title="{{ $newTool['product_name'] }}">{{ $newTool['product_name']}}</h4></a>
+             <a href="{{ url('products/'.$newTool['id']) }}"><h4 title="{{ $newTool['product_name'] }}">{{ $newTool['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -167,7 +167,7 @@ $sections = Section::sections();
         @endforeach
         @foreach($newHhoseProducts as $newHose)
         <div class="col-4">
-            <a href="{{ url('san-pham/'.$newHose['id']) }}">
+            <a href="{{ url('products/'.$newHose['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newHose['main_image']; ?>
                         @if(!empty($newHose['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -175,8 +175,8 @@ $sections = Section::sections();
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a href="{{ url('san-pham/'.$newHose['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a href="{{ url('san-pham/'.$newHose['id']) }}">thêm vào giỏ</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newHose['id']) }}">xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('products/'.$newHose['id']) }}">thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -184,7 +184,7 @@ $sections = Section::sections();
                     ?>
                 </span>
             </small>
-             <a href="{{ url('san-pham/'.$newHose['id']) }}"><h4 title="{{ $newHose['product_name'] }}">{{ $newHose['product_name']}}</h4></a>
+             <a href="{{ url('products/'.$newHose['id']) }}"><h4 title="{{ $newHose['product_name'] }}">{{ $newHose['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -208,7 +208,7 @@ $sections = Section::sections();
         @foreach($newShimgeProducts as $newPump)
         <?php $discounted_price = Product::getDiscountedPrice($newPump['id']); ?>
         <div class="col-4">
-            <a href="{{ url('san-pham/'.$newPump['id']) }}">
+            <a href="{{ url('products/'.$newPump['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newPump['main_image']; ?>
                         @if(!empty($newPump['main_image'])&&file_exists($product_image_path))
                         <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
@@ -216,8 +216,8 @@ $sections = Section::sections();
                         <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a href="{{ url('san-pham/'.$newPump['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a href="{{ url('san-pham/'.$newPump['id']) }}">thêm vào giỏ</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newPump['id']) }}">xem chi tiết</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('products/'.$newPump['id']) }}">thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -225,7 +225,7 @@ $sections = Section::sections();
                     ?>
                 </span>
             </small>
-             <a href="{{ url('san-pham/'.$newPump['id']) }}"><h4 title="{{ $newPump['product_name'] }}">{{ $newPump['product_name']}}</h4></a>
+             <a href="{{ url('products/'.$newPump['id']) }}"><h4 title="{{ $newPump['product_name'] }}">{{ $newPump['product_name']}}</h4></a>
              <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -317,7 +317,7 @@ $sections = Section::sections();
                     <?php echo $exclusive['product_description'] ?>
                 </small>
                 <br>
-                <a href="{{ url('san-pham/'.$exclusive['id']) }}" class="btn">Tìm Hiểu Thêm &#8594;</a>
+                <a href="{{ url('products/'.$exclusive['id']) }}" class="btn">Tìm Hiểu Thêm &#8594;</a>
             </div>
         </div>
     </div>

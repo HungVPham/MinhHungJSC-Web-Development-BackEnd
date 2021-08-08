@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
@@ -86,7 +87,6 @@ class ProductsController extends Controller
     // detail page general controls
     public function detail($id){
 
-        
         $productDetails = Product::with(['category', 'brand', 'MaxproAttributes'=>function($query){
             $query->where('status', 1);
         }, 'HhoseAttributes'=>function($query){
@@ -94,9 +94,8 @@ class ProductsController extends Controller
         }, 'ShimgeAttributes'=>function($query){
             $query->where('status', 1);
         }, 'images'=>function($query){
-            $query->where('status', 1);}])->find($id)->toArray();
+            $query->where('status', 1);}])->where('status', 1)->findOrFail($id)->toArray();
         
-        if($productDetails['status'] == 1){
         $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
         $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
@@ -104,9 +103,6 @@ class ProductsController extends Controller
         $relatedProducts = Product::with('brand')->where('category_id', $productDetails['category']['id'])->where('id','!=',$id)->where('status', 1)->limit(4)->inRandomOrder()->get()->toArray();
         // dd($productDetails); die;
         return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock', 'relatedProducts'));
-        }else{
-            abort(404);
-        }
     }
 
     /* get maxpro info by sku*/
@@ -407,6 +403,34 @@ class ProductsController extends Controller
         }
     }  
 
+    public function getPriceQuotation(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+             // send price quotation email to admin
+             $email = "hung.v.pham002@gmail.com";
+             $messageData = [
+                 'email' => $data['email'],
+                 'full_name' => $data['full_name'],
+                 'mobile' => $data['mobile'],
+                 'company' => $data['company'],
+                 'sku' => $data['sku'],
+                 'product_name' => $data['product_name'],
+                 'brand_name' => $data['brand_name'],
+                 'category_name' => $data['category_name'],
+                 'product_id' => $data['product_id'],
+             ];
+             Mail::send('emails.price_quotation',$messageData,function($message) use($email){ 
+                 $message->to($email)->subject('Yêu Cầu Báo Giá');
+             });
+ 
+             $message = "Cám ơn quý khách đã gửi yêu cầu báo giá sản phẩm, vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
+             session::flash('success_message', $message);
+             return redirect()->back();
+         }
+    }
+
     // display added items in cart page
     public function cart(){
         $userCartItems = Cart::userCartItems();
@@ -479,8 +503,10 @@ class ProductsController extends Controller
     
             Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
             $userCartItems = Cart::userCartItems();
+            $totalCartItems = totalCartItems();
             return response()->json([
                 'status'=>true,
+                'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
             ]);
         }
@@ -492,7 +518,9 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             Cart::where('id', $data['cartid'])->delete();
             $userCartItems = Cart::userCartItems();
+            $totalCartItems = totalCartItems();
             return response()->json([
+                'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
             ]);
         }

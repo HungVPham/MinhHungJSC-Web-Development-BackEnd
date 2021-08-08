@@ -24,7 +24,7 @@
                 <h3>Chính Sách Công Ty</h3>
                 <ul>
                     @foreach($CmsDetails as $CmsPage)
-                    <a id="footer-nav" href="{{ url('chinh-sach/'.$CmsPage['url']) }}"><li>{{ $CmsPage['title'] }}</li></a>
+                    <a id="footer-nav" href="{{ url('docs/'.$CmsPage['url']) }}"><li>{{ $CmsPage['title'] }}</li></a>
                     @endforeach
                 </ul>
             </div>

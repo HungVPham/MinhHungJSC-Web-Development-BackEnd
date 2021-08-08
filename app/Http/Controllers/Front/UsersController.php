@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Front;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Cart;
+use App\Country;
 use Session;
+
 
 class UsersController extends Controller
 {
@@ -179,12 +182,124 @@ class UsersController extends Controller
         }
     }
 
-    public function forgotPwd(){
-        return view('front.users.forgot_pwd');
+    public function forgotPwd(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $emailCount = User::where('email',$data['email'])->count();
+            if($emailCount == 0){
+                $message = "Tài khoản không tồn tại.";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
+
+            // generate new random pwd
+            $random_password = str_random(8);
+            // Encode/Secure Pwd
+            $new_password = bcrypt($random_password);
+            //update password
+            User::where('email',$data['email'])->update(['password'=>$new_password]);
+
+            // get user name 
+            $userName = User::select('name')->where('email', $data['email'])->first();
+
+            // send generated password to user
+            $email = $data['email'];
+            $name = $userName->name;
+            $messageData = [
+                'email' => $email,
+                'name' => $name,
+                'password' => $random_password
+            ];
+            Mail::send('emails.forgot_pwd', $messageData, function($message) use($email){
+                $message->to($email)->subject('Mật Khẩu Tạm Thời Tài Khoản MinhHưngJSC.');
+            });
+
+            // Redirect to login/register page with success message.
+            $message = "Mật khẩu tạm thời đã được gửi tới email của quý khách.";
+            session::flash('success_message', $message);
+            return redirect()->back();
+        }
     }
 
     public function logoutUser(){
         Auth::logout();
-        return redirect('/tai-khoan');
+        return redirect('/login-register');
+    }
+
+    public function account(Request $request){
+        $user_id = Auth::user()->id;
+        $userDetails = User::find($user_id)->toArray();
+        // $userDetails = json_decode(json_encode($userDetails), true);
+
+        $countries = Country::where('status', 1)->get()->toArray();
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $rules = [
+                'name' => 'regex:/^[\pL\s\-]+$/u',
+                'last_name' => 'regex:/^[\pL\s\-]+$/u',
+            ];  
+            $customMessages = [
+                'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
+                'last_name.regex' => 'Họ không hợp lệ. Quý khách vui lòng thử lại.',
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+            $user = User::find($user_id);
+            $user->name = $data['name'];
+            $user->last_name = $data['last_name'];
+            $user->address = $data['address'];
+            $user->city = $data['city'];
+            $user->state = $data['state'];
+            $user->country = $data['country'];
+            $user->mobile = $data['mobile'];
+            $user->save();
+
+            // Redirect to login/register page with success message.
+            $message = "Thông tin hồ sơ quý khách đã được lưu thành công.";
+            session::flash('success_message', $message);
+            return redirect()->back();
+        }
+        return view('front.users.account')->with(compact('userDetails', 'countries'));
+    }
+
+    public function chkUserPassword(Request $request){  
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            $user_id = Auth::User()->id;
+            $chkPassword = User::select('password')->where('id', $user_id)->first();
+            if(Hash::check($data['current_pwd'], $chkPassword->password)){
+                return "true";
+            }else{
+                return "false";
+            }
+        }
+    }
+
+    public function updateUserPassword(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            $user_id = Auth::User()->id;
+            $chkPassword = User::select('password')->where('id', $user_id)->first();
+            if(Hash::check($data['current_pwd'], $chkPassword->password)){
+                //update current password
+                $new_pwd = bcrypt($data['new_pwd']);
+                User::where('id', $user_id)->update(['password'=>$new_pwd]);
+                 // Redirect to login/register page with success message.
+                $message = "Mật khẩu đã được thay đổi thành công.";
+                session::flash('success_message', $message);
+                return redirect()->back();
+            }else {
+                $message = "Mật khẩu hiện tại sai.";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
+        }
     }
 }

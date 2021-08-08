@@ -11,7 +11,7 @@ class AboutController extends Controller
 {
     public function AboutPage(){
         $currentRoute = url()->current();
-        $currentRoute = str_replace("http://127.0.0.1:8000/gioi-thieu/", "",$currentRoute);
+        $currentRoute = str_replace("http://127.0.0.1:8000/about-us/", "",$currentRoute);
         $aboutRoutes = AboutPage::where('status', 1)->get()->pluck('url')->toArray();
         // dd($cmsRoutes); die;
         if(in_array($currentRoute, $aboutRoutes)){

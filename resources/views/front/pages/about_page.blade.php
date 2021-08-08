@@ -10,7 +10,7 @@
             <div class="about-col-1">
                 <div class="tab">
                     @foreach($AboutDetails as $NavLinks)
-                    <a href="{{ url('gioi-thieu/'.$NavLinks['url'])}}">{{ $NavLinks['title'] }}</a>
+                    <a href="{{ url('about-us/'.$NavLinks['url'])}}">{{ $NavLinks['title'] }}</a>
                     @endforeach
                 </div>
             </div>

@@ -5,13 +5,25 @@
 .account-page{
     background-image: url('images/banner_images/15670_banner3.jpg');
 }
-#name-error,#last_name-error, #mobile-error, #email-error, #password-error, #id-error{
+#name-error,#last_name-error, #mobile-error, #email-error, #password_login-error, #password_register-error, #id-error{
     font-size: 16px;
     font-weight: 700;
     width: 100%;
     text-align: left;
     color: var(--MinhHung-Red);
     margin-left: 5px;
+}
+.pwd-toggle{
+    width: 50px !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 5px;
+    color: rgba(0, 0,0, 0.3) !important;
+    cursor: pointer;
+}
+.pwd-toggle.on{
+    display: none;
 }
 </style>
 <div class="account-page">               
@@ -70,7 +82,12 @@
                         </div>
                         <div  id="reg-int-container">
                             <label for="last_name">Mật khẩu*:</label>
-                            <input id="password" name="password" placeholder="Tối thiểu 6 kí tự bao gồm cả chữ và số">
+                            <div style="position: relative;">
+                                <input  id="password_register" name="password" type="password" 
+                                placeholder="Vui lòng nhập mật khẩu">
+                                <span id="eyeSlash1" class="pwd-toggle" onclick="visibility1()"><i class="far fa-eye-slash"></i></span>
+                                <span id="eyeShow1" class="pwd-toggle on" onclick="visibility1()"><i class="far fa-eye"></i></span>
+                            </div>
                         </div>
                         <button class="btn">Đăng Kí Tài Khoản</button>
                     </form>
@@ -81,14 +98,19 @@
                             <label for="last_name">Số điện thoại hoặc email*:</label>
                             <input  id="id" name="id" placeholder="Vui lòng nhập số điện thoại hoặc email">
                             <label for="last_name">Mật khẩu*:</label>
-                            <input  id="password" name="password" type="password" placeholder="Vui lòng nhập mật khẩu">
+                            <div style="position: relative;">
+                                <input id="password_login" name="password" type="password" 
+                                placeholder="Vui lòng nhập mật khẩu">
+                                <span id="eyeSlash0" class="pwd-toggle" onclick="visibility0()"><i class="far fa-eye-slash"></i></span>
+                                <span id="eyeShow0" class="pwd-toggle on" onclick="visibility0()"><i class="far fa-eye"></i></span>
+                            </div>
                         <button type="submit" class="btn">Đăng Nhập</button>
                         <a style="cursor: pointer;" onclick="forgot()">Quên Mật Khẩu?</a>
                     </form>
                     <form id="ForgotPwdForm" action="{{ url('/forgot-pwd') }}" method="post">@csrf
-                        <h3 style="text-align: center; font-weight: 600;">Tìm tài khoản của bạn</h3>  
-                            <label for="last_name">Email*:</label>
-                            <input  id="id" name="id" placeholder="Vui lòng nhập email của quý khách">
+                        <h3 style="text-align: center; font-weight: 600;">Tìm tài khoản của quý khách</h3>  
+                            <label for="email">Email*:</label>
+                            <input type="email" id="email" name="email" placeholder="Vui lòng nhập email để nhận mật khẩu tạm thời">
                         <button type="submit" class="btn">Tìm tài khoản</button>
                     </form>
                 </div>

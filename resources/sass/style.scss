@@ -11,9 +11,10 @@
 
 @import 'products/listing', 'products/details', 'products/cart';
 
-@import 'misc/about', 'misc/employment', 'misc/contact-us', 'misc/account';
+@import 'misc/about', 'misc/employment', 'misc/contact-us';
 @import 'blog/overview', 'blog/single';
 
+@import 'users/account', 'users/my-acount';
 
 //responsive css
 @import 'responsive';

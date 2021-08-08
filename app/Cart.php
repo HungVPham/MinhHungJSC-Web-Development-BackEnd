@@ -51,15 +51,6 @@ class Cart extends Model
         return $this->belongsTo('App\Brand', 'brand_id');
     }
 
-    public static function countCartItems(){
-        if(Auth::check()){
-            $countCartItems = Cart::where('user_id',Auth::user()->id)->count();
-        }else{
-            $countCartItems = Cart::where('session_id', Session::get('session_id'))->count();
-        }
-        return $countCartItems;
-    }
-
     // public static function getMaxproProductAttrPrice($product_id, $sku){
     //     $attrMaxproPrice = MaxproProductAttributes::select('price')->where(['product_id'=>$product_id, 'sku'=>$sku])->first();
     //     if($attrMaxproPrice){

@@ -54,8 +54,8 @@
                 <input type="text" name="name" id="name" placeholder="Họ và Tên"/>
                 <input type="email" name="email" id="email" placeholder="Email"/> 
                 <input type="subject" name="subject" id="subject" placeholder="Chủ Đề"/> 
-                <textarea type="text" name="message" id="message" placeholder="lời nhắn hay câu hỏi của quý khách..."></textarea>
-                <button class="btn">Gửi Đi!</button>
+                <textarea type="text" name="message" id="message" placeholder="lời nhắn hoặc câu hỏi của quý khách..."></textarea>
+                <button class="btn">Gửi Đi</button>
             </div>
         </div>
         </form>

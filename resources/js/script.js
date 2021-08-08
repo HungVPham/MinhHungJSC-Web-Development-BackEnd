@@ -255,35 +255,35 @@ $(document).ready(function () {
     $("#getHhosePrice").change(function () {
       var sku = $(this).val();
       var product_id = $(this).attr("product-id");
-      $.ajax({
-        url: '/get-hhose-product-price',
-        data: {
-          sku: sku,
-          product_id: product_id
-        },
-        type: 'post',
-        success: function success(resp) {
-          var formatter = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-          });
-          var data = formatter.format(resp['product_price']);
-          var dataDiscounted = formatter.format(resp['discounted_price']);
+      // $.ajax({
+      //   url: '/get-hhose-product-price',
+      //   data: {
+      //     sku: sku,
+      //     product_id: product_id
+      //   },
+      //   type: 'post',
+      //   success: function success(resp) {
+      //     var formatter = new Intl.NumberFormat('vi-VN', {
+      //       style: 'currency',
+      //       currency: 'VND'
+      //     });
+      //     var data = formatter.format(resp['product_price']);
+      //     var dataDiscounted = formatter.format(resp['discounted_price']);
 
-          if(resp['discounted_price']>0){
-            $(".getHhoseAttrPrice").html("<del>"+data+"</del>"+"<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;"+dataDiscounted)+'</strong>';
-          }else{
-            $(".getHhoseAttrPrice").html(data);
-          }
-        },
-        error: function error() {
-          Swal.fire({
-            title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
-            confirmButtonColor: '#cb1c22',
-            confirmButtonText: 'Okay Luôn!'
-          });
-        }
-      });
+      //     if(resp['discounted_price']>0){
+      //       $(".getHhoseAttrPrice").html("<del>"+data+"</del>"+"<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;"+dataDiscounted)+'</strong>';
+      //     }else{
+      //       $(".getHhoseAttrPrice").html(data);
+      //     }
+      //   },
+      //   error: function error() {
+      //     Swal.fire({
+      //       title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
+      //       confirmButtonColor: '#cb1c22',
+      //       confirmButtonText: 'Okay Luôn!'
+      //     });
+      //   }
+      // });
       $.ajax({
         url: '/get-hhose-product-diameter',
         data: {
@@ -455,24 +455,6 @@ $(document).ready(function () {
       });
     });// get pump products information given sku
 
-    $( ".getMaxMaxpro, .getMaxHhose, .getMaxShimge" ).change(function() {
-      var max = parseInt($(this).attr('max'));
-      var min = parseInt($(this).attr('min'));
-      if ($(this).val() >= max)
-      {
-          $(this).val(max);
-          $(".max-reached").addClass("active");
-      }
-      else if ($(this).val() < min)
-      {
-          $(this).val(min);
-      }  
-      if ($(this).val() < max)
-      {
-        $(".max-reached").removeClass("active");
-      }     
-    }); // show limit quantity wtb has reached
-
     $(document).on('click','.btnItemUpdate',function(){
         if($(this).hasClass('plus')){
           var $qty = $(this).closest('.number-input').find('.quantity');
@@ -507,7 +489,7 @@ $(document).ready(function () {
                   type: 'post',
                   success:function success(resp){
                     $("#AppendCartItems").html(resp.view);
-                    location.reload();
+                    $(".navbar-cart").attr('cartcount', resp.totalCartItems);
                   },error:function(){
                     alert("Error");
                   }
@@ -533,6 +515,7 @@ $(document).ready(function () {
             });
           }
           $("#AppendCartItems").html(resp.view);
+          $(".navbar-cart").attr('cartcount', resp.totalCartItems);
         },error:function(){
           alert("Error");
         }
@@ -548,7 +531,7 @@ $(document).ready(function () {
           type: 'post',
           success:function success(resp){
             $("#AppendCartItems").html(resp.view);
-            location.reload();
+            $(".navbar-cart").attr('cartcount', resp.totalCartItems);
           },error:function(){
             alert("Error");
           }
@@ -559,7 +542,10 @@ $(document).ready(function () {
   $("#ContactForm").validate({
     rules: {
       name: "required",
-      email: "required",
+      email: {
+        required: true,
+        email: true,
+      },
       subject: "required",
       message: "required",
     },
@@ -571,6 +557,33 @@ $(document).ready(function () {
       name: "Vui nhập tên của quý khách.",
       subject: "Vui nhập chủ đề câu hỏi của quý khách.",
       message: "Vui nhập lời nhắn/câu hỏi của quý khách.",
+    }
+  });
+  
+  $("#InformationForm").validate({
+    rules: {
+      name: {
+        required: true,
+      },
+      last_name: "required",
+      mobile: {
+        required: true,
+        minlength: 10,
+        maxlength: 10,
+        digits: true,
+      },
+    },
+    messages: {
+      name: {
+        required: "Vui lòng nhập tên.",
+      },
+      last_name: "Vui lòng nhập họ.",
+      mobile: {
+        required: "Vui lòng nhập số điện thoại.",
+        minlength: "Số điện thọai không hợp lệ.",
+        maxlength: "Số điện thọai không hợp lệ.",
+        digits: "Số điện thoại không hợp lệ."
+      },
     }
   });
 
@@ -604,11 +617,11 @@ $(document).ready(function () {
       },
       email: {
         remote: "Email đã được đăng kí.",
-        required: "Vui lòng nhập email.",
+        required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ.",
       },
       mobile: {
-        remote: "Số điện thoại đã được đăng kí.",
+        remote: "Số điện thoại đã được đăng kí ở một tài khoản khác.",
         required: "Vui lòng nhập số điện thoại.",
         minlength: "Số điện thọai không hợp lệ.",
         maxlength: "Số điện thọai không hợp lệ.",
@@ -626,6 +639,74 @@ $(document).ready(function () {
       password: "Vui nhập mật khẩu của quý khách.",
     }
   });
+
+  $("#ForgotPwdForm").validate({
+    rules: {
+      email: {
+        required: true,
+        email: true,
+      },
+    },
+    messages: {
+      email: {
+        remote: "Email đã được đăng kí.",
+        required: "Vui lòng nhập email của quý khách.",
+        email: "Email không hợp lệ.",
+      },
+    }
+  });
+
+  $("#NewPwdForm").validate({
+    rules: {
+      current_pwd: {
+        required: true,
+      },
+      new_pwd: {
+        required: true,
+        minlength: 6,
+      },
+      confirm_pwd: {
+        required: true,
+        minlength: 6,
+        equalTo:"#new_pwd",
+      },
+    },
+    messages: {
+      current_pwd: {
+        required: "Vui lòng nhập mật khẩu hiện tại.",
+      },
+      new_pwd: {
+        required: "Vui lòng nhập mật khẩu mới.",
+        minlength: "Mật khẩu phải dài ít nhất 6 chữ hoặc số.",
+      },
+      confirm_pwd: {
+        required: "Vui lòng xác nhận mật khẩu mới.",
+        minlength: "Mật khẩu phải dài ít nhất 6 chữ hoặc số.",
+        equalTo: "Xác nhận mật khẩu không chính xác.",
+      },
+    }
+  });
+
+  
+  $("#current_pwd").keyup(function(){
+    var current_pwd = $(this).val();
+    $.ajax({
+      type:'post',
+      url:'/check-user-pwd',
+      data:{current_pwd:current_pwd},
+      success:function(resp){
+        // alert(resp);
+        if(resp=="false"){
+          $("#chkPwd").html("<font color='#cb1c22'>Mật khẩu không đúng.</font>");
+        }else if(resp=="true"){
+          $("#chkPwd").html("<font color='#228B22'>Mật khẩu đúng.</font>");
+        }
+      },error:function(){
+        alert("Error");
+      }
+    })
+  });// Check Current User Password
+
 }); 
   
   $(window).on("load", function () {
@@ -777,27 +858,93 @@ $(document).ready(function () {
   var LogForNav = document.getElementById("LogForNav");
 
   window.login = function() {
-  RegForm.style.transform = "translateX(0px)";
-  RegLabel.style.display = "inline-block";
-  LoginForm.style.transform = "translateX(0px)";
-  ForgotPwdForm.style.transform = "translateX(0px)";
-  Indicator.style.visibility = "visible";
-  Indicator.style.transform = "translateX(200px)";
-  LogForNav.style.display = "none";
+    RegForm.style.transform = "translateX(0px)";
+    RegLabel.style.display = "inline-block";
+    LoginForm.style.transform = "translateX(0px)";
+    ForgotPwdForm.style.transform = "translateX(0px)";
+    Indicator.style.visibility = "visible";
+    Indicator.style.transform = "translateX(200px)";
+    LogForNav.style.display = "none";
   }
 
   window.register = function () {
-  RegForm.style.transform = "translateX(400px)";
-  LoginForm.style.transform = "translateX(400px)";
-  ForgotPwdForm.style.transform = "translate(0px)";
-  Indicator.style.visibility = "visible";
-  Indicator.style.transform = "translateX(100px)";
+    RegForm.style.transform = "translateX(400px)";
+    LoginForm.style.transform = "translateX(400px)";
+    ForgotPwdForm.style.transform = "translate(0px)";
+    Indicator.style.visibility = "visible";
+    Indicator.style.transform = "translateX(100px)";
   }
 
   window.forgot = function () {
-  ForgotPwdForm.style.transform = "translateX(-400px)";
-  Indicator.style.visibility = "hidden";
-  RegLabel.style.display = "none";
-  LogForNav.style.display = "inline-block";
-  LoginForm.style.transform = "translateX(-400px)";
+    ForgotPwdForm.style.transform = "translateX(-400px)";
+    Indicator.style.visibility = "hidden";
+    RegLabel.style.display = "none";
+    LogForNav.style.display = "inline-block";
+    LoginForm.style.transform = "translateX(-400px)";
+  } // login/register page switching forms
+
+  window.visibility0= function () {
+    var password_login = document.getElementById('password_login');
+    if (password_login.type === 'text') {
+      password_login.type = "password";
+      $('#eyeShow0').hide();
+      $('#eyeSlash0').show();
+    }else {
+      password_login.type = "text";
+      $('#eyeShow0').show();
+      $('#eyeSlash0').hide();
+    }
+  } // change visibility on password input
+
+
+  window.visibility1 = function () {
+    var password_login = document.getElementById('password_register');
+    if (password_login.type === 'text') {
+      password_login.type = "password";
+      $('#eyeShow1').hide();
+      $('#eyeSlash').show();
+    }else {
+      password_login.type = "text";
+      $('#eyeShow1').show();
+      $('#eyeSlash').hide();
+    }
+  }
+
+  window.visibility2 = function () {
+    var password_login = document.getElementById('current_pwd');
+    if (password_login.type === 'text') {
+      password_login.type = "password";
+      $('#eyeShow2').hide();
+      $('#eyeSlash2').show();
+    }else {
+      password_login.type = "text";
+      $('#eyeShow2').show();
+      $('#eyeSlash2').hide();
+    }
+  }
+
+  window.visibility3 = function () {
+    var password_login = document.getElementById('new_pwd');
+    if (password_login.type === 'text') {
+      password_login.type = "password";
+      $('#eyeShow3').hide();
+      $('#eyeSlash3').show();
+    }else {
+      password_login.type = "text";
+      $('#eyeShow3').show();
+      $('#eyeSlash3').hide();
+    }
+  }
+
+  window.visibility4 = function () {
+    var password_login = document.getElementById('confirm_pwd');
+    if (password_login.type === 'text') {
+      password_login.type = "password";
+      $('#eyeShow4').hide();
+      $('#eyeSlash4').show();
+    }else {
+      password_login.type = "text";
+      $('#eyeShow4').show();
+      $('#eyeSlash4').hide();
+    }
   }

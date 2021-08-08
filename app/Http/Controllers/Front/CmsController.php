@@ -14,7 +14,7 @@ class CmsController extends Controller
 {
     public function CmsPage(){
         $currentRoute = url()->current();
-        $currentRoute = str_replace("http://127.0.0.1:8000/chinh-sach/", "",$currentRoute);
+        $currentRoute = str_replace("http://127.0.0.1:8000/docs/", "",$currentRoute);
         $cmsRoutes = CmsPage::where('status', 1)->get()->pluck('url')->toArray();
         // dd($cmsRoutes); die;
         if(in_array($currentRoute, $cmsRoutes)){
