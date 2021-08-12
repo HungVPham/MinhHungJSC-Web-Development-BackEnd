@@ -122,6 +122,12 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::match(['get', 'post'], 'add-edit-catalogue-page/{id?}', 'CatalogueController@addEditCataloguePage');
         Route::post('update-catalogue-page-status', 'CatalogueController@updateCataloguePageStatus');
         Route::get('delete-catalogue-page/{id}','CatalogueController@deleteCataloguePage');
+
+        // Coupons 
+        Route::get('coupons', 'CouponsController@coupons');
+        Route::post('update-coupon-status', 'CouponsController@updateCouponStatus');
+        Route::match(['get', 'post'], 'add-edit-coupon/{id?}', 'CouponsController@addEditCoupon');
+        Route::get('delete-coupon/{id}','CouponsController@deleteCoupon');
     });
 });
 
@@ -201,6 +207,7 @@ Route::namespace('Front')->group(function(){
 
     // Get price quotation
     Route::match(['get', 'post'],'/price-quotation', 'ProductsController@getPriceQuotation');
+    Route::match(['get', 'post'],'/stock-refill', 'ProductsController@getStockRefill');
 
     // shopping cart route
     Route::get('/cart','ProductsController@cart');
@@ -220,6 +227,8 @@ Route::namespace('Front')->group(function(){
         Route::match(['get', 'post'],'/my-account', 'UsersController@account');
         Route::match(['get', 'post'],'/update-user-pwd', 'UsersController@updateUserPassword');
         Route::post('/check-user-pwd', 'UsersController@chkUserPassword');
+        Route::post('/apply-coupon', 'ProductsController@applyCoupon');
+
     });
 
     Route::get('/logout', 'UsersController@logoutUser');

@@ -42,6 +42,8 @@ class UsersController extends Controller
                 $user->last_name = $data['last_name'];
                 $user->email = $data['email'];
                 $user->mobile = $data['mobile'];
+                $user->company_name = $data['company_name'];
+                $user->company_email = $data['company_email'];
                 $user->password = bcrypt($data['password']);
                 $user->status = 0;
                 $user->save();
@@ -115,7 +117,7 @@ class UsersController extends Controller
                 // Redirect to login/register page with success message.
                 $message = "Tài khoản đã được kích hoạt thành công.";
                 session::flash('success_message', $message);
-                return redirect('tai-khoan');
+                return redirect('login-register');
             }
         }else{
             abort(404);

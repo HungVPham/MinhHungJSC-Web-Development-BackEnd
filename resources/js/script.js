@@ -201,19 +201,23 @@ $(document).ready(function () {
           });
           var data = formatter.format(resp['product_price']);
           var dataDiscounted = formatter.format(resp['discounted_price']);
-
-          if(resp['discounted_price']>0){
-            $(".getMaxproAttrPrice").html("<del>"+data+"</del>"+"<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;"+dataDiscounted)+'</strong>';
-          }else{
-            $(".getMaxproAttrPrice").html(data);
+          if(resp['product_price']!=null)
+            if(resp['discounted_price']>0){
+              $(".getMaxproAttrPrice").html("<del>"+data+"</del>"+"<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;"+dataDiscounted)+'</strong>';
+            }else{
+              $(".getMaxproAttrPrice").html(data);
+            }
+          else{
+            Swal.fire({
+              title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
+              confirmButtonColor: '#cb1c22',
+              confirmButtonText: 'Okay Luôn!'
+            });
+            return false;
           }
         },
         error: function error() {
-          Swal.fire({
-            title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
-            confirmButtonColor: '#cb1c22',
-            confirmButtonText: 'Okay Luôn!'
-          });
+          alert("error");
         }
       });
       $.ajax({
@@ -360,19 +364,23 @@ $(document).ready(function () {
           });
           var data = formatter.format(resp['product_price']);
           var dataDiscounted = formatter.format(resp['discounted_price']);
-
-          if(resp['discounted_price']>0){
-            $(".getShimgeAttrPrice").html("<del>"+data+"</del>"+"<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;"+dataDiscounted)+'</strong>';
-          }else{
-            $(".getShimgeAttrPrice").html(data);
+          if(resp['product_price']!=null)
+            if(resp['discounted_price']>0){
+              $(".getShimgeAttrPrice").html("<del>"+data+"</del>"+"<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;"+dataDiscounted)+'</strong>';
+            }else{
+              $(".getShimgeAttrPrice").html(data);
+            }
+          else{
+            Swal.fire({
+              title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
+              confirmButtonColor: '#cb1c22',
+              confirmButtonText: 'Okay Luôn!'
+            });
+            return false;
           }
         },
         error: function error() {
-          Swal.fire({
-            title: 'Vui lòng chọn mã sản phẩm bạn muốn mua!',
-            confirmButtonColor: '#cb1c22',
-            confirmButtonText: 'Okay Luôn!'
-          });
+         alert("error");
         }
       });
       $.ajax({
@@ -490,6 +498,7 @@ $(document).ready(function () {
                   success:function success(resp){
                     $("#AppendCartItems").html(resp.view);
                     $(".navbar-cart").attr('cartcount', resp.totalCartItems);
+                    $("#cart-container").load(window.location.href + " #cart-container" );
                   },error:function(){
                     alert("Error");
                   }
@@ -515,7 +524,7 @@ $(document).ready(function () {
             });
           }
           $("#AppendCartItems").html(resp.view);
-          $(".navbar-cart").attr('cartcount', resp.totalCartItems);
+          $(".navbar-cart").attr('cartcount', resp.totalCartItems); 
         },error:function(){
           alert("Error");
         }
@@ -530,8 +539,9 @@ $(document).ready(function () {
           url:'/delete-cart-item',
           type: 'post',
           success:function success(resp){
-            $("#AppendCartItems").html(resp.view);
+            $("#AppendCartItems").html(resp.view);       
             $(".navbar-cart").attr('cartcount', resp.totalCartItems);
+            $("#cart-container").load(window.location.href + " #cart-container" );
           },error:function(){
             alert("Error");
           }
@@ -539,6 +549,35 @@ $(document).ready(function () {
   });// update cart items
 
   // validate signup form on keyup and submit
+  $("#PriceQuotationForm").validate({
+    rules: {
+      email: {
+        required: true,
+        email: true,
+      },
+      full_name: "required",
+      mobile: {
+        required: true,
+        minlength: 10,
+        maxlength: 10,
+        digits: true,
+      },
+    },
+    messages: {
+      email: {
+        required: "Vui lòng nhập email của quý khách.",
+        email: "Email không hợp lệ.",
+      },
+      full_name: "Vui nhập tên của quý khách.",
+      mobile: {
+        required: "Vui lòng nhập số điện thoại.",
+        minlength: "Số điện thọai không hợp lệ.",
+        maxlength: "Số điện thọai không hợp lệ.",
+        digits: "Số điện thoại không hợp lệ."
+      },
+    }
+  });
+
   $("#ContactForm").validate({
     rules: {
       name: "required",
@@ -607,6 +646,9 @@ $(document).ready(function () {
         required: true,
         email: true,
       },
+      company_email: {
+        email: true,
+      },
     },
     messages: {
       name: "Vui lòng nhập tên.",
@@ -619,6 +661,9 @@ $(document).ready(function () {
         remote: "Email đã được đăng kí.",
         required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ.",
+      },
+      company_email: {
+        email: "Email doanh nghiệp không hợp lệ.",
       },
       mobile: {
         remote: "Số điện thoại đã được đăng kí ở một tài khoản khác.",
@@ -707,6 +752,51 @@ $(document).ready(function () {
     })
   });// Check Current User Password
 
+  // Apply Coupon 
+  $("#ApplyCoupon").submit(function(){
+    var user = $(this).attr("user");
+    if(user==1){
+    }else{
+      Swal.fire({
+        title: "Quý khách có thể đăng ký tài khoản để sử dụng mã khuyến mãi và nhận nhiều ưu đãi hấp dẫn hơn nữa!",
+        confirmButtonColor: '#cb1c22',
+        confirmButtonText: 'Okay Luôn!'
+      });
+      return false;
+    }
+    var code = $("#code").val();
+    $.ajax({
+      type:'post',
+      data:{code:code},
+      url:'/apply-coupon',
+      success:function(resp){
+        var formatter = new Intl.NumberFormat('vi-VN', {
+          style: 'currency',
+          currency: 'VND'
+        });
+        var coupon_amount = formatter.format(resp.couponAmount);
+        var total_amount = formatter.format(resp.totalAmount);
+        if(resp.message!=""){
+          Swal.fire({
+            title: resp.message,
+            confirmButtonColor: '#cb1c22',
+            confirmButtonText: 'Okay Luôn!'
+          });
+        }
+        $("#AppendCartItems").html(resp.view);
+        if(resp.couponAmount>=0){
+          $(".couponAmount").text(coupon_amount);
+        }else{
+          $(".couponAmount").text('0 ₫');
+        }
+        if(resp.totalAmount>=0){
+          $(".totalAmount").text(total_amount);
+        }
+      },error:function(){
+          alert("Error");
+      }
+    })
+  });
 }); 
   
   $(window).on("load", function () {
@@ -719,7 +809,7 @@ $(document).ready(function () {
   
   
   window.goBack = function() {
-    window.history.back();
+    window.location.replace(document.referrer);
   } // back to previous page 
 
 
@@ -902,11 +992,11 @@ $(document).ready(function () {
     if (password_login.type === 'text') {
       password_login.type = "password";
       $('#eyeShow1').hide();
-      $('#eyeSlash').show();
+      $('#eyeSlash1').show();
     }else {
       password_login.type = "text";
       $('#eyeShow1').show();
-      $('#eyeSlash').hide();
+      $('#eyeSlash1').hide();
     }
   }
 

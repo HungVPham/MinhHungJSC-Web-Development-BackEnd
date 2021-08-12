@@ -106,15 +106,7 @@ use App\Product;
     @endforeach
 </table>
 </div>
-@if(totalCartItems() == 0)
-<p class="empt-cart-noti">chưa có sản phẩm nào trong giỏ</p>
-@endif
 <div class="total-price">
-    <div class="voucher-containter">
-        <label for="voucher">Nhập Mã Khuyến Mãi:</label>
-        <input class="voucher" type="text">
-        <p style="text-align: center;"><button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button><button @if(empty($userCartItems)) disabled @endif class="btn">Mua Hàng</button></p>
-    </div>
     <table>
         <tr>
             <td>Tổng Giá <small style="color: #888;">@if($total_shimge_discount + $total_maxpro_discount > 0)&nbsp;(đã trừ giảm giá <?php 
@@ -134,16 +126,12 @@ use App\Product;
         <tr>
             <td>Khuyến Mãi</td>
             <td>
-                <?php 
-               $total_voucher = 0; 
-               $format = number_format($total_voucher,0,",",".");
-                echo $format;
-               ?> ₫
+                - <span class="couponAmount">0 ₫</span> 
             </td>
         </tr>
         <tr>
             <td>Tổng Thanh Toán</td>
-            <td>
+            <td class="totalAmount">
                 <?php 
                 $format = number_format($total_price,0,",",".");
                  echo $format;

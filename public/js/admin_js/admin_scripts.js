@@ -36,6 +36,9 @@ $(document).ready(function(){
           }).then((result) => {
             if (result.isConfirmed) {
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type:'post',
                 url:'/admin/update-section-status',
                 data:{status:status,section_id:section_id},
@@ -69,6 +72,9 @@ $(document).ready(function(){
           }).then((result) => {
             if (result.isConfirmed) {
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type:'post',
                 url:'/admin/update-brand-status',
                 data:{status:status,brand_id:brand_id},
@@ -210,6 +216,9 @@ $(document).ready(function(){
           }).then((result) => {
             if (result.isConfirmed) {
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type:'post',
                 url:'/admin/update-banner-status',
                 data:{status:status,banner_id:banner_id},
@@ -243,6 +252,9 @@ $(document).ready(function(){
           }).then((result) => {
             if (result.isConfirmed) {
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type:'post',
                 url:'/admin/update-category-status',
                 data:{status:status,category_id:category_id},
@@ -260,10 +272,47 @@ $(document).ready(function(){
         });
     });
 
-     // Update Product Status 
-     $(document).on("click", ".updateProductStatus", function(){
+    // Update Product Status 
+    $(document).on("click", ".updateProductStatus", function(){
+    var status = $(this).text();
+    var product_id = $(this).attr("product_id");
+    Swal.fire({
+        title: 'Xác nhận thay đổi trạng thái?',
+        text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: 'var(--Positive-Green)',
+        cancelButtonColor: 'var(--Delete-Red)',
+        confirmButtonText: 'Thay đổi!',
+        cancelButtonText: 'Không thay đổi.'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'post',
+                url:'/admin/update-product-status',
+                data:{status:status,product_id:product_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                    }else if(resp['status']==1){
+                        $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                    }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
+            }
+        });
+    });
+
+        
+     // Update Catalogue Pages Status
+     $(document).on("click", ".updateCouponStatus", function(){
         var status = $(this).text();
-        var product_id = $(this).attr("product_id");
+        var coupon_id = $(this).attr("coupon_id");
         Swal.fire({
             title: 'Xác nhận thay đổi trạng thái?',
             text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
@@ -273,25 +322,29 @@ $(document).ready(function(){
             cancelButtonColor: 'var(--Delete-Red)',
             confirmButtonText: 'Thay đổi!',
             cancelButtonText: 'Không thay đổi.'
-            }).then((result) => {
+          }).then((result) => {
             if (result.isConfirmed) {
-                $.ajax({
-                    type:'post',
-                    url:'/admin/update-product-status',
-                    data:{status:status,product_id:product_id},
-                    success:function(resp){
-                        if(resp['status']==0){
-                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
-                        }else if(resp['status']==1){
-                            $("#product-"+product_id).html("<a class='updateProductStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
-                        }
-                        },error:function(){
-                            alert("Error");
-                        }
-                    })
-                }
-            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'post',
+                url:'/admin/update-coupon-status',
+                data:{status:status,coupon_id:coupon_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#coupon-"+coupon_id).html("<a class='updateCouponStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                    }else if(resp['status']==1){
+                        $("#coupon-"+coupon_id).html("<a class='updateCouponStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                    }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
+            }
         });
+    });
+
 
     // Append Categories Level 
     $('#section_id').change(function(){
@@ -528,4 +581,20 @@ $(document).ready(function(){
         $(this).parent('div').remove(); //Remove field html
         x--; //Decrement field counter
     });
+
+    // show/hide manual coupon
+    $("#ManualCoupon").click(function(){
+        $('#couponField').show();
+    });
+
+    $("#AutomaticCoupon").click(function(){
+        $('#couponField').hide();
+    });
+
+     //Datemask dd/mm/yyyy
+     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+     //Datemask2 mm/dd/yyyy
+     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+     //Money Euro
+     $('[data-mask]').inputmask()
 });

@@ -12,6 +12,8 @@ use App\Category;
 use App\Section;
 use App\Product;
 use App\Cart;
+use App\Coupon;
+use App\User;
 use Auth;
 use App\MaxproProductAttributes;
 use App\HhoseProductAttributes;
@@ -96,9 +98,9 @@ class ProductsController extends Controller
         }, 'images'=>function($query){
             $query->where('status', 1);}])->where('status', 1)->findOrFail($id)->toArray();
         
-        $total_tools_stock = MaxproProductAttributes::where('product_id', $id)->sum('stock'); 
-        $total_hhose_stock = HhoseProductAttributes::where('product_id', $id)->sum('stock'); 
-        $total_pump_stock = ShimgeProductAttributes::where('product_id', $id)->sum('stock'); 
+        $total_tools_stock = MaxproProductAttributes::where(['product_id'=>$id, 'status'=>1])->sum('stock'); 
+        $total_hhose_stock = HhoseProductAttributes::where(['product_id'=>$id, 'status'=>1])->sum('stock'); 
+        $total_pump_stock = ShimgeProductAttributes::where(['product_id'=>$id, 'status'=>1])->sum('stock'); 
         $total_stock =  $total_tools_stock + $total_hhose_stock + $total_pump_stock;
         $relatedProducts = Product::with('brand')->where('category_id', $productDetails['category']['id'])->where('id','!=',$id)->where('status', 1)->limit(4)->inRandomOrder()->get()->toArray();
         // dd($productDetails); die;
@@ -425,7 +427,50 @@ class ProductsController extends Controller
                  $message->to($email)->subject('Yêu Cầu Báo Giá');
              });
  
-             $message = "Cám ơn quý khách đã gửi yêu cầu báo giá sản phẩm, vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
+             $message = "Cám ơn quý khách đã gửi yêu cầu báo giá sản phẩm.
+             Vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
+             session::flash('success_message', $message);
+             return redirect()->back();
+         }
+    }
+
+    public function getStockRefill(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $rules = [
+                'full_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'mobile' => 'required',
+                'email' => 'required',
+            ];  
+            $customMessages = [
+                'full_name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
+                'full_name.required' => 'Quý khách vui lòng điền họ tên để nhận thông báo.',
+                'mobile.required' => 'Quý khách vui lòng điền số điện thoại để nhận thông báo.',
+                'email.required' => 'Quý khách vui lòng điền email để nhận thông báo.',
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+             // send stock refill alert email to admin
+             $email = "hung.v.pham002@gmail.com";
+             $messageData = [
+                 'email' => $data['email'],
+                 'full_name' => $data['full_name'],
+                 'mobile' => $data['mobile'],
+                 'company' => $data['company'],
+                 'sku' => $data['sku'],
+                 'product_name' => $data['product_name'],
+                 'brand_name' => $data['brand_name'],
+                 'category_name' => $data['category_name'],
+                 'product_id' => $data['product_id'],
+             ];
+             Mail::send('emails.stock_refill',$messageData,function($message) use($email){ 
+                 $message->to($email)->subject('Yêu Cầu thông báo khi tồn kho');
+             });
+ 
+             $message = "Cám ơn quý khách đã gửi yêu cầu thông báo khi tồn kho sản phẩm.
+             Vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
              session::flash('success_message', $message);
              return redirect()->back();
          }
@@ -523,6 +568,106 @@ class ProductsController extends Controller
                 'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
             ]);
+        }
+    }
+
+    public function applyCoupon(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $couponCount = Coupon::where('coupon_code',$data['code'])->count();
+            $userCartItems = Cart::userCartItems();
+            $totalCartItems = totalCartItems();
+
+            if($couponCount==0){
+                $message = 'Mã khuyến mãi không tồn tại.';
+                return response()->json([
+                    'status'=>false, 
+                    'message'=>$message,
+                    'totalCartItems'=>$totalCartItems,
+                    'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+                ]);
+            }else{
+                // check for other coupon conditions
+                $couponDetails = Coupon::where('coupon_code', $data['code'])->first();
+                // echo "<pre>"; print_r($couponDetails); die;
+
+                if($couponDetails->status==0){
+                    $message = 'Mã khuyến mãi hiện chưa hoạt động.';
+                }
+
+                $expiry_date = $couponDetails->expiry_date;
+                $current_date = date('Y-m-d');
+                if($expiry_date < $current_date){
+                    $message = 'Mã khuyến mãi đã hết hạn sử dụng.'.' ['.$expiry_date.']';
+                }
+
+                $catArr = explode(",",$couponDetails->categories);
+                if(!empty($couponDetails['categories'])){
+                    foreach($userCartItems as $key => $item){
+                        if(!in_array($item['product']['category_id'], $catArr)){
+                            $message = 'Mã khuyến mãi không áp dụng cho sản phẩm trong giỏ.';
+                        }
+                    }
+                }
+                
+                $userArr = explode(",",$couponDetails->users);
+                if(!empty($couponDetails['users'])){
+                    foreach($userArr as $key => $user){
+                        $getUserID = User::select('id')->where('email', $user)->first()->toArray();
+                        $userID[] = $getUserID['id'];
+                    }
+                    foreach($userCartItems as $key => $item){
+                        if(!in_array($item['user_id'],$userID)){
+                            $message = 'Mã khuyến mãi không áp dụng cho bạn, nếu đây là sự nhầm lẫn, xin vui lòng liên hệ với chúng tôi.';
+                        }
+                    }
+                }
+
+                $total_amount = 0;
+                foreach($userCartItems as $key => $item){
+                    if($item['product']['section_id']==1){
+                        $attrPrice = Product::getDiscountedMaxproPrice($item['product_id'], $item['sku']);
+                    }elseif($item['product']['section_id']==3){
+                        $attrPrice = Product::getDiscountedShimgePrice($item['product_id'], $item['sku']);
+                    }
+                    $total_amount = $total_amount + ($attrPrice['discounted_price']*($item['quantity']));
+                }
+                
+                // echo $total_amount; die;
+
+                if(isset($message)){
+                    return response()->json([
+                        'status'=>false, 
+                        'message'=>$message,
+                        'totalCartItems'=>$totalCartItems,
+                        'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+                    ]);
+                }else{
+                    // echo "Coupon can successfully be redeem"; die;
+                    if($couponDetails->amount_type=="Fixed"){
+                        $couponAmount = $couponDetails->amount;
+                        $totalAmount = $total_amount - $couponDetails->amount;
+                    }else{
+                        $couponAmount = $total_amount*$couponDetails->amount/100;
+                        $totalAmount = $total_amount- ($total_amount*$couponDetails->amount/100);
+                    }
+                    // echo $couponAmount; die;
+                    Session::put('CouponAmount',$couponAmount);
+                    Session::put('CouponCode',$data['code']);
+
+                    $message = "Mã giảm giá đã được áp dụng thành công!";
+
+                    return response()->json([
+                        'status'=>true, 
+                        'message'=>$message,
+                        'totalCartItems'=>$totalCartItems,
+                        'couponAmount'=>$couponAmount,
+                        'totalAmount'=>$totalAmount,
+                        'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
+                    ]);
+                }
+            }
         }
     }
 }

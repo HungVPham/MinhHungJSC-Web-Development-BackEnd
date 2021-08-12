@@ -288,6 +288,34 @@
                         </li>
                     </ul>
                 </li>
+                <!-- Appearance -->
+                @if(Session::get('page')=="coupons")
+                <?php $active = "active"; ?>
+                @else
+                <?php $active = ""; ?>
+                @endif
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Thương Mại
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if(Session::get('page')=="coupons")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/coupons') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Coupons</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
 
         </nav>

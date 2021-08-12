@@ -64,6 +64,16 @@
     form .btn{
         width: inherit;
     }
+    
+    #full_name-error, #mobile-error, #email-error, #sku-error{
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    width: 100%;
+    text-align: left;
+    color: var(--MinhHung-Red);
+    margin-left: 5px;
+    }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
 <script>
@@ -178,6 +188,15 @@
             </button>
             </div>
         @endif
+        @if ($errors->any())
+        <div class="alert alert-danger" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li style="margin-left: 20px">{{ $error }}</li>
+            @endforeach
+        </ul>
+        </div>
+        @endif
             <small class="brand-title detail"> 
                 <span>
                     <?php echo
@@ -187,14 +206,18 @@
             </small>
             <h1 style="margin-top: 5px">{{ $productDetails['product_name'] }}</h1>
             <form action="
-            @if($productDetails['section_id']==1)
-            {{ url('add-to-cart-maxpro') }}
-            @endif
-            {{-- @if($productDetails['section_id']==2)
-            {{ url('add-to-cart-hhose') }}
-            @endif --}}
-            @if($productDetails['section_id']==3)
-            {{ url('add-to-cart-shimge') }}
+            @if(!empty($productDetails['product_price']) and $total_stock > 0)
+                @if($productDetails['section_id']==1)
+                {{ url('add-to-cart-maxpro') }}
+                @endif
+                {{-- @if($productDetails['section_id']==2)
+                {{ url('add-to-cart-hhose') }}
+                @endif --}}
+                @if($productDetails['section_id']==3)
+                {{ url('add-to-cart-shimge') }}
+                @endif
+            @elseif($total_stock == 0 and $productDetails['section_id'] != 2 and !empty($productDetails['product_price']))
+                {{ url('/stock-refill') }}
             @endif
             " method="post" enctype="multipart/form-data">@csrf
                 <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
@@ -354,54 +377,79 @@
                         @endif   
                     @endif
                 @elseif($total_stock == 0 and $productDetails['section_id'] != 2 and !empty($productDetails['product_price']))
-                <p><button disabled style="margin-top: 20px" type="submit" class="btn">Nhận Thông Báo Khi Tồn Kho</button></p>
+                    <input type="hidden" name="product_name" value="{{ $productDetails['product_name'] }}">
+                    <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
+                    <input type="hidden" name="category_name" value="{{ $productDetails['category']['category_name'] }}">
+                    <input type="hidden" name="brand_name" value="{{ $productDetails['brand']['name'] }}">
+                    <label><strong>Liên hệ để nhận thông báo tồn kho sản phẩm!</strong></label>
+                    <div class="stock-refill-form-containter">
+                        <div class="stock-refill-input-containter">
+                            <input id="full_name" name="full_name" placeholder="Họ tên (bắt buộc)">
+                        </div>
+                        <div class="stock-refill-input-containter">
+                            <input id="mobile" name="mobile" placeholder="Số điện thoại (bắt buộc)">
+                        </div>
+                        <div class="stock-refill-input-containter">
+                            <input type="email" id="email" name="email" placeholder="Email (bắt buộc)">
+                        </div>
+                        <div class="stock-refill-input-containter">
+                            <input id="company" name="company" placeholder="Tên doanh nghiệp (nếu có)">
+                        </div>
+                        <button class="btn" type="submit">Liên hệ để nhận thông báo!</button>     
+                    </div>
                 @endif
             </form>
             {{-- if price is disabled for tool/pump product or if product if hose, get price info via contact  --}}
             @if(empty($productDetails['product_price']))
-            <form id="PriceQuotationForm" action="{{ url('/price-quotation') }}" method="post">@csrf
-            <input type="hidden" name="product_name" value="{{ $productDetails['product_name'] }}">
-            <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
-            <input type="hidden" name="category_name" value="{{ $productDetails['category']['category_name'] }}">
-            <input type="hidden" name="brand_name" value="{{ $productDetails['brand']['name'] }}">
-            <label><strong>Liên hệ để nhận báo giá sản phẩm!</strong></label>
-            <div style="display: flex">
-            <input style="width:50%; margin: 5px; margin-left: 0;" id="full_name" name="full_name" required="" placeholder="Họ tên (bắt buộc)">
-            <input style="width:50%; margin: 5px; margin-left: 0;" id="mobile" name="mobile" required="" placeholder="Số điện thoại (bắt buộc)">
-            </div>
-            <div style="display: flex">
-            <input style="width:50%; margin: 5px; margin-left: 0;" type="email" id="email" required="" name="email" placeholder="Email (bắt buộc)">
-            <input style="width:50%; margin: 5px; margin-left: 0;" id="company" name="company" required="" placeholder="Tên doanh nghiệp (nếu có)">
-            </div>
-            <div style="display: flex">
-                @if(!empty($productDetails['maxpro_attributes']))
-                <select style="width:49%; margin: 5px; margin-left: 0; padding-right: 0px;"  required="" autocomplete="off" name="sku" class="select2">
-                <option value="">chọn sản phẩm...</option>
-                @foreach($productDetails['maxpro_attributes'] as $toolAttr)
-                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
-                @endforeach
-                </select>
-                @endif
-                @if(!empty($productDetails['hhose_attributes']))
-                <select style="width:49%; margin: 5px; margin-left: 0; padding-right: 0px;"  required="" autocomplete="off" name="sku" class="select2">
-                <option value="">chọn sản phẩm...</option>
-                @foreach($productDetails['hhose_attributes'] as $toolAttr)
-                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
-                @endforeach
-                </select>
-                @endif
-                @if(!empty($productDetails['shimge_attributes']))
-                <select style="width:49%; margin: 5px; margin-left: 0; padding-right: 0px;"  required=""autocomplete="off" name="sku"  class="select2">
-                <option value="">chọn sản phẩm...</option>
-                @foreach($productDetails['shimge_attributes'] as $toolAttr)
-                <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
-                @endforeach
-                </select>
-                @endif
-                <button style="margin: 0; width:49%; padding: 0px; margin-left: 5px;" class="btn">Liên hệ để nhận báo giá!</button>
-            </div>
+                <form id="PriceQuotationForm" action="{{ url('/price-quotation') }}" method="post">@csrf
+                    <input type="hidden" name="product_name" value="{{ $productDetails['product_name'] }}">
+                    <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
+                    <input type="hidden" name="category_name" value="{{ $productDetails['category']['category_name'] }}">
+                    <input type="hidden" name="brand_name" value="{{ $productDetails['brand']['name'] }}">
+                    <label><strong>Liên hệ để nhận báo giá sản phẩm!</strong></label>
+                    <div class="price-quotation-form-containter">
+                        <div class="price-quotation-input-containter">
+                            <input id="full_name" name="full_name" placeholder="Họ tên (bắt buộc)">
+                        </div>
+                        <div class="price-quotation-input-containter">
+                            <input id="mobile" name="mobile" placeholder="Số điện thoại (bắt buộc)">
+                        </div>
+                        <div class="price-quotation-input-containter">
+                            <input type="email" id="email" name="email" placeholder="Email (bắt buộc)">
+                        </div>
+                        <div class="price-quotation-select-containter">
+                            @if(!empty($productDetails['maxpro_attributes']))
+                            <select autocomplete="off" name="sku" class="select2">
+                            <option value="">chọn sản phẩm...</option>
+                            @foreach($productDetails['maxpro_attributes'] as $toolAttr)
+                            <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                            @endforeach
+                            </select>
+                            @endif
+                            @if(!empty($productDetails['hhose_attributes']))
+                            <select autocomplete="off" name="sku" class="select2">
+                            <option value="">chọn sản phẩm...</option>
+                            @foreach($productDetails['hhose_attributes'] as $toolAttr)
+                            <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                            @endforeach
+                            </select>
+                            @endif
+                            @if(!empty($productDetails['shimge_attributes']))
+                            <select autocomplete="off" name="sku" class="select2">
+                            <option value="">chọn sản phẩm...</option>
+                            @foreach($productDetails['shimge_attributes'] as $toolAttr)
+                            <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                            @endforeach
+                            </select>
+                            @endif
+                        </div>
+                        <div class="price-quotation-input-containter">
+                            <input id="company" name="company" placeholder="Tên doanh nghiệp (nếu có)">
+                        </div>
+                        <button class="btn">Liên hệ để nhận báo giá!</button>     
+                    </div>
+                </form>
             @endif
-            </form>
         </div>
     </div>
 </div>

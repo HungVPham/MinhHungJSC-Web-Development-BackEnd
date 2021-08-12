@@ -97,7 +97,13 @@ $sections = Section::sections();
 				</div>
 				<div class="menu">
 					@if(Auth::check())
-					<h3>Xin chào, {{ Auth::user()->name }}!<br><span>Thành Viên</span></h3>
+					<h3>Xin chào, {{ Auth::user()->name }}!<br>
+						@if(empty(Auth::user()->company_email))
+						<span>Thành Viên</span>
+						@else
+						<span>Đại Diện Doanh Nghiệp</span>
+						@endif
+					</h3>
 					@else
 					<h3>Đăng Nhập<br><span>Tài Khoản</span></h3>
 					@endif
@@ -132,38 +138,41 @@ $sections = Section::sections();
 				<h3 id="company-subtitle">Công Ty Cổ Phần Đầu Tư Và Phát Triển</h3>
 				<h1 id="company-title">Minh Hưng</h1>
 				@foreach($bannerResponsive as $key => $main)
-				<div>
-				@if(empty($main['bRed_3']))
-				<style>
-					.col-2.index div p{
-						font-size: 30px;
-						font-family: 'Style Script', cursive;
-					}
-					.overlay-btn{
-						margin-top: -20px;
-					}
-					
-				</style>
-				@elseif(!empty($main['bRed_3']))
-				<style>
-					.col-2.index div p{
-						font-size: 25px;
-						font-family: 'Style Script', cursive;
-					}
-					.overlay-btn{
-						margin-top: 0px;
-					}
-				</style>
-				@endif
-				<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
-				<br>
-				<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>  
-				</div>
-				@if(!empty($main['link']))
-				<div>
-				<a href="https://www.{{ $main['link'] }}" class="btn">{{ $main['title'] }} &#8594;</a>
-				</div>
-				@endif
+					<div>
+					@if(empty($main['bRed_3']))
+					<style>
+						.col-2.index div p{
+							font-size: 30px;
+							font-family: 'Style Script', cursive;
+						}
+						.overlay-btn{
+							margin-top: -20px;
+						}
+						
+					</style>
+					@elseif(!empty($main['bRed_3']))
+					<style>
+						.col-2.index div p{
+							font-size: 25px;
+							font-family: 'Style Script', cursive;
+						}
+						.overlay-btn{
+							margin-top: 0px;
+						}
+					</style>
+					@endif
+					<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
+					<br>
+					<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>  
+					</div>
+					@if(Auth::check())
+					@else
+						@if(!empty($main['link']))
+						<div>
+						<a href="{{ url('/'.$main['link']) }}" class="btn">{{ $main['title'] }} &#8594;</a>
+						</div>
+						@endif
+					@endif
 				@endforeach
 			</div>
 		</div>

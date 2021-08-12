@@ -216,7 +216,7 @@
                                                             style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;"
                                                             valign="middle">
                                                             <a
-                                                                href="{{ url('/') }}"
+                                                                href="{{ url('/login-register') }}"
                                                                 style="background:#cb1c22;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
                                                                 Đăng Nhập Tài Khoản
                                                             </a>

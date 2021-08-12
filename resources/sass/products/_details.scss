@@ -319,3 +319,52 @@ button.mailbox-attachment-close {
     padding-top: 10px;
     margin-bottom: 10px;
 }
+
+.price-quotation-form-containter{
+    display: grid; 
+    grid-template-columns: auto auto;
+
+    .price-quotation-input-containter{
+        margin-right: 5px;
+
+        input{
+            width:100%; 
+            margin: 5px; 
+            margin-left: 0;
+        }
+    }
+
+    .price-quotation-select-containter{
+        margin: 5px 5px 5px 0px;
+
+        .select2{
+            width: 100% !important;
+        }
+    }
+
+    .btn{
+        margin: 4px 5px 4px 0px; 
+        padding:0px; 
+    }
+}
+
+.stock-refill-form-containter{
+    display: grid; 
+    grid-template-columns: auto auto;
+
+    .stock-refill-input-containter{
+        margin-right: 5px;
+
+        input{
+            width:100%; 
+            margin: 5px; 
+            margin-left: 0;
+        }
+    }
+
+    .btn{
+        margin: 4px 5px 4px 0px; 
+        padding: 5px; 
+    }
+
+}

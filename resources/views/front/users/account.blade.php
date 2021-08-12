@@ -106,6 +106,13 @@
                             <input type="mobile" id="mobile" name="mobile" value="{{ $userDetails['mobile'] }}" placeholder="">
                             <label for="email">Email:</label>
                             <input type="email" id="email" readonly="" disabled name="email" value="{{ $userDetails['email'] }}" placeholder="">
+                            @if(!empty($userDetails['company_email']))
+                            <h4 style="font-weight: 600; margin-top: 20px">Thông Tin Doanh Nghiệp</h4>  
+                            <label for="company_name">Tên Doanh Nghiệp:</label>
+                            <input id="company_name" readonly="" name="company_name" value="{{ $userDetails['company_name'] }}" placeholder="">
+                            <label for="company_email">Doanh Nghiệp:</label>
+                            <input type="email" id="company_email" readonly="" disabled name="company_email" value="{{ $userDetails['company_email'] }}" placeholder="">
+                            @endif
                         <button type="submit" class="btn">Cập Nhật</button>
                     </form>
                     <form id="NewPwdForm" action="{{ url('/update-user-pwd') }}" method="post">@csrf 

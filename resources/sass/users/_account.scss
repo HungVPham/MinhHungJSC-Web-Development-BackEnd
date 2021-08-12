@@ -27,7 +27,7 @@
     width: 400px;
     min-height: 525px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
     margin: 60px auto;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
     backdrop-filter: saturate(100%) blur(3px);
@@ -112,11 +112,11 @@ form {
 }
 
 #RegForm {
-    left: -400px;
+    left: -410px;
 }
 
 #ForgotPwdForm {
-    right: -400px;
+    right: -410px;
 }
 
 #Indicator {

@@ -5,7 +5,7 @@
 .account-page{
     background-image: url('images/banner_images/15670_banner3.jpg');
 }
-#name-error,#last_name-error, #mobile-error, #email-error, #password_login-error, #password_register-error, #id-error{
+#name-error,#last_name-error, #mobile-error, #email-error, #password_login-error, #password_register-error, #id-error, #company_email-error{
     font-size: 16px;
     font-weight: 700;
     width: 100%;
@@ -73,12 +73,20 @@
                             </div>
                         </div>
                         <div id="reg-int-container">
-                            <label for="last_name">Email*:</label>
+                            <label for="email">Email*:</label>
                             <input id="email" name="email" placeholder="Nhập email của quý khách">
                         </div>
                         <div  id="reg-int-container">
-                            <label for="last_name">Số điện thoại*:</label>
+                            <label for="mobile">Số điện thoại*:</label>
                             <input id="mobile" name="mobile" placeholder="Nhập số điện thoại của quý khách">
+                        </div>
+                        <div  id="reg-int-container">
+                            <label for="last_name">Tên Doanh Nghiệp:</label>
+                            <input id="company_name" name="company_name" placeholder="(cho doanh nghiệp)">
+                        </div>
+                        <div  id="reg-int-container">
+                            <label for="last_name">Email Doanh Nghiệp:</label>
+                            <input id="company_email" name="company_email" placeholder="(cho doanh nghiệp)">
                         </div>
                         <div  id="reg-int-container">
                             <label for="last_name">Mật khẩu*:</label>

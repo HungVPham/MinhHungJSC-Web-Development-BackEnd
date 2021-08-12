@@ -43,7 +43,7 @@
         },
         "classmap": [
             "database",
-            "database/seeds",
+            "database/seeders",
             "database/factories"
         ],
         "files": [

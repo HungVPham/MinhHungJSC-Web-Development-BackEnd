@@ -20,7 +20,7 @@ class Cart extends Model
     public static function userCartItems(){
         if(Auth::check()){
             $userCartItems = Cart::with(['product'=>function($query){
-                $query->select('id', 'brand_id', 'main_image', 'product_name', 'section_id');
+                $query->select('id', 'category_id', 'brand_id', 'main_image', 'product_name', 'section_id');
             }, 'category'=>function($query){
                 $query->select('id', 'url');
             }, 'brand'=>function($query){
@@ -28,7 +28,7 @@ class Cart extends Model
             }])->where('user_id',Auth::user()->id)->orderBy('id', 'Asc')->get()->toArray();
         }else{
             $userCartItems = Cart::with(['product'=>function($query){
-                $query->select('id', 'brand_id', 'main_image', 'product_name', 'section_id');
+                $query->select('id', 'category_id', 'brand_id', 'main_image', 'product_name', 'section_id');
             },'category'=>function($query){
                 $query->select('id', 'url');
             }, 'brand'=>function($query){
