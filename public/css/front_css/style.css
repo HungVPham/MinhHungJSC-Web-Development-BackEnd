@@ -197,6 +197,7 @@ ul {
 }
 .btn:focus {
   box-shadow: none !important;
+  color: var(--Solid-White);
 }
 .btn:hover {
   background-color: var(--Solid-Black);
@@ -2424,6 +2425,16 @@ th:last-child {
     transform: translate(0, -10px);
     opacity: 0;
   }
+}
+.empty-cart button {
+  color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid var(--Solid-Black);
+}
+.empty-cart button:hover {
+  color: var(--Solid-Black) !important;
+  border: 2px solid var(--MinhHung-Red);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 /* about us css */

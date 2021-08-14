@@ -168,6 +168,9 @@
                       @endforeach
                     </select>
                   </div>
+                  <div id="appendPrimeCategoriesLevel">
+                    @include('admin.categories.append_prime_categories_level')
+                  </div>
                   <div class="form-group">
                     <label for="product_name">&nbsp;Tên Sản Phẩm @if(empty($productdata['section_id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <input type="text" class="form-control" name="product_name" id="product_name" placeholder="nhập tên..."

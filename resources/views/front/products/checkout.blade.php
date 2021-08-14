@@ -1,23 +1,197 @@
 @extends('layouts.front_layout.front_layout')
 @section('content')
+<?php 
+use App\Product;
+?>
+    <style>
+        .number-input {
+            border: 2px solid #888;
+            display: inline-flex;
+            height: 28px;
+            margin: 0px;
+            margin-bottom: 8px;
+        }
+        .voucher-containter {
+            margin-top: 0px; 
+        }
+        .empty-cart .btn{
+            border: 2px solid black;
+            color: #00000030;
+            background: #ffffff;
+        }
+        .empty-cart .btn:hover{
+            border-color: var(--MinhHung-Red) !important;
+            color: #000000 !important;   
+        }
+        .voucher-containter .btn:first-child{
+            border: 2px solid black;
+            color: #00000030;
+            background: #ffffff;
+            margin-right: 10px;
+        }
+        .voucher-containter .btn:first-child:hover{
+            border-color: var(--MinhHung-Red) !important;
+            color: #000000 !important;
+        }
+        h5 a:nth-child(2){
+            color: #444;
+        }
+        h5 a:nth-child(2):hover{
+            color: var(--MinhHung-Red) !important;
+        }
+    </style>
 <!--Cart Items Details-->
 <div class="small-container cart-page">
     <div class="row listing head first cart">
-        <h5><a href="{{ url('/') }}">Trang Chủ</a> / Giỏ Hàng</h5>
+        <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a href="{{ url('/cart') }}">Giỏ Hàng</a> / Thanh Toán</h5>
     </div>
-    <h2>Giỏ Hàng</h2>
+    <h2>Thanh Toán</h2>
     <div id="cart-container">
     @if(!empty($userCartItems)) 
-        <div id="AppendCartItems">
-        @include('front.products.cart_items')
-        </div>  
+    <div style="overflow-x:auto;">
+    <table class="cart-table">
+        <tr>
+            <th>Thông Tin</th>
+            <th style="text-align: right">Đơn Giá</th>
+            <th style="text-align: right">Số Lượng</th>
+            <th>Thành Tiền</th>
+        </tr>
+        <?php 
+        $total_maxpro_price = 0; 
+        $total_shimge_price = 0; 
+        $total_maxpro_discount = 0; 
+        $total_shimge_discount = 0;
+        ?>
+        @foreach($userCartItems as $key => $cartItems)
+        <?php 
+        $proMaxproPrice = Product::getDiscountedMaxproPrice($cartItems['product_id'], $cartItems['sku']);        
+        $proShimgePrice = Product::getDiscountedShimgePrice($cartItems['product_id'], $cartItems['sku']);
+        ?>
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <?php $product_image_path = "images/product_images/main_image/small/".$cartItems['product']['main_image']; ?>
+                    @if(!empty($cartItems['product']['main_image']) && file_exists($product_image_path))
+                    <img style="width: 100px;" src="{{ asset('images/product_images/main_image/small/'.$cartItems['product']['main_image']) }}">
+                    @else
+                    <img style="width: 100px;" src="{{ asset('images/product_images/main_image/small/no-img.jpg') }}">
+                    @endif
+                    <div>
+                        <h5> 
+                            <?php echo
+                            $cartItems['brand']['name']
+                            ?>
+                        </h5>
+                        <h4 title="{{ $cartItems['product']['product_name'] }}">{{ $cartItems['product']['product_name'] }}</h4>
+                        <p>Phân Loại Hàng: {{ $cartItems['sku'] }}</p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <p style="text-align: right"> @if($cartItems['product']['section_id'] == 1)
+                <?php
+                $num = $proMaxproPrice['discounted_price'];
+                $format = number_format($num,0,",",".");
+                echo $format;
+                ?> ₫
+                @elseif($cartItems['product']['section_id'] == 3)
+                <?php
+                $num = $proShimgePrice['discounted_price'];
+                $format = number_format($num,0,",",".");
+                echo $format;
+                ?> ₫
+                @endif</p>
+            </td>
+            <td>
+                <p style="text-align: right">{{ $cartItems['quantity'] }}</p>
+            </td>
+            <td>
+                @if($cartItems['product']['section_id'] == 1)
+                <?php
+                    $num = $proMaxproPrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proMaxproPrice['discount_amount']);
+                    $format = number_format($num,0,",",".");
+                    echo $format;
+                ?> ₫
+                @elseif($cartItems['product']['section_id'] == 3)
+                <?php
+                $num = $proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']);
+                $format = number_format($num,0,",",".");
+                echo $format;
+                ?> ₫
+                @endif
+            </td>
+        </tr>
+        @if($cartItems['product']['section_id'] == 1)
+        <?php 
+        $total_maxpro_price+= ($proMaxproPrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proMaxproPrice['discount_amount']));
+        $total_maxpro_discount+= $proMaxproPrice['discount_amount']*$cartItems['quantity'];
+        ?>
+        @elseif($cartItems['product']['section_id'] == 3)
+        <?php 
+        $total_shimge_price+= ($proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']));
+        $total_maxpro_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
+        ?>
+        @endif
+        @endforeach
+    </table>
+    </div>
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>Tổng Giá <small style="color: #888;">@if($total_shimge_discount + $total_maxpro_discount > 0)&nbsp;(đã trừ giảm giá <?php 
+                    $total_discount = $total_shimge_discount + $total_maxpro_discount; 
+                    $format = number_format($total_discount,0,",",".");
+                     echo $format;
+                    ?> ₫)</small>@endif
+                </td>
+                <td>
+                   <?php 
+                   $total_price = $total_shimge_price + $total_maxpro_price; 
+                   $format = number_format($total_price,0,",",".");
+                    echo $format;
+                   ?> ₫
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if(Session::has('couponCode'))
+                    Mã Khuyến Mãi: <span style="color: var(--MinhHung-Red)">{{ Session::get('couponCode') }}</span>
+                    @else
+                    Khuyến Mãi
+                    @endif
+                </td>
+                <td>
+                    - <span class="couponAmount">
+                        @if(Session::has('couponAmount'))
+                        <?php 
+                        $format = number_format(Session::get('couponAmount'),0,",",".");
+                         echo $format;
+                        ?> ₫
+                        @else
+                        0 ₫
+                        @endif
+                    </span> 
+                </td>
+            </tr>
+            <tr>
+                <td>Phí Vận Chuyển</td>
+                <td>
+                    <span>0 ₫</span> 
+                </td>
+            </tr>
+            <tr>
+                <td>Tổng Thanh Toán</td>
+                <td class="totalAmount">
+                    <?php 
+                    $format = number_format($total_price - Session::get('couponAmount'),0,",",".");
+                     echo $format;
+                    ?> ₫
+                </td>
+            </tr>
+        </table>
+    </div>
         <div class="voucher-containter">
-            <form id="ApplyCoupon" method="post" action="javascript:void(0);" @if(Auth::check()) user="1" @endif>@csrf
-                <label for="voucher">Nhập Mã Khuyến Mãi:</label>
-                <input autocomplete="off" class="voucher" required name="code" id="code" type="text">
-                <button type="submit" style="width: 161.05px;" class="btn">Áp Dụng</button>
-            </form>
-            <p><button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button><a href="{{ url('checkout') }}"class="btn">Mua Hàng</a></p>
+            <p><a href="{{ url('/cart') }}" class="btn">&larr; Xem Lại Giỏ</a><a href="" class="btn">Đặt Hàng</a></p>
         </div>
     @else
     <div class="empty-cart">
@@ -73,7 +247,7 @@
         </svg>
         <h3 style="margin-bottom: 0px">Giỏ Hàng Quý Khách Hiện Đang Trống!</h3>
         <p>
-            <button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button>
+            <a href="{{ url('/') }}" class="btn">&larr; Quay Trở Lại</a>
         </p>
     </div>
     @endif

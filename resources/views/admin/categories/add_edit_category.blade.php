@@ -84,8 +84,7 @@
                   <div id="appendCategoriesLevel">
                     @include('admin.categories.append_categories_level')
                   </div>
-                </div>
-                
+                </div>         
                 <div class="col-md-6">
                 <div class="form-group">
                     <label for="section_id">&nbsp;Danh Mục của Thể Loại @if(empty($categorydata['id']))<span class="required" aria-hidden="true">*</span>@endif</label>

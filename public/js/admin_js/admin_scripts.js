@@ -361,6 +361,25 @@ $(document).ready(function(){
         });
     });
 
+    $('#category_id').change(function(){
+        var category_id = $(this).val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'/admin/append-prime-categories-level',
+            data:{
+                category_id:category_id
+            },
+            success:function(resp){
+                $("#appendPrimeCategoriesLevel").html(resp);
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });
+
     // Confirm Deletion of Record with SweetAlert2
     $(document).on("click", ".confirmDelete", function(){
         var record = $(this).attr("record");

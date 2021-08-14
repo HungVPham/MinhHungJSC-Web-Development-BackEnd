@@ -132,6 +132,7 @@ class ProductController extends Controller
             $categoryDetails = Category::find($data['category_id']);
             $product->section_id = $categoryDetails['section_id'];
             $product->category_id = $data['category_id'];
+            $product->parentCategory_id = $data['parentCategory_id'];
             $product->product_name = $data['product_name'];
             $product->brand_id = $data['brand_id'];
             $product->product_weight = $data['product_weight'];
@@ -163,6 +164,8 @@ class ProductController extends Controller
         $categories = Section::with('categories')->get();
         $categories = json_decode(json_encode($categories), true);
 
+        // echo "<pre>"; print_r($categories); die;
+
         // Get all Brands
         $brands = Brand::where('status', 1)->get();
         $brands = json_decode(json_encode($brands), true);
@@ -170,6 +173,17 @@ class ProductController extends Controller
 
         return view('admin.products.add_edit_product')->with(compact('title', 'categories', 'productdata', 'brands'));
     }   
+
+    public function appendPrimeCategoryLevel(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getCategories = Category::with('subcategories')->where(['id'=>$data['category_id'], 'status'=>1])->get();
+            $getCategories = json_decode(json_encode($getCategories),true);
+            // echo "<pre>"; print_r($getCategories); die;
+            return view('admin.categories.append_prime_categories_level')->with(compact('getCategories'));
+        }
+    }
 
     public function deleteProductImage($id){
         // Get Product Image

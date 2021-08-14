@@ -22,7 +22,7 @@ use Session;
 
 class ProductsController extends Controller
 {
-    // listing page general controls
+    
     public function listing(){
         Paginator::useBootstrap();
         $url = Route::getFacadeRoot()->current()->uri();
@@ -53,7 +53,7 @@ class ProductsController extends Controller
         }else{
         abort(404);
         }
-    }
+    } // categories listing page general controls
 
     public function Section(){
         Paginator::useBootstrap();
@@ -84,9 +84,8 @@ class ProductsController extends Controller
         }else{
         abort(404);
         }
-    }
+    } // section listing page general controls
     
-    // detail page general controls
     public function detail($id){
 
         $productDetails = Product::with(['category', 'brand', 'MaxproAttributes'=>function($query){
@@ -105,9 +104,8 @@ class ProductsController extends Controller
         $relatedProducts = Product::with('brand')->where('category_id', $productDetails['category']['id'])->where('id','!=',$id)->where('status', 1)->limit(4)->inRandomOrder()->get()->toArray();
         // dd($productDetails); die;
         return view('front.products.detail')->with(compact('productDetails', 'total_tools_stock', 'total_hhose_stock', 'total_pump_stock', 'total_stock', 'relatedProducts'));
-    }
-
-    /* get maxpro info by sku*/
+    } // detail page general controls
+  
     public function getMaxproProductPrice(Request $request){
         if($request->ajax()){
             $data = $request->all();
@@ -140,8 +138,8 @@ class ProductsController extends Controller
             $getMaxproProductStock = MaxproProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
             return $getMaxproProductStock->stock;
         }
-    }
-    /* get hhose info by sku*/
+    }  /* get maxpro info by sku*/
+   
     public function getHhoseProductPrice(Request $request){
         if($request->ajax()){
             $data = $request->all();
@@ -190,8 +188,8 @@ class ProductsController extends Controller
             $getHhoseProductStock = HhoseProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
             return $getHhoseProductStock->stock;
         }
-    }
-    /* get shimge info by sku*/
+    } /* get hhose info by sku*/
+   
     public function getShimgeProductPrice(Request $request){
         if($request->ajax()){
             $data = $request->all();
@@ -256,7 +254,7 @@ class ProductsController extends Controller
             $getShimgeProductStock = ShimgeProductAttributes::where(['product_id'=>$data['product_id'], 'sku'=>$data['sku']])->first();
             return $getShimgeProductStock->stock;
         }
-    }
+    } /* get shimge info by sku*/
 
     // add to cart functions 
     public function addtocartmaxpro(Request $request){
@@ -308,7 +306,7 @@ class ProductsController extends Controller
            session::flash('success_message', $message);
            return redirect()->back();
         }
-    }
+    } // add maxpro product attribute to cart
     // public function addtocarthhose(Request $request){
     //     if($request->isMethod('post')){
     //         $data = $request->all();
@@ -403,7 +401,7 @@ class ProductsController extends Controller
            session::flash('success_message', $message);
            return redirect()->back();
         }
-    }  
+    }  // add shimge product attribute to cart
 
     public function getPriceQuotation(Request $request){
         if($request->isMethod('post')){
@@ -432,7 +430,7 @@ class ProductsController extends Controller
              session::flash('success_message', $message);
              return redirect()->back();
          }
-    }
+    } // send email to interest user about product price quotes
 
     public function getStockRefill(Request $request){
         if($request->isMethod('post')){
@@ -474,14 +472,14 @@ class ProductsController extends Controller
              session::flash('success_message', $message);
              return redirect()->back();
          }
-    }
+    } // send email to interest user about product stock refill
 
-    // display added items in cart page
+    
     public function cart(){
         $userCartItems = Cart::userCartItems();
         // echo "<pre>"; print_r($userCartItems); die;
         return view('front.products.cart')->with(compact('userCartItems'));
-    }
+    }// display added items in cart page
 
     public function updateCartItemQty(Request $request){
         if($request->ajax()){
@@ -498,6 +496,12 @@ class ProductsController extends Controller
                 // check if maxpro product stock is available
                 if($data['qty']>$availableMaxproStock['stock']){
                     $userCartItems = Cart::userCartItems();
+
+                    $couponAmount = 0;
+                    $couponCode = null;
+                    Session::put('couponAmount',$couponAmount);
+                    Session::put('couponCode',$couponCode);
+
                     return response()->json([
                         'status'=>false,
                         'message'=>'Đã đạt đến số lượng mua tối đa cho phép của sản phẩm này.',
@@ -510,6 +514,10 @@ class ProductsController extends Controller
                 // check if shimge pumps stock is available
                 if($data['qty']>$availableShimgeStock['stock']){
                     $userCartItems = Cart::userCartItems();
+
+                    $couponAmount = 0;
+                    Session::put('couponAmount',$couponAmount);
+
                     return response()->json([
                         'status'=>false,
                         'message'=>'Đã đạt đến số lượng mua tối đa cho phép của sản phẩm này.',
@@ -525,6 +533,12 @@ class ProductsController extends Controller
                 // check if maxpro product stock is available
                 if($availableMaxproSKU==0){
                     $userCartItems = Cart::userCartItems();
+
+                    $couponAmount = 0;
+                    $couponCode = null;
+                    Session::put('couponAmount',$couponAmount);
+                    Session::put('couponCode',$couponCode);
+
                     return response()->json([
                         'status'=>false,
                         'message'=>'Mã sản phẩm hiện không khả dụng.',
@@ -537,6 +551,12 @@ class ProductsController extends Controller
                 // check if shimge pumps stock is available
                 if($availableMaxproSKU==0){
                     $userCartItems = Cart::userCartItems();
+                    
+                    $couponAmount = 0;
+                    $couponCode = null;
+                    Session::put('couponAmount',$couponAmount);
+                    Session::put('couponCode',$couponCode);
+
                     return response()->json([
                         'status'=>false,
                         'message'=>'Mã sản phẩm hiện không khả dụng.',
@@ -549,13 +569,19 @@ class ProductsController extends Controller
             Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
             $userCartItems = Cart::userCartItems();
             $totalCartItems = totalCartItems();
+
+            $couponAmount = 0;
+            $couponCode = null;
+            Session::put('couponAmount',$couponAmount);
+            Session::put('couponCode',$couponCode);
+
             return response()->json([
                 'status'=>true,
                 'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
             ]);
         }
-    }
+    }// update cart item qty via ajax
 
     public function deleteCartItem(Request $request){
         if($request->ajax()){
@@ -564,12 +590,18 @@ class ProductsController extends Controller
             Cart::where('id', $data['cartid'])->delete();
             $userCartItems = Cart::userCartItems();
             $totalCartItems = totalCartItems();
+
+            $couponAmount = 0;
+            $couponCode = null;
+            Session::put('couponAmount',$couponAmount);
+            Session::put('couponCode',$couponCode);
+
             return response()->json([
                 'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))
             ]);
         }
-    }
+    }// delete cart item via ajax
 
     public function applyCoupon(Request $request){
         if($request->ajax()){
@@ -653,8 +685,8 @@ class ProductsController extends Controller
                         $totalAmount = $total_amount- ($total_amount*$couponDetails->amount/100);
                     }
                     // echo $couponAmount; die;
-                    Session::put('CouponAmount',$couponAmount);
-                    Session::put('CouponCode',$data['code']);
+                    Session::put('couponAmount',$couponAmount);
+                    Session::put('couponCode',$data['code']);
 
                     $message = "Mã giảm giá đã được áp dụng thành công!";
 
@@ -669,5 +701,10 @@ class ProductsController extends Controller
                 }
             }
         }
+    }// apply coupon via ajax
+
+    public function checkout(Request $request){
+        $userCartItems = Cart::userCartItems();
+        return view('front.products.checkout')->with(compact('userCartItems'));
     }
 }

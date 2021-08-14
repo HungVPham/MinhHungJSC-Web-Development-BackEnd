@@ -50,7 +50,7 @@ class CouponsController extends Controller
         }
 
         // Section with Categories
-        $categories = Section::where('id', '!=', 2)->with('categories')->get();
+        $categories = Section::where('id', '!=', 2)->where('id', '!=', 4)->where('status', 1)->with('categories')->get();
         $categories = json_decode(json_encode($categories), true);
 
         $users = User::select('email')->where('status', 1)->get()->toArray();

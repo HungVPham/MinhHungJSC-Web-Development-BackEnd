@@ -209,7 +209,7 @@ $(document).ready(function () {
         var data = formatter.format(resp['product_price']);
         var dataDiscounted = formatter.format(resp['discounted_price']);
         if (resp['product_price'] != null) {
-          if (resp['discounted_price'] > 0) {
+          if (resp['product_price'] > resp['discounted_price']) {
             $(".getMaxproAttrPrice").html("<del>" + data + "</del>" + "<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;" + dataDiscounted) + '</strong>';
           } else {
             $(".getMaxproAttrPrice").html(data);
@@ -371,7 +371,7 @@ $(document).ready(function () {
         var data = formatter.format(resp['product_price']);
         var dataDiscounted = formatter.format(resp['discounted_price']);
         if (resp['product_price'] != null) {
-          if (resp['discounted_price'] > 0) {
+          if (resp['product_price'] > resp['discounted_price']) {
             $(".getShimgeAttrPrice").html("<del>" + data + "</del>" + "<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;" + dataDiscounted) + '</strong>';
           } else {
             $(".getShimgeAttrPrice").html(data);
@@ -511,7 +511,10 @@ $(document).ready(function () {
               success: function success(resp) {
                 $("#AppendCartItems").html(resp.view);
                 $(".navbar-cart").attr('cartcount', resp.totalCartItems);
-                $("#cart-container").load(window.location.href + " #cart-container");
+
+                if (resp.totalCartItems == 0) {
+                  $("#cart-container").load(window.location.href + " #cart-container");
+                }
               },
               error: function error() {
                 alert("Error");
@@ -565,7 +568,10 @@ $(document).ready(function () {
       success: function success(resp) {
         $("#AppendCartItems").html(resp.view);
         $(".navbar-cart").attr('cartcount', resp.totalCartItems);
-        $("#cart-container").load(window.location.href + " #cart-container");
+
+        if (resp.totalCartItems == 0) {
+          $("#cart-container").load(window.location.href + " #cart-container");
+        }
       },
       error: function error() {
         alert("Error");

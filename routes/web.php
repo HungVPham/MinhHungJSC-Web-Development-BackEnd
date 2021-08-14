@@ -65,6 +65,8 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('update-product-status', 'ProductController@updateProductStatus');
         Route::get('delete-product/{id}','ProductController@deleteProduct');
         Route::match(['get', 'post'], 'add-edit-product/{id?}', 'ProductController@addEditProduct');
+        Route::post('append-prime-categories-level','ProductController@appendPrimeCategoryLevel');
+
 
         // delete product images
         Route::get('delete-product-image/{id}','ProductController@deleteProductImage');
@@ -228,13 +230,12 @@ Route::namespace('Front')->group(function(){
         Route::match(['get', 'post'],'/update-user-pwd', 'UsersController@updateUserPassword');
         Route::post('/check-user-pwd', 'UsersController@chkUserPassword');
         Route::post('/apply-coupon', 'ProductsController@applyCoupon');
-
+        Route::match(['get','post'], 'checkout', 'ProductsController@checkout');
     });
 
     Route::get('/logout', 'UsersController@logoutUser');
     Route::match(['get', 'post'],'/confirm/{code}', 'UsersController@confirmUser');
     Route::match(['get', 'post'],'/forgot-pwd', 'UsersController@forgotPwd');
-    
 });
 
 // use App\Http\Controllers\Admin\ProductController;

@@ -46,7 +46,7 @@ use App\Product;
                         $cartItems['brand']['name']
                         ?>
                     </h5>
-                    <h4 title="{{ $cartItems['product']['product_name'] }}"><a href="{{ url('sản-phẩm/'.$cartItems['product']['id']) }}">{{ $cartItems['product']['product_name'] }}</a></h4>
+                    <h4 title="{{ $cartItems['product']['product_name'] }}"><a href="{{ url('products/'.$cartItems['product']['id']) }}">{{ $cartItems['product']['product_name'] }}</a></h4>
                     <p>Phân Loại Hàng: {{ $cartItems['sku'] }}</p>
                 </div>
             </div>
@@ -126,14 +126,23 @@ use App\Product;
         <tr>
             <td>Khuyến Mãi</td>
             <td>
-                - <span class="couponAmount">0 ₫</span> 
+                - <span class="couponAmount">
+                    @if(Session::has('couponAmount'))
+                    <?php 
+                    $format = number_format(Session::get('couponAmount'),0,",",".");
+                     echo $format;
+                    ?> ₫
+                    @else
+                    0 ₫
+                    @endif
+                </span> 
             </td>
         </tr>
         <tr>
             <td>Tổng Thanh Toán</td>
             <td class="totalAmount">
                 <?php 
-                $format = number_format($total_price,0,",",".");
+                $format = number_format($total_price - Session::get('couponAmount'),0,",",".");
                  echo $format;
                 ?> ₫
             </td>
