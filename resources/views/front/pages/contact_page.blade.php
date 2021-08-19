@@ -44,7 +44,7 @@
         <a href="https://www.instagram.com/nemgalaxy.vn/" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="https://nemgalaxy.vn/" target="_blank"><i><img src="{{ asset('/images/front_images/logo(galaxy).png') }}" width="25px"></i></a>
         </div>
-        <form id="ContactForm" action="{{ url('/lien-he') }}" method="post">@csrf
+        <form id="ContactForm" action="{{ url('/contact-us') }}" method="post">@csrf
         <div class="contact-box">
             <div class="c-heading">
                 <h1>Hãy Liên Hệ Với Minh Hưng JSC!</h1>

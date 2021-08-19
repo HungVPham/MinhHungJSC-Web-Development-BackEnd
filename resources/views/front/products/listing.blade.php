@@ -97,7 +97,7 @@
     @if($countCategoryProducts>0)
         <form class="sorting-dropdown">
             <label for="sortProducts">Sắp xếp theo:</label>
-            <select name="sortProducts" id="sortProducts" class="select2">
+            <select name="sortProducts" id="sortProducts" class="select2-no-search">
                 <option value="">chọn bộ lọc...</option>
                 <option value="product_latest" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_latest") selected @endif>Mới &rarr; Cũ</option>
                 <option value="product_name_a_z" @if(isset($_GET['sortProducts']) && $_GET['sortProducts']=="product_name_a_z") selected @endif>Tên A &rarr; Z</option>

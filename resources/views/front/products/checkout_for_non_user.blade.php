@@ -20,6 +20,10 @@ use App\Product;
             border-color: var(--MinhHung-Red) !important;
             color: #000000 !important;   
         }
+        .voucher-containter{
+            margin-top: 0px;
+            width: 100%
+        }
         .voucher-containter .btn:first-child{
             border: 2px solid black;
             color: #00000030;
@@ -36,12 +40,25 @@ use App\Product;
         h5 a:nth-child(2):hover{
             color: var(--MinhHung-Red) !important;
         }
+        form .btn{
+            width: inherit;
+        }
+        #address, #order-note{
+            margin: 5px;
+            margin-left: 0px;
+            margin-right: 10px;
+        }
         .cart-table tr td:nth-child(3), .cart-table tr td:nth-child(4), .cart-table tr th:nth-child(3), .cart-table tr th:nth-child(4) {
             display: revert;
         }
-
-        .fas{
-            font-size: 20px;
+        #full_name-error, #mobile-error, #email-error, #address-error, #payment_method-error{
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            text-align: left;
+            color: var(--MinhHung-Red);
+            margin-left: 5px;
         }
     </style>
 <!--Cart Items Details-->
@@ -53,69 +70,6 @@ use App\Product;
     <div id="cart-container">
     @if(!empty($userCartItems)) 
     <div style="overflow-x:auto;">
-    <div id="delivery-addresses-container">
-        @if(Session::has('success_message'))
-        <div class="alert alert-danger" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22;">
-            {{ Session::get('success_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-        @if(Session::has('pending_message'))
-        <div class="alert alert-danger" role="alert" style="color: var(--Solid-Gold); background-color: #ffffff; border: 1px solid var(--Solid-Gold);">
-            {{ Session::get('pending_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-        @if(Session::has('error_message'))
-            <div class="alert alert-danger" role="alert" style="color:  var(--Delete-Red) ; background-color: #ffffff; border: 1px solid var(--Delete-Red);">
-            {{ Session::get('error_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-        @endif    
-        @if ($errors->any())
-        <div class="alert alert-danger" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li style="margin-left: 20px">{{ $error }}</li>
-            @endforeach
-        </ul>
-        </div>
-        @endif
-        <div class="shopee-mail-effect"></div>
-        <table id="delivery-addresses-table">
-            <tr>
-                <th><i style="color: var(--MinhHung-Red)" class="fas fa-map-pin"></i>&nbsp;&nbsp;Địa Chỉ Nhận Hàng&nbsp;&nbsp;|<a title="thêm địa chỉ nhận hàng" href="{{ url('add-edit-delivery-address') }}"><i class="fas fa-plus"></i></a></th>
-            </tr>
-            @if(!empty($deliveryAddresses))
-                @foreach($deliveryAddresses as $address)
-                <tr>
-                    <td>
-                        <input type="radio" id="address {{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">&nbsp;
-                        {{ $address['name'] }} -  
-                        {{ $address['address'] }}, 
-                        {{ $address['city'] }}, 
-                        @if(!empty($address['state']))
-                        {{ $address['state'] }}, 
-                        @endif
-                        {{ $address['country'] }} 
-                        (SĐT: {{ $address['mobile'] }})
-                    </td>
-                    <td><a title="sửa địa chỉ nhận hàng" href="{{ url('add-edit-delivery-address/'.Crypt::encrypt($address['id'])) }}"><i class="fas fa-edit"></i></a><a title="xóa địa chỉ nhận hàng" class="addressDelete" record="delivery-address" recordid="{{ Crypt::encrypt($address['id']) }}" href="javascript:void(0)"><i class="fas fa-trash"></i></a></td>
-                </tr>
-                @endforeach
-            @else
-                <tr>
-                    <td style="text-align: center">Quý khách hiện chưa có địa chỉ nhận hàng nào.</td>
-                </tr>
-            @endif
-        </table>
-    </div>
     <table class="cart-table">
         <tr>
             <th>Thông Tin</th>
@@ -220,27 +174,6 @@ use App\Product;
                 </td>
             </tr>
             <tr>
-                <td>
-                    @if(Session::has('couponCode'))
-                    Mã Khuyến Mãi: <span style="color: var(--MinhHung-Red)">{{ Session::get('couponCode') }}</span>
-                    @else
-                    Khuyến Mãi
-                    @endif
-                </td>
-                <td>
-                    - <span class="couponAmount">
-                        @if(Session::has('couponAmount'))
-                        <?php 
-                        $format = number_format(Session::get('couponAmount'),0,",",".");
-                         echo $format;
-                        ?> ₫
-                        @else
-                        0 ₫
-                        @endif
-                    </span> 
-                </td>
-            </tr>
-            <tr>
                 <td>Phí Vận Chuyển</td>
                 <td>
                     <span>0 ₫</span> 
@@ -250,7 +183,7 @@ use App\Product;
                 <td>Tổng Thanh Toán</td>
                 <td class="totalAmount">
                     <?php 
-                    $format = number_format($total_price - Session::get('couponAmount'),0,",",".");
+                    $format = number_format($total_price,0,",",".");
                      echo $format;
                     ?> ₫
                 </td>
@@ -258,6 +191,28 @@ use App\Product;
         </table>
     </div>
     <div class="voucher-containter">
+        <form id="OrderForNonUserForm" action="{{ url('/order-for-non-user') }}" method="post">@csrf
+            <label><strong>Thông Tin Quý Khách Mua Hàng</strong></label>
+            <div class="price-quotation-form-containter">
+                <div class="price-quotation-input-containter">
+                    <input id="full_name" name="full_name" placeholder="Họ và tên (bắt buộc)">
+                </div>
+                <div class="price-quotation-input-containter">
+                    <input id="mobile" name="mobile" placeholder="Số điện thoại (bắt buộc)">
+                </div>
+                <div class="price-quotation-input-containter">
+                    <input type="email" id="email" name="email" placeholder="Email (bắt buộc)">
+                </div>
+                <div class="price-quotation-input-containter">
+                    <input id="company" name="company" placeholder="Tên doanh nghiệp (nếu có)">
+                </div> 
+                <div class="price-quotation-input-containter">
+                    <input id="address" name="address" placeholder="Địa chỉ nhận hàng (bắt buộc)">
+                </div>
+                <div class="price-quotation-input-containter">
+                    <input id="order-note" name="order-note" placeholder="Ghi chú đơn hàng (nếu có)">
+                </div>
+            </div>     
         <div id="payment-methods-container">
             <table id="payment-methods-table">
                 <tr>
@@ -265,13 +220,14 @@ use App\Product;
                 </tr>
                     <tr>
                         <td>
-                            <input type="radio" name="payment_method" checked value="cod">&nbsp;Thanh Toán Khi Nhận Hàng (COD) &nbsp; | &nbsp;
-                            <input type="radio" name="payment_method" value="banking">&nbsp;Chuyển Khoản
+                            <input type="radio" id="payment_method" name="payment_method" checked value="cod">&nbsp;Thanh Toán Khi Nhận Hàng (COD) &nbsp; | &nbsp;
+                            <input type="radio" id="payment_method" name="payment_method" value="banking">&nbsp;Chuyển Khoản
                         </td>
                     </tr>
             </table>
         </div>
-        <p><a href="{{ url('/cart') }}" class="btn">&larr; Xem Lại Giỏ</a><a href="" class="btn">Đặt Hàng</a></p>
+        <p><a href="{{ url('/cart') }}" class="btn">&larr; Xem Lại Giỏ</a><button type="submit" class="btn">Đặt Hàng</button></p>
+    </form>
     </div>
     @else
     <div class="empty-cart">

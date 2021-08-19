@@ -54,6 +54,15 @@
                     </button>
                     </div>
                 @endif    
+                @if ($errors->any())
+                <div class="alert alert-danger" style="color: #ffffff; background-color: var(--Delete-Red); border: 1px solid var(--Delete-Red)">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li style="margin-left: 20px">{{ $error }}</li>
+                    @endforeach
+                </ul>
+                </div>
+                @endif
                 <div class="form-container"> 
                     <div class="form-btn">
                         <span id="RegLabel" onclick="register()">Đăng Ký</span>
@@ -92,7 +101,7 @@
                             <label for="last_name">Mật khẩu*:</label>
                             <div style="position: relative;">
                                 <input  id="password_register" name="password" type="password" 
-                                placeholder="Vui lòng nhập mật khẩu">
+                                placeholder="≥6 ký tự có chữ thường, hoa, và số.">
                                 <span id="eyeSlash1" class="pwd-toggle" onclick="visibility1()"><i class="far fa-eye-slash"></i></span>
                                 <span id="eyeShow1" class="pwd-toggle on" onclick="visibility1()"><i class="far fa-eye"></i></span>
                             </div>

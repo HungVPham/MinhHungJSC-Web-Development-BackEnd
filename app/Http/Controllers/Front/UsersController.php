@@ -10,6 +10,9 @@ use Auth;
 use App\User;
 use App\Cart;
 use App\Country;
+use App\Province;
+use App\District;
+use App\Ward;
 use Session;
 
 
@@ -37,6 +40,23 @@ class UsersController extends Controller
                 return redirect()->back();
             }else{
                 // register the user 
+
+                $rules = [
+                    'name' => 'regex:/^[\pL\s\-]+$/u',
+                    'last_name' => 'regex:/^[\pL\s\-]+$/u',
+                    'password' => [
+                        'regex:/[a-z]/',      // must contain at least one lowercase letter
+                        'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                        'regex:/[0-9]/',      // must contain at least one digit
+                    ],
+                ];  
+                $customMessages = [
+                    'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
+                    'last_name.regex' => 'Họ không hợp lệ. Quý khách vui lòng thử lại.',
+                    'password.regex' => 'Mật khẩu phải bao gồm ít nhất 6 ký tự trong đó có một chữ thường, một chữ hoa, và một số.',
+                ];
+                $this->validate($request, $rules, $customMessages);
+
                 $user = new User;
                 $user->name = $data['name'];
                 $user->last_name = $data['last_name'];
@@ -236,6 +256,11 @@ class UsersController extends Controller
         // $userDetails = json_decode(json_encode($userDetails), true);
 
         $countries = Country::where('status', 1)->get()->toArray();
+        $provinces = Province::get()->toArray();
+        $districts = District::get()->toArray();
+        $wards = Ward::get()->toArray();
+
+        // dd($districts); die;
 
         if($request->isMethod('post')){
             $data = $request->all();
@@ -244,20 +269,39 @@ class UsersController extends Controller
             $rules = [
                 'name' => 'regex:/^[\pL\s\-]+$/u',
                 'last_name' => 'regex:/^[\pL\s\-]+$/u',
+                'province' => 'required',
+                'district' => 'required',
+                'ward' => 'required',
             ];  
             $customMessages = [
                 'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
                 'last_name.regex' => 'Họ không hợp lệ. Quý khách vui lòng thử lại.',
+                'province.required' => 'Vui lòng chọn tỉnh/thành.',
+                'district.required' => 'Vui lòng chọn quận/huyện.',
+                'ward.required' => 'Vui lòng chọn phường/xã.',
             ];
             $this->validate($request, $rules, $customMessages);
+
+            $getProvinces = Province::where('id', $data['province'])->get();
+            $getProvinces = json_decode(json_encode($getProvinces),true);
+            $getDistricts = District::where('id', $data['district'])->get();
+            $getDistricts = json_decode(json_encode($getDistricts),true);
+            $getWards = Ward::where('id', $data['ward'])->get();
+            $getWards = json_decode(json_encode($getWards),true);
+
+            // echo "<pre>"; print_r($getProvinces[0]['_name']); 
+            // echo "<pre>"; print_r($getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name']); die;
+            // echo "<pre>"; print_r($getWards); die;
 
             $user = User::find($user_id);
             $user->name = $data['name'];
             $user->last_name = $data['last_name'];
             $user->address = $data['address'];
-            $user->city = $data['city'];
-            $user->state = $data['state'];
-            $user->country = $data['country'];
+            $user->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
+            $user->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
+            $user->city = $getProvinces[0]['_prefix'].' '.$getProvinces[0]['_name'];
+            // $user->state = $data['state'];
+            $user->country = "VN";
             $user->mobile = $data['mobile'];
             $user->save();
 
@@ -266,7 +310,29 @@ class UsersController extends Controller
             session::flash('success_message', $message);
             return redirect()->back();
         }
-        return view('front.users.account')->with(compact('userDetails', 'countries'));
+        return view('front.users.account')->with(compact('userDetails', 'countries', 'provinces', 'districts', 'wards'));
+    }
+
+    public function appendDistrictLevel(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getDistricts = District::where('_province_id', $data['province_id'])->get();
+            $getDistricts = json_decode(json_encode($getDistricts),true);
+            // echo "<pre>"; print_r($getDistricts); die;
+            return view('front.users.append_districts_level')->with(compact('getDistricts'));
+        }
+    }
+
+    public function appendWardLevel(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getWards = Ward::where('_district_id', $data['district_id'])->get();
+            $getWards = json_decode(json_encode($getWards),true);
+            // echo "<pre>"; print_r($getWards); die;
+            return view('front.users.append_wards_level')->with(compact('getWards'));
+        }
     }
 
     public function chkUserPassword(Request $request){  
@@ -291,6 +357,20 @@ class UsersController extends Controller
             $chkPassword = User::select('password')->where('id', $user_id)->first();
             if(Hash::check($data['current_pwd'], $chkPassword->password)){
                 //update current password
+
+                $rules = [
+                    'new_pwd' => [
+                        'regex:/[a-z]/',      // must contain at least one lowercase letter
+                        'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                        'regex:/[0-9]/',      // must contain at least one digit
+                    ],
+                ];  
+                $customMessages = [
+                    'new_pwd.regex' => 'Mật khẩu mới phải bao gồm ít nhất 6 ký tự trong đó có một chữ thường, một chữ hoa, và một số.',
+                ];
+                $this->validate($request, $rules, $customMessages);
+
+
                 $new_pwd = bcrypt($data['new_pwd']);
                 User::where('id', $user_id)->update(['password'=>$new_pwd]);
                  // Redirect to login/register page with success message.

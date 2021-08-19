@@ -124,7 +124,13 @@ use App\Product;
             </td>
         </tr>
         <tr>
-            <td>Khuyến Mãi</td>
+            <td>
+                @if(Session::has('couponCode'))
+                Mã Khuyến Mãi: <span style="color: var(--MinhHung-Red)">{{ Session::get('couponCode') }}</span>
+                @else
+                Khuyến Mãi
+                @endif
+            </td>
             <td>
                 - <span class="couponAmount">
                     @if(Session::has('couponAmount'))

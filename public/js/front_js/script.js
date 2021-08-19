@@ -188,6 +188,10 @@ $(document).ready(function () {
   }); // sort filers for section listing page
 
   $('.select2').select2({
+    minimumResultsForSearch: 1
+  }); // select2 without search fucntion for filter box
+
+  $('.select2-no-search').select2({
     minimumResultsForSearch: Infinity
   }); // select2 without search fucntion for filter box
 
@@ -608,6 +612,36 @@ $(document).ready(function () {
       }
     }
   });
+  $("#OrderForNonUserForm").validate({
+    rules: {
+      email: {
+        required: true,
+        email: true
+      },
+      full_name: "required",
+      mobile: {
+        required: true,
+        minlength: 10,
+        maxlength: 10,
+        digits: true
+      },
+      address: "required"
+    },
+    messages: {
+      email: {
+        required: "Vui lòng nhập email của quý khách.",
+        email: "Email không hợp lệ."
+      },
+      full_name: "Vui nhập tên của quý khách.",
+      address: "Vui nhập địa chỉ nhận hàng.",
+      mobile: {
+        required: "Vui lòng nhập số điện thoại.",
+        minlength: "Số điện thọai không hợp lệ.",
+        maxlength: "Số điện thọai không hợp lệ.",
+        digits: "Số điện thoại không hợp lệ."
+      }
+    }
+  });
   $("#ContactForm").validate({
     rules: {
       name: "required",
@@ -646,6 +680,42 @@ $(document).ready(function () {
         required: "Vui lòng nhập tên."
       },
       last_name: "Vui lòng nhập họ.",
+      mobile: {
+        required: "Vui lòng nhập số điện thoại.",
+        minlength: "Số điện thọai không hợp lệ.",
+        maxlength: "Số điện thọai không hợp lệ.",
+        digits: "Số điện thoại không hợp lệ."
+      }
+    }
+  });
+  $("#deliveryAddressForm").validate({
+    rules: {
+      name: {
+        required: true
+      },
+      address: {
+        required: true
+      },
+      city: {
+        required: true
+      },
+      mobile: {
+        required: true,
+        minlength: 10,
+        maxlength: 10,
+        digits: true
+      }
+    },
+    messages: {
+      name: {
+        required: "Vui lòng nhập họ và tên."
+      },
+      address: {
+        required: "Vui lòng nhập địa chỉ cụ thể."
+      },
+      city: {
+        required: "Vui lòng nhập thành phố."
+      },
       mobile: {
         required: "Vui lòng nhập số điện thoại.",
         minlength: "Số điện thọai không hợp lệ.",
@@ -726,18 +796,22 @@ $(document).ready(function () {
       }
     }
   });
+  $.validator.addMethod("notEqualTo", function (value, element, param) {
+    return this.optional(element) || !$.validator.methods.equalTo.call(this, value, element, param);
+  }, "Mật khẩu mới không được giống với mật khẩu hiện tại.");
   $("#NewPwdForm").validate({
+    // debug: true,
     rules: {
       current_pwd: {
         required: true
       },
       new_pwd: {
         required: true,
-        minlength: 6
+        minlength: 6,
+        notEqualTo: "#current_pwd"
       },
       confirm_pwd: {
         required: true,
-        minlength: 6,
         equalTo: "#new_pwd"
       }
     },
@@ -751,7 +825,6 @@ $(document).ready(function () {
       },
       confirm_pwd: {
         required: "Vui lòng xác nhận mật khẩu mới.",
-        minlength: "Mật khẩu phải dài ít nhất 6 chữ hoặc số.",
         equalTo: "Xác nhận mật khẩu không chính xác."
       }
     }
@@ -825,6 +898,61 @@ $(document).ready(function () {
         if (resp.totalAmount >= 0) {
           $(".totalAmount").text(total_amount);
         }
+      },
+      error: function error() {
+        alert("Error");
+      }
+    });
+  });
+  $(document).on("click", ".addressDelete", function () {
+    var recordid = $(this).attr("recordid");
+    var record = $(this).attr("record");
+    Swal.fire({
+      title: 'Xác nhận xóa?',
+      text: "Bạn sẽ không thay đổi được sau khi xóa!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'var(--Positive-Green)',
+      cancelButtonColor: 'var(--Delete-Red)',
+      confirmButtonText: 'Xóa!',
+      cancelButtonText: 'Không xóa.'
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        window.location.href = "/delete-" + record + "/" + recordid;
+      }
+    });
+  }); // Append Districts Level 
+
+  $('#province').change(function () {
+    var province_id = $(this).val();
+    $.ajax({
+      type: 'post',
+      url: '/append-districts-level',
+      data: {
+        province_id: province_id
+      },
+      success: function success(resp) {
+        $("#appendDistrictsLevel").html(resp);
+        $(".select2").select2(); // init the select
+      },
+      error: function error() {
+        alert("Error");
+      }
+    });
+  }); // Append Wards Level 
+
+  $(document).on('change', '#district', function () {
+    // alert("test");
+    var district_id = $(this).val();
+    $.ajax({
+      type: 'post',
+      url: '/append-wards-level',
+      data: {
+        district_id: district_id
+      },
+      success: function success(resp) {
+        $("#appendWardsLevel").html(resp);
+        $(".select2").select2(); // init the select
       },
       error: function error() {
         alert("Error");

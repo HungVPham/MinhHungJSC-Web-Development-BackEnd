@@ -2437,6 +2437,71 @@ th:last-child {
   background-color: rgba(0, 0, 0, 0);
 }
 
+#delivery-addresses-container {
+  margin-bottom: 20px;
+}
+#delivery-addresses-container #delivery-addresses-table tbody, #delivery-addresses-container #delivery-addresses-table td, #delivery-addresses-container #delivery-addresses-table tfoot, #delivery-addresses-container #delivery-addresses-table thead, #delivery-addresses-container #delivery-addresses-table tr {
+  border-color: #00000030;
+  border-width: 1px;
+}
+#delivery-addresses-container #delivery-addresses-table th {
+  text-align: left;
+  background-color: var(--Solid-White);
+  color: var(--Solid-Black);
+  padding: 2px;
+}
+#delivery-addresses-container #delivery-addresses-table td {
+  text-align: left;
+  padding: 2px;
+}
+#delivery-addresses-container #delivery-addresses-table td input {
+  width: inherit;
+  height: 20px;
+  padding: 0px;
+  font-size: inherit;
+  border-radius: inherit;
+  margin-bottom: 2px;
+}
+#delivery-addresses-container #delivery-addresses-table td a {
+  padding: 5px;
+}
+#delivery-addresses-container #delivery-addresses-table td a:nth-child(2) {
+  padding-right: 0px;
+}
+
+#payment-methods-container {
+  margin-bottom: 20px;
+}
+#payment-methods-container #payment-methods-table th {
+  text-align: left;
+  background-color: var(--Solid-White);
+  color: var(--Solid-Black);
+  padding: 2px;
+}
+#payment-methods-container #payment-methods-table td {
+  text-align: left;
+  padding: 2px;
+}
+#payment-methods-container #payment-methods-table td input {
+  width: inherit;
+  height: 20px;
+  padding: 0px;
+  font-size: inherit;
+  border-radius: inherit;
+  margin-bottom: 2px;
+}
+#payment-methods-container #payment-methods-table td a {
+  padding: 2px;
+}
+
+.shopee-mail-effect {
+  height: 3px;
+  width: 100%;
+  background-position-x: -30px;
+  background-size: 116px 3px;
+  background-image: repeating-linear-gradient(135deg, #000000, #000000 33px, transparent 0, transparent 41px, #cb1c22 0, #cb1c22 74px, transparent 0, transparent 82px);
+}
+
 /* about us css */
 .about-page {
   margin-top: 40px;
@@ -3857,7 +3922,7 @@ form .btn:focus {
   }
   .form-container-newPwd form {
     flex-basis: 50%;
-    padding: 20px;
+    padding: 0px;
   }
   .form-container-newPwd form:first-child {
     border-right: 1px solid #00000030;

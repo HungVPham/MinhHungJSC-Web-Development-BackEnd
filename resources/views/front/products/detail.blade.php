@@ -420,25 +420,22 @@
                         <div class="price-quotation-select-containter">
                             @if(!empty($productDetails['maxpro_attributes']))
                             <select autocomplete="off" name="sku" class="select2">
-                            <option value="">chọn sản phẩm...</option>
                             @foreach($productDetails['maxpro_attributes'] as $toolAttr)
-                            <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                            <option selected value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
                             @endforeach
                             </select>
                             @endif
                             @if(!empty($productDetails['hhose_attributes']))
                             <select autocomplete="off" name="sku" class="select2">
-                            <option value="">chọn sản phẩm...</option>
                             @foreach($productDetails['hhose_attributes'] as $toolAttr)
-                            <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                            <option selected value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
                             @endforeach
                             </select>
                             @endif
                             @if(!empty($productDetails['shimge_attributes']))
                             <select autocomplete="off" name="sku" class="select2">
-                            <option value="">chọn sản phẩm...</option>
                             @foreach($productDetails['shimge_attributes'] as $toolAttr)
-                            <option value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
+                            <option selected value="{{ $toolAttr['sku'] }}">{{ $toolAttr['sku'] }}</option>
                             @endforeach
                             </select>
                             @endif
@@ -624,108 +621,110 @@
     </div> 
 </div>
 <!------Products------->
-<div class="small-container listing">
-    <div class="row">
-        <div class="row row-2">
-            <h2 style="margin-top: 50px; margin-bottom: -40px">Sản Phẩm Tương Tự</h2> 
-            <div class="flexleft-container">
-                <i title="hiện thị danh sách" class="mybtn fas fa-th-list" onclick="Button(0); listToggleListOff();listToggleBtnOff()"></i>
-                <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>   
-            </div>
-        </div>
-        <div class="flexleft-container" style="margin-top: 20px"><p id="products-nav"><a href="{{ url('/'.$productDetails['category']['url']) }}">Xem Thêm</a></p></div>
-        <div class="row listing body">
-            @foreach($relatedProducts as $key => $product)
-            <?php $discounted_price = Product::getDiscountedPrice($product['id']); ?>
-            <div class="col-4">
-                <a href="{{ url('products/'.$product['id']) }}">
-                    @if(isset($product['main_image']))
-                        <?php $product_image_path = 'images/product_images/main_image/medium/'.$product['main_image']; ?>
-                    @else
-                        <?php $product_image_path = '' ?>
-                    @endif
-                        @if(!empty($product['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
-                        @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
-                    @endif
-                </a>
-                 <div class="product-overlay navDetail"><a  href="{{ url('products/'.$product['id']) }}">xem chi tiết</a></div>
-                    <div class="product-overlay addCart"><a href="{{ url('products/'.$product['id']) }}">thêm vào giỏ</a></div>
-                <div class="list-item-container">
-                <small class="brand-title"> 
-                    <span>
-                        <?php echo
-                        $product['brand']['name']
-                        ?>
-                    </span>
-                </small>
-                 <a href="{{ url('products/'.$product['id']) }}"><h4 title="{{ $product['product_name'] }}">{{ $product['product_name']}}</h4></a>
-                 <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
+@if(!empty($relatedProducts))
+    <div class="small-container listing">
+        <div class="row">
+            <div class="row row-2">
+                <h2 style="margin-top: 50px; margin-bottom: -40px">Sản Phẩm Tương Tự</h2> 
+                <div class="flexleft-container">
+                    <i title="hiện thị danh sách" class="mybtn fas fa-th-list" onclick="Button(0); listToggleListOff();listToggleBtnOff()"></i>
+                    <i title="hiện thị lưới" class="mybtn fas fa-th-large Active" onclick="Button(1); listToggleListOn();listToggleBtnOn()"></i>   
                 </div>
-                @if($product['section_id']==3)
-                <style>
-                .row.listing.body.list .col-4 .list-item-container .price strong{
-                    display: block;
-                }
-                </style>
-                @endif
-                <p class="price">
-                    @if(!empty($product['product_price']))
-                        @if($product['section_id']!=1)từ@endif 
-                            @if($discounted_price>0)
-                            <del> 
-                                <?php 
-                                $num = $product['product_price'];
-                                $format = number_format($num,0,",",".");
-                                echo $format;
-                                ?> ₫
-                            </del>
-                            <strong style="color: var(--MinhHung-Red);">&nbsp;
-                                <?php 
-                                $num = $discounted_price;
-                                $format = number_format($num,0,",",".");
-                                echo $format;
-                            ?> ₫
-                            </strong>
-                        @else
-                            <?php 
-                            $num = $product['product_price'];
-                            $format = number_format($num,0,",",".");
-                            echo $format;
-                            ?> ₫
+            </div>
+                <div class="flexleft-container" style="margin-top: 20px"><p id="products-nav"><a href="{{ url('/'.$productDetails['category']['url']) }}">Xem Thêm</a></p></div>
+                <div class="row listing body">
+                    @foreach($relatedProducts as $key => $product)
+                    <?php $discounted_price = Product::getDiscountedPrice($product['id']); ?>
+                    <div class="col-4">
+                        <a href="{{ url('products/'.$product['id']) }}">
+                            @if(isset($product['main_image']))
+                                <?php $product_image_path = 'images/product_images/main_image/medium/'.$product['main_image']; ?>
+                            @else
+                                <?php $product_image_path = '' ?>
+                            @endif
+                                @if(!empty($product['main_image'])&&file_exists($product_image_path))
+                                <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                                @else
+                                <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                            @endif
+                        </a>
+                        <div class="product-overlay navDetail"><a  href="{{ url('products/'.$product['id']) }}">xem chi tiết</a></div>
+                            <div class="product-overlay addCart"><a href="{{ url('products/'.$product['id']) }}">thêm vào giỏ</a></div>
+                        <div class="list-item-container">
+                        <small class="brand-title"> 
+                            <span>
+                                <?php echo
+                                $product['brand']['name']
+                                ?>
+                            </span>
+                        </small>
+                        <a href="{{ url('products/'.$product['id']) }}"><h4 title="{{ $product['product_name'] }}">{{ $product['product_name']}}</h4></a>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        @if($product['section_id']==3)
+                        <style>
+                        .row.listing.body.list .col-4 .list-item-container .price strong{
+                            display: block;
+                        }
+                        </style>
                         @endif
-                    @else 
-                        <i>giá liên hệ</i>
-                    @endif   
-                </p>
-                </div>
-                <div class="list-product-description">
-                    @if(!empty($product['product_description']))
-                    <?php echo $product['product_description'] ?>
-                    @else
-                    <h5><i>chưa có thông tin.</i></h5>
-                    @endif
-                </div>
-                <div class="list-item-container controls">
-                    <div id="comparision-container">
-                    <label for="comparison-checkbox">So Sánh</label>
-                    <input id="comparison-checkbox" name="comparison-checkbox" type="checkbox">
+                        <p class="price">
+                            @if(!empty($product['product_price']))
+                                @if($product['section_id']!=1)từ@endif 
+                                    @if($discounted_price>0)
+                                    <del> 
+                                        <?php 
+                                        $num = $product['product_price'];
+                                        $format = number_format($num,0,",",".");
+                                        echo $format;
+                                        ?> ₫
+                                    </del>
+                                    <strong style="color: var(--MinhHung-Red);">&nbsp;
+                                        <?php 
+                                        $num = $discounted_price;
+                                        $format = number_format($num,0,",",".");
+                                        echo $format;
+                                    ?> ₫
+                                    </strong>
+                                @else
+                                    <?php 
+                                    $num = $product['product_price'];
+                                    $format = number_format($num,0,",",".");
+                                    echo $format;
+                                    ?> ₫
+                                @endif
+                            @else 
+                                <i>giá liên hệ</i>
+                            @endif   
+                        </p>
+                        </div>
+                        <div class="list-product-description">
+                            @if(!empty($product['product_description']))
+                            <?php echo $product['product_description'] ?>
+                            @else
+                            <h5><i>chưa có thông tin.</i></h5>
+                            @endif
+                        </div>
+                        <div class="list-item-container controls">
+                            <div id="comparision-container">
+                            <label for="comparison-checkbox">So Sánh</label>
+                            <input id="comparison-checkbox" name="comparison-checkbox" type="checkbox">
+                            </div>
+                            <p class="navList-Detail"><a href="{{ url('products/'.$product['id']) }}">Xem Chi Tiết</a></p>
+                            <p class="addList-Cart"><a href="{{ url('products/'.$product['id']) }}">Thêm Vào Giỏ</a></p>
+                        </div>
                     </div>
-                    <p class="navList-Detail"><a href="{{ url('products/'.$product['id']) }}">Xem Chi Tiết</a></p>
-                    <p class="addList-Cart"><a href="{{ url('products/'.$product['id']) }}">Thêm Vào Giỏ</a></p>
+                    @endforeach
                 </div>
-            </div>
-            @endforeach
         </div>
+            @endif
+            <div class="page-btn">
+                <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
+            </div>           
     </div>
-    <div class="page-btn">
-        <a href="" class="btn compare">So Sánh Đã Chọn [0]</a>
-    </div>
-</div>
 @endsection

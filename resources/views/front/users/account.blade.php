@@ -26,6 +26,14 @@
     .pwd-toggle.on{
         display: none;
     }
+
+    input{
+        margin-bottom: 10px;
+    }
+
+    .select2{
+        margin-bottom: 10px;
+    }
 </style>
 <div class="myAccount-page">
     <div class="small-container">
@@ -33,7 +41,8 @@
             <div class="myAccount-page-col-1">
                 <div class="tab">
                     <a style="cursor: default;">{{ Auth::user()->last_name }} {{ Auth::user()->name }}</a>
-                    <a href="{{ url('/my-account') }}"><i class="far fa-user-circle"></i>&nbsp;&nbsp;Hồ Sơ Của Tôi</a>
+                    <a href="{{ url('/my-account') }}"><i style="color: var(--MinhHung-Red)" class="fas fa-user"></i>&nbsp;&nbsp;Hồ Sơ Của Tôi</a>
+                    <a href="{{ url('/add-edit-delivery-address') }}"><i class="fas fa-map-pin"></i>&nbsp;&nbsp;Địa Chỉ Nhận Hàng</a>
                 </div>
             </div>
             <div class="myAccount-page-col-2">
@@ -89,19 +98,21 @@
                                 <input id="name" value="{{ $userDetails['name'] }}" name="name" pattern="[A-Za-z]+" placeholder="">
                             </div>
                         </div>
-                            <label for="address">Địa chỉ:</label>
-                            <input type="address" id="address" name="address" value="{{ $userDetails['address'] }}" placeholder="">
-                            <label for="city">Thành Phố:</label>
-                            <input type="city" id="city" name="city" value="{{ $userDetails['city'] }}" placeholder="">
-                            <label for="state">Tỉnh Thành:</label>
-                            <input type="state" id="state" name="state" value="{{ $userDetails['state'] }}" placeholder="">
-                            <label for="country">Quốc Tịch:</label>
-                            <select id="country" name="country" style="width: 100%;" class="select2">
-                                <option value="">chọn quốc tịch...</option>
-                                @foreach($countries as $country)
-                                <option value="{{ $country['country_code'] }}" @if($country['country_code']==$userDetails['country']) selected @endif>{{ $country['country_name'] }}</option>
+                            <label for="province">Tỉnh/Thành phố:</label>
+                            <select id="province" name="province" style="width: 100%;" class="select2">
+                                <option value="">chọn tỉnh/thành phố</option>
+                                @foreach($provinces as $province)
+                                <option @if(!empty($userDetails['city']) && $userDetails['city']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
                                 @endforeach
                             </select>
+                            <div id="appendDistrictsLevel">
+                                @include('front.users.append_districts_level')
+                            </div>
+                            <div id="appendWardsLevel">
+                                @include('front.users.append_wards_level')
+                            </div>
+                            <label for="address">Thôn/Xóm/Số Nhà:</label>
+                            <input type="address" id="address" name="address" value="{{ $userDetails['address'] }}" placeholder="">
                             <label for="mobile">Số Điện Thoại:</label>
                             <input type="mobile" id="mobile" name="mobile" value="{{ $userDetails['mobile'] }}" placeholder="">
                             <label for="email">Email:</label>
@@ -126,7 +137,7 @@
                         <span id="chkPwd"></span>
                         <label for="new_pwd">Mật khẩu mới*:</label>
                         <div style="position: relative;">
-                            <input type="password"  autocomplete="off" id="new_pwd" name="new_pwd" placeholder="">
+                            <input type="password"  autocomplete="off" id="new_pwd" name="new_pwd" placeholder="≥6 ký tự có chữ thường, hoa, và số.">
                             <span id="eyeSlash3" class="pwd-toggle" onclick="visibility3()"><i class="far fa-eye-slash"></i></span>
                             <span id="eyeShow3" class="pwd-toggle on" onclick="visibility3()"><i class="far fa-eye"></i></span>
                         </div>

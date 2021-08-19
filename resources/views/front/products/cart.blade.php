@@ -17,7 +17,7 @@
                 <input autocomplete="off" class="voucher" required name="code" id="code" type="text">
                 <button type="submit" style="width: 161.05px;" class="btn">Áp Dụng</button>
             </form>
-            <p><button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button><a href="{{ url('checkout') }}"class="btn">Mua Hàng</a></p>
+            <p><button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button>@if(Auth::check()) <a href="{{ url('checkout') }}"class="btn">Mua Hàng</a> @else <a href="{{ url('checkout-for-non-user') }}"class="btn">Mua Hàng</a> @endif</p>
         </div>
     @else
     <div class="empty-cart">

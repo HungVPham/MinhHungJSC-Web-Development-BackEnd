@@ -355,6 +355,7 @@ $(document).ready(function(){
             data:{section_id:section_id},
             success:function(resp){
                 $("#appendCategoriesLevel").html(resp);
+                $(".select2").select2(); // init the select
             },error:function(){
                 alert("Error");
             }

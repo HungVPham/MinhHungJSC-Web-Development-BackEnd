@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use Illuminate\Support\Facades\Mail;
+// use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Pagination\Paginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,10 +16,12 @@ use App\Product;
 use App\Cart;
 use App\Coupon;
 use App\User;
+use App\DeliveryAddress;
 use Auth;
 use App\MaxproProductAttributes;
 use App\HhoseProductAttributes;
 use App\ShimgeProductAttributes;
+use App\Country;
 use Session;
 
 class ProductsController extends Controller
@@ -705,6 +709,63 @@ class ProductsController extends Controller
 
     public function checkout(Request $request){
         $userCartItems = Cart::userCartItems();
-        return view('front.products.checkout')->with(compact('userCartItems'));
+        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+        return view('front.products.checkout')->with(compact('userCartItems', 'deliveryAddresses'));
+    }
+
+    public function addEditDeliveryAddress($id=null, Request $request){
+        if($id==""){
+            $title = "Thêm Địa Chỉ Nhận Hàng";
+            $address = new DeliveryAddress;
+            $message = "Địa chỉ nhận hàng đã được thêm.";
+        }else{
+            $title = "Sửa Địa Chỉ Nhận Hàng";
+            $message = "Địa chỉ nhận hàng đã được sửa.";
+            $address = DeliveryAddress::findOrFail(Crypt::decrypt($id));
+        }
+
+        $countries = Country::where('status', 1)->get()->toArray();
+        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $rules = [
+                'name' => 'regex:/^[\pL\s\-]+$/u',
+            ];  
+            $customMessages = [
+                'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+            $address->name = $data['name'];
+            $address->user_id = Auth::user()->id;
+            $address->address = $data['address'];
+            $address->city = $data['city'];
+            $address->state = $data['state'];
+            $address->country = $data['country'];
+            $address->mobile = $data['mobile'];
+            $address->status = 1;
+            $address->save();
+
+            // Redirect to login/register page with success message.
+            session::flash('success_message', $message);
+            return redirect('/add-edit-delivery-address');
+        }
+        return view('front.users.add_edit_delivery_address')->with(compact('countries', 'title','deliveryAddresses', 'address'));
+    }
+
+    public function deleteDeliveryAddress($id){
+            DeliveryAddress::where('id', Crypt::decrypt($id))->delete();
+            $message = "Địa chỉ nhận hàng đã được xóa!";
+
+            session::flash('success_message', $message);
+            return redirect()->back();
+    }
+
+    public function checkOutForNonUser(Request $request){
+        $userCartItems = Cart::userCartItems();
+        return view('front.products.checkout_for_non_user')->with(compact('userCartItems'));
     }
 }
