@@ -257,8 +257,10 @@ class UsersController extends Controller
 
         $countries = Country::where('status', 1)->get()->toArray();
         $provinces = Province::get()->toArray();
-        $districts = District::get()->toArray();
-        $wards = Ward::get()->toArray();
+        $getWards = Ward::get();
+        $getWards = json_decode(json_encode($getWards),true);
+        $getDistricts = District::get();
+        $getDistricts = json_decode(json_encode($getDistricts),true);
 
         // dd($districts); die;
 
@@ -269,16 +271,16 @@ class UsersController extends Controller
             $rules = [
                 'name' => 'regex:/^[\pL\s\-]+$/u',
                 'last_name' => 'regex:/^[\pL\s\-]+$/u',
-                'province' => 'required',
-                'district' => 'required',
-                'ward' => 'required',
+                // 'province' => 'required',
+                // 'district' => 'required',
+                // 'ward' => 'required',
             ];  
             $customMessages = [
                 'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
                 'last_name.regex' => 'Họ không hợp lệ. Quý khách vui lòng thử lại.',
-                'province.required' => 'Vui lòng chọn tỉnh/thành.',
-                'district.required' => 'Vui lòng chọn quận/huyện.',
-                'ward.required' => 'Vui lòng chọn phường/xã.',
+                // 'province.required' => 'Vui lòng chọn tỉnh/thành.',
+                // 'district.required' => 'Vui lòng chọn quận/huyện.',
+                // 'ward.required' => 'Vui lòng chọn phường/xã.',
             ];
             $this->validate($request, $rules, $customMessages);
 
@@ -297,9 +299,25 @@ class UsersController extends Controller
             $user->name = $data['name'];
             $user->last_name = $data['last_name'];
             $user->address = $data['address'];
-            $user->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
-            $user->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
-            $user->city = $getProvinces[0]['_prefix'].' '.$getProvinces[0]['_name'];
+
+            if(!empty($getProvinces)){
+                $user->province = $getProvinces[0]['_prefix'].' '.$getProvinces[0]['_name'];
+            }else{
+                $user->province = "";
+            }
+
+            if(!empty($getDistricts)){
+                $user->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
+            }else{
+                $user->district = "";
+            }
+
+            if(!empty($getWards)){
+                $user->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
+            }else{
+                $user->ward = "";
+            }
+
             // $user->state = $data['state'];
             $user->country = "VN";
             $user->mobile = $data['mobile'];
@@ -310,7 +328,7 @@ class UsersController extends Controller
             session::flash('success_message', $message);
             return redirect()->back();
         }
-        return view('front.users.account')->with(compact('userDetails', 'countries', 'provinces', 'districts', 'wards'));
+        return view('front.users.account')->with(compact('userDetails', 'countries', 'provinces', 'getDistricts', 'getWards'));
     }
 
     public function appendDistrictLevel(Request $request){

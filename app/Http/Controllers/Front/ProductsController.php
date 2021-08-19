@@ -22,6 +22,9 @@ use App\MaxproProductAttributes;
 use App\HhoseProductAttributes;
 use App\ShimgeProductAttributes;
 use App\Country;
+use App\Province;
+use App\District;
+use App\Ward;
 use Session;
 
 class ProductsController extends Controller
@@ -725,6 +728,11 @@ class ProductsController extends Controller
         }
 
         $countries = Country::where('status', 1)->get()->toArray();
+        $provinces = Province::get()->toArray();
+        $getWards = Ward::get();
+        $getWards = json_decode(json_encode($getWards),true);
+        $getDistricts = District::get();
+        $getDistricts = json_decode(json_encode($getDistricts),true);
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();
 
         if($request->isMethod('post')){
@@ -733,18 +741,33 @@ class ProductsController extends Controller
 
             $rules = [
                 'name' => 'regex:/^[\pL\s\-]+$/u',
+                'province' => 'required',
+                'district' => 'required',
+                'ward' => 'required',
             ];  
             $customMessages = [
                 'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
+                'province.required' => 'Vui lòng chọn tỉnh/thành.',
+                'district.required' => 'Vui lòng chọn quận/huyện.',
+                'ward.required' => 'Vui lòng chọn phường/xã.',
             ];
             $this->validate($request, $rules, $customMessages);
+
+            $getProvinces = Province::where('id', $data['province'])->get();
+            $getProvinces = json_decode(json_encode($getProvinces),true);
+            $getDistricts = District::where('id', $data['district'])->get();
+            $getDistricts = json_decode(json_encode($getDistricts),true);
+            $getWards = Ward::where('id', $data['ward'])->get();
+            $getWards = json_decode(json_encode($getWards),true);
 
             $address->name = $data['name'];
             $address->user_id = Auth::user()->id;
             $address->address = $data['address'];
-            $address->city = $data['city'];
-            $address->state = $data['state'];
-            $address->country = $data['country'];
+            $address->province = $getProvinces[0]['_prefix'].' '.$getProvinces[0]['_name'];
+            $address->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
+            $address->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
+            // $address->state = $data['state'];
+            $address->country = "Việt Nam";
             $address->mobile = $data['mobile'];
             $address->status = 1;
             $address->save();
@@ -753,7 +776,7 @@ class ProductsController extends Controller
             session::flash('success_message', $message);
             return redirect('/add-edit-delivery-address');
         }
-        return view('front.users.add_edit_delivery_address')->with(compact('countries', 'title','deliveryAddresses', 'address'));
+        return view('front.users.add_edit_delivery_address')->with(compact('countries', 'title','deliveryAddresses', 'address', 'provinces', 'getDistricts', 'getWards'));
     }
 
     public function deleteDeliveryAddress($id){

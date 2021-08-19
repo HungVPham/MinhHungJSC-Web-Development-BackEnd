@@ -673,9 +673,6 @@ $(document).ready(function () {
       address: {
         required: true,
       },
-      city: {
-        required: true,
-      },
       mobile: {
         required: true,
         minlength: 10,
@@ -685,13 +682,10 @@ $(document).ready(function () {
     },
     messages: {
       name: {
-        required: "Vui lòng nhập họ và tên.",
+        required: "Vui lòng nhập họ và tên người nhận hàng.",
       },
       address: {
         required: "Vui lòng nhập địa chỉ cụ thể.",
-      },
-      city: {
-        required: "Vui lòng nhập thành phố.",
       },
       mobile: {
         required: "Vui lòng nhập số điện thoại.",
@@ -897,8 +891,8 @@ $(document).ready(function () {
       });
   });
 
-  // Append Districts Level 
-  $('#province').change(function(){
+  
+  $(document).on('change', '#province', function(){
     var province_id = $(this).val();
     $.ajax({
         type:'post',
@@ -911,9 +905,8 @@ $(document).ready(function () {
             alert("Error");
         }
     });
-  });
+  }); // Append Districts Level 
 
-  // Append Wards Level 
   $(document).on('change', '#district', function(){
     // alert("test");
     var district_id = $(this).val();
@@ -928,8 +921,7 @@ $(document).ready(function () {
             alert("Error");
         }
     });
-  });
-  
+  }); // Append Wards Level
 }); 
   
   $(window).on("load", function () {

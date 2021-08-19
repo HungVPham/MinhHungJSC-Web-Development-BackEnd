@@ -99,7 +99,9 @@ use App\Product;
                         <input type="radio" id="address {{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">&nbsp;
                         {{ $address['name'] }} -  
                         {{ $address['address'] }}, 
-                        {{ $address['city'] }}, 
+                        {{ $address['ward'] }}, 
+                        {{ $address['district'] }}, 
+                        {{ $address['province'] }}, 
                         @if(!empty($address['state']))
                         {{ $address['state'] }}, 
                         @endif

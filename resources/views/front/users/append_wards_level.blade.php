@@ -16,7 +16,7 @@
   <option value="">chọn phường/xã</option>
     @if(!empty($getWards))
         @foreach($getWards as $ward)
-            <option @if(!empty($userDetails['ward']) && $userDetails['ward']==$ward['_prefix'].' '.$ward['_name']) selected="" @endif value="{{ $ward['id'] }}">{{ $ward['_prefix'] }} {{ $ward['_name'] }}</option>
+            <option @if(isset($userDetails['ward']) && $userDetails['ward']==$ward['_prefix'].' '.$ward['_name']) selected="" @elseif(isset($address['ward']) && $address['ward']==$ward['_prefix'].' '.$ward['_name']) selected="" @endif value="{{ $ward['id'] }}">{{ $ward['_prefix'] }} {{ $ward['_name'] }}</option>
         @endforeach
     @endif
 </select>

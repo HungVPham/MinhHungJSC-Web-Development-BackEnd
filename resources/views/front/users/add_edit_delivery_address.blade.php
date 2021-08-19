@@ -96,18 +96,21 @@
                         <h4 style="font-weight: 600;">{{ $title }}</h4>  
                             <label for="name">Người Nhận Hàng:</label>
                             <input type="name" id="name" name="name" value="{{ $address['name'] }}" placeholder="">
-                            <label for="address">Địa chỉ:</label>
-                            <input type="address" id="address" name="address" value="{{ $address['address'] }}" placeholder="">
-                            <label for="city">Thành Phố:</label>
-                            <input type="city" id="city" name="city" value="{{ $address['city'] }}" placeholder="">
-                            <label for="state">Tỉnh Thành:</label>
-                            <input type="state" id="state" name="state" value="{{ $address['state'] }}" placeholder="">
-                            <label for="country">Quốc Tịch:</label>
-                            <select id="country" name="country" value="{{ $address['country'] }}" style="width: 100%;" class="select2">
-                                @foreach($countries as $country)
-                                <option @if($country['country_name']==$address['country']) selected @endif selected value="{{ $country['country_name'] }}">{{ $country['country_name'] }}</option>
+                            <label for="province">Tỉnh/Thành phố:</label>
+                            <select id="province" name="province" style="width: 100%;" class="select2">
+                                <option value="">chọn tỉnh/thành phố</option>
+                                @foreach($provinces as $province)
+                                <option @if(!empty($address['province']) && $address['province']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
                                 @endforeach
                             </select>
+                            <div id="appendDistrictsLevel">
+                                @include('front.users.append_districts_level')
+                            </div>
+                            <div id="appendWardsLevel">
+                                @include('front.users.append_wards_level')
+                            </div>
+                            <label for="address">Thôn/Xóm/Số Nhà:</label>
+                            <input type="address" id="address" name="address" value="{{ $address['address'] }}" placeholder="">
                             <label for="mobile">Số Điện Thoại:</label>
                             <input type="mobile" id="mobile" name="mobile" value="{{ $address['mobile'] }}" placeholder="">
                         <button type="submit" class="btn">{{ $title }}</button>
@@ -121,7 +124,9 @@
                             <span style="color: rgba(85,85,85,.8)">Số Điện Thoại:</span> {{ $addresses['mobile'] }}
                             <br>
                             <span style="color: rgba(85,85,85,.8)">Địa Chỉ:</span> {{ $addresses['address'] }}, 
-                            {{ $addresses['city'] }}, 
+                            {{ $addresses['ward'] }}, 
+                            {{ $addresses['district'] }}, 
+                            {{ $addresses['province'] }}, 
                             @if(!empty($addresses['state']))
                             {{ $addresses['state'] }}, 
                             @endif

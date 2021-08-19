@@ -102,7 +102,7 @@
                             <select id="province" name="province" style="width: 100%;" class="select2">
                                 <option value="">chọn tỉnh/thành phố</option>
                                 @foreach($provinces as $province)
-                                <option @if(!empty($userDetails['city']) && $userDetails['city']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
+                                <option @if(!empty($userDetails['province']) && $userDetails['province']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
                                 @endforeach
                             </select>
                             <div id="appendDistrictsLevel">

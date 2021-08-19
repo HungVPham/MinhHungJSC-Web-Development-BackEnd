@@ -16,7 +16,7 @@
   <option value="">chọn quận/huyện</option>
     @if(!empty($getDistricts))
         @foreach($getDistricts as $district)
-            <option @if(!empty($userDetails['district']) && $userDetails['district']==$district['_prefix'].' '.$district['_name']) selected="" @endif value="{{ $district['id'] }}">{{ $district['_prefix'] }} {{ $district['_name'] }}</option>
+            <option @if(isset($userDetails['district']) && $userDetails['district']==$district['_prefix'].' '.$district['_name']) selected="" @elseif(isset($address['district']) && $address['district']==$district['_prefix'].' '.$district['_name']) selected="" @endif value="{{ $district['id'] }}">{{ $district['_prefix'] }} {{ $district['_name'] }}</option>
         @endforeach
     @endif
 </select>
