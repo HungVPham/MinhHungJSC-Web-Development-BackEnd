@@ -952,6 +952,13 @@ $(document).ready(function () {
       }
     });
   }); // Append Wards Level
+
+  $("#payment_method_banking").click(function () {
+    $('#bankingInfo').show();
+  });
+  $("#payment_method_cod").click(function () {
+    $('#bankingInfo').hide();
+  });
 });
 $(window).on("load", function () {
   $(".preloaderBg").fadeOut("slow");

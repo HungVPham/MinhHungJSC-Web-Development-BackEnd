@@ -735,6 +735,9 @@ class ProductsController extends Controller
         $getDistricts = json_decode(json_encode($getDistricts),true);
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();
 
+        $addressCount = DeliveryAddress::where('status', 1)->get()->count();
+        $defaultAddressCount = DeliveryAddress::where('is_default', "Yes")->get()->count();
+
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -746,7 +749,7 @@ class ProductsController extends Controller
                 'ward' => 'required',
             ];  
             $customMessages = [
-                'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
+                'name.regex' => 'Tên không hợp lệ.',
                 'province.required' => 'Vui lòng chọn tỉnh/thành.',
                 'district.required' => 'Vui lòng chọn quận/huyện.',
                 'ward.required' => 'Vui lòng chọn phường/xã.',
@@ -767,16 +770,30 @@ class ProductsController extends Controller
             $address->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
             $address->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
             // $address->state = $data['state'];
+
+            if($addressCount<0){
+                $address->is_default = "Yes";
+            }else{
+                if(!empty($data['is_default'])){
+                    $address->is_default = $data['is_default'];
+                }else{
+                    $address->is_default = "No";
+                }
+            }
+
+            if($addressCount>1 ){
+                DeliveryAddress::where("is_default", "Yes")->where("id", '!=', Crypt::decrypt($data['id']))->update(["is_default"=>"No"]);
+            }
+
             $address->country = "Việt Nam";
             $address->mobile = $data['mobile'];
             $address->status = 1;
             $address->save();
 
-            // Redirect to login/register page with success message.
             session::flash('success_message', $message);
             return redirect('/add-edit-delivery-address');
         }
-        return view('front.users.add_edit_delivery_address')->with(compact('countries', 'title','deliveryAddresses', 'address', 'provinces', 'getDistricts', 'getWards'));
+        return view('front.users.add_edit_delivery_address')->with(compact('countries', 'title','deliveryAddresses', 'address', 'provinces', 'getDistricts', 'getWards', 'addressCount', 'defaultAddressCount'));
     }
 
     public function deleteDeliveryAddress($id){

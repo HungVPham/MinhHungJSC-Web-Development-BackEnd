@@ -96,7 +96,7 @@ use App\Product;
                 @foreach($deliveryAddresses as $address)
                 <tr>
                     <td>
-                        <input type="radio" id="address {{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">&nbsp;
+                        <input type="radio" @if($address['is_default']=="Yes") checked @endif id="address {{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">@if($address['is_default']=="Yes") <span style="color: #888">(Mặc Định)</span>@endif
                         {{ $address['name'] }} -  
                         {{ $address['address'] }}, 
                         {{ $address['ward'] }}, 
@@ -108,12 +108,12 @@ use App\Product;
                         {{ $address['country'] }} 
                         (SĐT: {{ $address['mobile'] }})
                     </td>
-                    <td><a title="sửa địa chỉ nhận hàng" href="{{ url('add-edit-delivery-address/'.Crypt::encrypt($address['id'])) }}"><i class="fas fa-edit"></i></a><a title="xóa địa chỉ nhận hàng" class="addressDelete" record="delivery-address" recordid="{{ Crypt::encrypt($address['id']) }}" href="javascript:void(0)"><i class="fas fa-trash"></i></a></td>
+                    <td><a title="sửa địa chỉ nhận hàng" href="{{ url('add-edit-delivery-address/'.Crypt::encrypt($address['id'])) }}"><i class="fas fa-edit"></i></a>@if($address['is_default']=="No")<a title="xóa địa chỉ nhận hàng" class="addressDelete" record="delivery-address" recordid="{{ Crypt::encrypt($address['id']) }}" href="javascript:void(0)"><i class="fas fa-trash"></i></a>@endif</td>
                 </tr>
                 @endforeach
             @else
                 <tr>
-                    <td style="text-align: center">Quý khách hiện chưa có địa chỉ nhận hàng nào.</td>
+                    <td style="text-align: center">Quý khách hiện chưa có địa chỉ nhận hàng.</td>
                 </tr>
             @endif
         </table>

@@ -79,8 +79,9 @@ td {
     }
 
     
-    a:last-child{
+    a:nth-child(2){
         color: rgba(0, 0, 0, 0.3);
+        cursor: pointer;
 
         &:hover{
             color: var(--MinhHung-Red);

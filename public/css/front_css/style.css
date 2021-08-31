@@ -2124,10 +2124,11 @@ td img {
   height: 100px;
   margin-right: 10px;
 }
-td a:last-child {
+td a:nth-child(2) {
   color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
-td a:last-child:hover {
+td a:nth-child(2):hover {
   color: var(--MinhHung-Red);
 }
 

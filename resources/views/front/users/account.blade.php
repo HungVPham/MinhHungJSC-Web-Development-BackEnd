@@ -9,6 +9,7 @@
     text-align: left;
     color: var(--MinhHung-Red);
     margin-left: 5px;
+    margin-top: -10px
     }
     a:not([href]):not([class]), a:not([href]):not([class]):hover {
         color: var(--Solid-White);
@@ -91,18 +92,18 @@
                         <div id="reg-int-container" style="display: flex">
                             <div>
                                 <label for="last_name">Họ:</label>
-                                <input id="last_name" value="{{ $userDetails['last_name'] }}" name="last_name" pattern="[A-Za-z]{3}" placeholder="">
+                                <input id="last_name" value="{{ $userDetails['last_name'] }}" name="last_name">
                             </div>
                             <div>
                                 <label for="last_name">Tên:</label>
-                                <input id="name" value="{{ $userDetails['name'] }}" name="name" pattern="[A-Za-z]+" placeholder="">
+                                <input id="name" value="{{ $userDetails['name'] }}" name="name">
                             </div>
                         </div>
                             <label for="province">Tỉnh/Thành phố:</label>
                             <select id="province" name="province" style="width: 100%;" class="select2">
                                 <option value="">chọn tỉnh/thành phố</option>
                                 @foreach($provinces as $province)
-                                <option @if(!empty($userDetails['province']) && $userDetails['province']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
+                                <option @if(isset($userDetails['province']) && $userDetails['province']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
                                 @endforeach
                             </select>
                             <div id="appendDistrictsLevel">
@@ -112,17 +113,17 @@
                                 @include('front.users.append_wards_level')
                             </div>
                             <label for="address">Thôn/Xóm/Số Nhà:</label>
-                            <input type="address" id="address" name="address" value="{{ $userDetails['address'] }}" placeholder="">
+                            <input type="address" id="address" name="address" @if(isset($userDetails['address'])) value="{{ $userDetails['address'] }}" @else value="{{ old('address') }}" @endif>
                             <label for="mobile">Số Điện Thoại:</label>
-                            <input type="mobile" id="mobile" name="mobile" value="{{ $userDetails['mobile'] }}" placeholder="">
+                            <input type="mobile" id="mobile" name="mobile" @if(isset($userDetails['mobile'])) value="{{ $userDetails['mobile'] }}" @else value="{{ old('mobile') }}" @endif>
                             <label for="email">Email:</label>
-                            <input type="email" id="email" readonly="" disabled name="email" value="{{ $userDetails['email'] }}" placeholder="">
+                            <input type="email" id="email" readonly="" disabled name="email" value="{{ $userDetails['email'] }}">
                             @if(!empty($userDetails['company_email']))
                             <h4 style="font-weight: 600; margin-top: 20px">Thông Tin Doanh Nghiệp</h4>  
                             <label for="company_name">Tên Doanh Nghiệp:</label>
-                            <input id="company_name" readonly="" name="company_name" value="{{ $userDetails['company_name'] }}" placeholder="">
+                            <input id="company_name" readonly="" name="company_name" @if(isset($userDetails['company_name'])) value="{{ $userDetails['company_name'] }}" @else value="{{ old('company_name') }}" @endif>
                             <label for="company_email">Doanh Nghiệp:</label>
-                            <input type="email" id="company_email" readonly="" disabled name="company_email" value="{{ $userDetails['company_email'] }}" placeholder="">
+                            <input type="email" id="company_email" readonly="" disabled name="company_email" value="{{ $userDetails['company_email'] }}">
                             @endif
                         <button type="submit" class="btn">Cập Nhật</button>
                     </form>
@@ -130,7 +131,7 @@
                         <h4 style="font-weight: 600;">Đổi Mật Khẩu</h4>
                         <label for="current_pwd">Mật khẩu hiện tại*:</label>
                         <div style="position: relative;">
-                            <input type="password"  autocomplete="off" id="current_pwd" name="current_pwd" placeholder="">
+                            <input type="password"  autocomplete="off" id="current_pwd" name="current_pwd">
                             <span id="eyeSlash2" class="pwd-toggle" onclick="visibility2()"><i class="far fa-eye-slash"></i></span>
                             <span id="eyeShow2" class="pwd-toggle on" onclick="visibility2()"><i class="far fa-eye"></i></span>
                         </div>
@@ -143,7 +144,7 @@
                         </div>
                         <label for="confirm_pwd">Xác nhận mật khẩu mới*:</label>
                         <div style="position: relative;">
-                            <input type="password"  autocomplete="off" id="confirm_pwd" name="confirm_pwd" placeholder="">
+                            <input type="password"  autocomplete="off" id="confirm_pwd" name="confirm_pwd">
                             <span id="eyeSlash4" class="pwd-toggle" onclick="visibility4()"><i class="far fa-eye-slash"></i></span>
                             <span id="eyeShow4" class="pwd-toggle on" onclick="visibility4()"><i class="far fa-eye"></i></span>
                         </div>

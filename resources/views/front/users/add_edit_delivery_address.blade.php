@@ -9,6 +9,7 @@
     text-align: left;
     color: var(--MinhHung-Red);
     margin-left: 5px;
+    margin-top: -10px
     }
     a:not([href]):not([class]), a:not([href]):not([class]):hover {
         color: var(--Solid-White);
@@ -35,6 +36,54 @@
     #deliver-addresses-container a:hover{
         color: var(--MinhHung-Red);
     }
+    input{
+        margin-bottom: 10px;
+    }
+
+    .select2{
+        margin-bottom: 10px;
+    }
+    #is-default-container input[type="checkbox"]{
+      appearance: none;
+      -webkit-appearance: none;
+      height: 18px;
+      width: 18px;
+      background-color: #d5d5d5;
+      outline: none;
+      cursor: pointer;
+      border: 1px solid #333;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      float: right;
+      margin-top: 7px;
+    }
+    #is-default-container input[type="checkbox"]:after{
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f00c";
+      font-size: 13px;
+      color: #ffffff;
+      display: none;
+
+    }
+    #is-default-container input[type="checkbox"]:hover{
+      background-color: #a5a5a5;
+    }
+    #is-default-container input[type="checkbox"]:checked{
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: var(--Positive-Green);
+      height: 18px;
+      width: 18px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+    #is-default-container input[type="checkbox"]:checked::after{
+      display: block;
+    }
+
 </style>
 <div class="myAccount-page">
     <div class="small-container">
@@ -94,13 +143,14 @@
                     @endif
                     method="post">@csrf
                         <h4 style="font-weight: 600;">{{ $title }}</h4>  
+                            <input type="hidden" name="id" value="{{ Crypt::encrypt($address['id']) }}">
                             <label for="name">Người Nhận Hàng:</label>
-                            <input type="name" id="name" name="name" value="{{ $address['name'] }}" placeholder="">
+                            <input type="name" id="name" name="name" @if(isset($address['name'])) value="{{ $address['name'] }}" @else value="{{ old('name') }}" @endif placeholder="họ và tên">
                             <label for="province">Tỉnh/Thành phố:</label>
                             <select id="province" name="province" style="width: 100%;" class="select2">
                                 <option value="">chọn tỉnh/thành phố</option>
                                 @foreach($provinces as $province)
-                                <option @if(!empty($address['province']) && $address['province']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
+                                <option @if(isset($address['province']) && $address['province']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
                                 @endforeach
                             </select>
                             <div id="appendDistrictsLevel">
@@ -110,9 +160,17 @@
                                 @include('front.users.append_wards_level')
                             </div>
                             <label for="address">Thôn/Xóm/Số Nhà:</label>
-                            <input type="address" id="address" name="address" value="{{ $address['address'] }}" placeholder="">
+                            <input type="address" id="address" name="address" @if(isset($address['address'])) value="{{ $address['address'] }}" @else value="{{ old('address') }}" @endif placeholder="địa chỉ nhận hàng cụ thể">
                             <label for="mobile">Số Điện Thoại:</label>
-                            <input type="mobile" id="mobile" name="mobile" value="{{ $address['mobile'] }}" placeholder="">
+                            <input type="mobile" id="mobile" name="mobile" @if(isset($address['mobile'])) value="{{ $address['mobile'] }}" @else value="{{ old('mobile') }}" @endif placeholder="số điện thoại người nhận hàng">
+                            @if($addressCount>0)
+                            <div id="is-default-container">
+                                <label for="is-default-checkbox">Mặc định:</label>
+                                <input id="is-default-checkbox" name="is_default" @if(isset($address['is_default']) && $address['is_default']=='Yes') checked @endif type="checkbox" value="Yes">
+                            </div>
+                            @elseif($addressCount==1)
+                                <input name="is_default" type="hidden" value="Yes">
+                            @endif
                         <button type="submit" class="btn">{{ $title }}</button>
                     </form>
                     <form id="deliver-addresses-container">
@@ -133,16 +191,20 @@
                             {{ $addresses['country'] }}.
                             <br>
                             @if($addresses['id']!=$address['id'])
-                            <a title="xóa địa chỉ nhận hàng" class="addressDelete" record="delivery-address" recordid="{{ Crypt::encrypt($addresses['id']) }}" href="javascript:void(0)">xóa</a>
-                            <a title="sửa địa chỉ nhận hàng" href="{{ url('add-edit-delivery-address/'.Crypt::encrypt($addresses['id'])) }}">sửa</a>
+                            @if($addresses['is_default']=="Yes") <span style="color: #888">(Mặc Định)</span>@endif
+                            @if($addresses['is_default']=="No")
+                                <a title="xóa địa chỉ nhận hàng" class="addressDelete" record="delivery-address" recordid="{{ Crypt::encrypt($addresses['id']) }}" href="javascript:void(0)">xóa</a>
+                            @endif
+                                <a title="sửa địa chỉ nhận hàng" href="{{ url('add-edit-delivery-address/'.Crypt::encrypt($addresses['id'])) }}">sửa</a>
                             @else
-                            <a style="color: #228B22; text-decoration: none;"><span style="font-size: 2rem;">●</span>đang sửa</a>
+                                @if($addresses['is_default']=="Yes") <span style="color: #888">(Mặc Định)</span>@endif
+                                <a style="color: #228B22; text-decoration: none;"><span style="font-size: 2rem;">●</span>đang sửa</a>
                             @endif
                             <br>
                             <hr>               
                         @endforeach
                         @else
-                            <p>Quý khách hiện chưa có địa chỉ nhận hàng nào.</p>
+                            <p>Quý khách hiện chưa có địa chỉ nhận hàng.</p>
                         @endif
                     </form>
                 </div>
