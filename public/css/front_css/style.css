@@ -3926,7 +3926,7 @@ form .btn:focus {
     padding: 0px;
   }
   .form-container-newPwd form:first-child {
-    border-right: 1px solid #00000030;
+    border: none;
   }
   .form-container-newPwd form button {
     width: -webkit-max-content;

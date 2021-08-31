@@ -177,7 +177,7 @@
                         <h4 style="font-weight: 600;">Địa Chỉ Của Tôi</h4> 
                         @if(!empty($deliveryAddresses))
                         @foreach($deliveryAddresses as $addresses)
-                            <span style="color: rgba(85,85,85,.8)">Họ và Tên:</span> {{ $addresses['name'] }}
+                            <span style="color: rgba(85,85,85,.8)">Người Nhận Hàng:</span> {{ $addresses['name'] }}
                             <br>
                             <span style="color: rgba(85,85,85,.8)">Số Điện Thoại:</span> {{ $addresses['mobile'] }}
                             <br>
@@ -191,14 +191,14 @@
                             {{ $addresses['country'] }}.
                             <br>
                             @if($addresses['id']!=$address['id'])
-                            @if($addresses['is_default']=="Yes") <span style="color: #888">(Mặc Định)</span>@endif
+                            @if($addresses['is_default']=="Yes") <span style="color: var(--Positive-Green)">(Mặc Định)</span>@endif
                             @if($addresses['is_default']=="No")
                                 <a title="xóa địa chỉ nhận hàng" class="addressDelete" record="delivery-address" recordid="{{ Crypt::encrypt($addresses['id']) }}" href="javascript:void(0)">xóa</a>
                             @endif
                                 <a title="sửa địa chỉ nhận hàng" href="{{ url('add-edit-delivery-address/'.Crypt::encrypt($addresses['id'])) }}">sửa</a>
                             @else
-                                @if($addresses['is_default']=="Yes") <span style="color: #888">(Mặc Định)</span>@endif
-                                <a style="color: #228B22; text-decoration: none;"><span style="font-size: 2rem;">●</span>đang sửa</a>
+                                @if($addresses['is_default']=="Yes") <span style="color: var(--Positive-Green)">(Mặc Định)</span>@endif
+                                <a style="color: var(--Positive-Green); text-decoration: none;"><span style="font-size: 2rem;">●</span>đang sửa</a>
                             @endif
                             <br>
                             <hr>               

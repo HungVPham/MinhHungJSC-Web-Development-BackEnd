@@ -257,9 +257,9 @@ class UsersController extends Controller
 
         $countries = Country::where('status', 1)->get()->toArray();
         $provinces = Province::get()->toArray();
-        $getWards = Ward::get();
+        $getWards = Ward::where('_district_id', $userDetails['district_id'])->get();
         $getWards = json_decode(json_encode($getWards),true);
-        $getDistricts = District::get();
+        $getDistricts = District::where('_province_id', $userDetails['province_id'])->get();
         $getDistricts = json_decode(json_encode($getDistricts),true);
 
         // dd($districts); die;
@@ -302,21 +302,30 @@ class UsersController extends Controller
 
             if(!empty($getProvinces)){
                 $user->province = $getProvinces[0]['_prefix'].' '.$getProvinces[0]['_name'];
+                $user->province_id = $data['province'];
             }else{
                 $user->province = "";
+                $user->province_id = NULL;
+
             }
 
             if(!empty($getDistricts)){
                 $user->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
+                $user->district_id = $data['district'];
             }else{
                 $user->district = "";
+                $user->district_id = NULL;
             }
 
             if(!empty($getWards)){
                 $user->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
+                $user->ward_id = $data['ward'];
             }else{
                 $user->ward = "";
+                $user->ward_id = NULL;
             }
+
+
 
             // $user->state = $data['state'];
             $user->country = "VN";

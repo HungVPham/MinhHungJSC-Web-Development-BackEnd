@@ -926,6 +926,7 @@ $(document).ready(function () {
       },
       success: function success(resp) {
         $("#appendDistrictsLevel").html(resp);
+        $("#appendWardsLevel").html('<label for="ward">Phường Xã:</label><select id="ward" name="ward" style="width: 100%;" class="form-control select2"><option value="">chọn phường/xã</option></select>');
         $(".select2").select2(); // init the select
       },
       error: function error() {

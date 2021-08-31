@@ -96,7 +96,7 @@ use App\Product;
                 @foreach($deliveryAddresses as $address)
                 <tr>
                     <td>
-                        <input type="radio" @if($address['is_default']=="Yes") checked @endif id="address {{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">@if($address['is_default']=="Yes") <span style="color: #888">(Mặc Định)</span>@endif
+                        <input type="radio" @if($address['is_default']=="Yes") checked @endif id="address {{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">@if($address['is_default']=="Yes") <span style="color: var(--Positive-Green)">(Mặc Định)</span>@endif
                         {{ $address['name'] }} -  
                         {{ $address['address'] }}, 
                         {{ $address['ward'] }}, 

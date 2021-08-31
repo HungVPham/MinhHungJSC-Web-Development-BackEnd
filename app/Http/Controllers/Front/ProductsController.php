@@ -721,18 +721,21 @@ class ProductsController extends Controller
             $title = "Thêm Địa Chỉ Nhận Hàng";
             $address = new DeliveryAddress;
             $message = "Địa chỉ nhận hàng đã được thêm.";
+            $getWards = NULL;
+            $getDistricts = NULL;
         }else{
             $title = "Sửa Địa Chỉ Nhận Hàng";
             $message = "Địa chỉ nhận hàng đã được sửa.";
             $address = DeliveryAddress::findOrFail(Crypt::decrypt($id));
+            $getWards = Ward::where('_district_id', $address['district_id'])->get();
+            $getWards = json_decode(json_encode($getWards),true);
+            $getDistricts = District::where('_province_id', $address['province_id'])->get();
+            $getDistricts = json_decode(json_encode($getDistricts),true);
         }
 
         $countries = Country::where('status', 1)->get()->toArray();
         $provinces = Province::get()->toArray();
-        $getWards = Ward::get();
-        $getWards = json_decode(json_encode($getWards),true);
-        $getDistricts = District::get();
-        $getDistricts = json_decode(json_encode($getDistricts),true);
+
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();
 
         $addressCount = DeliveryAddress::where('status', 1)->get()->count();
@@ -769,9 +772,12 @@ class ProductsController extends Controller
             $address->province = $getProvinces[0]['_prefix'].' '.$getProvinces[0]['_name'];
             $address->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
             $address->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
+            $address->province_id = $data['province'];
+            $address->district_id = $data['district'];
+            $address->ward_id = $data['ward'];
             // $address->state = $data['state'];
 
-            if($addressCount<0){
+            if($addressCount<=0){
                 $address->is_default = "Yes";
             }else{
                 if(!empty($data['is_default'])){
@@ -781,7 +787,7 @@ class ProductsController extends Controller
                 }
             }
 
-            if($addressCount>1 ){
+            if($addressCount>0){
                 DeliveryAddress::where("is_default", "Yes")->where("id", '!=', Crypt::decrypt($data['id']))->update(["is_default"=>"No"]);
             }
 
