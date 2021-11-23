@@ -165,8 +165,8 @@
                             <input type="mobile" id="mobile" name="mobile" @if(isset($address['mobile'])) value="{{ $address['mobile'] }}" @else value="{{ old('mobile') }}" @endif placeholder="số điện thoại người nhận hàng">
                             @if($addressCount>0)
                             <div id="is-default-container">
-                                <label for="is-default-checkbox">Mặc định:</label>
-                                <input id="is-default-checkbox" name="is_default" @if(isset($address['is_default']) && $address['is_default']=='Yes') checked @endif type="checkbox" value="Yes">
+                                <label @if($addressCount==1) hidden @endif for="is-default-checkbox">Mặc định:</label>
+                                <input @if($addressCount==1) hidden @endif id="is-default-checkbox" name="is_default" @if(isset($address['is_default']) && $address['is_default']=='Yes') checked @endif type="checkbox" value="Yes">
                             </div>
                             @elseif($addressCount==1)
                                 <input name="is_default" type="hidden" value="Yes">

@@ -60,6 +60,9 @@ use App\Product;
             color: var(--MinhHung-Red);
             margin-left: 5px;
         }
+        p {
+            margin-bottom: 0;
+        }
     </style>
 <!--Cart Items Details-->
 <div class="small-container cart-page">

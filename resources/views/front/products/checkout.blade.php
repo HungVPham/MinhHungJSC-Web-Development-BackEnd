@@ -267,8 +267,19 @@ use App\Product;
                 </tr>
                     <tr>
                         <td>
-                            <input type="radio" name="payment_method" checked value="cod">&nbsp;Thanh Toán Khi Nhận Hàng (COD) &nbsp; | &nbsp;
-                            <input type="radio" name="payment_method" value="banking">&nbsp;Chuyển Khoản
+                            <input type="radio" id="payment_method_cod" name="payment_method" checked value="cod">&nbsp;Thanh Toán Khi Nhận Hàng (COD) &nbsp; | &nbsp;
+                            <input type="radio" id="payment_method_banking" name="payment_method" value="banking">&nbsp;Chuyển Khoản
+                            <p id="bankingInfo" style="border: 2px solid var(--MinhHung-Red); margin-top: 10px; max-width: max-content; padding: 10px; display: none;">
+                                <strong>Thông Tin Chuyển Khoản</strong>
+                                <br>
+                                <strong>Số tài khoản:</strong> 167931999.
+                                <br>
+                                <strong>Chủ tài khoản:</strong> CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN MINH HƯNG.
+                                <br>
+                                <strong>Ngân Hàng:</strong> Ngân hàng Á Châu (ACB) – Chi nhánh Phú Lâm.
+                                <br>
+                                <strong>Chủ Đề:</strong> (Họ Tên - Số Điện Thoại) + Thanh Toán (Tên Sản Phẩm).
+                            </p>
                         </td>
                     </tr>
             </table>

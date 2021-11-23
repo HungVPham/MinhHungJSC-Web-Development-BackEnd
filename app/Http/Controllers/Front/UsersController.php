@@ -325,8 +325,6 @@ class UsersController extends Controller
                 $user->ward_id = NULL;
             }
 
-
-
             // $user->state = $data['state'];
             $user->country = "VN";
             $user->mobile = $data['mobile'];
