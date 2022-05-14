@@ -93,6 +93,7 @@
                     <a style="cursor: default;">{{ Auth::user()->last_name }} {{ Auth::user()->name }}</a>
                     <a href="{{ url('/my-account') }}"><i class="fas fa-user"></i>&nbsp;&nbsp;Hồ Sơ Của Tôi</a>
                     <a href="{{ url('/add-edit-delivery-address') }}"><i style="color: var(--MinhHung-Red)" class="fas fa-map-pin"></i>&nbsp;&nbsp;Địa Chỉ Nhận Hàng</a>
+                    <a href="{{ url('/orders') }}"><i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;Đơn Mua</a>
                 </div>
             </div>
             <div class="myAccount-page-col-2">
@@ -132,6 +133,7 @@
                     @endif
                     <div class="tabcontent-title">
                         <h2>Địa Chỉ Nhận Hàng</h2>
+                        <h5>Quản lý địa điểm giao hàng</h5>
                         <hr>
                     </div>
                 <div class="form-container-newPwd">

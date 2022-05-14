@@ -1,5 +1,17 @@
 @extends('layouts.front_layout.front_layout')
 @section('content')
+<style>
+    #button{
+        border: 2px solid black !important;
+        color: #00000030 !important;
+        background: #ffffff !important;
+    }
+    #button:hover{
+        border-color: var(--MinhHung-Red) !important;
+        color: #000000 !important;   
+    }
+</style>
+
 <!--Cart Items Details-->
 <div class="small-container cart-page">
     <div class="row listing head first cart">
@@ -17,7 +29,7 @@
                 <input autocomplete="off" class="voucher" required name="code" id="code" type="text">
                 <button type="submit" style="width: 161.05px;" class="btn">Áp Dụng</button>
             </form>
-            <p><button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button>@if(Auth::check()) <a href="{{ url('checkout') }}"class="btn">Mua Hàng</a> @else <a href="{{ url('checkout-for-non-user') }}"class="btn">Mua Hàng</a> @endif</p>
+            <p><a href="{{ url('/') }}"  class="btn" id="button">&larr; Quay Trở Lại</a>@if(Auth::check()) <a href="{{ url('checkout') }}"class="btn">Mua Hàng</a> @else <a href="{{ url('checkout-for-non-user') }}"class="btn">Mua Hàng</a> @endif</p>
         </div>
     @else
     <div class="empty-cart">

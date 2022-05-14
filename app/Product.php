@@ -81,6 +81,9 @@ class Product extends Model
             $discounted_price = $proAttrPrice['price'];
             $discount_amount = 0;
         }
+
+        // echo $discounted_price; die;
+
         return array('product_price'=>$proAttrPrice['price'], 'discounted_price'=>$discounted_price, 'discount_amount'=>$discount_amount);
     }
 
@@ -123,4 +126,9 @@ class Product extends Model
     //     }
     //     return array('product_price'=>$proHhosePrice['price'], 'discounted_price'=>$discounted_price);
     // }
+
+    public static function getProductImage($product_id){
+        $getProductImage = Product::select('main_image')->where('id',$product_id)->first()->toArray();
+        return $getProductImage['main_image'];
+    }
 }

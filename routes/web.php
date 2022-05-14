@@ -230,15 +230,22 @@ Route::namespace('Front')->group(function(){
         Route::match(['get', 'post'],'/update-user-pwd', 'UsersController@updateUserPassword');
         Route::post('/check-user-pwd', 'UsersController@chkUserPassword');
         Route::post('/apply-coupon', 'ProductsController@applyCoupon');
+
         Route::match(['get','post'], '/checkout', 'ProductsController@checkout');
+        
         Route::match(['get','post'], '/add-edit-delivery-address/{id?}', 'ProductsController@addEditDeliveryAddress');
         Route::get('/delete-delivery-address/{id}', 'ProductsController@deleteDeliveryAddress');
 
         Route::post('/append-districts-level','UsersController@appendDistrictLevel');
         Route::post('/append-wards-level','UsersController@appendWardLevel');
+
+        Route::get('/orders', 'OrdersController@orders');
+        Route::get('/orders/{id}', 'OrdersController@orderDetails');
     });
 
     Route::match(['get','post'], '/checkout-for-non-user', 'ProductsController@checkOutForNonUser');
+    
+    Route::get('/thanks','ProductsController@thanks');
 
     Route::get('/logout', 'UsersController@logoutUser');
     Route::match(['get', 'post'],'/confirm/{code}', 'UsersController@confirmUser');

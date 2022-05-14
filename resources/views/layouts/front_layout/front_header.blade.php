@@ -119,7 +119,7 @@ $sections = Section::sections();
 						</li>
 						@if(Auth::check())
 						<li><img src="{{ url('images/front_images/account_generic.png') }}" alt=""><a href="{{ url('/my-account') }}">Tài Khoản Của Tôi</a></li>
-						{{-- <li><img src="{{ url('images/front_images/help.png') }}" alt=""><a href="">Trợ Giúp</a></li> --}}
+						<li><img src="{{ url('images/front_images/shopping-bag.png') }}" alt=""><a href="{{ url('orders') }}">Đơn Mua</a></li>
 						<li><img src="{{ url('images/front_images/logout.png') }}" alt=""><a href="{{ url('logout') }}">Đăng Xuất</a></li>
 						@else
 						<li><img src="{{ url('images/front_images/login.png') }}" alt=""><a href="{{ url('/login-register') }}">Đăng Nhập</a></li>

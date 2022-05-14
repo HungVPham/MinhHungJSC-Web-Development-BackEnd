@@ -26,6 +26,9 @@ use App\Province;
 use App\District;
 use App\Ward;
 use Session;
+use App\Order;
+use App\OrdersProduct;
+use DB;
 
 class ProductsController extends Controller
 {
@@ -711,13 +714,234 @@ class ProductsController extends Controller
     }// apply coupon via ajax
 
     public function checkout(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo Session::get('grand_total');
+
+            if(empty($data['address_id'])){
+                $message = "Xin vui lòng chọn địa chỉ nhận hàng!";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
+
+            if(empty($data['payment_gateway'])){
+                $message = "Xin vui lòng chọn phương thức thanh toán!";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
+
+            // print_r($data); die;
+
+            if($data['payment_gateway'] == "COD"){
+                $payment_method = "COD";
+            }else{
+                $payment_method = "Banking";
+            }
+
+            // Get delivery details from address id
+
+            $deliveryAddress = DeliveryAddress::where('id', $data['address_id'])->first()->toArray();
+           // dd($deliveryAddress); die;
+
+            DB::beginTransaction();
+
+            // insert order details
+
+            $order = new Order;
+            $order->user_id = Auth::user()->id;
+            $order->name = $deliveryAddress['name'];
+            $order->address = $deliveryAddress['address'];
+            $order->ward = $deliveryAddress['ward'];
+            $order->district = $deliveryAddress['district'];
+            $order->province = $deliveryAddress['province'];
+            $order->state = $deliveryAddress['state'];
+            $order->country = $deliveryAddress['country'];
+            $order->mobile = $deliveryAddress['mobile'];
+            $order->email = Auth::user()->email;
+            $order->shipping_charges = 0;
+            $order->coupon_code = Session::get('couponCode');
+            $order->coupon_amount = Session::get('couponAmount');
+            $order->order_status = "New";
+            $order->payment_method = $payment_method;
+            $order->payment_gateway = $data['payment_gateway'];
+            $order->grand_total = Session::get('grand_total');
+            $order->company_name = Auth::user()->company_name;
+            $order->note = $data['order_note'];
+
+            $order->save();
+
+            // Get last Order Id
+
+            $order_id = DB::getPdo() -> lastInsertId();
+
+            // Get User Cart Items
+            $cartItems = Cart::where('user_id', Auth::user() -> id)->get()->toArray();
+
+            foreach($cartItems as $key => $item){
+                $cartItem = new OrdersProduct;
+                $cartItem->order_id = $order_id;
+                $cartItem->user_id = Auth::user()->id;
+
+                $getProductDetails = Product::select('product_code','product_name','section_id')->where('id',$item['product_id'])->first()->toArray();
+
+                $cartItem->product_id = $item['product_id'];
+                $cartItem->product_name = $getProductDetails['product_name'];
+                $cartItem->product_code = $getProductDetails['product_code'];
+                $cartItem->sku = $item['sku'];
+
+                if($getProductDetails['section_id'] == 1){
+                    $getDiscountedAttrPrice = Product::getDiscountedMaxproPrice($item['product_id'], $item['sku']);
+                }else if($getProductDetails['section_id'] == 3){
+                    $getDiscountedAttrPrice = Product::getDiscountedShimgePrice($item['product_id'], $item['sku']);
+                }
+
+                $cartItem->product_price = $getDiscountedAttrPrice['discounted_price'];
+                $cartItem->product_qty = $item['quantity'];
+
+                $cartItem->save();
+            }
+
+            // empty the user cart
+
+           
+
+            Session::put('order_id', $order_id);
+
+            DB::commit();
+
+            // echo "Order Placed"; die;
+
+            // Insert order id in Session Variable
+        
+            if($data['payment_gateway'] == "COD" || $data['payment_gateway'] == "Banking"){
+                return redirect('/thanks');
+            }
+
+        }
+
         $userCartItems = Cart::userCartItems();
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+        
+        if(!empty($userCartItems)){
         return view('front.products.checkout')->with(compact('userCartItems', 'deliveryAddresses'));
+        }else{
+            abort(404);
+        }
+    }
+
+    public function thanks(){
+        // Empty the User Cart
+
+        if(Session::has('order_id')){
+            
+            if(Auth::check()){
+                Cart::where('user_id',Auth::user()->id)->delete();
+            }else{
+                Cart::where('session_id',Session::get('session_id'))->delete();
+            }
+
+            return view('front.products.thanks');
+    
+        }else{
+            abort(404);
+        }
+
+    }
+
+    public function checkOutForNonUser(Request $request){
+
+        if($request->isMethod('post')){
+
+            $data = $request->all();
+            // echo Session::get('grand_total');
+
+            if(empty($data['payment_gateway'])){
+                $message = "Xin vui lòng chọn phương thức thanh toán!";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            }
+
+            // print_r($data); die;
+
+            if($data['payment_gateway'] == "COD"){
+                $payment_method = "COD";
+            }else{
+                $payment_method = "Banking";
+            }
+
+            DB::beginTransaction();
+
+            
+            // insert order details
+
+            $order = new Order;
+            $order->name = $data['full_name'];
+            $order->address = $data['address'];
+            $order->mobile = $data['mobile'];
+            $order->email = $data['email'];
+            $order->shipping_charges = 0;
+            $order->order_status = "New";
+            $order->payment_method = $payment_method;
+            $order->payment_gateway = $data['payment_gateway'];
+            $order->grand_total = Session::get('total_price');
+            $order->company_name = $data['company_name'];
+            $order->note = $data['order_note'];
+
+            $order->save();
+
+            $order_id = DB::getPdo() -> lastInsertId();
+
+             // Get User Cart Items
+             $cartItems = Cart::where('session_id',Session::get('session_id'))->get()->toArray();
+
+             foreach($cartItems as $key => $item){
+                 $cartItem = new OrdersProduct;
+                 $cartItem->order_id = $order_id;
+ 
+                 $getProductDetails = Product::select('product_code','product_name','section_id')->where('id',$item['product_id'])->first()->toArray();
+ 
+                 $cartItem->product_id = $item['product_id'];
+                 $cartItem->product_name = $getProductDetails['product_name'];
+                 $cartItem->product_code = $getProductDetails['product_code'];
+                 $cartItem->sku = $item['sku'];
+ 
+                 if($getProductDetails['section_id'] == 1){
+                     $getDiscountedAttrPrice = Product::getDiscountedMaxproPrice($item['product_id'], $item['sku']);
+                 }else if($getProductDetails['section_id'] == 3){
+                     $getDiscountedAttrPrice = Product::getDiscountedShimgePrice($item['product_id'], $item['sku']);
+                 }
+ 
+                 $cartItem->product_price = $getDiscountedAttrPrice['discounted_price'];
+                 $cartItem->product_qty = $item['quantity'];
+ 
+                 $cartItem->save();
+             }
+         
+            Session::put('order_id', $order_id);
+
+            DB::commit();
+
+            if($data['payment_gateway'] == "COD" || $data['payment_gateway'] == "Banking"){
+                return redirect('/thanks');
+            }
+
+           // echo "Order Placed"; die;
+
+
+        }
+        $userCartItems = Cart::userCartItems();
+
+        if(!empty($userCartItems)){
+            return view('front.products.checkout_for_non_user')->with(compact('userCartItems'));
+        }else{
+            abort(404);
+        }
+        
     }
 
     public function addEditDeliveryAddress($id=null, Request $request){
-        if($id==""){
+        
+        if($id == ""){
             $title = "Thêm Địa Chỉ Nhận Hàng";
             $address = new DeliveryAddress;
             $message = "Địa chỉ nhận hàng đã được thêm.";
@@ -810,8 +1034,5 @@ class ProductsController extends Controller
             return redirect()->back();
     }
 
-    public function checkOutForNonUser(Request $request){
-        $userCartItems = Cart::userCartItems();
-        return view('front.products.checkout_for_non_user')->with(compact('userCartItems'));
-    }
+
 }
