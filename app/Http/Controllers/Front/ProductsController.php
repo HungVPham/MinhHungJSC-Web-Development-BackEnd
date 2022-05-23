@@ -271,6 +271,13 @@ class ProductsController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
+            $rules = [
+                'sku' => 'required',
+            ];  
+            $customMessages = [
+                'sku.required' => 'Quý khách vui lòng thêm mã sản phẩm quan tâm.'
+            ];
+            $this->validate($request, $rules, $customMessages);
 
            // generate section id if not exists
            $session_id = Session::get('session_id');
@@ -365,6 +372,14 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
+            $rules = [
+                'sku' => 'required',
+            ];  
+            $customMessages = [
+                'sku.required' => 'Quý khách vui lòng thêm mã sản phẩm quan tâm.'
+            ];
+            $this->validate($request, $rules, $customMessages);
+
             // generate section id if not exists
            $session_id = Session::get('session_id');
            if(empty($session_id)){
@@ -451,12 +466,14 @@ class ProductsController extends Controller
                 'full_name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'mobile' => 'required',
                 'email' => 'required',
+                'sku' => 'required',
             ];  
             $customMessages = [
                 'full_name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
                 'full_name.required' => 'Quý khách vui lòng điền họ tên để nhận thông báo.',
                 'mobile.required' => 'Quý khách vui lòng điền số điện thoại để nhận thông báo.',
                 'email.required' => 'Quý khách vui lòng điền email để nhận thông báo.',
+                'sku.required' => 'Quý khách vui lòng thêm mã sản phẩm quan tâm.'
             ];
             $this->validate($request, $rules, $customMessages);
 
@@ -814,6 +831,27 @@ class ProductsController extends Controller
             // Insert order id in Session Variable
         
             if($data['payment_gateway'] == "COD" || $data['payment_gateway'] == "Banking"){
+
+                $orderDetails = Order::with('orders_products')->where('id', $order_id)->first()->toArray();
+
+                // dd($orderDetails); die;
+
+                // Send order email
+
+                $email = Auth::user()->email;
+                $messageData = [
+                    'email' => $email,
+                    'name' => Auth::user()->name,
+                    'order_id' => $order_id,
+                    'orderDetails' => $orderDetails
+                ];
+
+                Mail::send('emails.order',$messageData,function($message) use($email){
+                    $message->to($email)->subject('Đơn Hàng Đã Được Đặt Thành Công! - MinhHưngJSC');
+                });
+
+
+
                 return redirect('/thanks');
             }
 
@@ -922,6 +960,27 @@ class ProductsController extends Controller
             DB::commit();
 
             if($data['payment_gateway'] == "COD" || $data['payment_gateway'] == "Banking"){
+
+                $orderDetails = Order::with('orders_products')->where('id', $order_id)->first()->toArray();
+
+                // dd($orderDetails); die;
+
+                // Send order email
+
+                $email = $data['email'];
+                $full_name =  $data['full_name'];
+                
+                $messageData = [
+                    'email' => $email,
+                    'name' => $full_name,
+                    'order_id' => $order_id,
+                    'orderDetails' => $orderDetails
+                ];
+
+                Mail::send('emails.order',$messageData,function($message) use($email){
+                    $message->to($email)->subject('Đơn Hàng Đã Được Đặt Thành Công! - MinhHưngJSC');
+                });
+
                 return redirect('/thanks');
             }
 
@@ -1033,6 +1092,8 @@ class ProductsController extends Controller
             session::flash('success_message', $message);
             return redirect()->back();
     }
+
+
 
 
 }

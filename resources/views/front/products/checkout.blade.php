@@ -266,8 +266,9 @@ use App\Product;
             </table>
         </div>
             <div class="voucher-containter" style="margin-top: -200px !important;">
-                <p style="margin-bottom: 0 !important;">Ghi chú:</p>
-                <textarea style="width: 100%;" placeholder="Ghi chú đơn hàng (nếu có)" id="order_note" name="order_note"></textarea>
+                <div id="user_order_note">
+                    <textarea style="width: 100%;" placeholder="Ghi chú đơn hàng (nếu có)" id="order_note" name="order_note"></textarea>
+                </div>
                 <div id="payment-methods-container">
                     <table id="payment-methods-table">
                         <tr>

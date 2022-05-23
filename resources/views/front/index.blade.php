@@ -13,7 +13,7 @@ $sections = Section::sections();
             <div id="section" class="col-3">
                 <a id="category-nav" @if(count($section['categories'])>0) href="/{{ $section['url'] }}" @endif><?php $section_image_path = "images/section_images/".$section['section_image']; ?>
                     @if(!empty($section['section_image']) && file_exists($section_image_path))
-                    <img src="{{ asset('images/section_images/'.$section['section_image']) }}" alt="thể loại sản phẩm">
+                    <img loading="lazy" src="{{ asset('images/section_images/'.$section['section_image']) }}" alt="thể loại sản phẩm">
                     @endif<div class="image_overlay">
                     <div class="image_title" style="text-align: center;">{{ $section['name'] }}</div>
                 </div></a>
@@ -45,9 +45,9 @@ $sections = Section::sections();
                     <a href="{{ url('products/'.$item['id']) }}">
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$item['main_image']; ?>
                                 @if(!empty($item['main_image'])&&file_exists($product_image_path))
-                                <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                                <img  loading="lazy"src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                                 @else
-                                <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                                <img  loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                                 @endif
                     </a>
                      <div class="product-overlay navDetail"><a href="{{ url('products/'.$item['id']) }}">xem chi tiết</a></div>
@@ -113,9 +113,9 @@ $sections = Section::sections();
             <a href="{{ url('products/'.$newTool['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newTool['main_image']; ?>
                         @if(!empty($newTool['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        <img loading="lazy" src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        <img loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
              <div class="product-overlay navDetail"><a href="{{ url('products/'.$newTool['id']) }}">xem chi tiết</a></div>
@@ -170,9 +170,9 @@ $sections = Section::sections();
             <a href="{{ url('products/'.$newHose['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newHose['main_image']; ?>
                         @if(!empty($newHose['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        <img loading="lazy" src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        <img loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
              <div class="product-overlay navDetail"><a href="{{ url('products/'.$newHose['id']) }}">xem chi tiết</a></div>
@@ -211,9 +211,9 @@ $sections = Section::sections();
             <a href="{{ url('products/'.$newPump['id']) }}">
                 <?php $product_image_path = 'images/product_images/main_image/medium/'.$newPump['main_image']; ?>
                         @if(!empty($newPump['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        <img loading="lazy" src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        <img loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
              <div class="product-overlay navDetail"><a href="{{ url('products/'.$newPump['id']) }}">xem chi tiết</a></div>
@@ -304,9 +304,9 @@ $sections = Section::sections();
                 <div class="offer-img">
                 <?php $product_image_path = 'images/product_images/main_image/large/'.$exclusive['main_image']; ?>
                         @if(!empty($item['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm độc quyền">
+                        <img loading="lazy" src="{{ asset($product_image_path) }}" alt="sản phẩm độc quyền">
                         @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        <img loading="lazy"src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
                 </div>
             </div>
@@ -364,16 +364,16 @@ $sections = Section::sections();
         <h2 class="title" id="affiliates-title">Doanh Nghiệp Đối Tác</h2>
         <div class="row">
             <div class="col-5">
-                <a href="http://kelaibo.ck-163.com/" target="_blank"><img src="{{ url('images/front_images/logoPartner1.png') }}" alt="đối tác MaxPro"></a>
+                <a href="http://kelaibo.ck-163.com/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner1.png') }}" alt="đối tác MaxPro"></a>
             </div>
             <div class="col-5">
-                <a href="http://shimge-pump.com/" target="_blank"><img src="{{ url('images/front_images/logoPartner2.png') }}" alt="đối tác Shimge"></a>
+                <a href="http://shimge-pump.com/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner2.png') }}" alt="đối tác Shimge"></a>
             </div>
             <div class="col-5">
-                <a href="http://anhdungplastic.com.vn/" target="_blank"><img src="{{ url('images/front_images/logoPartner3.png') }}" alt="đối tác Anh Dũng Plastic"></a>
+                <a href="http://anhdungplastic.com.vn/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner3.png') }}" alt="đối tác Anh Dũng Plastic"></a>
             </div>
             <div class="col-5">
-                <a href="https://hanviethai.vn/vi/" target="_blank"><img src="{{ url('images/front_images/logoPartner4.png') }}" alt="đối tác Hàn Việt Hải"></a>
+                <a href="https://hanviethai.vn/vi/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner4.png') }}" alt="đối tác Hàn Việt Hải"></a>
             </div>
         </div>
     </div>

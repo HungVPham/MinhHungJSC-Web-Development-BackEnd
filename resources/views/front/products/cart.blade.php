@@ -85,7 +85,7 @@
         </svg>
         <h3 style="margin-bottom: 0px">Giỏ Hàng Quý Khách Hiện Đang Trống!</h3>
         <p>
-            <button onclick="goBack()" class="btn">&larr; Quay Trở Lại</button>
+            <a href="{{ url('/') }}" class="btn">&larr; MUA NGAY</a>
         </p>
     </div>
     @endif

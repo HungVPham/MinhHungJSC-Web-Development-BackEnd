@@ -1,3 +1,4 @@
+<?php use App\Product; ?>
 <!doctype html>
 <html
     xmlns="http://www.w3.org/1999/xhtml"
@@ -160,7 +161,7 @@
                                                 style="font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;">
                                                 <div
                                                     style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;">
-                                                    Chào Mừng Quý Khách Từ Giám Đốc Minh Hưng JSC.
+                                                    Trạng Thái Đơn Hàng Đã Được Cập Nhật!
                                                 </div>
                                             </td>
                                         </tr>
@@ -169,70 +170,170 @@
                                                 <div
                                                     style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:#555;">
                                                     Xin chào,
-                                                    {{ $name }}!
+                                                    {{ $name }}
                                                     <br>
                                                     <br>
-                                                    Chúc mừng quý khách đã đăng kí thành công tài khoản thành viên của website Minh
-                                                    Hưng JSC.
+                                                    Trạng thái đơn hàng của bạn đã được cập nhật thành
+                                                    @if($orderDetails['order_status'] == "New")
+                                                    <b>chờ xác nhận</b>.
+                                                    @endif
+                                                    @if($orderDetails['order_status'] == "Pending")
+                                                    <b>đang giao hàng</b>.
+                                                    @endif
+                                                    @if($orderDetails['order_status'] == "Completed")
+                                                    <b>đã giao hàng</b>.
+                                                    @endif
+                                                    @if($orderDetails['order_status'] == "Cancelled")
+                                                    <b>đã hủy</b>.
+                                                    @endif
+                                                    <br>        
+                                                    @if(!empty($courier_name) && !empty($tracking_number))
                                                     <br>
+                                                    <table style="width: -moz-available;">
+                                                        <tr>
+                                                            <td>Đại Lý Giao Hàng: </td>
+                                                            <td style="text-align: left !important"><b>{{ $courier_name }}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Số Tracking: </td>
+                                                            <td style="text-align: left !important"><b>{{ $tracking_number }}</b></td>
+                                                        </tr>
+                                                    </table>
+                                                    @endif
                                                     <br>
-                                                    Chúng tôi rất vui và hân hạnh được chào đón và phục vụ quý khách!
+                                                    <h4><strong>Thông tin đơn hàng</strong></h4>
+                                                    <table style="width: -moz-available;">
+                                                        <tr>
+                                                            <td>Số đơn hàng: </td>
+                                                            <td style="text-align: left !important">{{ $order_id }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ngày Đặt: </td>
+                                                            <td style="text-align: left !important">{{ date('d-m-Y', strtotime($orderDetails['created_at'])) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Phí Giao Hàng: </td>
+                                                            <td style="text-align: left !important">
+                                                                <?php 
+                                                                $shipping_charges = $orderDetails['shipping_charges'];
+                                                                $format = number_format($shipping_charges,0,",",".");
+                                                                echo $format;
+                                                                ?> ₫ 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mã Khuyến Mãi: </td>
+                                                           
+                                                            <td style="text-align: left !important">
+                                                                @if($orderDetails['coupon_code'] ==  NULL)
+                                                                không áp dụng
+                                                                @else
+                                                                {{ $orderDetails['coupon_code'] }}
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Giá Trị Khuyến Mãi: </td>
+                                                            <td style="text-align: left !important">
+                                                                @if($orderDetails['coupon_amount'] ==  NULL)
+                                                                0 ₫
+                                                                @else
+                                                                <?php 
+                                                                $coupon_amount = $orderDetails['coupon_amount'];
+                                                                $format = number_format($coupon_amount,0,",",".");
+                                                                echo $format;
+                                                                ?> ₫ 
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tổng Giá Trị: </td>
+                                                            <td style="text-align: left !important">
+                                                                <?php 
+                                                                $grand_total = $orderDetails['grand_total'];
+                                                                $format = number_format($grand_total,0,",",".");
+                                                                echo $format;
+                                                                ?> ₫ 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Phương Thức Thanh Toán: </td>
+                                                            <td style="text-align: left !important"> 
+                                                                @if($orderDetails['payment_method'] == "COD")
+                                                                thanh toán khi nhận hàng
+                                                                @else
+                                                                chuyển khoản
+                                                                @endif         
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ghi chú đơn hàng: </td>
+                                                            <td>
+                                                                @if(!empty($orderDetails['note']))
+                                                                {{ $orderDetails['note']}} 
+                                                                @else
+                                                                không có ghi chú
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    </table>
                                                     <br>
-                                                    <br>
-                                                    <strong>Thông tin tài khoản</strong>
-                                                    <br>
-                                                    <br>
-                                                    Tên Chủ Tài Khoản:
-                                                    {{ $last_name }}
-                                                    {{ $name}}
-                                                    <br>
-                                                    Email:
-                                                    {{ $email }}
-                                                    <br>
-                                                    Số điện thoại:
-                                                    {{ $mobile }}
-                                                    <br>
-                                                    <br>
-                                                    Để đến trang đăng nhập, quý khách có thể theo đường dẫn bên dưới:
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                align="center"
-                                                style="font-size:0px;padding:10px 25px;padding-top:30px;padding-bottom:50px;word-break:break-word;">
-                                                <table
-                                                    align="center"
-                                                    border="0"
-                                                    cellpadding="0"
-                                                    cellspacing="0"
-                                                    role="presentation"
-                                                    style="border-collapse:separate;line-height:100%;">
+                                                    <table style="width: -moz-available;">
+                                                        <tr>
+                                                            <th>Tên Sản Phẩm</th>
+                                                            <th>Phân Loại</th>
+                                                            <th>Số Lượng</th>   
+                                                            <th>Trị Giá</th>         
+                                                        </tr>
+                                                    @foreach ($orderDetails['orders_products'] as $order)
                                                     <tr>
-                                                        <td
-                                                            align="center"
-                                                            bgcolor="#cb1c22"
-                                                            role="presentation"
-                                                            style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;"
-                                                            valign="middle">
-                                                            <a
-                                                                href="{{ url('/login-register') }}"
-                                                                style="background:#cb1c22;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
-                                                                Đăng Nhập Tài Khoản
-                                                            </a>
+                                                        <td>
+                                                            {{ $order['product_name'] }}
                                                         </td>
+                                                        <td>
+                                                            {{ $order['sku'] }}                          
+                                                        </td>
+                                                        <td>{{ $order['product_qty'] }}</td>
+                                                        <td>
+                                                            <?php 
+                                                            $grand_total = $order['product_price'];
+                                                            $format = number_format($grand_total,0,",",".");
+                                                             echo $format;
+                                                            ?> ₫ 
+                                                        </td>                  
                                                     </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-
-                                                <div
-                                                    style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:20px;text-align:left;color:#525252;">
-                                                    Kính gửi,
+                                                    @endforeach
+                                                    </table>
                                                     <br>
-                                                    Phạm Dũng | Minh Hưng JSC, Giám Đốc Điều Hành<br>
+                                                    <table style="width: -moz-available;">
+                                                        <tr>
+                                                            <td>Địa Chỉ:</td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['address'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Phường/Xã:</td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['ward'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Quận/Huyện:</td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['district'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tỉnh/Thành Phố:</td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['province'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Người Nhận Hàng:</td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['name'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Số Liên Hệ:</td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['mobile'] }}</td>
+                                                        </tr>
+                                                    </table>
+                                                    <br>
+                                                    <br>
+                                                    Đây là tin nhắn tự động từ website minhhungjsc.com.vn, vui lòng không trả lời email này.
                                                 </div>
                                             </td>
                                         </tr>

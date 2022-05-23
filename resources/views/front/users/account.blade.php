@@ -119,11 +119,11 @@
                             <input type="mobile" id="mobile" name="mobile" @if(isset($userDetails['mobile'])) value="{{ $userDetails['mobile'] }}" @else value="{{ old('mobile') }}" @endif>
                             <label for="email">Email:</label>
                             <input type="email" id="email" readonly="" disabled name="email" value="{{ $userDetails['email'] }}">
-                            @if(!empty($userDetails['company_email']))
+                            @if(!empty($userDetails['company_name']))
                             <h4 style="font-weight: 600; margin-top: 20px">Thông Tin Doanh Nghiệp</h4>  
                             <label for="company_name">Tên Doanh Nghiệp:</label>
                             <input id="company_name" readonly="" name="company_name" @if(isset($userDetails['company_name'])) value="{{ $userDetails['company_name'] }}" @else value="{{ old('company_name') }}" @endif>
-                            <label for="company_email">Doanh Nghiệp:</label>
+                            <label for="company_email">Email Doanh Nghiệp:</label>
                             <input type="email" id="company_email" readonly="" disabled name="company_email" value="{{ $userDetails['company_email'] }}">
                             @endif
                         <button type="submit" class="btn">Cập Nhật</button>

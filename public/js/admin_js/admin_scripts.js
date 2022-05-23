@@ -617,4 +617,17 @@ $(document).ready(function(){
      $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
      //Money Euro
      $('[data-mask]').inputmask()
+
+     // show courier name and tracking number
+
+
+     $("#delivery_options").hide();
+
+     $("#order_status").on("change",function(){
+         if(this.value=="Pending"){
+            $("#delivery_options").show();
+         }else{
+            $("#delivery_options").hide();
+         }
+     });
 });

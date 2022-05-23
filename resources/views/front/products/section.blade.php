@@ -112,9 +112,9 @@
                         <?php $product_image_path = '' ?>
                     @endif
                         @if(!empty($product['main_image'])&&file_exists($product_image_path))
-                        <img src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                        <img loading="lazy" src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                         @else
-                        <img src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
+                        <img loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                     @endif
                 </a>
                 <div class="product-overlay navDetail"><a  href="{{ url('products/'.$product['id']) }}">xem chi tiết</a></div>

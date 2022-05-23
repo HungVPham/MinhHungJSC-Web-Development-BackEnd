@@ -71,8 +71,27 @@
                                         @if($orderDetails['order_status'] ==  "New")
                                         <b style="color: var(--MaxPro-Orange)">chờ xác nhận</b>
                                         @endif
+                                        @if($orderDetails['order_status'] ==  "Pending")
+                                        <b style="color: var(--Info-Yellow)">đang giao hàng</b>
+                                        @endif
+                                        @if($orderDetails['order_status'] ==  "Completed")
+                                        <b style="color: #228B22;">đã giao hàng</b>
+                                        @endif
+                                        @if($orderDetails['order_status'] ==  "Cancelled")
+                                        <b style="color: var(--MinhHung-Red)">đã hủy</b>
+                                        @endif             
                                     </td>
                                 </tr>
+                                @if(!empty($orderDetails['courier_name']) && !empty($orderDetails['tracking_number']))
+                                <tr>
+                                    <td><b>Đại Lý Giao Hàng:</b></td>
+                                    <td style="text-align: left !important">{{ $orderDetails['courier_name'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Số Tracking:</b></td>
+                                    <td style="text-align: left !important">{{ $orderDetails['tracking_number'] }}</td>
+                                </tr>
+                                @endif
                                 <tr>
                                     <td>Phí Giao Hàng: </td>
                                     <td style="text-align: left !important">
@@ -119,13 +138,23 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Phương Thức Thanh Toán: </td>
+                                    <td>Thanh Toán: </td>
                                     <td style="text-align: left !important"> 
                                          @if($orderDetails['payment_method'] == "COD")
                                         thanh toán khi nhận hàng
                                         @else
                                         chuyển khoản
                                         @endif         
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ghi chú đơn hàng: </td>
+                                    <td  style="text-align: left !important">
+                                        @if(!empty($orderDetails['note']))
+                                        {{ $orderDetails['note']}} 
+                                        @else
+                                        không có ghi chú
+                                        @endif
                                     </td>
                                 </tr>
                             </table>
@@ -149,15 +178,15 @@
                                     <td style="text-align: left !important">{{ $orderDetails['district'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Tỉnh/Thành Phố:</td>
+                                    <td style="width: 8rem">Tỉnh/Thành Phố:</td>
                                     <td style="text-align: left !important">{{ $orderDetails['province'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Tên Người Nhận Hàng:</td>
+                                    <td >Người Nhận Hàng:</td>
                                     <td style="text-align: left !important">{{ $orderDetails['name'] }}</td>
                                 </tr>
                                 <tr>
-                                    <td style="width: fit-content">Số Điện Thoại Liên Hệ:</td>
+                                    <td style="width: fit-content">Số Liên Hệ:</td>
                                     <td style="text-align: left !important">{{ $orderDetails['mobile'] }}</td>
                                 </tr>
                             </table>

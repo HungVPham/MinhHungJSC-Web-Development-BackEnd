@@ -38,7 +38,7 @@
                     alt="User Image">
                 @else
                 <img
-                    src="{{ asset('images/admin_images/admin_photos/no-img.jpg') }}"
+                    src="{{ url('https://avatars.dicebear.com/api/initials/'.Auth::guard('admin')->user()->name.'.svg') }}"
                     class="img-circle elevation-2"
                     id="user-panel-img"
                     alt="User Image">
@@ -131,7 +131,48 @@
                         </li>
                     </ul>
                 </li>
+                <!-- Ecommerce -->
+                @if(Session::get('page')=="coupons" || Session::get('page')=="orders")
+                <?php $active = "active"; ?>
+                @else
+                <?php $active = ""; ?>
+                @endif
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Thương Mại
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
 
+                        @if(Session::get('page')=="coupons")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/coupons') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Coupons</p>
+                            </a>
+                        </li>
+
+                        @if(Session::get('page')=="orders")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/orders') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Đơn Mua</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 <!-- Appearance -->
                 @if(Session::get('page')=="banners")
                 <?php $active = "active"; ?>
@@ -147,6 +188,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
                         @if(Session::get('page')=="banners")
                         <?php $active = "active"; ?>
                         @else
@@ -158,6 +200,7 @@
                                 <p>Banner</p>
                             </a>
                         </li>
+                        
                     </ul>
                 </li>
 
@@ -288,34 +331,7 @@
                         </li>
                     </ul>
                 </li>
-                <!-- Appearance -->
-                @if(Session::get('page')=="coupons")
-                <?php $active = "active"; ?>
-                @else
-                <?php $active = ""; ?>
-                @endif
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link {{ $active }}">
-                        <i class="nav-icon fas fa-shopping-cart"></i>
-                        <p>
-                            Thương Mại
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @if(Session::get('page')=="coupons")
-                        <?php $active = "active"; ?>
-                        @else
-                        <?php $active = ""; ?>
-                        @endif
-                        <li class="nav-item">
-                            <a href="{{ url('admin/coupons') }}" class="nav-link {{ $active }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Coupons</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                
             </ul>
 
         </nav>

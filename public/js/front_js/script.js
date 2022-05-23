@@ -738,8 +738,16 @@ $(document).ready(function () {
         required: true,
         email: true
       },
+      company_name: {
+        required: function required(element) {
+          return $("#company_email").val().length > 0;
+        }
+      },
       company_email: {
-        email: true
+        email: true,
+        required: function required(element) {
+          return $("#company_name").val().length > 0;
+        }
       }
     },
     messages: {
@@ -754,8 +762,12 @@ $(document).ready(function () {
         required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ."
       },
+      company_name: {
+        required: "Vui lòng nhập tên của doanh nghiệp."
+      },
       company_email: {
-        email: "Email doanh nghiệp không hợp lệ."
+        email: "Email doanh nghiệp không hợp lệ.",
+        required: "Vui lòng nhập email của doanh nghiệp."
       },
       mobile: {
         remote: "Số điện thoại đã được đăng kí ở một tài khoản khác.",
@@ -1044,64 +1056,54 @@ var search = document.querySelector('.search');
 icon.onclick = function () {
   search.classList.toggle('active');
 }; // toggle search bar in user menu
-
-
-var tag = document.createElement('script');
-tag.id = 'iframe-demo';
-tag.src = 'https://www.youtube.com/iframe_api';
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-var player;
-
-window.onYouTubeIframeAPIReady = function () {
-  player = new YT.Player('existing-iframe-example', {
-    playerVars: {
-      'rel': 0
-    },
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  });
-};
-
-window.onPlayerReady = function (event) {
-  document.getElementById('existing-iframe-example').style.borderColor = '#FFFFFF';
-};
-
-window.changeBorderColor = function (playerStatus) {
-  var color;
-
-  if (playerStatus == -1) {
-    color = "#FFFFFF"; // unstarted = gray
-  } else if (playerStatus == 0) {
-    color = "#FFFFFF"; // ended = yellow
-  } else if (playerStatus == 1) {
-    color = "#FFFFFF"; // playing = green
-  } else if (playerStatus == 2) {
-    color = "#FFFFFF"; // paused = red
-  } else if (playerStatus == 3) {
-    color = "#FFFFFF"; // buffering = purple
-  } else if (playerStatus == 5) {
-    color = "#FFFFFF"; // video cued = orange
-  }
-
-  if (color) {
-    document.getElementById('existing-iframe-example').style.borderColor = color;
-  }
-};
-
-window.onPlayerStateChange = function (event) {
-  changeBorderColor(event.data);
-};
-
-window.pauseVideo = function () {
-  player.pauseVideo();
-};
-
-window.playVideo = function () {
-  player.playVideo();
-}; // Youtube video auto play/pause function
+// var tag = document.createElement('script');
+// tag.id = 'iframe-demo';
+// tag.src = 'https://www.youtube.com/iframe_api';
+// var firstScriptTag = document.getElementsByTagName('script')[0];
+// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// var player;
+// window.onYouTubeIframeAPIReady = function () {
+//   player = new YT.Player('existing-iframe-example', {
+//     playerVars: {
+//       'rel': 0
+//     },
+//     events: {
+//       'onReady': onPlayerReady,
+//       'onStateChange': onPlayerStateChange
+//     }
+//   });
+// };
+// window.onPlayerReady = function (event) {
+//   document.getElementById('existing-iframe-example').style.borderColor = '#FFFFFF';
+// };
+// window.changeBorderColor = function (playerStatus) {
+//   var color;
+//   if (playerStatus == -1) {
+//     color = "#FFFFFF"; // unstarted = gray
+//   } else if (playerStatus == 0) {
+//     color = "#FFFFFF"; // ended = yellow
+//   } else if (playerStatus == 1) {
+//     color = "#FFFFFF"; // playing = green
+//   } else if (playerStatus == 2) {
+//     color = "#FFFFFF"; // paused = red
+//   } else if (playerStatus == 3) {
+//     color = "#FFFFFF"; // buffering = purple
+//   } else if (playerStatus == 5) {
+//     color = "#FFFFFF"; // video cued = orange
+//   }
+//   if (color) {
+//     document.getElementById('existing-iframe-example').style.borderColor = color;
+//   }
+// };
+// window.onPlayerStateChange = function (event) {
+//   changeBorderColor(event.data);
+// };
+// window.pauseVideo = function () {
+//   player.pauseVideo();
+// };
+// window.playVideo = function () {
+//   player.playVideo();
+// }; // Youtube video auto play/pause function
 
 
 var LoginForm = document.getElementById("LoginForm");

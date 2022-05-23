@@ -66,12 +66,45 @@ use App\Product;
     </style>
 <!--Cart Items Details-->
 <div class="small-container cart-page">
-    <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout-for-non-user') }}" method="post">@csrf
+    <form name="checkoutForm" id="OrderForNonUserForm" action="{{ url('/checkout-for-non-user') }}" method="post">@csrf
     <div class="row listing head first cart">
         <h5><a href="{{ url('/') }}">Trang Chủ</a> / <a href="{{ url('/cart') }}">Giỏ Hàng</a> / Thanh Toán</h5>
     </div>
     <h2>Thanh Toán</h2>
     <div id="cart-container">
+        @if(Session::has('success_message'))
+        <div class="alert alert-danger" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22;">
+            {{ Session::get('success_message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        @if(Session::has('pending_message'))
+        <div class="alert alert-danger" role="alert" style="color: var(--Solid-Gold); background-color: #ffffff; border: 1px solid var(--Solid-Gold);">
+            {{ Session::get('pending_message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        @if(Session::has('error_message'))
+            <div class="alert alert-danger" role="alert" style="color:  var(--Delete-Red) ; background-color: #ffffff; border: 1px solid var(--Delete-Red);">
+            {{ Session::get('error_message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+        @endif    
+        @if ($errors->any())
+        <div class="alert alert-danger" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li style="margin-left: 20px">{{ $error }}</li>
+            @endforeach
+        </ul>
+        </div>
+        @endif
     <div style="overflow-x:auto;">
     <table class="cart-table">
         <tr>

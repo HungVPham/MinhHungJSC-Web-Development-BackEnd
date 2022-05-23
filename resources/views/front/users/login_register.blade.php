@@ -5,7 +5,7 @@
 .account-page{
     background-image: url('images/banner_images/15670_banner3.jpg');
 }
-#name-error,#last_name-error, #mobile-error, #email-error, #password_login-error, #password_register-error, #id-error, #company_email-error{
+#name-error,#last_name-error, #mobile-error, #email-error, #password_login-error, #password_register-error, #id-error, #company_email-error, #company_name-error{
     font-size: 16px;
     font-weight: 700;
     width: 100%;

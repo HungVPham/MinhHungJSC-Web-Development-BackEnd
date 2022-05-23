@@ -130,6 +130,12 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('update-coupon-status', 'CouponsController@updateCouponStatus');
         Route::match(['get', 'post'], 'add-edit-coupon/{id?}', 'CouponsController@addEditCoupon');
         Route::get('delete-coupon/{id}','CouponsController@deleteCoupon');
+
+        // Orders
+        Route::get('orders', 'OrdersController@orders');
+        Route::get('orders/{id}', 'OrdersController@orderDetails');
+        Route::post('update-order-status','OrdersController@updateOrderStatus');
+
     });
 });
 

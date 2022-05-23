@@ -90,7 +90,7 @@ $sections = Section::sections();
 			<div class="action">
 				<div class="profile" onclick="menuToggle();">
 				@if(Auth::check())
-				<img src="{{ url('images/front_images/account_user.png') }}">
+				<img style="border-radius: 50%" src="{{ url('https://avatars.dicebear.com/api/initials/'.Auth::user()->name.'.svg') }}">
 				@else
 				<img src="{{ url('images/front_images/account_generic.png') }}">
 				@endif

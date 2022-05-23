@@ -3933,6 +3933,10 @@ form .btn:focus {
     width: -moz-max-content;
     width: max-content;
   }
+
+  #user_order_note {
+    margin-top: 8rem;
+  }
 }
 @media only screen and (max-width: 762px) {
   .list-product-description {
