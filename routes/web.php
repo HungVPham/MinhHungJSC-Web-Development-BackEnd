@@ -133,9 +133,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
 
         // Orders
         Route::get('orders', 'OrdersController@orders');
+        Route::get('delete-order/{id}','OrdersController@deleteOrder');
         Route::get('orders/{id}', 'OrdersController@orderDetails');
         Route::post('update-order-status','OrdersController@updateOrderStatus');
+        Route::get('view-order-invoice/{id}','OrdersController@viewOrderInvoice');
+        Route::get('print-pdf-invoice/{id}','OrdersController@printPDFInvoice');
 
+        // Users
+        Route::get('users', 'UsersController@users');
+        Route::post('update-user-status', 'UsersController@updateUserStatus');
+        Route::get('delete-user/{id}','UsersController@deleteUser');
     });
 });
 

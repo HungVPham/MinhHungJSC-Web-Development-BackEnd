@@ -308,6 +308,42 @@ $(document).ready(function(){
         });
     });
 
+    // Update Users Status 
+    $(document).on("click", ".updateUserStatus", function(){
+        var status = $(this).text();
+        var user_id = $(this).attr("user_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type:'post',
+                    url:'/admin/update-user-status',
+                    data:{status:status,user_id:user_id},
+                    success:function(resp){
+                        if(resp['status']==0){
+                            $("#user-"+user_id).html("<a class='updateUserStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                        }else if(resp['status']==1){
+                            $("#user-"+user_id).html("<a class='updateUserStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                        }
+                        },error:function(){
+                            alert("Error");
+                        }
+                    })
+                }
+            });
+        });
+
         
      // Update Catalogue Pages Status
      $(document).on("click", ".updateCouponStatus", function(){

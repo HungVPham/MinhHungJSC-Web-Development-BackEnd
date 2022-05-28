@@ -248,12 +248,6 @@ use App\Product;
                     </td>
                 </tr>
                 <tr>
-                    <td>Phí Vận Chuyển</td>
-                    <td>
-                        <span>0 ₫</span> 
-                    </td>
-                </tr>
-                <tr>
                     <td>Tổng Thanh Toán</td>
                     <td class="totalAmount">
                         <?php 
@@ -265,7 +259,7 @@ use App\Product;
                 </tr>
             </table>
         </div>
-            <div class="voucher-containter" style="margin-top: -200px !important;">
+            <div class="voucher-containter" style="margin-top: -150px !important;">
                 <div id="user_order_note">
                     <textarea style="width: 100%;" placeholder="Ghi chú đơn hàng (nếu có)" id="order_note" name="order_note"></textarea>
                 </div>

@@ -363,6 +363,10 @@
                       <input value="{{ $orderDetails['courier_name'] }}" style="width: 120px;" type="text" name="courier_name" placeholder="tên đại lý">
                       <input value="{{ $orderDetails['tracking_number'] }}" style="width: 120px;" type="text" name="tracking_number" placeholder="số tracking">
                     </div>
+                    <br>
+                    Phí Giao Hàng:
+                    <input value="{{ $orderDetails['shipping_charges'] }}" style="width: 120px;" type="text" name="shipping_charges" placeholder="phí vận chuyển">
+                    &nbsp;phí hiện tại: <?php echo number_format($orderDetails['shipping_charges'],0,",","."); ?> ₫ 
                     <hr>
                     <button type="submit" class="btn btn-primary" id="admin-btn" style="font-size: 1.0rem;">Cập Nhật</button>
                   </form>

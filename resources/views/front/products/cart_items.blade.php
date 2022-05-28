@@ -61,7 +61,7 @@ use App\Product;
             <a class="trash-mobile btnItemDelete" data-cartid="{{ $cartItems['id'] }}"><i class="fas fa-trash"></i></a>
         </td>
         <td>
-            @if($cartItems['product']['section_id'] == 1)
+            - @if($cartItems['product']['section_id'] == 1)
             <?php
             $num = $proMaxproPrice['discount_amount']*$cartItems['quantity'];
             $format = number_format($num,0,",",".");

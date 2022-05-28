@@ -195,32 +195,12 @@ use App\Product;
     <div class="total-price">
         <table>
             <tr>
-                <td>Tổng Giá <small style="color: #888;">@if($total_shimge_discount + $total_maxpro_discount > 0)&nbsp;(đã trừ giảm giá <?php 
-                    $total_discount = $total_shimge_discount + $total_maxpro_discount; 
-                    $format = number_format($total_discount,0,",",".");
-                     echo $format;
-                    ?> ₫)</small>@endif
-                </td>
-                <td>
-                   <?php 
-                   $total_price = $total_shimge_price + $total_maxpro_price; 
-                   $format = number_format($total_price,0,",",".");
-                    echo $format;
-                   ?> ₫
-                </td>
-            </tr>
-            <tr>
-                <td>Phí Vận Chuyển</td>
-                <td>
-                    <span>0 ₫</span> 
-                </td>
-            </tr>
-            <tr>
                 <td>Tổng Thanh Toán</td>
                 <td class="totalAmount">
                     <?php 
+                    $total_price = $total_shimge_price + $total_maxpro_price; 
                     $format = number_format($total_price,0,",",".");
-                     echo $format;
+                    echo $format;
                     ?> ₫
                      <?php Session::put('total_price',$total_price); ?>
                 </td>

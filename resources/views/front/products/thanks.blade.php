@@ -161,4 +161,6 @@ h1{
 Session::forget('grand_total'); 
 Session::forget('total_price'); 
 Session::forget('order_id'); 
+Session::forget('couponAmount');
+Session::forget('couponCode');
 ?>

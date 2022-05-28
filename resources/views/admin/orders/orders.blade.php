@@ -10,6 +10,8 @@
     .updateProductStatus:hover{color: #4c5158 !important}
     #updateorder{color: #000000;}
     #updateorder:hover{color: #4c5158;}
+    #orderInvoice{color: #000000;}
+    #orderInvoice:hover{color: #4c5158;}
     a{color: inherit;}
     .swal2-icon.swal2-warning {border-color:var(--Delete-Red);color:var(--Delete-Red);}
     .swal2-icon.swal2-info {border-color:var(--Info-Yellow);color:var(--Info-Yellow);}
@@ -22,6 +24,8 @@
     #inactive:hover{
       color: #4c5158 !important;
     }
+    #deleteorder{color:var(--Delete-Red)}
+    #deleteorder:hover{color: var(--MinhHung-Red-Hover)}
 </style>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -133,6 +137,11 @@
                     </td>
                     <td>
                       &nbsp;&nbsp;<a title="xem chi tiết đơn mua" id="updateorder" href="{{ url('admin/orders/'.$order['id']) }}"><i class="fas fa-edit"></i></a>
+                      @if($order['order_status'] == "Pending" || $order['order_status'] == "Completed")
+                      &nbsp;&nbsp;<a title="xem hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/view-order-invoice/'.$order['id']) }}"><i class="fas fa-print"></i></a>
+                      &nbsp;&nbsp;<a title="xuất PDF hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/print-pdf-invoice/'.$order['id']) }}"><i class="fas fa-file-pdf"></i></a>
+                      @endif
+                      &nbsp;&nbsp;<a title="xóa đơn mua" href="javascript:void(0)" class="confirmDelete" record="order" recordid="{{ $order['id'] }}" id="deleteorder"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach
