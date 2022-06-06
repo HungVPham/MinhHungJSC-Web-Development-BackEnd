@@ -174,18 +174,18 @@
                                                     <br>
                                                     <br>
                                                     Trạng thái đơn hàng của bạn đã được cập nhật thành
-                                                    @if($orderDetails['order_status'] == "New")
-                                                    <b>chờ xác nhận</b>.
+                                                    @if($orderDetails['order_status'] ==  "New")
+                                                    <b style="color: #db850e)">chờ xác nhận</b>
                                                     @endif
-                                                    @if($orderDetails['order_status'] == "Pending")
-                                                    <b>đang giao hàng</b>.
+                                                    @if($orderDetails['order_status'] ==  "Pending")
+                                                    <b style="color: #eed202)">đang giao hàng</b>
                                                     @endif
-                                                    @if($orderDetails['order_status'] == "Completed")
-                                                    <b>đã giao hàng</b>.
+                                                    @if($orderDetails['order_status'] ==  "Completed")
+                                                    <b style="color: #228B22;">đã giao hàng</b>
                                                     @endif
-                                                    @if($orderDetails['order_status'] == "Cancelled")
-                                                    <b>đã hủy</b>.
-                                                    @endif
+                                                    @if($orderDetails['order_status'] ==  "Cancelled")
+                                                    <b style="color: #cb1c22">đã hủy</b>
+                                                    @endif             
                                                     <br>        
                                                     @if(!empty($courier_name) && !empty($tracking_number))
                                                     <br>
@@ -204,8 +204,8 @@
                                                     <h4><strong>Thông tin đơn hàng</strong></h4>
                                                     <table style="width: -moz-available;">
                                                         <tr>
-                                                            <td>Số đơn hàng: </td>
-                                                            <td style="text-align: left !important">{{ $order_id }}</td>
+                                                            <td>Mã đơn hàng: </td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['order_id'] }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Ngày Đặt: </td>

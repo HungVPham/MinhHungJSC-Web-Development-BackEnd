@@ -518,7 +518,7 @@
         }
     }
     #user_order_note{
-        margin-top: 8rem;
+        margin-top: 10rem;
     }
 }
 @media only screen and (max-width: 762px) {
@@ -864,8 +864,7 @@
 
   .toTopBg {
       position: fixed;
-      z-index: 9997;
-      top: 90vh;
+      top: 80vh;
       left: 10px;
   }
 
@@ -975,6 +974,18 @@
       svg{
           max-width: 100%;
       }
+  }
+  #popup{
+      a{
+          img{
+              height: 360px;
+              width: 290px;
+          }
+      }
+      .panel-footer{
+        top: 0px;
+        left: 270px;
+    }
   }
 }
 @media only screen and (max-width: 570px) {

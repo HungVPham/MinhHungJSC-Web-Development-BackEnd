@@ -2,7 +2,7 @@
   @section('content')
   <?php 
   use App\Order; 
-  use App\user;
+  use App\User;
   $ordersCount = Order::where('order_status', "New")->count();
   $usersCount = User::where('status', 1)->count();
   ?>

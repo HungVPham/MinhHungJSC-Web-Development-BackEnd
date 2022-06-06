@@ -51,7 +51,7 @@
             <div class="myAccount-page-col-2">
                 <div class="tabcontent">
                     <div class="tabcontent-title">
-                    <h2>Thông Tin Đơn Hàng <b>{{ $orderDetails['id'] }}</b></h2>
+                    <h2>Thông Tin Đơn Hàng</h2>
                     <hr>
                     </div>
                     <div class="form-container-newPwd">
@@ -60,6 +60,10 @@
                                 <tr>
                                     <th style="text-align: left !important">Đơn Hàng</th>    
                                     <th></th>
+                                </tr>
+                                <tr>
+                                    <td>Mã Đơn Hàng: </td>
+                                    <td style="text-align: left !important">{{ $orderDetails['order_id'] }}</td>
                                 </tr>
                                 <tr>
                                     <td>Ngày Đặt: </td>
@@ -156,7 +160,8 @@
                                         không có ghi chú
                                         @endif
                                     </td>
-                                </tr>
+                                </tr> 
+                                
                             </table>
                         </form> 
                         <form id="deliver-addresses-container">
@@ -189,6 +194,43 @@
                                     <td style="width: fit-content">Số Liên Hệ:</td>
                                     <td style="text-align: left !important">{{ $orderDetails['mobile'] }}</td>
                                 </tr>
+                            </table>
+                            <hr>
+                            <table class="cart-table">  
+                                <tr>
+                                    <th style="text-align: left !important">Thông Tin Xuất Hóa Đơn</th>    
+                                    <th></th>
+                                </tr>           
+                            <tr>
+                                <td>Xuất Hóa Đơn? </td>
+                                <td  style="text-align: left !important">
+                                  @if($orderDetails['invoice_req'] != 1)
+                                  <span style="color: var(--MinhHung-Red)">không</span>
+                                  @else
+                                  <span style="color: #228B22">có</span>
+                                  @endif     
+                                </td>
+                            </tr>
+                            @if($orderDetails['invoice_req'] == 1)
+                            <tr>
+                                <td>Mã Số Thuế</td>
+                                <td  style="text-align: left !important">
+                                    {{ $orderDetails['invoice_tax_num']}} 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tên Doanh Nghiệp</td>
+                                <td  style="text-align: left !important">
+                                    {{ $orderDetails['invoice_comp_name']}} 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Địa Chỉ Xuất Hóa Đơn</td>
+                                <td  style="text-align: left !important">
+                                    {{ $orderDetails['invoice_comp_address']}} 
+                                </td>
+                            </tr>
+                            @endif
                             </table>
                         </form>
                     </div>

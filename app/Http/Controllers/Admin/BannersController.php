@@ -125,7 +125,7 @@ class BannersController extends Controller
         // delete banner image from banner table
         Banner::where('id',$id)->delete();
 
-        $message = 'Sản phẩm đã được xóa thành công!';
+        $message = 'Banner đã được xóa thành công!';
         session::flash('success_message',$message);
         return redirect()->back();
     }

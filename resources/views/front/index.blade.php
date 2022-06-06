@@ -3,8 +3,28 @@
 <?php
 use App\Section;
 use App\Product;
+use App\Popup;
 $sections = Section::sections();
+$getPopup = Popup::getPopup();
+$countPopup = Popup::countPopup();
 ?>
+@if($countPopup != 0)
+<div class="popup_background">
+    <div id="popup">
+            
+        <!-- and here comes the image -->
+        <a href="/{{ $getPopup['link'] }}"><img src="{{ url('images/popup_images/'.$getPopup['image']) }}" title="{{ $getPopup['alt'] }}" alt="{{ $getPopup['alt'] }}"></a>
+            
+            <!-- Now this is the button which closes the popup-->
+        <div class="panel-footer">
+            <i id="close" class="fas fa-times"></i>
+        </div>
+            
+            <!-- and finally we close the POPUP FRAME-->
+            <!-- everything on it will show up within the popup so you can add more things not just an image -->
+    </div>
+</div>
+@endif
 <div class="categories">    
     <div id="section-container" class="small-container">
         <div class="row">
@@ -368,12 +388,6 @@ $sections = Section::sections();
             </div>
             <div class="col-5">
                 <a href="http://shimge-pump.com/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner2.png') }}" alt="đối tác Shimge"></a>
-            </div>
-            <div class="col-5">
-                <a href="http://anhdungplastic.com.vn/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner3.png') }}" alt="đối tác Anh Dũng Plastic"></a>
-            </div>
-            <div class="col-5">
-                <a href="https://hanviethai.vn/vi/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner4.png') }}" alt="đối tác Hàn Việt Hải"></a>
             </div>
         </div>
     </div>

@@ -2,15 +2,12 @@
 <html lang="en">
 <head>
 
-  {{-- <link href='https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat:700' rel='stylesheet' type='text/css'> --}}
- 
-	{{-- <script src="https://2-22-4-dot-lead-pages.appspot.com/static/lp918/min/jquery-1.9.1.min.js"></script>
-	<script src="https://2-22-4-dot-lead-pages.appspot.com/static/lp918/min/html5shiv.js"></script> --}}
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>CTCP Đầu Tư và Phát Triển Minh Hưng | Web TMDT</title>
+  <meta name="author" content="Phạm Việt Hưng" />
+  <meta name="copyright" content="hung.v.pham002@gmail.com" />
   <link rel = "icon" href="{{ ('/images/front_images/logoMinhHung.png') }}" type="image/x-icon"> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/197ff1d829.js" crossorigin="anonymous"></script>
@@ -33,7 +30,8 @@
 </div>
 @include('layouts.front_layout.front_header')
 @yield('content')
-@include('layouts.front_layout.front_footer')		
+@include('layouts.front_layout.front_footer')
+</body>
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
@@ -47,5 +45,4 @@
 <script src="{{ url('js/front_js/script.js') }}"></script>
 <script src="{{ url('js/front_js/jquery.validate.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
-</body>
 </html>

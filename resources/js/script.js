@@ -5,6 +5,36 @@ $(document).ready(function () {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+
+    
+    var isshow = sessionStorage.getItem('isshow');
+    
+    if (isshow == null) {
+        sessionStorage .setItem('isshow', 1);
+
+        // Show popup here
+        $("#popup").fadeIn("slow");
+        $(".popup_background").fadeIn("slow");
+        $('body').css('overflow','hidden');
+    }else{
+      $(".popup_background").hide();
+      $("#popup").hide();
+    }
+
+     //close the POPUP if the button with id="close" is clicked
+     $("#close").on("click", function (e) {
+      e.preventDefault();
+      $("#popup").fadeOut(200);
+      $(".popup_background").fadeOut(200);
+      $('body').css('overflow','auto')
+    });
+
+    // $(".popup_background").on("click", function (e) {
+    //   e.preventDefault();
+    //   $("#popup").fadeOut(200);
+    //   $(".popup_background").fadeOut(200);
+    //   $('body').css('overflow','auto')
+    // });
   
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
     var rootElement = document.documentElement;
@@ -35,6 +65,8 @@ $(document).ready(function () {
       }
       lastScroll = scroll;
     }); // sticky header
+
+   
     
     var slider1 = $('#featuredCarousel').slick({
       slidesToShow: 4,
@@ -586,6 +618,15 @@ $(document).ready(function () {
     }
   });
 
+  jQuery.validator.addMethod("numericdashe", function (value, element) {
+    console.log(value);
+      if (/^[0-9\-]+$/i.test(value)) {
+          return true;
+      } else {
+          return false;
+      };
+    }, "Numbers and dashes only");
+
   $("#OrderForNonUserForm").validate({
     rules: {
       email: {
@@ -600,6 +641,22 @@ $(document).ready(function () {
         digits: true,
       },
       address: "required",
+      invoice_tax_num: {
+        required: function(element){
+          return $('#invoice_request').is(":checked");
+        },
+        numericdashe: true,
+      },
+      invoice_comp_name: {
+        required: function(element){
+          return $('#invoice_request').is(":checked");
+        },
+      },
+      invoice_comp_address: {
+        required: function(element){
+          return $('#invoice_request').is(":checked");
+        },
+      },
     },
     messages: {
       email: {
@@ -613,6 +670,16 @@ $(document).ready(function () {
         minlength: "Số điện thọai không hợp lệ.",
         maxlength: "Số điện thọai không hợp lệ.",
         digits: "Số điện thoại không hợp lệ."
+      },
+      invoice_tax_num: {
+        required: "Vui lòng nhập mã số thuế của doanh nghiệp.",
+        numericdashe: "Mã số thuế không hợp lệ"
+      },
+      invoice_comp_name: {
+        required: "Vui lòng nhập tên của doanh nghiệp."
+      },
+      invoice_comp_address: {
+        required: "Vui lòng nhập địa chỉ của doanh nghiệp."
       },
     }
   });
@@ -696,7 +763,39 @@ $(document).ready(function () {
     }
   });
 
-  
+  $("#checkoutForm").validate({
+    rules: {
+      invoice_tax_num: {
+        required: function(element){
+          return $('#invoice_request').is(":checked");
+        },
+        numericdashe: true,
+      },
+      invoice_comp_name: {
+        required: function(element){
+          return $('#invoice_request').is(":checked");
+        },
+      },
+      invoice_comp_address: {
+        required: function(element){
+          return $('#invoice_request').is(":checked");
+        },
+      },
+    },
+    messages: {
+      invoice_tax_num: {
+        required: "Vui lòng nhập mã số thuế của doanh nghiệp.",
+        numericdashe: "Mã số thuế không hợp lệ"
+      },
+      invoice_comp_name: {
+        required: "Vui lòng nhập tên của doanh nghiệp."
+      },
+      invoice_comp_address: {
+        required: "Vui lòng nhập địa chỉ của doanh nghiệp."
+      },
+    }
+  });
+
   $("#RegForm").validate({
     rules: {
       name: "required",
@@ -945,10 +1044,15 @@ $(document).ready(function () {
   $("#payment_method_cod").click(function(){
     $('#bankingInfo').hide();
   });
-}); 
+
   
+}); 
+
   $(window).on("load", function () {
     $(".preloaderBg").fadeOut("slow");
+    //select the POPUP FRAME and show it
+
+
   }); // preloader 
   
   var ViewBtn = document.getElementsByClassName("viewbtn");

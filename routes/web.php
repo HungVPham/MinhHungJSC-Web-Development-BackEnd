@@ -105,6 +105,12 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('update-banner-status', 'BannersController@updateBannerStatus');
         Route::get('delete-banner/{id}','BannersController@deleteBanner');
 
+        // popups
+        Route::get('popups', 'PopupsController@popups');
+        Route::match(['get', 'post'], 'add-edit-popup/{id?}', 'PopupsController@addEditPopup');
+        Route::post('update-popup-status', 'PopupsController@updatePopupStatus');
+        Route::get('delete-popup/{id}','PopupsController@deletePopup');
+
         // cms pages
         Route::get('cms-pages','CmsController@CmsPages');
         Route::match(['get', 'post'], 'add-edit-cms-page/{id?}', 'CmsController@addEditCmsPage');

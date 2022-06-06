@@ -31,7 +31,7 @@ class CmsController extends Controller
             // echo "<pre>"; print_r($data); die;
 
             // send user email to admin
-            $email = "hung.v.pham002@gmail.com";
+            $email = "salesminhhung@minhhungjsc.store";
             $messageData = [
                 'email' => $data['email'],
                 'name' => $data['name'],

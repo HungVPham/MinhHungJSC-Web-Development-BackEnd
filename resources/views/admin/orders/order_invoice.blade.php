@@ -25,10 +25,10 @@
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
-    			<h2>Hóa Đơn</h2><h3 class="pull-right">Đơn Mua # {{ $orderDetails['id'] }}</h3>
+    			<h2>Hóa Đơn</h2><h3 class="pull-right">Mã: {{ $orderDetails['order_id'] }}</h3>
 				<br>
 				<span class="pull-right">
-					<?php echo DNS1D::getBarcodeHTML($orderDetails['id'], 'C39'); ?>
+					<?php echo DNS1D::getBarcodeHTML($orderDetails['order_id'], 'C39'); ?>
 				</span>
 				<br>
     		</div>

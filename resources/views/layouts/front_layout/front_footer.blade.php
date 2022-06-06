@@ -31,7 +31,7 @@
             <div class="footer-col-4">
                 <h3>Theo Dõi Chúng Tôi</h3>
                 <ul>
-                    <a id="footer-nav" href="https://www.facebook.com/pages/C%C3%B4ng%20ty%20CP%20%C4%90%E1%BA%A7u%20T%C6%B0%20v%C3%A0%20Ph%C3%A1t%20Tri%E1%BB%83n%20Minh%20H%C6%B0ng/1966408697008473/" target="_blank"><li>Facebook</li></a>
+                    <a id="footer-nav" href="https://www.facebook.com/nguoi.minhhung" target="_blank"><li>Facebook</li></a>
                     <a id="footer-nav" href="https://www.youtube.com/channel/UCG5dwZKUAWetHU3BAkSl8Og" target="_blank"><li>Youtube</li></a>
                     <a id="footer-nav" href="https://nemgalaxy.vn/galaxy/" target="_blank"><li>Nệm Galaxy</li></a>
                 </ul>

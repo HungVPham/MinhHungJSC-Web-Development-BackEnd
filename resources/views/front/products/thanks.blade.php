@@ -129,7 +129,7 @@ h1{
       <div class="wrapper-2">
         <h1>thank you !</h1>
         <p>Đơn hàng của quý khách đã được đặt thành công! </p>
-        <p>Đơn hàng: {{ Session::get('order_id') }} </p>
+        <p>Mã Đơn hàng: {{ Session::get('order_id') }} </p>
         @if(Auth::check())
         <p>Tổng trị giá: <?php 
             $grand_total = Session::get('grand_total');

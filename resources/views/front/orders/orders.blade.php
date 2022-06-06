@@ -35,6 +35,15 @@
     .select2{
         margin-bottom: 10px;
     }
+
+    #orderInvoice{
+        color: black;
+        padding: 0;
+    }
+
+    #orderInvoice:hover{
+        color: var(--MinhHung-Red);
+    }
 </style>
 <div class="myAccount-page">
     <div class="small-container">
@@ -57,7 +66,7 @@
                     @if(!empty($orders))
                     <table class="cart-table">
                         <tr>
-                            <th>Đơn Hàng</th>
+                            <th>Mã Đơn Hàng</th>
                             <th>Phân Loại/Số Lượng</th>
                             <th>Thanh Toán</th>
                             <th>Trị Giá</th>
@@ -67,7 +76,7 @@
                         </tr>
                         @foreach ($orders as $order)
                             <tr>
-                                <td>{{ $order['id'] }}</td>
+                                <td>{{ $order['order_id'] }}</td>
                                 <td>
                                     @foreach($order['orders_products'] as $pro)
                                     &#9900; {{ $pro['sku'] }} <b>x {{ $pro['product_qty']}}</b><br>
@@ -102,7 +111,9 @@
                                         <b style="color: var(--MinhHung-Red)">đã hủy</b>
                                         @endif           
                                 </td>
-                                <td><a href="{{ url('orders/'.$order['id']) }}" title="xem chi tiết"><i class="fas fa-edit"></i></a></td>
+                                <td>
+                                    <a style="padding: 0;" href="{{ url('orders/'.$order['id']) }}" title="xem chi tiết"><i class="fas fa-edit"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                     </table>

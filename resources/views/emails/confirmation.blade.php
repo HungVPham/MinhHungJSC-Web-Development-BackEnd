@@ -273,7 +273,7 @@
 
                                                 <div
                                                     style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:center;color:#555;">
-                                                    <a href="{{ url('confirm/'.$code )}}" style="color:#2F67F6">http://minhhungjsc.com.vn/confirm/{{ $code }}</a>
+                                                    <a href="{{ url('confirm/'.$code )}}" style="color:#2F67F6">https://minhhungjsc.store/confirm/{{ $code }}</a>
                                                 </div>
 
                                             </td>

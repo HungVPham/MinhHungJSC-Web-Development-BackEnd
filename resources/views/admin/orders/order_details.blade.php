@@ -81,7 +81,11 @@
               <div class="card-body">
                 <table class="table table-bordered">
                   <tbody>
-                    <tr>
+                  <tr>
+                      <td>Mã Đơn Hàng: </td>
+                      <td style="text-align: left !important">{{ $orderDetails['order_id'] }}</td>
+                  </tr>
+                  <tr>
                       <td>Ngày Đặt: </td>
                       <td style="text-align: left !important">{{ date('d-m-Y', strtotime($orderDetails['created_at'])) }}</td>
                   </tr>
@@ -177,6 +181,16 @@
                         @endif
                     </td>
                 </tr>
+                <tr>
+                  <td>Xuất Hóa Đơn? </td>
+                  <td  style="text-align: left !important">
+                    @if($orderDetails['invoice_req'] != 1)
+                    <span style="color: var(--MinhHung-Red)">không</span>
+                    @else
+                    <span style="color: #228B22">có</span>
+                    @endif     
+                  </td>
+              </tr>
                   </tbody>
                 </table>
               </div>
@@ -227,6 +241,34 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            @if($orderDetails['invoice_req'] == 1)
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Thông Tin Xuất Hóa Đơn</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td>Mã Số Thuế:</td>
+                      <td style="text-align: left !important">{{ $orderDetails['invoice_tax_num'] }}</td>
+                  </tr>
+                    <tr>
+                      <td>Tên Doanh Nghiệp:</td>
+                      <td style="text-align: left !important">{{ $orderDetails['invoice_comp_name'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="width: fit-content">Địa Chỉ Doanh Nghiệp:</td>
+                      <td style="text-align: left !important">{{ $orderDetails['invoice_comp_address'] }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            @endif
+
           </div>
           <!-- /.col -->
           @if($userDetails != Null)

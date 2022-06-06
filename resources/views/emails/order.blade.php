@@ -179,8 +179,8 @@
                                                     <h4><strong>Thông tin đơn hàng</strong></h4>
                                                     <table style="width: -moz-available;">
                                                         <tr>
-                                                            <td>Số đơn hàng: </td>
-                                                            <td style="text-align: left !important">{{ $order_id }}</td>
+                                                            <td>Mã đơn hàng: </td>
+                                                            <td style="text-align: left !important">{{ $orderDetails['order_id'] }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Ngày Đặt: </td>

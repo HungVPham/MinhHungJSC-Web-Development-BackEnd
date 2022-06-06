@@ -92,7 +92,7 @@ $sections = Section::sections();
 				@if(Auth::check())
 				<img style="border-radius: 50%" src="{{ url('https://avatars.dicebear.com/api/initials/'.Auth::user()->name.'.svg') }}">
 				@else
-				<img src="{{ url('images/front_images/account_generic.png') }}">
+				<img style="border-radius: 50%" src="{{ url('https://img.icons8.com/external-becris-lineal-becris/100/ffffff/external-user-mintab-for-ios-becris-lineal-becris.png') }}">
 				@endif
 				</div>
 				<div class="menu">

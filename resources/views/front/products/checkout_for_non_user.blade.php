@@ -63,7 +63,26 @@ use App\Product;
         p {
             margin-bottom: 0;
         }
+        
+        #invoice_tax_num-error, #invoice_comp_name-error, #invoice_comp_address-error{
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            text-align: left;
+            color: var(--MinhHung-Red);
+            margin-left: 5px;
+        }
     </style>
+    <script type="text/javascript">
+        function invoiceChecked()
+          {
+              if($('#invoice_request').is(":checked"))   
+                  $("#invoiceInputs").show();
+              else
+                  $("#invoiceInputs").hide();
+          }
+    </script>
 <!--Cart Items Details-->
 <div class="small-container cart-page">
     <form name="checkoutForm" id="OrderForNonUserForm" action="{{ url('/checkout-for-non-user') }}" method="post">@csrf
@@ -234,23 +253,35 @@ use App\Product;
                 <tr>
                     <th>Phương Thức Thanh Toán</th>
                 </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" id="payment_method_cod" name="payment_gateway" checked value="COD">&nbsp;Thanh Toán Khi Nhận Hàng (COD) &nbsp; | &nbsp;
-                            <input type="radio" id="payment_method_banking" name="payment_gateway" value="Banking">&nbsp;Chuyển Khoản
-                            <p id="bankingInfo" style="border: 2px solid var(--MinhHung-Red); margin-top: 10px; max-width: max-content; padding: 10px; display: none;">
-                                <strong>Thông Tin Chuyển Khoản</strong>
-                                <br>
-                                <strong>Số tài khoản:</strong> 167931999.
-                                <br>
-                                <strong>Chủ tài khoản:</strong> CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN MINH HƯNG.
-                                <br>
-                                <strong>Ngân Hàng:</strong> Ngân hàng Á Châu (ACB) – Chi nhánh Phú Lâm.
-                                <br>
-                                <strong>Chủ Đề:</strong> (Họ Tên - Số Điện Thoại) + Thanh Toán (Tên Sản Phẩm).
-                            </p>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <input type="radio" id="payment_method_cod" name="payment_gateway" checked value="COD">&nbsp;Thanh Toán Khi Nhận Hàng (COD) &nbsp; | &nbsp;
+                        <input type="radio" id="payment_method_banking" name="payment_gateway" value="Banking">&nbsp;Chuyển Khoản
+                        <p id="bankingInfo" style="border: 2px solid var(--MinhHung-Red); margin-top: 10px; max-width: max-content; padding: 10px; display: none;">
+                            <strong>Thông Tin Chuyển Khoản</strong>
+                            <br>
+                            <strong>Số tài khoản:</strong> 167931999.
+                            <br>
+                            <strong>Chủ tài khoản:</strong> CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ PHÁT TRIỂN MINH HƯNG.
+                            <br>
+                            <strong>Ngân Hàng:</strong> Ngân hàng Á Châu (ACB) – Chi nhánh Phú Lâm.
+                            <br>
+                            <strong>Chủ Đề:</strong> (Họ Tên - Số Điện Thoại) + Thanh Toán (Mã Sản Phẩm).
+                        </p>
+                        <div style="margin-top: 10px; display: block;"><input type="checkbox" autocomplete="off" id="invoice_request" value="1" name="invoice_req" onchange="invoiceChecked()">&nbsp;Xuất Hóa Đơn?</div>
+                        <div style="display: none;" id="invoiceInputs" class="price-quotation-form-containter">
+                            <div class="price-quotation-input-containter">
+                                <input style="height: 38px; width: 100%; font-size: 1rem;" id="invoice_tax_num" name="invoice_tax_num" placeholder=" Mã số thuế">
+                            </div>
+                            <div class="price-quotation-input-containter">
+                                <input style="height: 38px; width: 100%; font-size: 1rem;" id="invoice_comp_name" name="invoice_comp_name" placeholder=" Tên doanh nghiệp">
+                            </div>
+                            <div class="price-quotation-input-containter">
+                                <input style="height: 38px; width: 100%; font-size: 1rem;" id="invoice_comp_address" name="invoice_comp_address" placeholder=" Địa chỉ doanh nghiệp">
+                            </div>
+                        </div> 
+                    </td>
+                </tr>
             </table>
         </div>
         <p><a href="{{ url('/cart') }}" class="btn">&larr; Xem Lại Giỏ</a><button type="submit" class="btn">Đặt Hàng</button></p>

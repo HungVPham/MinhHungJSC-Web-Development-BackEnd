@@ -70,6 +70,7 @@
                   <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Mã</th>
                     <th>Ngày Đặt</th>
                     <th>Tên Khách Hàng</th>
                     <th>Email Liên Hệ</th>
@@ -78,6 +79,7 @@
                     <th>Trị Giá</th>
                     <th>Trạng Thái</th>
                     <th>Thanh Toán</th>
+                    <th>Hóa Đơn?</th>
                     <th>Điều Khiển</th>
                   </tr>
                   </thead>
@@ -85,6 +87,7 @@
                   @foreach($orders as $order)
                   <tr>
                     <td>{{ $order['id'] }}</td>
+                    <td>{{ $order['order_id'] }}</td>
                     <td>{{ date('d-m-Y', strtotime($order['created_at'])) }}</td>
                     @foreach($userDetails as $user)
                       @if($user['id'] == $order['user_id'])
@@ -130,18 +133,25 @@
                     </td>
                     <td>
                       @if($order['payment_method'] == "COD")
-                      thanh toán khi nhận hàng
+                      COD
                       @else
                       chuyển khoản
                       @endif     
                     </td>
                     <td>
-                      &nbsp;&nbsp;<a title="xem chi tiết đơn mua" id="updateorder" href="{{ url('admin/orders/'.$order['id']) }}"><i class="fas fa-edit"></i></a>
+                      @if($order['invoice_req'] != 1)
+                      <span style="color: var(--MinhHung-Red)">không</span>
+                      @else
+                      <span style="color: #228B22">có</span>
+                      @endif     
+                    </td>
+                    <td>
+                      &nbsp;<a title="xem chi tiết đơn mua" id="updateorder" href="{{ url('admin/orders/'.$order['id']) }}"><i class="fas fa-edit"></i></a>
                       @if($order['order_status'] == "Pending" || $order['order_status'] == "Completed")
-                      &nbsp;&nbsp;<a title="xem hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/view-order-invoice/'.$order['id']) }}"><i class="fas fa-print"></i></a>
-                      &nbsp;&nbsp;<a title="xuất PDF hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/print-pdf-invoice/'.$order['id']) }}"><i class="fas fa-file-pdf"></i></a>
+                      &nbsp;<a title="xem hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/view-order-invoice/'.$order['id']) }}"><i class="fas fa-print"></i></a>
+                      &nbsp;<a title="xuất PDF hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/print-pdf-invoice/'.$order['id']) }}"><i class="fas fa-file-pdf"></i></a>
                       @endif
-                      &nbsp;&nbsp;<a title="xóa đơn mua" href="javascript:void(0)" class="confirmDelete" record="order" recordid="{{ $order['id'] }}" id="deleteorder"><i class="fas fa-trash"></i></a>
+                      &nbsp;<a title="xóa đơn mua" href="javascript:void(0)" class="confirmDelete" record="order" recordid="{{ $order['id'] }}" id="deleteorder"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

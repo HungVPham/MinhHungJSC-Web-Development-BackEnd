@@ -89,7 +89,7 @@
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->category_name }}</td>
                     <td>{{ $parent_category }}</td>
-                    <td>{{ $category->section->name }}</td>
+                    <td>{{ $category->section['name'] }}</td>
                     <td>{{ $category->url }}</td>
                     <td style="width: 135px;">
                         @if ($category->status==1)

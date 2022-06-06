@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
 use Auth;
+use App\User;
+// reference the Dompdf namespace
+use Dompdf\Dompdf;
 
 class OrdersController extends Controller
 {

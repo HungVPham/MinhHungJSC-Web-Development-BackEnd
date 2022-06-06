@@ -9,7 +9,7 @@ use App\Order;
 use App\OrdersLog;
 use App\OrderStatus;
 use Session;
-use App\user;
+use App\User;
 
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -74,7 +74,6 @@ class OrdersController extends Controller
             $messageData = [
                 'email' =>  $email,
                 'name' => $data['name'],
-                'order_id' => $data['order_id'],
                 'courier_name' => $data['courier_name'],
                 'tracking_number' => $data['tracking_number'],
                 'orderDetails' => $orderDetails
@@ -271,7 +270,7 @@ class OrdersController extends Controller
               </head>
               <body>
                 <header class="clearfix">
-                  <h1>Hóa Đơn Giá Trị Gia Tăng (Đơn Mua #'.$orderDetails['id'].')</h1>
+                  <h1>Hóa Đơn Giá Trị Gia Tăng (Mã Đơn Mua:'.$orderDetails['order_id'].')</h1>
                   <div id="company" class="clearfix">
                     <div>Công Ty Cổ Phần Đầu Tư và Phát Triển Minh Hưng</div>
                     <div>56 Trương Phước Phan, P.Bình Trị Đông, Q.Bình Tân<br /> TP.HCM 700000, Việt Nam</div>
@@ -362,9 +361,15 @@ class OrdersController extends Controller
 
             // Render the HTML as PDF
             $dompdf->render();
+   
+            $fileNo = $orderDetails['order_id'];
+
+            $name = $orderDetails['name'];
+
+            $description = "Hoá Đơn Điện Tử";
 
             // Output the generated PDF to Browser
-            $dompdf->stream();
+            $dompdf->stream($fileNo."-".$name."-".$description.".pdf");
 
         }else{
             abort(404);

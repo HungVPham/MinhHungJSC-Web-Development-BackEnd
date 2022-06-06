@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -434,7 +435,7 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
 
              // send price quotation email to admin
-             $email = "hung.v.pham002@gmail.com";
+             $email = "salesminhhung@minhhungjsc.store";
              $messageData = [
                  'email' => $data['email'],
                  'full_name' => $data['full_name'],
@@ -478,7 +479,7 @@ class ProductsController extends Controller
             $this->validate($request, $rules, $customMessages);
 
              // send stock refill alert email to admin
-             $email = "hung.v.pham002@gmail.com";
+             $email = "salesminhhung@minhhungjsc.store";
              $messageData = [
                  'email' => $data['email'],
                  'full_name' => $data['full_name'],
@@ -764,7 +765,35 @@ class ProductsController extends Controller
 
             // insert order details
 
+            $numbers = '0123456789';
+            $characters = 'abcdefghijklmnopqrstuvwxyz';
+            $randomString = '';
+            
+            for ($i = 0; $i < 4; $i++) {
+                $index = rand(0, strlen($numbers) - 1);
+                $randomString .= $numbers[$index];
+            }
+
+            $randomString .= '-';
+
+            for ($i = 4; $i < 7; $i++) {
+                $index = rand(0, strlen($characters) - 1);
+                $randomString .= $characters[$index];
+            }
+
+            $randomString .= '-';
+
+            for ($i = 7; $i < 10; $i++) {
+                $index = rand(0, strlen($numbers) - 1);
+                $randomString .= $numbers[$index];
+            }
+        
+            $uuid = $randomString;
+
             $order = new Order;
+
+            $order->order_id = $uuid;
+
             $order->user_id = Auth::user()->id;
             $order->name = $deliveryAddress['name'];
             $order->address = $deliveryAddress['address'];
@@ -785,6 +814,13 @@ class ProductsController extends Controller
             $order->company_name = Auth::user()->company_name;
             $order->note = $data['order_note'];
 
+            if($data['invoice_req'] == 1){
+                $order->invoice_req = $data['invoice_req'];
+                $order->invoice_tax_num = $data['invoice_tax_num'];
+                $order->invoice_comp_name = $data['invoice_comp_name'];
+                $order->invoice_comp_address = $data['invoice_comp_address'];
+            }
+        
             $order->save();
 
             // Get last Order Id
@@ -822,7 +858,7 @@ class ProductsController extends Controller
 
            
 
-            Session::put('order_id', $order_id);
+            Session::put('order_id', $uuid);
 
             DB::commit();
 
@@ -912,7 +948,35 @@ class ProductsController extends Controller
             
             // insert order details
 
+            $numbers = '0123456789';
+            $characters = 'abcdefghijklmnopqrstuvwxyz';
+            $randomString = '';
+            
+            for ($i = 0; $i < 4; $i++) {
+                $index = rand(0, strlen($numbers) - 1);
+                $randomString .= $numbers[$index];
+            }
+
+            $randomString .= '-';
+
+            for ($i = 4; $i < 7; $i++) {
+                $index = rand(0, strlen($characters) - 1);
+                $randomString .= $characters[$index];
+            }
+
+            $randomString .= '-';
+
+            for ($i = 7; $i < 10; $i++) {
+                $index = rand(0, strlen($numbers) - 1);
+                $randomString .= $numbers[$index];
+            }
+        
+            $uuid = $randomString;
+
             $order = new Order;
+
+            $order->order_id = $uuid;
+
             $order->name = $data['full_name'];
             $order->address = $data['address'];
             $order->mobile = $data['mobile'];
@@ -924,6 +988,13 @@ class ProductsController extends Controller
             $order->grand_total = Session::get('total_price');
             $order->company_name = $data['company_name'];
             $order->note = $data['order_note'];
+
+            if($data['invoice_req'] == 1){
+                $order->invoice_req = $data['invoice_req'];
+                $order->invoice_tax_num = $data['invoice_tax_num'];
+                $order->invoice_comp_name = $data['invoice_comp_name'];
+                $order->invoice_comp_address = $data['invoice_comp_address'];
+            }
 
             $order->save();
 
@@ -973,7 +1044,6 @@ class ProductsController extends Controller
                 $messageData = [
                     'email' => $email,
                     'name' => $full_name,
-                    'order_id' => $order_id,
                     'orderDetails' => $orderDetails
                 ];
 
@@ -985,7 +1055,6 @@ class ProductsController extends Controller
             }
 
            // echo "Order Placed"; die;
-
 
         }
         $userCartItems = Cart::userCartItems();

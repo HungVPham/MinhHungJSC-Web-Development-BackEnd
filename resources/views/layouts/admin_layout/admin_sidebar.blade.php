@@ -45,7 +45,7 @@
                 @endif
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ ucwords(Auth::guard('admin')->user()->name) }}</a>
+                <span style="color: #ffffff" class="d-block">{{ ucwords(Auth::guard('admin')->user()->name) }}</span>
             </div>
         </div>
 
@@ -186,7 +186,7 @@
                     </ul>
                 </li>
                 <!-- Appearance -->
-                @if(Session::get('page')=="banners")
+                @if(Session::get('page')=="banners" || Session::get('page')=="popups")
                 <?php $active = "active"; ?>
                 @else
                 <?php $active = ""; ?>
@@ -210,6 +210,21 @@
                             <a href="{{ url('admin/banners') }}" class="nav-link {{ $active }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Banner</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    <ul class="nav nav-treeview">
+
+                        @if(Session::get('page')=="popups")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/popups') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Popup</p>
                             </a>
                         </li>
                         
