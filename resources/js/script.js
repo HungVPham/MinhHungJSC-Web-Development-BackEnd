@@ -687,7 +687,7 @@ $(document).ready(function () {
   $("#ContactForm").validate({
     rules: {
       name: "required",
-      email: {
+      sender: {
         required: true,
         email: true,
       },
@@ -695,7 +695,7 @@ $(document).ready(function () {
       message: "required",
     },
     messages: {
-      email: {
+      sender: {
         required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ.",
       },

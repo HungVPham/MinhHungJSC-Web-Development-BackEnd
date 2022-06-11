@@ -1,0 +1,99 @@
+Video/Link:
+SSL: https://www.youtube.com/watch?v=eR_0NNN4Xkc
+SSL: https://punchsalad.com/ssl-certificate-generator/
+Hosting: https://www.youtube.com/watch?v=CSSBV2NCiCY&list=PLLUtELdNs2ZaHaFmydqjcQ-YyeQ19Cd6u&index=81&t=1810s
+Hosting: https://blog.hostvn.net/chia-se/huong-dan-upload-laravel-len-hosting-cpanel.html
+
+
+Bước 1: Xóa Cache & Nén Code 
+- Chạy lệnh
+php artisan cache:clear
+php artisan view:clear
+- Nén tất cả cách mục trong folder "minhhungjscEcommerce" ngoại trừ file Hướng Dẫn và file 
+minhhungEcommerce.sql thành định dạng zip bằng winrar với compression method: best.
+
+Bước 2: Upload lên cPanel 
+- Upload lên domain chính (public_html) ở file manager trên cPanel. Giải nén file. 
+
+Bước 3: tạo CSDL, user MySQL, và nhập CSDL
+- Tạo tài khoản phpMyAdmin, đăng nhập và upload file minhhhungjscEcommerce.sql. 
+
+Bước 4: Kết nối database trong file .env (file ẩn) + Chỉnh sử file .env
+
+APP_NAME=MinhH動ngJSC
+APP_ENV=local
+APP_KEY=base64:mm1Ju+8iasTaNbbEe+idOkr/3hLuBbb33ufW+h6oajE=
+APP_DEBUG=false
+APP_URL=https://minhhungjsc.com.vn
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=minhhungjscecommerce
+DB_USERNAME=minhhungjsc
+DB_PASSWORD=***********
+
+MAIL_DRIVER=sendmail
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=salesminhhung@minhhungjsc.com.vn
+MAIL_PASSWORD=************
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=salesminhhung@minhhungjsc.com.vn
+MAIL_FROM_NAME="${APP_NAME}"
+
+Bước 5: Loại bỏ public khỏi URL.
+
+- Tạo file .htaccess ngang hàng với folder public với code như sau:
+
+<IfModule mod_rewrite.c>
+    
+    RewriteEngine on
+    
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+    
+</IfModule>
+
+Bước 6: Sửa code đường dẫn của trang "về chúng tôi", catalogues, và chính sách.
+- Thay đổi đường link "127.0.0.1:8000/" thành "minhhungjsc.com.vn" ở ba file sau:
+app/Http/Controllers/Front/AboutController
+app/Http/Controllers/Front/CatalogueController
+app/Http/Controllers/Front/CmsController
+
+- Thay đổi hung.v.pham002@gmail.com ở file:
+app/Http/Controllers/Front/CmsController
+app/Http/Controllers/Front/ProductsController
+
+Bước 7: Tạo SSL cho URL. 
+- Truy vập https://punchsalad.com/ssl-certificate-generator/ và điền form.
+- Theo hướng dẫn. 
+- Kết nối SSL ở Cpanel. 
+- Chỉnh sửa file .htaccess ở mục public như sau:
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+    
+    RewriteCond %{HTTPS} off 
+    RewriteRule ^(.*)$ https://%{HTTP_HOST} [L,R=301]
+</IfModule>
+
+
+ 

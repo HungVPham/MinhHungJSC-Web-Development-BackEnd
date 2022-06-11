@@ -9,14 +9,20 @@
     margin-left: inherit;
     color: inherit;
     }
-    #name-error, #message-error, #email-error, #subject-error{
+    #name-error, #message-error, #sender-error, #subject-error{
     font-size: 16px;
     font-weight: 700;
     width: 100%;
     text-align: left;
     color: var(--MinhHung-Red);
     margin-left: 5px;
-}
+    }
+    input[name=email]{ /* bait input */
+        /* do not use display:none or visibility:hidden
+            that will not fool the bot */
+        position:absolute;
+        left:-2000px;
+    }
 </style>
 <div class="contact-page">
     @if(Session::has('success_message'))
@@ -51,8 +57,9 @@
                 <p>Gọi hoặc email chúng tôi để giải đáp những thắc mắc hoặc vấn đề.</p>
             </div>
             <div class="c-inputs">
+                <input type="email" name="email" id="email" placeholder="Your email" autocomplete="nope" tabindex="-1">
                 <input type="text" name="name" id="name" placeholder="Họ và Tên"/>
-                <input type="email" name="email" id="email" placeholder="Email"/> 
+                <input type="email" name="sender" id="sender" placeholder="Email"/> 
                 <input type="subject" name="subject" id="subject" placeholder="Chủ Đề"/> 
                 <textarea type="text" name="message" id="message" placeholder="lời nhắn hoặc câu hỏi của quý khách..."></textarea>
                 <button class="btn">Gửi Đi</button>

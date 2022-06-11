@@ -30,21 +30,24 @@ class CmsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            // send user email to admin
-            $email = "salesminhhung@minhhungjsc.store";
-            $messageData = [
-                'email' => $data['email'],
-                'name' => $data['name'],
-                'subject' => $data['subject'],
-                'comment' => $data['message'],
-            ];
-            Mail::send('emails.enquiry',$messageData,function($message) use($email){ 
-                $message->to($email)->subject('Hỏi/Đáp Từ Khách Hàng');
-            });
+            if(empty($data['email'])){
+                // send user email to admin
+                $email = "hung.v.pham002@gmail.com";
+                $messageData = [
+                    'email' => $data['sender'],
+                    'name' => $data['name'],
+                    'subject' => $data['subject'],
+                    'comment' => $data['message'],
+                ];
+                Mail::send('emails.enquiry',$messageData,function($message) use($email){ 
+                    $message->to($email)->subject('Hỏi/Đáp Từ Khách Hàng');
+                });
 
-            $message = "Cám ơn bạn đã gửi câu hỏi tới Minh Hưng JSC. Hãy kiểm tra hộp mail của bạn trong thời gian tới nhé!";
-            session::flash('success_message', $message);
-            return redirect()->back();
+                $message = "Cám ơn bạn đã gửi câu hỏi tới Minh Hưng JSC. Hãy kiểm tra hộp mail của bạn trong thời gian tới nhé!";
+                session::flash('success_message', $message);
+                return redirect()->back();
+            }
+          
         }
         return view('front.pages.contact_page');
     }

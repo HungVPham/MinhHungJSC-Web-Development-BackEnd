@@ -435,7 +435,7 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
 
              // send price quotation email to admin
-             $email = "salesminhhung@minhhungjsc.store";
+             $email = "hung.v.pham002@gmail.com";
              $messageData = [
                  'email' => $data['email'],
                  'full_name' => $data['full_name'],
@@ -479,7 +479,7 @@ class ProductsController extends Controller
             $this->validate($request, $rules, $customMessages);
 
              // send stock refill alert email to admin
-             $email = "salesminhhung@minhhungjsc.store";
+             $email = "hung.v.pham002@gmail.com";
              $messageData = [
                  'email' => $data['email'],
                  'full_name' => $data['full_name'],
