@@ -748,6 +748,8 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo Session::get('grand_total');
 
+            // print_r($data); die;
+
             if(empty($data['address_id'])){
                 $message = "Xin vui lòng chọn địa chỉ nhận hàng!";
                 session::flash('error_message', $message);
@@ -825,6 +827,10 @@ class ProductsController extends Controller
             $order->grand_total = Session::get('grand_total');
             $order->company_name = Auth::user()->company_name;
             $order->note = $data['order_note'];
+
+            if(empty($data['invoice_req'])){
+                $data['invoice_req'] = 0;
+            }
 
             if($data['invoice_req'] == 1){
                 $order->invoice_req = $data['invoice_req'];
@@ -940,6 +946,7 @@ class ProductsController extends Controller
 
             $data = $request->all();
             // echo Session::get('grand_total');
+            // print_r($data); die;
 
             if(empty($data['email'])){
                 if(empty($data['payment_gateway'])){
@@ -1001,6 +1008,10 @@ class ProductsController extends Controller
                 $order->grand_total = Session::get('total_price');
                 $order->company_name = $data['company_name'];
                 $order->note = $data['order_note'];
+
+                if(empty($data['invoice_req'])){
+                    $data['invoice_req'] = 0;
+                }
     
                 if($data['invoice_req'] == 1){
                     $order->invoice_req = $data['invoice_req'];
@@ -1008,7 +1019,7 @@ class ProductsController extends Controller
                     $order->invoice_comp_name = $data['invoice_comp_name'];
                     $order->invoice_comp_address = $data['invoice_comp_address'];
                 }
-    
+
                 $order->save();
     
                 $order_id = DB::getPdo() -> lastInsertId();
