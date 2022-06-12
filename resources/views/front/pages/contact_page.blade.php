@@ -17,11 +17,9 @@
     color: var(--MinhHung-Red);
     margin-left: 5px;
     }
-    input[name=email]{ /* bait input */
-        /* do not use display:none or visibility:hidden
-            that will not fool the bot */
+    input[name=email]{
         position:absolute;
-        left:-2000px;
+        left:-5000px;
     }
 </style>
 <div class="contact-page">

@@ -32,58 +32,64 @@ class UsersController extends Controller
             // echo "<pre>"; print_r($data); die;
 
             // check if user already exists
-            $userEmailCount = User::where('email', $data['email'])->count();
+            $userEmailCount = User::where('email', $data['sender'])->count();
             $userMobileCount = User::where('mobile', $data['mobile'])->count();
-            if($userEmailCount>0 or $userMobileCount>0){
-                $message = "Email hoặc số điện thoại đã được đăng ký!";
-                session::flash('error_message', $message);
-                return redirect()->back();
-            }else{
-                // register the user 
 
-                $rules = [
-                    'name' => 'regex:/^[\pL\s\-]+$/u',
-                    'last_name' => 'regex:/^[\pL\s\-]+$/u',
-                    'password' => [
-                        'regex:/[a-z]/',      // must contain at least one lowercase letter
-                        'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                        'regex:/[0-9]/',      // must contain at least one digit
-                    ],
-                ];  
-                $customMessages = [
-                    'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
-                    'last_name.regex' => 'Họ không hợp lệ. Quý khách vui lòng thử lại.',
-                    'password.regex' => 'Mật khẩu phải bao gồm ít nhất 6 ký tự trong đó có một chữ thường, một chữ hoa, và một số.',
-                ];
-                $this->validate($request, $rules, $customMessages);
+            if(empty($data['email'])){
+                if($userEmailCount > 0 or $userMobileCount > 0){
 
-                $user = new User;
-                $user->name = $data['name'];
-                $user->last_name = $data['last_name'];
-                $user->email = $data['email'];
-                $user->mobile = $data['mobile'];
-                $user->company_name = $data['company_name'];
-                $user->company_email = $data['company_email'];
-                $user->password = bcrypt($data['password']);
-                $user->status = 0;
-                $user->save();
+                    $message = "Email hoặc số điện thoại đã được đăng ký!";
+                    session::flash('error_message', $message);
+                    return redirect()->back();
+                    
+                }else{
+                    
+                    // register the user 
 
-                // send confirmation email to user
-                $email = $data['email'];
-                $messageData = [
-                    'name'=>$data['name'],  
-                    'code'=>base64_encode($data['email'])
-                ];
+                    $rules = [
+                        'name' => 'regex:/^[\pL\s\-]+$/u',
+                        'last_name' => 'regex:/^[\pL\s\-]+$/u',
+                        'password' => [
+                            'regex:/[a-z]/',      // must contain at least one lowercase letter
+                            'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                            'regex:/[0-9]/',      // must contain at least one digit
+                        ],
+                    ];  
+                    $customMessages = [
+                        'name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
+                        'last_name.regex' => 'Họ không hợp lệ. Quý khách vui lòng thử lại.',
+                        'password.regex' => 'Mật khẩu phải bao gồm ít nhất 6 ký tự trong đó có một chữ thường, một chữ hoa, và một số.',
+                    ];
+                    $this->validate($request, $rules, $customMessages);
 
-                Mail::send('emails.confirmation', $messageData, function($message) use($email){
-                    $message->to($email)->subject('Kích hoạt tài khoản Minh Hưng JSC của Quý Khách.');
-                });
+                    $user = new User;
+                    $user->name = $data['name'];
+                    $user->last_name = $data['last_name'];
+                    $user->email = $data['sender'];
+                    $user->mobile = $data['mobile'];
+                    $user->company_name = $data['company_name'];
+                    $user->company_email = $data['company_email'];
+                    $user->password = bcrypt($data['password']);
+                    $user->status = 0;
+                    $user->save();
 
-                // Redirect back with success message
+                    // send confirmation email to user
+                    $email = $data['sender'];
+                    $messageData = [
+                        'name'=>$data['name'],  
+                        'code'=>base64_encode($data['sender'])
+                    ];
 
-                $message = "Vui lòng kiểm tra email của bạn để kích hoạt tài khoản.";
-                session::flash('success_message', $message);
-                return redirect()->back();
+                    Mail::send('emails.confirmation', $messageData, function($message) use($email){
+                        $message->to($email)->subject('Kích hoạt tài khoản Minh Hưng JSC của Quý Khách.');
+                    });
+
+                    // Redirect back with success message
+
+                    $message = "Vui lòng kiểm tra email của bạn để kích hoạt tài khoản.";
+                    session::flash('success_message', $message);
+                    return redirect()->back();
+                }
             }
         }
     }
@@ -91,7 +97,7 @@ class UsersController extends Controller
     public function checkEmail(Request $request){
         // check if email already exists
         $data = $request->all();
-        $emailCount = User::where('email', $data['email'])->count();
+        $emailCount = User::where('email', $data['sender'])->count();
         if($emailCount > 0){
             return "false";
         }else{

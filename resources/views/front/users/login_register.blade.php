@@ -5,7 +5,7 @@
 .account-page{
     background-image: url('images/banner_images/15670_banner3.jpg');
 }
-#name-error,#last_name-error, #mobile-error, #email-error, #password_login-error, #password_register-error, #id-error, #company_email-error, #company_name-error{
+#name-error,#last_name-error, #mobile-error, #sender-error, #password_login-error, #password_register-error, #id-error, #company_email-error, #company_name-error{
     font-size: 16px;
     font-weight: 700;
     width: 100%;
@@ -24,6 +24,10 @@
 }
 .pwd-toggle.on{
     display: none;
+}
+input[name=email]{
+        position:absolute;
+        left:-5000px;
 }
 </style>
 <div class="account-page">               
@@ -83,7 +87,8 @@
                         </div>
                         <div id="reg-int-container">
                             <label for="email">Email*:</label>
-                            <input id="email" name="email" placeholder="Nhập email của quý khách">
+                            <input type="email" name="email" id="email" placeholder="Your email" autocomplete="nope" tabindex="-1">
+                            <input id="sender" name="sender" placeholder="Nhập email của quý khách">
                         </div>
                         <div  id="reg-int-container">
                             <label for="mobile">Số điện thoại*:</label>
@@ -106,7 +111,7 @@
                                 <span id="eyeShow1" class="pwd-toggle on" onclick="visibility1()"><i class="far fa-eye"></i></span>
                             </div>
                         </div>
-                        <button class="btn">Đăng Kí Tài Khoản</button>
+                        <button type="submit" class="btn">Đăng Kí Tài Khoản</button>
                     </form>
                     <form id="LoginForm" action="{{ url('/login') }}" method="post">@csrf
                         <div class="login-logo-container">

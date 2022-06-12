@@ -51,7 +51,7 @@ use App\Product;
         .cart-table tr td:nth-child(3), .cart-table tr td:nth-child(4), .cart-table tr th:nth-child(3), .cart-table tr th:nth-child(4) {
             display: revert;
         }
-        #full_name-error, #mobile-error, #email-error, #address-error, #payment_method-error{
+        #full_name-error, #mobile-error, #sender-error, #address-error, #payment_method-error{
             display: block;
             font-size: 16px;
             font-weight: 700;
@@ -73,6 +73,11 @@ use App\Product;
             color: var(--MinhHung-Red);
             margin-left: 5px;
         }
+
+        input[name=email]{
+        position:absolute;
+        left:-5000px;
+    }
     </style>
     <script type="text/javascript">
         function invoiceChecked()
@@ -236,7 +241,8 @@ use App\Product;
                     <input id="mobile" name="mobile" placeholder="Số điện thoại (bắt buộc)">
                 </div>
                 <div class="price-quotation-input-containter">
-                    <input type="email" id="email" name="email" placeholder="Email (bắt buộc)">
+                    <input type="email" name="email" id="email" placeholder="Your email" autocomplete="nope" tabindex="-1">
+                    <input type="email" id="sender" name="sender" placeholder="Email (bắt buộc)">
                 </div>
                 <div class="price-quotation-input-containter">
                     <input id="company_name" name="company_name" placeholder="Tên doanh nghiệp (nếu có)">

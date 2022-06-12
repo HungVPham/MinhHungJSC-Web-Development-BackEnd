@@ -65,7 +65,7 @@
         width: inherit;
     }
     
-    #full_name-error, #mobile-error, #email-error, #sku-error{
+    #full_name-error, #mobile-error, #sender-error, #sku-error{
     display: block;
     font-size: 16px;
     font-weight: 700;
@@ -74,6 +74,12 @@
     color: var(--MinhHung-Red);
     margin-left: 5px;
     }
+
+    input[name=email]{
+        position:absolute;
+        left:-5000px;
+    }
+
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
 <script>
@@ -228,7 +234,7 @@
                 @if(!empty($productDetails['product_price']))
                     @if($total_tools_stock > 0)
                     <h4 class="getMaxproAttrPrice">
-                        @if($discounted_price>0)
+                        @if($discounted_price > 0)
                             <del> 
                                 <?php 
                                 $num = $productDetails['product_price'];
@@ -288,7 +294,7 @@
                         @endif
                     </h4>
                     @endif
-                    @if($total_stock == 0 and $productDetails['section_id']!=2)
+                    @if($total_stock == 0 and $productDetails['section_id'] != 2)
                     <h4 style="color: #888"><i>hết hàng</i></h4>
                     @elseif($productDetails['section_id']==2)
                     <h4 style="color: #333">giá liên hệ</h4>
@@ -390,7 +396,8 @@
                             <input id="mobile" name="mobile" placeholder="Số điện thoại (bắt buộc)">
                         </div>
                         <div class="stock-refill-input-containter">
-                            <input type="email" id="email" name="email" placeholder="Email (bắt buộc)">
+                            <input type="email" name="email" id="email" placeholder="Your email" autocomplete="nope" tabindex="-1">
+                            <input type="email" id="sender" name="sender" placeholder="Email (bắt buộc)">
                         </div>
                         <div class="stock-refill-input-containter">
                             <input id="company" name="company" placeholder="Tên doanh nghiệp (nếu có)">
@@ -415,7 +422,8 @@
                             <input id="mobile" name="mobile" placeholder="Số điện thoại (bắt buộc)">
                         </div>
                         <div class="price-quotation-input-containter">
-                            <input type="email" id="email" name="email" placeholder="Email (bắt buộc)">
+                            <input type="email" name="email" id="email" placeholder="Your email" autocomplete="nope" tabindex="-1">
+                            <input type="email" id="sender" name="sender" placeholder="Email (bắt buộc)">
                         </div>
                         <div class="price-quotation-select-containter">
                             @if(!empty($productDetails['maxpro_attributes']))

@@ -434,27 +434,37 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-             // send price quotation email to admin
-             $email = "hung.v.pham002@gmail.com";
-             $messageData = [
-                 'email' => $data['email'],
-                 'full_name' => $data['full_name'],
-                 'mobile' => $data['mobile'],
-                 'company' => $data['company'],
-                 'sku' => $data['sku'],
-                 'product_name' => $data['product_name'],
-                 'brand_name' => $data['brand_name'],
-                 'category_name' => $data['category_name'],
-                 'product_id' => $data['product_id'],
-             ];
-             Mail::send('emails.price_quotation',$messageData,function($message) use($email){ 
-                 $message->to($email)->subject('Yêu Cầu Báo Giá');
-             });
- 
-             $message = "Cám ơn quý khách đã gửi yêu cầu báo giá sản phẩm.
-             Vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
-             session::flash('success_message', $message);
-             return redirect()->back();
+            $rules = [
+                'sku' => 'required',
+            ];  
+            $customMessages = [
+                'sku.required' => 'Quý khách vui lòng thêm mã sản phẩm quan tâm.'
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+            if(empty($data['email'])){
+                // send price quotation email to admin
+                $email = "hung.v.pham002@gmail.com";
+                $messageData = [
+                    'email' => $data['sender'],
+                    'full_name' => $data['full_name'],
+                    'mobile' => $data['mobile'],
+                    'company' => $data['company'],
+                    'sku' => $data['sku'],
+                    'product_name' => $data['product_name'],
+                    'brand_name' => $data['brand_name'],
+                    'category_name' => $data['category_name'],
+                    'product_id' => $data['product_id'],
+                ];
+                Mail::send('emails.price_quotation',$messageData,function($message) use($email){ 
+                    $message->to($email)->subject('Yêu Cầu Báo Giá');
+                });
+    
+                $message = "Cám ơn quý khách đã gửi yêu cầu báo giá sản phẩm.
+                Vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
+                session::flash('success_message', $message);
+                return redirect()->back();
+            }
          }
     } // send email to interest user about product price quotes
 
@@ -466,39 +476,41 @@ class ProductsController extends Controller
             $rules = [
                 'full_name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'mobile' => 'required',
-                'email' => 'required',
+                'sender' => 'required',
                 'sku' => 'required',
             ];  
             $customMessages = [
                 'full_name.regex' => 'Tên không hợp lệ. Quý khách vui lòng thử lại.',
                 'full_name.required' => 'Quý khách vui lòng điền họ tên để nhận thông báo.',
                 'mobile.required' => 'Quý khách vui lòng điền số điện thoại để nhận thông báo.',
-                'email.required' => 'Quý khách vui lòng điền email để nhận thông báo.',
+                'sender.required' => 'Quý khách vui lòng điền email để nhận thông báo.',
                 'sku.required' => 'Quý khách vui lòng thêm mã sản phẩm quan tâm.'
             ];
             $this->validate($request, $rules, $customMessages);
 
-             // send stock refill alert email to admin
-             $email = "hung.v.pham002@gmail.com";
-             $messageData = [
-                 'email' => $data['email'],
-                 'full_name' => $data['full_name'],
-                 'mobile' => $data['mobile'],
-                 'company' => $data['company'],
-                 'sku' => $data['sku'],
-                 'product_name' => $data['product_name'],
-                 'brand_name' => $data['brand_name'],
-                 'category_name' => $data['category_name'],
-                 'product_id' => $data['product_id'],
-             ];
-             Mail::send('emails.stock_refill',$messageData,function($message) use($email){ 
-                 $message->to($email)->subject('Yêu Cầu thông báo khi tồn kho');
-             });
- 
-             $message = "Cám ơn quý khách đã gửi yêu cầu thông báo khi tồn kho sản phẩm.
-             Vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
-             session::flash('success_message', $message);
-             return redirect()->back();
+            if(empty($data['email'])){
+                // send stock refill alert email to admin
+                $email = "hung.v.pham002@gmail.com";
+                $messageData = [
+                    'email' => $data['sender'],
+                    'full_name' => $data['full_name'],
+                    'mobile' => $data['mobile'],
+                    'company' => $data['company'],
+                    'sku' => $data['sku'],
+                    'product_name' => $data['product_name'],
+                    'brand_name' => $data['brand_name'],
+                    'category_name' => $data['category_name'],
+                    'product_id' => $data['product_id'],
+                ];
+                Mail::send('emails.stock_refill',$messageData,function($message) use($email){ 
+                    $message->to($email)->subject('Yêu Cầu thông báo khi tồn kho');
+                });
+    
+                $message = "Cám ơn quý khách đã gửi yêu cầu thông báo khi tồn kho sản phẩm.
+                Vui lòng kiểm tra email để nhận thông tin trong thời gian sớm nhất!";
+                session::flash('success_message', $message);
+                return redirect()->back();
+            }
          }
     } // send email to interest user about product stock refill
 
@@ -929,130 +941,133 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo Session::get('grand_total');
 
-            if(empty($data['payment_gateway'])){
-                $message = "Xin vui lòng chọn phương thức thanh toán!";
-                session::flash('error_message', $message);
-                return redirect()->back();
-            }
-
-            // print_r($data); die;
-
-            if($data['payment_gateway'] == "COD"){
-                $payment_method = "COD";
-            }else{
-                $payment_method = "Banking";
-            }
-
-            DB::beginTransaction();
-
-            
-            // insert order details
-
-            $numbers = '0123456789';
-            $characters = 'abcdefghijklmnopqrstuvwxyz';
-            $randomString = '';
-            
-            for ($i = 0; $i < 4; $i++) {
-                $index = rand(0, strlen($numbers) - 1);
-                $randomString .= $numbers[$index];
-            }
-
-            $randomString .= '-';
-
-            for ($i = 4; $i < 7; $i++) {
-                $index = rand(0, strlen($characters) - 1);
-                $randomString .= $characters[$index];
-            }
-
-            $randomString .= '-';
-
-            for ($i = 7; $i < 10; $i++) {
-                $index = rand(0, strlen($numbers) - 1);
-                $randomString .= $numbers[$index];
-            }
-        
-            $uuid = $randomString;
-
-            $order = new Order;
-
-            $order->order_id = $uuid;
-
-            $order->name = $data['full_name'];
-            $order->address = $data['address'];
-            $order->mobile = $data['mobile'];
-            $order->email = $data['email'];
-            $order->shipping_charges = 0;
-            $order->order_status = "New";
-            $order->payment_method = $payment_method;
-            $order->payment_gateway = $data['payment_gateway'];
-            $order->grand_total = Session::get('total_price');
-            $order->company_name = $data['company_name'];
-            $order->note = $data['order_note'];
-
-            if($data['invoice_req'] == 1){
-                $order->invoice_req = $data['invoice_req'];
-                $order->invoice_tax_num = $data['invoice_tax_num'];
-                $order->invoice_comp_name = $data['invoice_comp_name'];
-                $order->invoice_comp_address = $data['invoice_comp_address'];
-            }
-
-            $order->save();
-
-            $order_id = DB::getPdo() -> lastInsertId();
-
-             // Get User Cart Items
-             $cartItems = Cart::where('session_id',Session::get('session_id'))->get()->toArray();
-
-             foreach($cartItems as $key => $item){
-                 $cartItem = new OrdersProduct;
-                 $cartItem->order_id = $order_id;
- 
-                 $getProductDetails = Product::select('product_code','product_name','section_id')->where('id',$item['product_id'])->first()->toArray();
- 
-                 $cartItem->product_id = $item['product_id'];
-                 $cartItem->product_name = $getProductDetails['product_name'];
-                 $cartItem->product_code = $getProductDetails['product_code'];
-                 $cartItem->sku = $item['sku'];
- 
-                 if($getProductDetails['section_id'] == 1){
-                     $getDiscountedAttrPrice = Product::getDiscountedMaxproPrice($item['product_id'], $item['sku']);
-                 }else if($getProductDetails['section_id'] == 3){
-                     $getDiscountedAttrPrice = Product::getDiscountedShimgePrice($item['product_id'], $item['sku']);
-                 }
- 
-                 $cartItem->product_price = $getDiscountedAttrPrice['discounted_price'];
-                 $cartItem->product_qty = $item['quantity'];
- 
-                 $cartItem->save();
-             }
-         
-            Session::put('order_id', $order_id);
-
-            DB::commit();
-
-            if($data['payment_gateway'] == "COD" || $data['payment_gateway'] == "Banking"){
-
-                $orderDetails = Order::with('orders_products')->where('id', $order_id)->first()->toArray();
-
-                // dd($orderDetails); die;
-
-                // Send order email
-
-                $email = $data['email'];
-                $full_name =  $data['full_name'];
+            if(empty($data['email'])){
+                if(empty($data['payment_gateway'])){
+                    $message = "Xin vui lòng chọn phương thức thanh toán!";
+                    session::flash('error_message', $message);
+                    return redirect()->back();
+                }
+    
+                // print_r($data); die;
+    
+                if($data['payment_gateway'] == "COD"){
+                    $payment_method = "COD";
+                }else{
+                    $payment_method = "Banking";
+                }
+    
+                DB::beginTransaction();
+    
                 
-                $messageData = [
-                    'email' => $email,
-                    'name' => $full_name,
-                    'orderDetails' => $orderDetails
-                ];
-
-                Mail::send('emails.order',$messageData,function($message) use($email){
-                    $message->to($email)->subject('Đơn Hàng Đã Được Đặt Thành Công! - MinhHưngJSC');
-                });
-
-                return redirect('/thanks');
+                // insert order details
+    
+                $numbers = '0123456789';
+                $characters = 'abcdefghijklmnopqrstuvwxyz';
+                $randomString = '';
+                
+                for ($i = 0; $i < 4; $i++) {
+                    $index = rand(0, strlen($numbers) - 1);
+                    $randomString .= $numbers[$index];
+                }
+    
+                $randomString .= '-';
+    
+                for ($i = 4; $i < 7; $i++) {
+                    $index = rand(0, strlen($characters) - 1);
+                    $randomString .= $characters[$index];
+                }
+    
+                $randomString .= '-';
+    
+                for ($i = 7; $i < 10; $i++) {
+                    $index = rand(0, strlen($numbers) - 1);
+                    $randomString .= $numbers[$index];
+                }
+            
+                $uuid = $randomString;
+    
+                $order = new Order;
+    
+                $order->order_id = $uuid;
+    
+                $order->name = $data['full_name'];
+                $order->address = $data['address'];
+                $order->mobile = $data['mobile'];
+                $order->email = $data['sender'];
+                $order->shipping_charges = 0;
+                $order->order_status = "New";
+                $order->payment_method = $payment_method;
+                $order->payment_gateway = $data['payment_gateway'];
+                $order->grand_total = Session::get('total_price');
+                $order->company_name = $data['company_name'];
+                $order->note = $data['order_note'];
+    
+                if($data['invoice_req'] == 1){
+                    $order->invoice_req = $data['invoice_req'];
+                    $order->invoice_tax_num = $data['invoice_tax_num'];
+                    $order->invoice_comp_name = $data['invoice_comp_name'];
+                    $order->invoice_comp_address = $data['invoice_comp_address'];
+                }
+    
+                $order->save();
+    
+                $order_id = DB::getPdo() -> lastInsertId();
+    
+                 // Get User Cart Items
+                 $cartItems = Cart::where('session_id',Session::get('session_id'))->get()->toArray();
+    
+                 foreach($cartItems as $key => $item){
+                     $cartItem = new OrdersProduct;
+                     $cartItem->order_id = $order_id;
+     
+                     $getProductDetails = Product::select('product_code','product_name','section_id')->where('id',$item['product_id'])->first()->toArray();
+     
+                     $cartItem->product_id = $item['product_id'];
+                     $cartItem->product_name = $getProductDetails['product_name'];
+                     $cartItem->product_code = $getProductDetails['product_code'];
+                     $cartItem->sku = $item['sku'];
+     
+                     if($getProductDetails['section_id'] == 1){
+                         $getDiscountedAttrPrice = Product::getDiscountedMaxproPrice($item['product_id'], $item['sku']);
+                     }else if($getProductDetails['section_id'] == 3){
+                         $getDiscountedAttrPrice = Product::getDiscountedShimgePrice($item['product_id'], $item['sku']);
+                     }
+     
+                     $cartItem->product_price = $getDiscountedAttrPrice['discounted_price'];
+                     $cartItem->product_qty = $item['quantity'];
+     
+                     $cartItem->save();
+                 }
+             
+                Session::put('order_id', $order_id);
+    
+                DB::commit();
+    
+                if($data['payment_gateway'] == "COD" || $data['payment_gateway'] == "Banking"){
+    
+                    $orderDetails = Order::with('orders_products')->where('id', $order_id)->first()->toArray();
+    
+                    // dd($orderDetails); die;
+    
+                    // Send order email
+    
+                    $email = $data['sender'];
+                    $full_name =  $data['full_name'];
+                    
+                    $messageData = [
+                        'email' => $email,
+                        'name' => $full_name,
+                        'orderDetails' => $orderDetails
+                    ];
+    
+                    Mail::send('emails.order',$messageData,function($message) use($email){
+                        $message->to($email)->subject('Đơn Hàng Đã Được Đặt Thành Công! - MinhHưngJSC');
+                    });
+    
+                    return redirect('/thanks');
+                }
             }
+          
 
            // echo "Order Placed"; die;
 

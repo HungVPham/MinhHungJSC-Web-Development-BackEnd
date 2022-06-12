@@ -591,7 +591,7 @@ $(document).ready(function () {
   // validate signup form on keyup and submit
   $("#PriceQuotationForm").validate({
     rules: {
-      email: {
+      sender: {
         required: true,
         email: true,
       },
@@ -604,7 +604,7 @@ $(document).ready(function () {
       },
     },
     messages: {
-      email: {
+      sender: {
         required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ.",
       },
@@ -629,7 +629,7 @@ $(document).ready(function () {
 
   $("#OrderForNonUserForm").validate({
     rules: {
-      email: {
+      sender: {
         required: true,
         email: true,
       },
@@ -659,7 +659,7 @@ $(document).ready(function () {
       },
     },
     messages: {
-      email: {
+      sender: {
         required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ.",
       },
@@ -811,7 +811,7 @@ $(document).ready(function () {
         required: true,
         minlength: 6,
       },
-      email: {
+      sender: {
         remote: "check-email",
         required: true,
         email: true,
@@ -836,7 +836,7 @@ $(document).ready(function () {
         required: "Vui lòng nhập mật khẩu.",
         minlength: "Mật khẩu phải dài ít nhất 6 chữ hoặc số.",
       },
-      email: {
+      sender: {
         remote: "Email đã được đăng kí.",
         required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ.",
