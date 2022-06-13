@@ -215,7 +215,8 @@ class UsersController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            $emailCount = User::where('email',$data['email'])->count();
+            $emailCount = User::where('email',$data['sender'])->count();
+
             if($emailCount == 0){
                 $message = "Tài khoản không tồn tại.";
                 session::flash('error_message', $message);
@@ -227,13 +228,13 @@ class UsersController extends Controller
             // Encode/Secure Pwd
             $new_password = bcrypt($random_password);
             //update password
-            User::where('email',$data['email'])->update(['password'=>$new_password]);
+            User::where('email',$data['sender'])->update(['password'=>$new_password]);
 
             // get user name 
-            $userName = User::select('name')->where('email', $data['email'])->first();
+            $userName = User::select('name')->where('email', $data['sender'])->first();
 
             // send generated password to user
-            $email = $data['email'];
+            $email = $data['sender'];
             $name = $userName->name;
             $messageData = [
                 'email' => $email,

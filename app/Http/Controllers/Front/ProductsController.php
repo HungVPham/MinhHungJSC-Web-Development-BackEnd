@@ -1050,7 +1050,7 @@ class ProductsController extends Controller
                      $cartItem->save();
                  }
              
-                Session::put('order_id', $order_id);
+                Session::put('order_id', $uuid);
     
                 DB::commit();
     

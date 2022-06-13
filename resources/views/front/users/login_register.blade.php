@@ -132,7 +132,7 @@ input[name=email]{
                     <form id="ForgotPwdForm" action="{{ url('/forgot-pwd') }}" method="post">@csrf
                         <h3 style="text-align: center; font-weight: 600;">Tìm tài khoản của quý khách</h3>  
                             <label for="email">Email*:</label>
-                            <input type="email" id="email" name="email" placeholder="Vui lòng nhập email để nhận mật khẩu tạm thời">
+                            <input type="email" id="sender" name="sender" placeholder="Vui lòng nhập email để nhận mật khẩu tạm thời">
                         <button type="submit" class="btn">Tìm tài khoản</button>
                     </form>
                 </div>
