@@ -214,7 +214,7 @@
         @media only screen and (max-width: 500px) {
 
             #mainImage_create {
-              scale: 1.5;
+              transform: scale(1.5);
               margin-top: 100px;
             }
 

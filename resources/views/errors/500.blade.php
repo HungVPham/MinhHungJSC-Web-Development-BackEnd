@@ -183,6 +183,7 @@
             0% {
               transform: translateX(-0.3px) translateY(0.6px);
             }
+            
             30% {
               transform: translateX(-0.3px) translateY(0.6px);
             }
@@ -213,10 +214,10 @@
 
         @media only screen and (max-width: 500px) {
 
-            #mainImage_create {
-              scale: 1.5;
-              margin-top: 100px;
-            }
+          #mainImage_create {
+            transform: scale(1.5);
+            margin-top: 100px;
+          }
 
             .account-page{
               height: 400px;

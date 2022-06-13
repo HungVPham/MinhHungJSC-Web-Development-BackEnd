@@ -29,13 +29,6 @@ $(document).ready(function () {
       $('body').css('overflow','auto')
     });
 
-    // $(".popup_background").on("click", function (e) {
-    //   e.preventDefault();
-    //   $("#popup").fadeOut(200);
-    //   $(".popup_background").fadeOut(200);
-    //   $('body').css('overflow','auto')
-    // });
-  
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
     var rootElement = document.documentElement;
     
@@ -1050,9 +1043,6 @@ $(document).ready(function () {
 
   $(window).on("load", function () {
     $(".preloaderBg").fadeOut("slow");
-    //select the POPUP FRAME and show it
-
-
   }); // preloader 
   
   var ViewBtn = document.getElementsByClassName("viewbtn");
