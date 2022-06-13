@@ -870,13 +870,13 @@ $(document).ready(function () {
 
   $("#ForgotPwdForm").validate({
     rules: {
-      email: {
+      sender: {
         required: true,
         email: true,
       },
     },
     messages: {
-      email: {
+      sender: {
         remote: "Email đã được đăng kí.",
         required: "Vui lòng nhập email của quý khách.",
         email: "Email không hợp lệ.",

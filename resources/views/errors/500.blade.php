@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lỗi 404: Không Tìm Thấy</title>
+    <title>Lỗi 500: Internal Server Error</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url('css/front_css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -300,7 +300,7 @@
         <path class="cls-12" d="M88.15,60.27s1.7.95,1.7,2.22"></path>
         <path class="cls-5" d="M101.81,61a6.68,6.68,0,0,0,8.51,0Z"></path>
         <polygon class="cls-5" points="90.92 30.25 77.46 29.69 77.46 28.64 90.92 29.22 90.92 30.25"></polygon>
-        <text id="title" transform="matrix(1 0 0 1 44.7249 78)">lỗi</text><text id="title-error" transform="matrix(1 0 0 1 52 78)">404</text><text id="title" transform="matrix(1 0 0 1 62 78)">: không tìm thấy trang.</text>
+        <text id="title" transform="matrix(1 0 0 1 44.7249 78)">lỗi</text><text id="title-error" transform="matrix(1 0 0 1 52 78)">500</text><text id="title" transform="matrix(1 0 0 1 62 78)">: Xin lỗi, chúng tôi hiện đang gặp sự cố. Xin vui lòng thử lại sau.</text>
         <img id="logo-404" style="position: absolute; width: 3rem; top: 65%; right: 45%;" src="{{ asset('/images/front_images/logoMinhHung.png') }}">
     </svg>
     </div>
