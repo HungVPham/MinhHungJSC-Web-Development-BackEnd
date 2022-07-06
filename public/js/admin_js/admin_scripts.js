@@ -375,10 +375,46 @@ $(document).ready(function(){
                         },error:function(){
                             alert("Error");
                         }
-                    })
-                }
-            });
+                })
+            }
         });
+    });
+
+     // Update Shipping Charge Status 
+     $(document).on("click", ".updateShippingStatus", function(){
+        var status = $(this).text();
+        var shipping_id = $(this).attr("shipping_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type:'post',
+                    url:'/admin/update-shipping-charge-status',
+                    data:{status:status,shipping_id:shipping_id},
+                    success:function(resp){
+                        if(resp['status']==0){
+                            $("#shipping-"+shipping_id).html("<a class='updateShippingStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                        }else if(resp['status']==1){
+                            $("#shipping-"+shipping_id).html("<a class='updateShippingStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                        }
+                        },error:function(){
+                            alert("Error");
+                        }
+                })
+            }
+        });
+    });
 
         
      // Update Catalogue Pages Status
@@ -422,6 +458,9 @@ $(document).ready(function(){
     $('#section_id').change(function(){
         var section_id = $(this).val();
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             type:'post',
             url:'/admin/append-categories-level',
             data:{section_id:section_id},
@@ -452,6 +491,50 @@ $(document).ready(function(){
             }
         });
     });
+
+    $(document).on('change', '#province', function () {
+        var province_id = $(this).val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+          type: 'post',
+          url: '/admin/append-districts-level',
+          data: {
+            province_id: province_id
+          },
+          success: function success(resp) {
+            $("#appendDistrictsLevel").html(resp);
+            $("#appendWardsLevel").html('<label for="ward">Phường/Xã:</label><select id="ward" name="ward" style="width: 100%;" class="form-control select2"><option value="">chọn phường/xã</option></select>');
+            $(".select2").select2(); // init the select
+          },
+          error: function error() {
+            alert("Error");
+          }
+        });
+      }); // Append Districts Level 
+    
+    $(document).on('change', '#district', function () {
+    // alert("test");
+    var district_id = $(this).val();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'post',
+        url: '/admin/append-wards-level',
+        data: {
+        district_id: district_id
+        },
+        success: function success(resp) {
+        $("#appendWardsLevel").html(resp);
+        $(".select2").select2(); // init the select
+        },
+        error: function error() {
+        alert("Error");
+        }
+    });
+    }); // Append Wards Level
 
     // Confirm Deletion of Record with SweetAlert2
     $(document).on("click", ".confirmDelete", function(){
@@ -702,4 +785,6 @@ $(document).ready(function(){
             $("#delivery_options").hide();
          }
      });
+
+
 });

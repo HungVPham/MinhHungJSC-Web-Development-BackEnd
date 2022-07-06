@@ -149,7 +149,7 @@
                             <label for="name">Người Nhận Hàng:</label>
                             <input type="name" id="name" name="name" @if(isset($address['name'])) value="{{ $address['name'] }}" @else value="{{ old('name') }}" @endif placeholder="họ và tên">
                             <label for="province">Tỉnh/Thành phố:</label>
-                            <select id="province" name="province" style="width: 100%;" class="select2">
+                            <select autocomplete="off" id="province" name="province" style="width: 100%;" class="select2">
                                 <option value="">chọn tỉnh/thành phố</option>
                                 @foreach($provinces as $province)
                                 <option @if(isset($address['province']) && $address['province']==$province['_prefix'].' '.$province['_name']) selected="" @endif value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>

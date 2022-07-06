@@ -149,7 +149,17 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::get('users', 'UsersController@users');
         Route::post('update-user-status', 'UsersController@updateUserStatus');
         Route::get('delete-user/{id}','UsersController@deleteUser');
+
+        // Shipping Charges
+        Route::get('shipping-charges', 'ShippingController@shippingCharges');
+        Route::match(['get', 'post'], 'add-edit-shipping-charges/{id?}', 'ShippingController@addEditShippingCharges');
+        Route::post('/append-districts-level','ShippingController@appendDistrictLevel');
+        Route::post('/append-wards-level','ShippingController@appendWardLevel');
+        Route::post('update-shipping-charge-status', 'ShippingController@updateShippingChargeStatus');
+        Route::get('delete-shipping-charge/{id}','ShippingController@deleteShippingCharge');
+
     });
+
 });
 
 // frontend routes
@@ -261,6 +271,13 @@ Route::namespace('Front')->group(function(){
         Route::get('/orders', 'OrdersController@orders');
         Route::get('/orders/{id}', 'OrdersController@orderDetails');
     });
+
+    Route::post('/append-districts-level','ProductsController@appendDistrictLevel');
+    Route::post('/append-wards-level','ProductsController@appendWardLevel');
+
+    Route::post('/append-shipping-charges','ProductsController@appendShippingCharges');
+    
+    Route::post('/append-grand-total','ProductsController@appendGrandTotal');
 
     Route::match(['get','post'], '/checkout-for-non-user', 'ProductsController@checkOutForNonUser');
     

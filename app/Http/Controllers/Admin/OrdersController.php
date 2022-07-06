@@ -56,7 +56,16 @@ class OrdersController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
-            Order::where('id',$data['order_id'])->update(['order_status'=>$data['order_status'], 'shipping_charges'=>$data['shipping_charges']]);
+
+            $orderDetails = Order::with('orders_products')->where('id', $data['order_id'])->first()->toArray();
+
+            // calculate new grand_total
+
+            $new_grand_total = $orderDetails['grand_total'] - $orderDetails['shipping_charges'] + $data['shipping_charges'];
+
+            Order::where('id',$data['order_id'])->update(['order_status'=>$data['order_status'], 'shipping_charges'=>$data['shipping_charges'], 'grand_total'=>$new_grand_total]);
+
+
             Session::put('success_message','Trạng thái đơn hàng đã được cập nhật thành công.');
 
             // Update Courier Name and Tracking Number

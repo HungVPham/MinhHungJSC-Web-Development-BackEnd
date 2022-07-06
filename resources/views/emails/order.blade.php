@@ -187,6 +187,16 @@
                                                             <td style="text-align: left !important">{{ date('d-m-Y', strtotime($orderDetails['created_at'])) }}</td>
                                                         </tr>
                                                         <tr>
+                                                            <td>Phí Giao Hàng: </td>
+                                                            <td style="text-align: left !important">
+                                                                <?php 
+                                                                $shipping_charges = $orderDetails['shipping_charges'];
+                                                                $format = number_format($shipping_charges,0,",",".");
+                                                                echo $format;
+                                                                ?> ₫ 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>Mã Khuyến Mãi: </td>
                                                            
                                                             <td style="text-align: left !important">

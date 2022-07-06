@@ -20,7 +20,7 @@ Bước 3: tạo CSDL, user MySQL, và nhập CSDL
 
 Bước 4: Kết nối database trong file .env (file ẩn) + Chỉnh sử file .env
 
-APP_NAME=MinhH動ngJSC
+APP_NAME=MinhHungJSC
 APP_ENV=local
 APP_KEY=base64:mm1Ju+8iasTaNbbEe+idOkr/3hLuBbb33ufW+h6oajE=
 APP_DEBUG=false

@@ -132,7 +132,7 @@
                     </ul>
                 </li>
                 <!-- Ecommerce -->
-                @if(Session::get('page')=="coupons" || Session::get('page')=="orders" || Session::get('page')=="users")
+                @if(Session::get('page')=="coupons" || Session::get('page')=="orders" || Session::get('page')=="users" || Session::get('page')=="shipping-charges")
                 <?php $active = "active"; ?>
                 @else
                 <?php $active = ""; ?>
@@ -168,6 +168,18 @@
                             <a href="{{ url('admin/orders') }}" class="nav-link {{ $active }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Đơn Mua</p>
+                            </a>
+                        </li>
+
+                        @if(Session::get('page')=="shipping-charges")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/shipping-charges') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Phí Giao Hàng</p>
                             </a>
                         </li>
 

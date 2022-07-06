@@ -121,7 +121,23 @@ use App\Product;
                     @foreach($deliveryAddresses as $address)
                     <tr>
                         <td>
-                            <input type="radio" @if($address['is_default']=="Yes") checked @endif id="address {{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">@if($address['is_default']=="Yes") <span style="color: var(--Positive-Green)">(Mặc Định)</span>@endif
+                            <input type="radio" 
+
+                            autocomplete="off"
+                            
+                            @if($address['is_default']=="Yes") checked @endif 
+                            
+                            id="address {{ $address['id'] }}" 
+                            name="address_id" 
+                            value="{{ $address['id'] }}" 
+                            shipping_charges="{{ $address['shipping_charges'] }}" 
+                            total_price="{{ $total_price }}" 
+                            coupon_amount="{{ Session::get('couponAmount') }}">
+                            
+                            @if($address['is_default']=="Yes") 
+                            <span style="color: var(--Positive-Green)">(Mặc Định)</span>
+                            @endif
+
                             {{ $address['name'] }} -  
                             {{ $address['address'] }}, 
                             {{ $address['ward'] }}, 
@@ -223,7 +239,7 @@ use App\Product;
             @elseif($cartItems['product']['section_id'] == 3)
             <?php 
             $total_shimge_price+= ($proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']));
-            $total_maxpro_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
+            $total_shimge_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
             ?>
             @endif
             @endforeach
@@ -268,13 +284,40 @@ use App\Product;
                     </td>
                 </tr>
                 <tr>
+                    <td>Phí Giao Hàng</td>
+                    <td>
+                        <span class="shipping_charges">
+
+                            @foreach($deliveryAddresses as $address)
+                                @if($address['is_default'] == "Yes")
+                                <?php 
+                                $shipping_charges_default = $address['shipping_charges'];
+                                $format = number_format($shipping_charges_default,0,",",".");
+                                echo $format;
+                                ?> ₫
+                                @endif
+                            @endforeach
+
+                        </span>
+                    </td>
+                </tr>
+                <tr>
                     <td>Tổng Thanh Toán</td>
                     <td class="totalAmount">
-                        <?php 
-                        $format = number_format($grand_total = $total_price - Session::get('couponAmount'),0,",",".");
-                        echo $format;
-                        ?> ₫
-                        <?php Session::put('grand_total',$grand_total); ?>
+                        
+                        <span class="grand_total">
+                        @foreach($deliveryAddresses as $address)
+                            @if($address['is_default'] == "Yes")
+                            <?php 
+                            $shipping_charges_default = $address['shipping_charges'];
+                            $format = number_format($grand_total = $shipping_charges_default + $total_price - Session::get('couponAmount'),0,",",".");
+                            echo $format;
+                            ?> ₫
+                            @endif
+                        @endforeach
+                        </span>
+                        
+                        <?php Session::put('grand_total',$grand_total); ?> 
                     </td>
                 </tr>
             </table>

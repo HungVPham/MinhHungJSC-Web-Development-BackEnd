@@ -30,6 +30,7 @@ use Session;
 use App\Order;
 use App\OrdersProduct;
 use DB;
+use App\ShippingCharge;
 
 class ProductsController extends Controller
 {
@@ -653,6 +654,10 @@ class ProductsController extends Controller
 
             if($couponCount==0){
                 $message = 'Mã khuyến mãi không tồn tại.';
+
+                Session::forget('couponCode');
+                Session::forget('couponAmount');
+                
                 return response()->json([
                     'status'=>false, 
                     'message'=>$message,
@@ -672,6 +677,16 @@ class ProductsController extends Controller
                 $current_date = date('Y-m-d');
                 if($expiry_date < $current_date){
                     $message = 'Mã khuyến mãi đã hết hạn sử dụng.'.' ['.$expiry_date.']';
+                }
+
+                // Check if coupon is single/multiple
+                if($couponDetails->coupon_type == "Single"){
+                    // check if orders table if coupon already availed by the user
+                    $couponCount = Order::where(['coupon_code'=>$data['code'], 'user_id'=>Auth::user()->id])->count();
+                    
+                    if($couponCount >= 1){
+                        $message = 'Mã khuyến mãi đã được sử dụng.';
+                    }
                 }
 
                 $catArr = explode(",",$couponDetails->categories);
@@ -744,6 +759,37 @@ class ProductsController extends Controller
     }// apply coupon via ajax
 
     public function checkout(Request $request){
+
+        $userCartItems = Cart::userCartItems();
+        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+
+        foreach($deliveryAddresses as $key => $value){
+            $shippingCharges = ShippingCharge::getShippingCharges($value['province_id'], $value['district_id'], $value['ward_id']);
+
+            $deliveryAddresses[$key]['shipping_charges'] = $shippingCharges;
+        }
+
+        $total_maxpro_price = 0; 
+        $total_shimge_price = 0; 
+        $total_maxpro_discount = 0; 
+        $total_shimge_discount = 0;
+      
+        foreach($userCartItems as $key => $cartItems){
+            $proMaxproPrice = Product::getDiscountedMaxproPrice($cartItems['product_id'], $cartItems['sku']);        
+            $proShimgePrice = Product::getDiscountedShimgePrice($cartItems['product_id'], $cartItems['sku']);
+
+            if($cartItems['product']['section_id'] == 1){
+                $total_maxpro_price+= ($proMaxproPrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proMaxproPrice['discount_amount']));
+                $total_maxpro_discount+= $proMaxproPrice['discount_amount']*$cartItems['quantity'];
+            }elseif($cartItems['product']['section_id'] == 3){
+                $total_shimge_price+= ($proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']));
+                $total_shimge_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
+            }
+        }
+
+        $total_price = $total_shimge_price + $total_maxpro_price; 
+
+
         if($request->isMethod('post')){
             $data = $request->all();
             // echo Session::get('grand_total');
@@ -774,6 +820,18 @@ class ProductsController extends Controller
 
             $deliveryAddress = DeliveryAddress::where('id', $data['address_id'])->first()->toArray();
            // dd($deliveryAddress); die;
+           
+           // get shipping charges 
+
+           $shipping_charges = ShippingCharge::getShippingCharges($deliveryAddress['province_id'], $deliveryAddress['district_id'], $deliveryAddress['ward_id']);
+
+           // calculate grand_total
+
+           $grand_total = $total_price + $shipping_charges - Session::get('couponAmount');
+
+            // insert ggrand total in session
+
+            Session::put('grand_total', $grand_total);
 
             DB::beginTransaction();
 
@@ -818,7 +876,7 @@ class ProductsController extends Controller
             $order->country = $deliveryAddress['country'];
             $order->mobile = $deliveryAddress['mobile'];
             $order->email = Auth::user()->email;
-            $order->shipping_charges = 0;
+            $order->shipping_charges = $shipping_charges;
             $order->coupon_code = Session::get('couponCode');
             $order->coupon_amount = Session::get('couponAmount');
             $order->order_status = "New";
@@ -911,11 +969,10 @@ class ProductsController extends Controller
 
         }
 
-        $userCartItems = Cart::userCartItems();
-        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+        // dd($deliveryAddresses); die;
         
         if(!empty($userCartItems)){
-        return view('front.products.checkout')->with(compact('userCartItems', 'deliveryAddresses'));
+        return view('front.products.checkout')->with(compact('userCartItems', 'deliveryAddresses', 'total_price'));
         }else{
             abort(404);
         }
@@ -942,11 +999,27 @@ class ProductsController extends Controller
 
     public function checkOutForNonUser(Request $request){
 
+        $userCartItems = Cart::userCartItems();
+
+        $provinces = Province::get()->toArray();
+
         if($request->isMethod('post')){
 
             $data = $request->all();
             // echo Session::get('grand_total');
             // print_r($data); die;
+
+            $rules = [
+                'province' => 'required',
+                'district' => 'required',
+                'ward' => 'required',
+            ];  
+            $customMessages = [
+                'province.required' => 'Vui lòng chọn tỉnh/thành.',
+                'district.required' => 'Vui lòng chọn quận/huyện.',
+                'ward.required' => 'Vui lòng chọn phường/xã.',
+            ];
+            $this->validate($request, $rules, $customMessages);
 
             if(empty($data['email'])){
                 if(empty($data['payment_gateway'])){
@@ -996,16 +1069,27 @@ class ProductsController extends Controller
                 $order = new Order;
     
                 $order->order_id = $uuid;
+
+                $getProvinces = Province::where('id', $data['province'])->get();
+                $getProvinces = json_decode(json_encode($getProvinces),true);
+                $getDistricts = District::where('id', $data['district'])->get();
+                $getDistricts = json_decode(json_encode($getDistricts),true);
+                $getWards = Ward::where('id', $data['ward'])->get();
+                $getWards = json_decode(json_encode($getWards),true);
     
                 $order->name = $data['full_name'];
+                $order->country = "Việt Nam";
+                $order->province = $getProvinces[0]['_prefix'].' '.$getProvinces[0]['_name'];
+                $order->district = $getDistricts[0]['_prefix'].' '.$getDistricts[0]['_name'];
+                $order->ward = $getWards[0]['_prefix'].' '.$getWards[0]['_name'];
                 $order->address = $data['address'];
                 $order->mobile = $data['mobile'];
                 $order->email = $data['sender'];
-                $order->shipping_charges = 0;
+                $order->shipping_charges = Session::get('shipping_charges');
                 $order->order_status = "New";
                 $order->payment_method = $payment_method;
                 $order->payment_gateway = $data['payment_gateway'];
-                $order->grand_total = Session::get('total_price');
+                $order->grand_total = Session::get('grand_total');
                 $order->company_name = $data['company_name'];
                 $order->note = $data['order_note'];
 
@@ -1078,15 +1162,13 @@ class ProductsController extends Controller
                     return redirect('/thanks');
                 }
             }
-          
-
+        
            // echo "Order Placed"; die;
 
         }
-        $userCartItems = Cart::userCartItems();
 
         if(!empty($userCartItems)){
-            return view('front.products.checkout_for_non_user')->with(compact('userCartItems'));
+            return view('front.products.checkout_for_non_user')->with(compact('userCartItems', 'provinces'));
         }else{
             abort(404);
         }
@@ -1188,7 +1270,72 @@ class ProductsController extends Controller
             return redirect()->back();
     }
 
+    public function appendDistrictLevel(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getDistricts = District::where('_province_id', $data['province_id'])->get();
+            $getDistricts = json_decode(json_encode($getDistricts),true);
+            // echo "<pre>"; print_r($getDistricts); die;
+            return view('front.users.append_districts_level')->with(compact('getDistricts'));
+        }
+    }
+
+    public function appendWardLevel(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getWards = Ward::where('_district_id', $data['district_id'])->get();
+            $getWards = json_decode(json_encode($getWards),true);
+            // echo "<pre>"; print_r($getWards); die;
+            return view('front.users.append_wards_level')->with(compact('getWards'));
+        }
+    }
 
 
+    public function appendShippingCharges(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $getWard = Ward::where('id', $data['ward_id'])->get()->toArray();
 
+            $shipping_charges = ShippingCharge::getShippingCharges($getWard[0]['_province_id'], $getWard[0]['_district_id'], $getWard[0]['id']);
+
+            Session::put('shipping_charges', $shipping_charges);
+
+            return view('front.users.append_shipping_charges')->with(compact('shipping_charges'));
+        }
+    }
+
+    public function appendGrandTotal(Request $request){
+        if($request->ajax()){
+
+            $userCartItems = Cart::userCartItems();
+
+            $total_maxpro_price = 0; 
+            $total_shimge_price = 0; 
+            $total_maxpro_discount = 0; 
+            $total_shimge_discount = 0;
+          
+            foreach($userCartItems as $key => $cartItems){
+                $proMaxproPrice = Product::getDiscountedMaxproPrice($cartItems['product_id'], $cartItems['sku']);        
+                $proShimgePrice = Product::getDiscountedShimgePrice($cartItems['product_id'], $cartItems['sku']);
+    
+                if($cartItems['product']['section_id'] == 1){
+                    $total_maxpro_price+= ($proMaxproPrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proMaxproPrice['discount_amount']));
+                    $total_maxpro_discount+= $proMaxproPrice['discount_amount']*$cartItems['quantity'];
+                }elseif($cartItems['product']['section_id'] == 3){
+                    $total_shimge_price+= ($proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']));
+                    $total_shimge_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
+                }
+            }
+    
+            $grand_total = $total_shimge_price + $total_maxpro_price + Session::get('shipping_charges'); 
+
+            Session::put('grand_total', $grand_total);
+
+            return view('front.users.append_grand_total')->with(compact('grand_total'));
+
+        }
+    }
 }

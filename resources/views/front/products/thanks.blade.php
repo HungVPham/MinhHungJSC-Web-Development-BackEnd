@@ -158,7 +158,7 @@ h1{
             </p>
         @else
             <p>Tổng trị giá: <?php 
-                $grand_total = Session::get('total_price');
+                $grand_total = Session::get('grand_total');
                 $format = number_format($grand_total,0,",",".");
                  echo $format;
                 ?> ₫ 
@@ -174,7 +174,8 @@ h1{
 </div>
 
 <script>
-   // global variables
+
+// global variables
 const confetti = document.getElementById('confetti');
 const confettiCtx = confetti.getContext('2d');
 let container, confettiElements = [], clickPosition;
@@ -199,6 +200,7 @@ const confettiParams = {
     // how fast particles are rotating around themselves
     flipSpeed: 0.017,
 };
+
 const colors = [
     { front : '#cb1c22', back: 'rgb(165, 24, 29)' },
     { front : '#db850e', back: '#be750d' },
@@ -283,6 +285,8 @@ function setupCanvas() {
     confetti.height = container.h;
 }
 
+var counter = 1;
+
 function addConfetti(e) {
     const canvasBox = confetti.getBoundingClientRect();
     if (e) {
@@ -306,11 +310,16 @@ function hideConfetti() {
     window.cancelAnimationFrame(updateConfetti)
 }
 
-confettiLoop();
-function confettiLoop() {
-    addConfetti();
-    setTimeout(confettiLoop, 700 + Math.random() * 1700);
-}
+(function(count) {
+    if (count < 5) {
+        addConfetti();
+        var caller = arguments.callee;
+        window.setTimeout(function() {
+            caller(count + 1);
+        }, 1500);    
+    }
+})(0);
+ 
 </script>
 
 
@@ -322,4 +331,5 @@ Session::forget('total_price');
 Session::forget('order_id'); 
 Session::forget('couponAmount');
 Session::forget('couponCode');
+Session::forget('shipping_charges');
 ?>

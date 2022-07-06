@@ -146,12 +146,12 @@
                       @endif     
                     </td>
                     <td>
-                      &nbsp;<a title="xem chi tiết đơn mua" id="updateorder" href="{{ url('admin/orders/'.$order['id']) }}"><i class="fas fa-edit"></i></a>
+                      <a title="xem chi tiết đơn mua" id="updateorder" href="{{ url('admin/orders/'.$order['id']) }}"><i class="fas fa-edit"></i></a>
                       @if($order['order_status'] == "Pending" || $order['order_status'] == "Completed")
-                      &nbsp;<a title="xem hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/view-order-invoice/'.$order['id']) }}"><i class="fas fa-print"></i></a>
-                      &nbsp;<a title="xuất PDF hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/print-pdf-invoice/'.$order['id']) }}"><i class="fas fa-file-pdf"></i></a>
+                      <a title="xem hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/view-order-invoice/'.$order['id']) }}"><i class="fas fa-print"></i></a>
+                      <a title="xuất PDF hóa đơn đơn mua" target="_blank" id="orderInvoice" href="{{ url('admin/print-pdf-invoice/'.$order['id']) }}"><i class="fas fa-file-pdf"></i></a>
                       @endif
-                      &nbsp;<a title="xóa đơn mua" href="javascript:void(0)" class="confirmDelete" record="order" recordid="{{ $order['id'] }}" id="deleteorder"><i class="fas fa-trash"></i></a>
+                      <a title="xóa đơn mua" href="javascript:void(0)" class="confirmDelete" record="order" recordid="{{ $order['id'] }}" id="deleteorder"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

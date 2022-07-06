@@ -210,7 +210,7 @@ use App\Product;
         @elseif($cartItems['product']['section_id'] == 3)
         <?php 
         $total_shimge_price+= ($proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']));
-        $total_maxpro_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
+        $total_shimge_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
         ?>
         @endif
         @endforeach
@@ -219,20 +219,57 @@ use App\Product;
     <div class="total-price">
         <table>
             <tr>
+                <td>Tổng Giá <small style="color: #888;">
+                
+                @if($total_shimge_discount + $total_maxpro_discount > 0)&nbsp;(đã trừ giảm giá <?php 
+                    $total_discount = $total_shimge_discount + $total_maxpro_discount; 
+                    $format = number_format($total_discount,0,",",".");
+                    echo $format;
+                    ?> ₫)</small>
+                @endif
+
+                </td>
+                <td>
+                <?php 
+                $total_price = $total_shimge_price + $total_maxpro_price; 
+                $format = number_format($total_price,0,",",".");
+                    echo $format;
+                ?> ₫
+                </td>
+            </tr>
+            <tr>
+                <td>Phí Giao Hàng</td>
+                <td>
+                    <div id="appendShippingCharges">
+                        <span>
+
+                            0 ₫
+                            
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td>Tổng Thanh Toán</td>
                 <td class="totalAmount">
-                    <?php 
-                    $total_price = $total_shimge_price + $total_maxpro_price; 
-                    $format = number_format($total_price,0,",",".");
-                    echo $format;
-                    ?> ₫
-                     <?php Session::put('total_price',$total_price); ?>
+                    
+                    <div id="appendGrandTotal">
+                        <span>
+                            <?php 
+                            $grand_total = $total_shimge_price + $total_maxpro_price; 
+                            $format = number_format($grand_total,0,",",".");
+                                echo $format;
+                            ?> ₫
+                        </span>
+                    </div>
+                    
+                    <?php Session::put('grand_total',$grand_total); ?> 
                 </td>
             </tr>
         </table>
     </div>
     <div class="voucher-containter">
-            <label><strong>Thông Tin Quý Khách Mua Hàng</strong></label>
+            <label><strong>Thông Tin</strong></label>
             <div class="price-quotation-form-containter">
                 <div class="price-quotation-input-containter">
                     <input id="full_name" name="full_name" placeholder="Họ và tên (bắt buộc)">
@@ -246,14 +283,33 @@ use App\Product;
                 </div>
                 <div class="price-quotation-input-containter">
                     <input id="company_name" name="company_name" placeholder="Tên doanh nghiệp (nếu có)">
-                </div> 
-                <div class="price-quotation-input-containter">
-                    <input id="address" name="address" placeholder="Địa chỉ nhận hàng (bắt buộc)">
-                </div>
+                </div>   
                 <div class="price-quotation-input-containter">
                     <input id="order_note" name="order_note" placeholder="Ghi chú đơn hàng (nếu có)">
                 </div>
             </div>     
+            <label><strong>Giao Hàng</strong></label>
+            <div class="price-quotation-form-containter">
+                <div class="price-quotation-input-containter">
+                    <label for="province">Tỉnh/Thành phố:</label>
+                    <select autocomplete="off" id="province" name="province" style="width: 100%;" class="select2">
+                        <option value="">chọn tỉnh/thành phố</option>
+                        @foreach($provinces as $province)
+                        <option value="{{ $province['id'] }}">{{ $province['_prefix'] }} {{ $province['_name'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div id="appendDistrictsLevel" class="price-quotation-input-containter">
+                    @include('front.users.append_districts_level')
+                </div>
+                <div id="appendWardsLevel" class="price-quotation-input-containter">
+                    @include('front.users.append_wards_level')
+                </div>
+                <div class="price-quotation-input-containter">
+                    <label for="address">Địa chỉ nhận hàng</label>
+                    <input style="margin: 0 !important" id="address" name="address" placeholder="địa chỉ nhận hàng cụ thể">
+                </div>
+             </div>
         <div id="payment-methods-container">
             <table id="payment-methods-table">
                 <tr>
@@ -295,4 +351,5 @@ use App\Product;
     </div>
     </form>
 </div>
+
 @endsection

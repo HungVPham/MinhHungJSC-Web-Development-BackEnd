@@ -996,17 +996,19 @@ $(document).ready(function () {
         }
       });
   });
-
   
   $(document).on('change', '#province', function(){
     var province_id = $(this).val();
     $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         type:'post',
         url:'/append-districts-level',
         data:{province_id:province_id},
         success:function(resp){
             $("#appendDistrictsLevel").html(resp);
-            $("#appendWardsLevel").html('<label for="ward">Phường Xã:</label><select id="ward" name="ward" style="width: 100%;" class="form-control select2"><option value="">chọn phường/xã</option></select>');
+            $("#appendWardsLevel").html('<label for="ward">Phường/Xã:</label><select id="ward" name="ward" style="width: 100%;" class="form-control select2"><option value="">chọn phường/xã</option></select>');
             $(".select2").select2(); // init the select
         },error:function(){
             alert("Error");
@@ -1018,6 +1020,9 @@ $(document).ready(function () {
     // alert("test");
     var district_id = $(this).val();
     $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         type:'post',
         url:'/append-wards-level',
         data:{district_id:district_id},
@@ -1038,6 +1043,32 @@ $(document).ready(function () {
     $('#bankingInfo').hide();
   });
 
+  // Calculate Shipping Charges and Updated Grand Total
+  $("input[name=address_id]").bind('change', function(){
+    var shipping_charges = $(this).attr("shipping_charges");
+    var total_price = $(this).attr("total_price");
+    var coupon_amount = $(this).attr("coupon_amount");
+
+    var formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    });
+
+   // alert(coupon_amount);
+
+    if(coupon_amount == ""){
+      coupon_amount = 0;
+    }
+
+    $(".shipping_charges").html(formatter.format(shipping_charges));
+
+    var grand_total = parseInt(total_price) - parseInt(coupon_amount) + parseInt(shipping_charges);
+
+    $(".grand_total").html(formatter.format(grand_total));
+
+  });
+
+  
   
 }); 
 
