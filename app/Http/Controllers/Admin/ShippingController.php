@@ -26,13 +26,13 @@ class ShippingController extends Controller
         if($id==""){
             // add shipping charge
             $shipping = new ShippingCharge;
-            $title = "Thêm Phí Giao Hàng";
-            $message = 'Phí giao hàng đã được thêm!';
+            $title = "Thêm Phí Vận Chuyển";
+            $message = 'Phí vận chuyển đã được thêm!';
         }else{
             // edit shipping charge
             $shipping = ShippingCharge::find($id);
-            $title = "Sửa Phí Giao Hàng";
-            $message = 'Phí giao hàng đã được sửa thành công!';
+            $title = "Sửa Phí Vận Chuyển";
+            $message = 'Phí vận chuyển đã được sửa thành công!';
         }
 
         $countries = Country::where('status', 1)->get()->toArray();
@@ -45,13 +45,13 @@ class ShippingController extends Controller
         if($request->isMethod('post')){
 
             $rules = [
-                'shipping_charges' => 'required',
+                '0_1000g' => 'required',
                 'province' => 'required',
                 'district' => 'required',
                 'ward' => 'required',
             ];  
             $customMessages = [
-                'shipping_charges.required' => 'Vui lòng thêm phí giao hàng.',
+                '0_1000g.required' => 'Vui lòng thêm ít nhất một phí vận chuyển.',
                 'province.required' => 'Vui lòng chọn tỉnh/thành.',
                 'district.required' => 'Vui lòng chọn quận/huyện.',
                 'ward.required' => 'Vui lòng chọn phường/xã.',
@@ -77,7 +77,17 @@ class ShippingController extends Controller
             $shipping->ward_id = $data['ward'];
 
             $shipping->country = "Việt Nam";
-            $shipping->shipping_charges = $data['shipping_charges'];
+
+            $first_tier = '0_1000g';
+            $second_tier = '1001_3000g';
+            $third_tier = '3001_5000g';
+            $fourth_tier = '5001_10000g';
+
+            $shipping->$first_tier = $data['0_1000g'];
+            $shipping->$second_tier = $data['1001_3000g'];
+            $shipping->$third_tier = $data['3001_5000g'];
+            $shipping->$fourth_tier = $data['5001_10000g'];
+            $shipping->above_10000g = $data['above_10000g'];
         
             $shipping->save();
 

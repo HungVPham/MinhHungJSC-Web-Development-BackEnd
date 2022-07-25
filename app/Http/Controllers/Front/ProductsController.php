@@ -761,20 +761,20 @@ class ProductsController extends Controller
     public function checkout(Request $request){
 
         $userCartItems = Cart::userCartItems();
-        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
-
-        foreach($deliveryAddresses as $key => $value){
-            $shippingCharges = ShippingCharge::getShippingCharges($value['province_id'], $value['district_id'], $value['ward_id']);
-
-            $deliveryAddresses[$key]['shipping_charges'] = $shippingCharges;
-        }
 
         $total_maxpro_price = 0; 
         $total_shimge_price = 0; 
         $total_maxpro_discount = 0; 
         $total_shimge_discount = 0;
-      
+        $total_weight = 0;
+
         foreach($userCartItems as $key => $cartItems){
+            // echo "<pre>"; print_r($cartItems); die;
+
+            $product_weight = $cartItems['product']['product_weight'];
+
+            $total_weight += $product_weight * $cartItems['quantity'];
+
             $proMaxproPrice = Product::getDiscountedMaxproPrice($cartItems['product_id'], $cartItems['sku']);        
             $proShimgePrice = Product::getDiscountedShimgePrice($cartItems['product_id'], $cartItems['sku']);
 
@@ -789,7 +789,17 @@ class ProductsController extends Controller
 
         $total_price = $total_shimge_price + $total_maxpro_price; 
 
+        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
 
+        foreach($deliveryAddresses as $key => $value){
+            $shippingCharges = ShippingCharge::getShippingCharges($value['province_id'], $value['district_id'], $value['ward_id'], $total_weight);
+
+            $deliveryAddresses[$key]['shipping_charges'] = $shippingCharges;
+        }
+
+
+        // dd($userCartItems); die;
+      
         if($request->isMethod('post')){
             $data = $request->all();
             // echo Session::get('grand_total');
@@ -823,7 +833,7 @@ class ProductsController extends Controller
            
            // get shipping charges 
 
-           $shipping_charges = ShippingCharge::getShippingCharges($deliveryAddress['province_id'], $deliveryAddress['district_id'], $deliveryAddress['ward_id']);
+           $shipping_charges = ShippingCharge::getShippingCharges($deliveryAddress['province_id'], $deliveryAddress['district_id'], $deliveryAddress['ward_id'], $total_weight);
 
            // calculate grand_total
 
@@ -976,25 +986,6 @@ class ProductsController extends Controller
         }else{
             abort(404);
         }
-    }
-
-    public function thanks(){
-        // Empty the User Cart
-
-        if(Session::has('order_id')){
-            
-            if(Auth::check()){
-                Cart::where('user_id',Auth::user()->id)->delete();
-            }else{
-                Cart::where('session_id',Session::get('session_id'))->delete();
-            }
-
-            return view('front.products.thanks');
-    
-        }else{
-            abort(404);
-        }
-
     }
 
     public function checkOutForNonUser(Request $request){
@@ -1175,6 +1166,25 @@ class ProductsController extends Controller
         
     }
 
+    public function thanks(){
+        // Empty the User Cart
+
+        if(Session::has('order_id')){
+            
+            if(Auth::check()){
+                Cart::where('user_id',Auth::user()->id)->delete();
+            }else{
+                Cart::where('session_id',Session::get('session_id'))->delete();
+            }
+
+            return view('front.products.thanks');
+    
+        }else{
+            abort(404);
+        }
+
+    }
+
     public function addEditDeliveryAddress($id=null, Request $request){
         
         if($id == ""){
@@ -1297,9 +1307,21 @@ class ProductsController extends Controller
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
+            $userCartItems = Cart::userCartItems();
+
+            $total_weight = 0;
+          
+            foreach($userCartItems as $key => $cartItems){
+
+                $product_weight = $cartItems['product']['product_weight'];
+
+                $total_weight += $product_weight * $cartItems['quantity'];
+
+            }
+
             $getWard = Ward::where('id', $data['ward_id'])->get()->toArray();
 
-            $shipping_charges = ShippingCharge::getShippingCharges($getWard[0]['_province_id'], $getWard[0]['_district_id'], $getWard[0]['id']);
+            $shipping_charges = ShippingCharge::getShippingCharges($getWard[0]['_province_id'], $getWard[0]['_district_id'], $getWard[0]['id'], $total_weight);
 
             Session::put('shipping_charges', $shipping_charges);
 
@@ -1318,6 +1340,7 @@ class ProductsController extends Controller
             $total_shimge_discount = 0;
           
             foreach($userCartItems as $key => $cartItems){
+
                 $proMaxproPrice = Product::getDiscountedMaxproPrice($cartItems['product_id'], $cartItems['sku']);        
                 $proShimgePrice = Product::getDiscountedShimgePrice($cartItems['product_id'], $cartItems['sku']);
     
@@ -1328,6 +1351,7 @@ class ProductsController extends Controller
                     $total_shimge_price+= ($proShimgePrice['product_price'] * $cartItems['quantity'] - ($cartItems['quantity'] * $proShimgePrice['discount_amount']));
                     $total_shimge_discount+= $proShimgePrice['discount_amount']*$cartItems['quantity'];
                 }
+                
             }
     
             $grand_total = $total_shimge_price + $total_maxpro_price + Session::get('shipping_charges'); 

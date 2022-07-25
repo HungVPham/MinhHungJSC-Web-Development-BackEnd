@@ -75,10 +75,12 @@
                     <th>Phường/Xã</th>
                     <th>Quận/Huyện</th>
                     <th>Tỉnh/Thành Phố</th>
-                    <th>Quốc Gia</th>
-                    <th>Phí Giao Hàng</th>
+                    <th>0-1 kg</th>
+                    <th>1-3 kg</th>
+                    <th>3-5 kg</th>
+                    <th>5-10 kg</th>
+                    <th>hơn 10 kg</th>
                     <th>Trạng Thái</th>
-                    <th>Lần Sửa Cuối</th>
                     <th>Điều Khiển</th>
                   </tr>
                   </thead>
@@ -89,10 +91,29 @@
                     <td>{{ $ship['ward'] }}</td>
                     <td>{{ $ship['district'] }}</td>
                     <td>{{ $ship['province'] }}</td>
-                    <td>{{ $ship['country'] }}</td>
                     <td>
                       <?php 
-                      echo number_format($ship['shipping_charges'],0,",",".");
+                      echo number_format($ship['0_1000g'],0,",",".");
+                      ?> ₫
+                    </td>
+                    <td>
+                      <?php 
+                      echo number_format($ship['1001_3000g'],0,",",".");
+                      ?> ₫
+                    </td>
+                    <td>
+                      <?php 
+                      echo number_format($ship['3001_5000g'],0,",",".");
+                      ?> ₫
+                    </td>
+                    <td>
+                      <?php 
+                      echo number_format($ship['5001_10000g'],0,",",".");
+                      ?> ₫
+                    </td>
+                    <td>
+                      <?php 
+                      echo number_format($ship['above_10000g'],0,",",".");
                       ?> ₫
                     </td>
                     <td style="width: 135px;">
@@ -102,7 +123,6 @@
                         <a class="updateShippingStatus" id="shipping-{{ $ship['id'] }}" shipping_id="{{ $ship['id'] }}" href="javascript:void(0)" style="color: var(--Delete-Red);"><i id="inactive" style="color: var(--Delete-Red); font-size: 1.05rem;" class="fas fa-toggle-off" aria-hidden="true"> chưa hoạt động</i></a> 
                         @endif
                     </td>
-                    <td>{{ date('d-m-Y', strtotime($ship['updated_at'])) }}</td>
                     <td> &nbsp;<a title="cập nhật phí giao hàng" id="updateshipping" href="{{ url('admin/add-edit-shipping-charges/'.$ship['id']) }}"><i class="fas fa-edit"></i></a>
                       &nbsp;<a title="xóa phí giao hàng" href="javascript:void(0)" class="confirmDelete" record="shipping-charge" recordid="{{ $ship['id'] }}" id="deleteshipping"><i class="fas fa-trash"></i></a></td>
                   </tr>

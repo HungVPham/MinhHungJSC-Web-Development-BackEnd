@@ -168,6 +168,9 @@
                       @endforeach
                     </select>
                   </div>
+                  @if(!empty($productdata['section_id']))
+                    <input type="hidden" name="parentCategory_id" value="{{ $productdata['parentCategory_id'] }}">
+                  @endif
                   <div id="appendPrimeCategoriesLevel">
                     @include('admin.categories.append_prime_categories_level')
                   </div>

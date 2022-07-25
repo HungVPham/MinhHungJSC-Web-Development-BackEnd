@@ -71,7 +71,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" id="admin-home">Trang Chủ</a></li>
-              <li class="breadcrumb-item active"><a href="{{ url('admin/shipping-charges') }}" id="admin-prev">Phí Giao Hàng</a></li>
+              <li class="breadcrumb-item active"><a href="{{ url('admin/shipping-charges') }}" id="admin-prev">Phí vận chuyển</a></li>
               <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div>
@@ -117,24 +117,108 @@
               <div class="row">
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="shipping_charges">&nbsp;Phí Giao Hàng @if(empty($shipping['shipping_charges']))(10000 &#8594; 10,000) [VND]@endif</label>
-                    <input type="number" min="0" class="form-control" name="shipping_charges" id="shipping_charges" placeholder="nhập phí giao hàng..."
-                    @if (!empty($shipping['shipping_charges'])) 
-                      value="{{ $shipping['shipping_charges'] }}"
-                    @elseif($shipping['shipping_charges'] == 0)
+                    <label for="0_1000g">&nbsp;từ 0 - 1 Kilogram @if(empty($shipping['0_1000g']))(10000 &#8594; 10,000) [VND]@endif @if(empty($shipping['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
+                    <input type="number" min="0" class="form-control" name="0_1000g" id="0_1000g" placeholder="nhập phí vận chuyển..."
+                    @if (!empty($shipping['0_1000g'])) 
+                      value="{{ $shipping['0_1000g'] }}"
+                    @elseif($shipping['0_1000g'] == 0)
                     value="0"
                     @else 
-                      value="{{ old("shipping_charges") }}"
+                      value="{{ old("0_1000g") }}"
                     @endif>
-                    @if(!empty($shipping['shipping_charges']))
-                    <div style="color: grey">&nbsp;&nbsp;phí giao hàng hiện tại = <?php 
-                          $num = $shipping['shipping_charges'];
+                    @if(!empty($shipping['0_1000g']))
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = <?php 
+                          $num = $shipping['0_1000g'];
                           $format = number_format($num,0,",",".");
                           echo $format;
                         ?> ₫
                     </div>
-                    @elseif($shipping['shipping_charges'] == 0)
-                    <div style="color: grey">&nbsp;&nbsp;phí giao hàng hiện tại = 0 ₫</div>
+                    @elseif($shipping['0_1000g'] == 0)
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = 0 ₫</div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="1001_3000g">&nbsp;từ 1 - 3 Kilogram</label>
+                    <input type="number" min="0" class="form-control" name="1001_3000g" id="1001_3000g" placeholder="nhập phí vận chuyển..."
+                    @if (!empty($shipping['1001_3000g'])) 
+                      value="{{ $shipping['1001_3000g'] }}"
+                    @elseif($shipping['1001_3000g'] == 0)
+                    value="0"
+                    @else 
+                      value="{{ old("1001_3000g") }}"
+                    @endif>
+                    @if(!empty($shipping['1001_3000g']))
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = <?php 
+                          $num = $shipping['1001_3000g'];
+                          $format = number_format($num,0,",",".");
+                          echo $format;
+                        ?> ₫
+                    </div>
+                    @elseif($shipping['1001_3000g'] == 0)
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = 0 ₫</div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="3001_5000g">&nbsp;từ 3 - 5 Kilogram</label>
+                    <input type="number" min="0" class="form-control" name="3001_5000g" id="3001_5000g" placeholder="nhập phí vận chuyển..."
+                    @if (!empty($shipping['3001_5000g'])) 
+                      value="{{ $shipping['3001_5000g'] }}"
+                    @elseif($shipping['3001_5000g'] == 0)
+                    value="0"
+                    @else 
+                      value="{{ old("3001_5000g") }}"
+                    @endif>
+                    @if(!empty($shipping['3001_5000g']))
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = <?php 
+                          $num = $shipping['3001_5000g'];
+                          $format = number_format($num,0,",",".");
+                          echo $format;
+                        ?> ₫
+                    </div>
+                    @elseif($shipping['3001_5000g'] == 0)
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = 0 ₫</div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="5001_10000g">&nbsp;từ 5 - 10 Kilogram</label>
+                    <input type="number" min="0" class="form-control" name="5001_10000g" id="5001_10000g" placeholder="nhập phí vận chuyển..."
+                    @if (!empty($shipping['5001_10000g'])) 
+                      value="{{ $shipping['5001_10000g'] }}"
+                    @elseif($shipping['5001_10000g'] == 0)
+                    value="0"
+                    @else 
+                      value="{{ old("5001_10000g") }}"
+                    @endif>
+                    @if(!empty($shipping['5001_10000g']))
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = <?php 
+                          $num = $shipping['5001_10000g'];
+                          $format = number_format($num,0,",",".");
+                          echo $format;
+                        ?> ₫
+                    </div>
+                    @elseif($shipping['5001_10000g'] == 0)
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = 0 ₫</div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="above_10000g">&nbsp;trên 10 Kilogram</label>
+                    <input type="number" min="0" class="form-control" name="above_10000g" id="above_10000g" placeholder="nhập phí vận chuyển..."
+                    @if (!empty($shipping['above_10000g'])) 
+                      value="{{ $shipping['above_10000g'] }}"
+                    @elseif($shipping['above_10000g'] == 0)
+                    value="0"
+                    @else 
+                      value="{{ old("above_10000g") }}"
+                    @endif>
+                    @if(!empty($shipping['above_10000g']))
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = <?php 
+                          $num = $shipping['above_10000g'];
+                          $format = number_format($num,0,",",".");
+                          echo $format;
+                        ?> ₫
+                    </div>
+                    @elseif($shipping['above_10000g'] == 0)
+                    <div style="color: grey">&nbsp;&nbsp;phí vận chuyển hiện tại = 0 ₫</div>
                     @endif
                   </div>
                 </div>
@@ -147,7 +231,7 @@
                     @endif>
                   </div>
                   <div class="form-group">
-                    <label for="province">Tỉnh/Thành phố:</label>
+                    <label for="province">Tỉnh/Thành phố: @if(empty($shipping['id']))<span class="required" aria-hidden="true">*</span>@endif</label>
                     <select autocomplete="off" id="province" name="province" style="width: 100%;" class="select2">
                         <option value="">chọn tỉnh/thành phố</option>
                         @foreach($provinces as $province)
