@@ -806,6 +806,11 @@ class ProductsController extends Controller
 
             // print_r($data); die;
 
+            // Website Security Checks
+            // foreach 
+
+
+
             if(empty($data['address_id'])){
                 $message = "Xin vui lòng chọn địa chỉ nhận hàng!";
                 session::flash('error_message', $message);
@@ -938,6 +943,24 @@ class ProductsController extends Controller
                 $cartItem->product_qty = $item['quantity'];
 
                 $cartItem->save();
+
+                // reduce stock script starts
+
+                if($getProductDetails['section_id'] == 1){
+                    $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                }else if($getProductDetails['section_id'] == 3){
+                    $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                }
+
+                $newStock = $getProductStock['stock'] - $item['quantity'];
+
+                if($getProductDetails['section_id'] == 1){
+                    $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                }else if($getProductDetails['section_id'] == 3){
+                    $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                }
+
+                // reduce stock script ends  
             }
 
             // empty the user cart
@@ -1123,6 +1146,24 @@ class ProductsController extends Controller
                      $cartItem->product_qty = $item['quantity'];
      
                      $cartItem->save();
+
+                    // reduce stock script starts
+
+                    if($getProductDetails['section_id'] == 1){
+                        $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                    }else if($getProductDetails['section_id'] == 3){
+                        $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                    }
+
+                    $newStock = $getProductStock['stock'] - $item['quantity'];
+
+                    if($getProductDetails['section_id'] == 1){
+                        $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                    }else if($getProductDetails['section_id'] == 3){
+                        $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                    }
+
+                    // reduce stock script ends
                  }
              
                 Session::put('order_id', $uuid);

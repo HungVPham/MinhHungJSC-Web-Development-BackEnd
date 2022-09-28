@@ -10,6 +10,11 @@ use App\OrdersLog;
 use App\OrderStatus;
 use Session;
 use App\User;
+use App\MaxproProductAttributes;
+use App\HhoseProductAttributes;
+use App\ShimgeProductAttributes;
+use App\Country;
+use App\Product;
 
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -58,6 +63,57 @@ class OrdersController extends Controller
             // echo "<pre>"; print_r($data); die;
 
             $orderDetails = Order::with('orders_products')->where('id', $data['order_id'])->first()->toArray();
+
+          
+
+            if($data['order_status'] == "Cancelled"){
+
+              foreach($orderDetails['orders_products'] as $item){
+
+                $getProductDetails = Product::select('section_id')->where('id',$item['product_id'])->first()->toArray();
+
+                // echo "<pre>"; print_r($item); die;
+
+                if($getProductDetails['section_id'] == 1){
+                  $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                }else if($getProductDetails['section_id'] == 3){
+                  $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                }
+
+                $newStock = $getProductStock['stock'] + $item['product_qty'];
+
+                if($getProductDetails['section_id'] == 1){
+                    $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                }else if($getProductDetails['section_id'] == 3){
+                    $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                }
+
+              }
+
+            }else if($orderDetails['order_status'] == "Cancelled" && $data['order_status'] != "Cancelled"){
+              
+              foreach($orderDetails['orders_products'] as $item){
+
+                $getProductDetails = Product::select('section_id')->where('id',$item['product_id'])->first()->toArray();
+
+                if($getProductDetails['section_id'] == 1){
+                  $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                }else if($item['section_id'] == 3){
+                  $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->first()->toArray();
+                }
+
+                $newStock = $getProductStock['stock'] - $item['product_qty'];
+
+                if($getProductDetails['section_id'] == 1){
+                    $getProductStock = MaxproProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                }else if($item['section_id'] == 3){
+                    $getProductStock = ShimgeProductAttributes::where(['product_id'=>$item['product_id'],'sku'=>$item['sku']])->update(['stock'=>$newStock]);
+                }
+
+              }
+
+            }
+            
 
             // calculate new grand_total
 

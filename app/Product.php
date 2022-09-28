@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Cart;
 
 class Product extends Model
 {
@@ -130,5 +131,15 @@ class Product extends Model
     public static function getProductImage($product_id){
         $getProductImage = Product::select('main_image')->where('id',$product_id)->first()->toArray();
         return $getProductImage['main_image'];
+    }
+
+    public static function getProductStatus($product_id){
+        $getProductStatus = Product::select('status')->where('id',$product_id)->first();
+
+        return $getProductStatus['status'];
+    }
+
+    public static function deleteCartProduct($product_id){
+        Cart::where('product_id',$product_id)->delete();
     }
 }
