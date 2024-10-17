@@ -65,7 +65,7 @@ $countPopup = Popup::countPopup();
                     <a href="{{ url('products/'.$item['id']) }}">
                         <?php $product_image_path = 'images/product_images/main_image/medium/'.$item['main_image']; ?>
                                 @if(!empty($item['main_image'])&&file_exists($product_image_path))
-                                <img  loading="lazy"src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
+                                <img  loading="lazy" src="{{ asset($product_image_path) }}" alt="sản phẩm mới">
                                 @else
                                 <img  loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                                 @endif

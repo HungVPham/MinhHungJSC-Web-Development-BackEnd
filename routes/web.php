@@ -58,7 +58,26 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::match(['get', 'post'], 'add-edit-category/{id?}', 'CategoryController@addEditCategory');
         Route::post('append-categories-level','CategoryController@appendCategoryLevel');
         Route::get('delete-category/{id}','CategoryController@deleteCategory');
-        
+
+        // blog categories  
+        Route::get('blog-categories','BlogCategoriesController@blogCategories');
+        Route::post('update-blog-category-status', 'BlogCategoriesController@updateBlogCategoryStatus');
+        Route::match(['get', 'post'], 'add-edit-blog-category/{id?}', 'BlogCategoriesController@addEditBlogCategory');
+        Route::post('append-blog-categories-level','BlogCategoriesController@appendBlogCategoryLevel');
+        Route::get('delete-category/{id}','BlogCategoriesController@deleteBlogCategory');
+
+        // blogs
+        Route::get('blogs','BlogController@blogs');
+        Route::post('update-blog-status', 'BlogController@updateBlogStatus');
+        Route::get('delete-blog/{id}','BlogController@deleteBlog');
+        Route::match(['get', 'post'], 'add-edit-blog/{id?}', 'BlogController@addEditBlog');
+
+        Route::get('delete-blog-image/{id}','BlogController@deleteBlogImage');
+
+        // add blogs images 
+        Route::match(['get', 'post'],'blogs/add-images/{id}','BlogController@addImages');
+        Route::post('blogs/update-image-status', 'BlogController@updateImageStatus');
+        Route::get('delete-blog-sec-image/{id}','BlogController@deleteImage');
 
         // products
         Route::get('products','ProductController@products');
@@ -117,12 +136,12 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('update-cms-page-status', 'CmsController@updateCmsPageStatus');
         Route::get('delete-cms-page/{id}','CmsController@deleteCmsPage');
 
-         // about pages
-         Route::get('about-pages','AboutController@AboutPages');
-         Route::get('delete-infographic-image/{id}','AboutController@deleteInfographicImage');
-         Route::match(['get', 'post'], 'add-edit-about-page/{id?}', 'AboutController@addEditAboutPage');
-         Route::post('update-about-page-status', 'AboutController@updateAboutPageStatus');
-         Route::get('delete-about-page/{id}','AboutController@deleteAboutPage');
+        // about pages
+        Route::get('about-pages','AboutController@AboutPages');
+        Route::get('delete-infographic-image/{id}','AboutController@deleteInfographicImage');
+        Route::match(['get', 'post'], 'add-edit-about-page/{id?}', 'AboutController@addEditAboutPage');
+        Route::post('update-about-page-status', 'AboutController@updateAboutPageStatus');
+        Route::get('delete-about-page/{id}','AboutController@deleteAboutPage');
 
         // catalogue pages
         Route::get('catalogue-pages','CatalogueController@CataloguePages');
@@ -202,7 +221,6 @@ Route::namespace('Front')->group(function(){
 
     // contact us page route
     Route::match(['get', 'post'], '/contact-us', 'CmsController@contact');
-
 
     // detail page route
     Route::get('/products/{id}','ProductsController@detail');

@@ -314,6 +314,9 @@ class ProductsController extends Controller
            $cart = new Cart;
            $cart->session_id = $session_id;
            $cart->user_id = $user_id;
+
+           $cart->section_id = 1;
+        
            $cart->product_id = $data['product_id'];
            $cart->category_id = $data['category_id'];
            $cart->brand_id = $data['brand_id'];
@@ -419,6 +422,9 @@ class ProductsController extends Controller
            $cart->product_id = $data['product_id'];
            $cart->category_id = $data['category_id'];
            $cart->brand_id = $data['brand_id'];
+
+           $cart->section_id = 3;
+
            $cart->sku = $data['sku'];
            $cart->quantity = $data['quantity'];
            $cart->save();
@@ -802,14 +808,32 @@ class ProductsController extends Controller
       
         if($request->isMethod('post')){
             $data = $request->all();
-            // echo Session::get('grand_total');
-
-            // print_r($data); die;
 
             // Website Security Checks
-            // foreach 
 
+            // fetch user cart items 
+            foreach($userCartItems as $key => $cart){
+                // Prevent disabled product to order
 
+                $product_count = Product::getProductCount($cart['product_id']);
+                $productAttr_count = Product::getProductAttributeCount($cart['section_id'], $cart['product_id'], $cart['sku']);
+                $productAttr_stock = Product::getProductAttributeStock($cart['section_id'], $cart['product_id'], $cart['sku']);
+                $category_count = Product::getCategoryCount($cart['category_id']);
+
+                if($product_count == 0 || $category_count == 0){
+                    Product::deleteCartProduct($cart['product_id']);
+                    $message = "Dòng sản phẩm ".$cart['product']['product_name']." hiện không có sẵn.";
+                    session::flash('error_message', $message);
+                    return redirect('/cart');
+                }
+
+                if($productAttr_count == 0 || $productAttr_stock == 0){
+                    Product::deleteCartProductAttr($cart['product_id'], $cart['sku']);
+                    $message = "Mã sản phẩm ".$cart['sku']." hiện không có sẵn.";
+                    session::flash('error_message', $message);
+                    return redirect('/cart');
+                }
+            }
 
             if(empty($data['address_id'])){
                 $message = "Xin vui lòng chọn địa chỉ nhận hàng!";
@@ -1018,6 +1042,32 @@ class ProductsController extends Controller
         $provinces = Province::get()->toArray();
 
         if($request->isMethod('post')){
+            // Website Security Checks
+
+            // fetch user cart items 
+            foreach($userCartItems as $key => $cart){
+                // Prevent disabled product to order
+
+                $product_count = Product::getProductCount($cart['product_id']);
+                $productAttr_count = Product::getProductAttributeCount($cart['section_id'], $cart['product_id'], $cart['sku']);
+                $productAttr_stock = Product::getProductAttributeStock($cart['section_id'], $cart['product_id'], $cart['sku']);
+                $category_count = Product::getCategoryCount($cart['category_id']);
+
+                if($product_count == 0 || $category_count == 0){
+                    Product::deleteCartProduct($cart['product_id']);
+                    $message = "Dòng sản phẩm ".$cart['product']['product_name']." hiện không có sẵn.";
+                    session::flash('error_message', $message);
+                    return redirect('/cart');
+                }
+
+                if($productAttr_count == 0 || $productAttr_stock == 0){
+                    Product::deleteCartProductAttr($cart['product_id'], $cart['sku']);
+                    $message = "Mã sản phẩm ".$cart['sku']." hiện không có sẵn.";
+                    session::flash('error_message', $message);
+                    return redirect('/cart');
+                }
+            }
+
 
             $data = $request->all();
             // echo Session::get('grand_total');

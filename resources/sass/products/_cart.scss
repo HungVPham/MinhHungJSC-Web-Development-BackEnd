@@ -3,6 +3,8 @@
 .cart-page {
     margin: 80px auto;
 
+    min-height: calc(100vh - 467.233px - 160px);
+
     h2{
         font-size: 2.5rem;
         font-weight: 600;

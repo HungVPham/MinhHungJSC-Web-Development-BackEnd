@@ -4,6 +4,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+
+    min-height: calc(100vh - (382.233px + 85px));
     
     .alert .close, .alert .mailbox-attachment-close {
         color: #ffffff;
@@ -31,7 +33,7 @@
     margin: 60px auto;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
     backdrop-filter: saturate(100%) blur(3px);
-    margin-left: 23px;
+    // margin-left: 23px;
 
     .form-btn{
         text-align: center;

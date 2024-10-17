@@ -8,6 +8,8 @@
     position: relative;
     padding-bottom: 750px;
 
+    min-height: calc(100vh - (382.233px + 85px));
+
     a {
         text-decoration: none;
     }

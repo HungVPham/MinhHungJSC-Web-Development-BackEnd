@@ -15,19 +15,19 @@ $(document).ready(function () {
     }
   });
   var isshow = sessionStorage.getItem('isshow');
-
   if (isshow == null) {
-    sessionStorage.setItem('isshow', 1); // Show popup here
+    sessionStorage.setItem('isshow', 1);
 
+    // Show popup here
     $("#popup").fadeIn("slow");
     $(".popup_background").fadeIn("slow");
     $('body').css('overflow', 'hidden');
   } else {
     $(".popup_background").hide();
     $("#popup").hide();
-  } //close the POPUP if the button with id="close" is clicked
+  }
 
-
+  //close the POPUP if the button with id="close" is clicked
   $("#close").on("click", function (e) {
     e.preventDefault();
     $("#popup").fadeOut(200);
@@ -36,19 +36,16 @@ $(document).ready(function () {
   });
   var scrollToTopBtn = document.getElementById("scrollToTopBtn");
   var rootElement = document.documentElement;
-
   function scrollToTop() {
     rootElement.scrollTo({
       top: 0,
       behavior: "smooth"
     });
   }
-
   scrollToTopBtn.addEventListener("click", scrollToTop);
   lastScroll = 0;
   $(window).on("scroll", function () {
     var scroll = $(window).scrollTop();
-
     if (lastScroll - scroll > 0) {
       $('.header').addClass('sticky');
       $('.toTopBg').addClass('active');
@@ -56,12 +53,10 @@ $(document).ready(function () {
       $('.header').removeClass('sticky');
       $('.toTopBg').removeClass('active');
     }
-
     if (scroll == 0) {
       $('.header').removeClass('sticky');
       $('.toTopBg').removeClass('active');
     }
-
     lastScroll = scroll;
   }); // sticky header
 
@@ -106,7 +101,6 @@ $(document).ready(function () {
       $('.prev').show();
     } //If we're on the last slide hide the Next button.
 
-
     if (slick.slideCount === currentSlide + 1) {
       $('.next').hide();
     }
@@ -147,7 +141,6 @@ $(document).ready(function () {
     } else {
       $('.prev').show();
     } //If we're on the last slide hide the Next button.
-
 
     if (slick.slideCount === currentSlide + 1) {
       $('.next').hide();
@@ -192,7 +185,6 @@ $(document).ready(function () {
     } else {
       $('.prev').show();
     } //If we're on the last slide hide the Next button.
-
 
     if (slick.slideCount === currentSlide + 1) {
       $('.next').hide();
@@ -289,7 +281,8 @@ $(document).ready(function () {
 
   $("#getHhosePrice").change(function () {
     var sku = $(this).val();
-    var product_id = $(this).attr("product-id"); // $.ajax({
+    var product_id = $(this).attr("product-id");
+    // $.ajax({
     //   url: '/get-hhose-product-price',
     //   data: {
     //     sku: sku,
@@ -303,6 +296,7 @@ $(document).ready(function () {
     //     });
     //     var data = formatter.format(resp['product_price']);
     //     var dataDiscounted = formatter.format(resp['discounted_price']);
+
     //     if(resp['discounted_price']>0){
     //       $(".getHhoseAttrPrice").html("<del>"+data+"</del>"+"<strong style='color: var(--MinhHung-Red)'>&nbsp;&nbsp;&nbsp;"+dataDiscounted)+'</strong>';
     //     }else{
@@ -317,7 +311,6 @@ $(document).ready(function () {
     //     });
     //   }
     // });
-
     $.ajax({
       url: '/get-hhose-product-diameter',
       data: {
@@ -497,23 +490,18 @@ $(document).ready(function () {
     if ($(this).hasClass('plus')) {
       var $qty = $(this).closest('.number-input').find('.quantity');
       var currentVal = parseInt($qty.val());
-
       if (!isNaN(currentVal)) {
         $qty.val(currentVal + 1);
       }
-
       new_qty = currentVal + 1;
     }
-
     if ($(this).hasClass('minus')) {
       var $qty = $(this).closest('.number-input').find('.quantity');
       var currentVal = parseInt($qty.val());
-
       if (!isNaN(currentVal) && currentVal > 1) {
         $qty.val(currentVal - 1);
         new_qty = currentVal - 1;
       }
-
       if (currentVal <= 1) {
         Swal.fire({
           title: 'Xác nhận xóa?',
@@ -535,7 +523,6 @@ $(document).ready(function () {
               success: function success(resp) {
                 $("#AppendCartItems").html(resp.view);
                 $(".navbar-cart").attr('cartcount', resp.totalCartItems);
-
                 if (resp.totalCartItems == 0) {
                   $("#cart-container").load(window.location.href + " #cart-container");
                 }
@@ -548,12 +535,11 @@ $(document).ready(function () {
         });
       }
     }
-
-    ; // alert(new_qty);
-
+    ;
+    // alert(new_qty);
     var cartid = $(this).data('cartid');
-    var sectionid = $(this).data('sectionid'); // alert(cartid);
-
+    var sectionid = $(this).data('sectionid');
+    // alert(cartid);
     $.ajax({
       data: {
         "cartid": cartid,
@@ -570,7 +556,6 @@ $(document).ready(function () {
             confirmButtonText: 'Okay Luôn!'
           });
         }
-
         $("#AppendCartItems").html(resp.view);
         $(".navbar-cart").attr('cartcount', resp.totalCartItems);
       },
@@ -581,8 +566,8 @@ $(document).ready(function () {
   }); // update cart items
 
   $(document).on('click', '.btnItemDelete', function () {
-    var cartid = $(this).data('cartid'); // alert(cartid); return false;
-
+    var cartid = $(this).data('cartid');
+    // alert(cartid); return false;
     $.ajax({
       data: {
         "cartid": cartid
@@ -592,7 +577,6 @@ $(document).ready(function () {
       success: function success(resp) {
         $("#AppendCartItems").html(resp.view);
         $(".navbar-cart").attr('cartcount', resp.totalCartItems);
-
         if (resp.totalCartItems == 0) {
           $("#cart-container").load(window.location.href + " #cart-container");
         }
@@ -602,8 +586,8 @@ $(document).ready(function () {
       }
     });
   }); // update cart items
-  // validate signup form on keyup and submit
 
+  // validate signup form on keyup and submit
   $("#PriceQuotationForm").validate({
     rules: {
       sender: {
@@ -634,13 +618,11 @@ $(document).ready(function () {
   });
   jQuery.validator.addMethod("numericdashe", function (value, element) {
     console.log(value);
-
     if (/^[0-9\-]+$/i.test(value)) {
       return true;
     } else {
       return false;
     }
-
     ;
   }, "Numbers and dashes only");
   $("#OrderForNonUserForm").validate({
@@ -945,11 +927,10 @@ $(document).ready(function () {
       }
     });
   }); // Check Current User Password
-  // Apply Coupon 
 
+  // Apply Coupon 
   $("#ApplyCoupon").submit(function () {
     var user = $(this).attr("user");
-
     if (user == 1) {} else {
       Swal.fire({
         title: "Quý khách có thể đăng ký tài khoản để sử dụng mã khuyến mãi và nhận nhiều ưu đãi hấp dẫn hơn nữa!",
@@ -958,7 +939,6 @@ $(document).ready(function () {
       });
       return false;
     }
-
     var code = $("#code").val();
     $.ajax({
       type: 'post',
@@ -973,7 +953,6 @@ $(document).ready(function () {
         });
         var coupon_amount = formatter.format(resp.couponAmount);
         var total_amount = formatter.format(resp.totalAmount);
-
         if (resp.message != "") {
           Swal.fire({
             title: resp.message,
@@ -981,15 +960,12 @@ $(document).ready(function () {
             confirmButtonText: 'Okay Luôn!'
           });
         }
-
         $("#AppendCartItems").html(resp.view);
-
         if (resp.couponAmount >= 0) {
           $(".couponAmount").text(coupon_amount);
         } else {
           $(".couponAmount").text('0 ₫');
         }
-
         if (resp.totalAmount >= 0) {
           $(".totalAmount").text(total_amount);
         }
@@ -1066,8 +1042,9 @@ $(document).ready(function () {
   });
   $("#payment_method_cod").click(function () {
     $('#bankingInfo').hide();
-  }); // Calculate Shipping Charges and Updated Grand Total
+  });
 
+  // Calculate Shipping Charges and Updated Grand Total
   $("input[name=address_id]").bind('change', function () {
     var shipping_charges = $(this).attr("shipping_charges");
     var total_price = $(this).attr("total_price");
@@ -1075,12 +1052,13 @@ $(document).ready(function () {
     var formatter = new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'VND'
-    }); // alert(coupon_amount);
+    });
+
+    // alert(coupon_amount);
 
     if (coupon_amount == "") {
       coupon_amount = 0;
     }
-
     $(".shipping_charges").html(formatter.format(shipping_charges));
     var grand_total = parseInt(total_price) - parseInt(coupon_amount) + parseInt(shipping_charges);
     $(".grand_total").html(formatter.format(grand_total));
@@ -1093,88 +1071,73 @@ $(window).on("load", function () {
 var ViewBtn = document.getElementsByClassName("viewbtn");
 var ViewSw = document.getElementsByClassName("viewsw");
 var count = 0;
-
 window.goBack = function () {
   window.location.replace(document.referrer);
 }; // back to previous page 
-
 
 window.Btn = function (n) {
   CurrentShowViewButton(count = n);
   CurrentShowViewSwitchButton(count = n);
 };
-
 window.CurrentShowViewButton = function (n) {
   for (var i = 0; i < ViewBtn.length; i++) {
     ViewBtn[i].className = ViewBtn[i].className.replace(" Active", "");
   }
-
   ViewBtn[n].className += " Active";
 };
-
 window.CurrentShowViewSwitchButton = function (n) {
   for (var i = 0; i < ViewSw.length; i++) {
     ViewSw[i].className = ViewSw[i].className.replace(" Active", "");
   }
-
   ViewSw[n].className += " Active";
 }; // switch view btn for detail page
 
-
 var MyBtn = document.getElementsByClassName("mybtn");
 var index = 0;
-
 window.Button = function (n) {
   CurrentShowButton(index = n);
 };
-
 window.CurrentShowButton = function (n) {
   for (var i = 0; i < MyBtn.length; i++) {
     MyBtn[i].className = MyBtn[i].className.replace(" Active", "");
   }
-
   MyBtn[n].className += " Active";
 };
-
 window.listToggleListOff = function () {
   var toggleList = document.querySelector('.row.listing.body');
   toggleList.classList.add('list');
 };
-
 window.listToggleListOn = function () {
   var toggleList = document.querySelector('.row.listing.body.list');
   toggleList.classList.remove('list');
 };
-
 window.listToggleBtnOff = function () {
   var toggleList = document.querySelector('.btn.compare');
   toggleList.classList.add('active');
 };
-
 window.listToggleBtnOn = function () {
   var toggleList = document.querySelector('.btn.compare.active');
   toggleList.classList.remove('active');
 }; // switch view btn for listing page
-
 
 window.menuToggle = function () {
   var toggleMenu = document.querySelector('.menu');
   toggleMenu.classList.toggle('active');
 }; // toggle nav-sidebar in responsive view
 
-
 var icon = document.querySelector('.icon');
 var search = document.querySelector('.search');
-
 icon.onclick = function () {
   search.classList.toggle('active');
 }; // toggle search bar in user menu
+
 // var tag = document.createElement('script');
 // tag.id = 'iframe-demo';
 // tag.src = 'https://www.youtube.com/iframe_api';
 // var firstScriptTag = document.getElementsByTagName('script')[0];
 // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // var player;
+
 // window.onYouTubeIframeAPIReady = function () {
 //   player = new YT.Player('existing-iframe-example', {
 //     playerVars: {
@@ -1186,11 +1149,14 @@ icon.onclick = function () {
 //     }
 //   });
 // };
+
 // window.onPlayerReady = function (event) {
 //   document.getElementById('existing-iframe-example').style.borderColor = '#FFFFFF';
 // };
+
 // window.changeBorderColor = function (playerStatus) {
 //   var color;
+
 //   if (playerStatus == -1) {
 //     color = "#FFFFFF"; // unstarted = gray
 //   } else if (playerStatus == 0) {
@@ -1204,27 +1170,29 @@ icon.onclick = function () {
 //   } else if (playerStatus == 5) {
 //     color = "#FFFFFF"; // video cued = orange
 //   }
+
 //   if (color) {
 //     document.getElementById('existing-iframe-example').style.borderColor = color;
 //   }
 // };
+
 // window.onPlayerStateChange = function (event) {
 //   changeBorderColor(event.data);
 // };
+
 // window.pauseVideo = function () {
 //   player.pauseVideo();
 // };
+
 // window.playVideo = function () {
 //   player.playVideo();
 // }; // Youtube video auto play/pause function
-
 
 var LoginForm = document.getElementById("LoginForm");
 var RegForm = document.getElementById("RegForm");
 var Indicator = document.getElementById("Indicator");
 var RegLabel = document.getElementById("RegLabel");
 var LogForNav = document.getElementById("LogForNav");
-
 window.login = function () {
   RegForm.style.transform = "translateX(0px)";
   RegLabel.style.display = "inline-block";
@@ -1234,7 +1202,6 @@ window.login = function () {
   Indicator.style.transform = "translateX(200px)";
   LogForNav.style.display = "none";
 };
-
 window.register = function () {
   RegForm.style.transform = "translateX(400px)";
   LoginForm.style.transform = "translateX(400px)";
@@ -1242,7 +1209,6 @@ window.register = function () {
   Indicator.style.visibility = "visible";
   Indicator.style.transform = "translateX(100px)";
 };
-
 window.forgot = function () {
   ForgotPwdForm.style.transform = "translateX(-400px)";
   Indicator.style.visibility = "hidden";
@@ -1251,10 +1217,8 @@ window.forgot = function () {
   LoginForm.style.transform = "translateX(-400px)";
 }; // login/register page switching forms
 
-
 window.visibility0 = function () {
   var password_login = document.getElementById('password_login');
-
   if (password_login.type === 'text') {
     password_login.type = "password";
     $('#eyeShow0').hide();
@@ -1266,10 +1230,8 @@ window.visibility0 = function () {
   }
 }; // change visibility on password input
 
-
 window.visibility1 = function () {
   var password_login = document.getElementById('password_register');
-
   if (password_login.type === 'text') {
     password_login.type = "password";
     $('#eyeShow1').hide();
@@ -1280,10 +1242,8 @@ window.visibility1 = function () {
     $('#eyeSlash1').hide();
   }
 };
-
 window.visibility2 = function () {
   var password_login = document.getElementById('current_pwd');
-
   if (password_login.type === 'text') {
     password_login.type = "password";
     $('#eyeShow2').hide();
@@ -1294,10 +1254,8 @@ window.visibility2 = function () {
     $('#eyeSlash2').hide();
   }
 };
-
 window.visibility3 = function () {
   var password_login = document.getElementById('new_pwd');
-
   if (password_login.type === 'text') {
     password_login.type = "password";
     $('#eyeShow3').hide();
@@ -1308,10 +1266,8 @@ window.visibility3 = function () {
     $('#eyeSlash3').hide();
   }
 };
-
 window.visibility4 = function () {
   var password_login = document.getElementById('confirm_pwd');
-
   if (password_login.type === 'text') {
     password_login.type = "password";
     $('#eyeShow4').hide();

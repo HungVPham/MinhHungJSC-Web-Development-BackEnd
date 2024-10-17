@@ -301,7 +301,7 @@
         <path class="cls-5" d="M101.81,61a6.68,6.68,0,0,0,8.51,0Z"></path>
         <polygon class="cls-5" points="90.92 30.25 77.46 29.69 77.46 28.64 90.92 29.22 90.92 30.25"></polygon>
         <text id="title" transform="matrix(1 0 0 1 44.7249 78)">lỗi</text><text id="title-error" transform="matrix(1 0 0 1 52 78)">404</text><text id="title" transform="matrix(1 0 0 1 62 78)">: không tìm thấy trang.</text>
-        <img id="logo-404" style="position: absolute; width: 3rem; top: 65%; right: 45%;" src="{{ asset('/images/front_images/logoMinhHung.png') }}">
+        <!-- <img id="logo-404" style="position: absolute; width: 3rem; top: 65%; right: 45%;" src="{{ asset('/images/front_images/logoMinhHung.png') }}"> -->
     </svg>
     </div>
   </div>

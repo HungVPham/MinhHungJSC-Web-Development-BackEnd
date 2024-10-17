@@ -131,6 +131,48 @@
                         </li>
                     </ul>
                 </li>
+                <!-- Blog -->
+                @if(Session::get('page')=="blog_categories" || Session::get('page')=="blogs")
+                <?php $active = "active"; ?>
+                @else
+                <?php $active = ""; ?>
+                @endif
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Blog 
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        @if(Session::get('page')=="blog_categories")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/blog-categories') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thể Loại Tin Tức</p>
+                            </a>
+                        </li>
+
+                        @if(Session::get('page')=="blogs")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('admin/blogs') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bài Viết Blog</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 <!-- Ecommerce -->
                 @if(Session::get('page')=="coupons" || Session::get('page')=="orders" || Session::get('page')=="users" || Session::get('page')=="shipping-charges")
                 <?php $active = "active"; ?>

@@ -19,6 +19,31 @@
     </div>
     <h2>Giỏ Hàng</h2>
     <div id="cart-container">
+    @if(Session::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: #228B22; background-color: #ffffff; border: 1px solid #228B22">
+        {{ Session::get('success_message') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    @endif
+    @if(Session::has('error_message'))
+        <div class="alert alert-danger" role="alert" style="color: #cb1c22; background-color: #ffffff; border: 1px solid #cb1c22">
+        {{ Session::get('error_message') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger" style="color: var(--Delete-Red); background-color: #ffffff; border: 1px solid var(--Delete-Red)">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li style="margin-left: 20px">{{ $error }}</li>
+        @endforeach
+    </ul>
+    </div>
+    @endif
     @if(!empty($userCartItems)) 
         <div id="AppendCartItems">
         @include('front.products.cart_items')

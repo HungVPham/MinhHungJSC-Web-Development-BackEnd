@@ -32,7 +32,7 @@ input[name=email]{
 </style>
 <div class="account-page">               
     <div class="container">
-        <div class="row">
+        <div class="row" style="min-height: calc(100vh - (382.233px + 85px))">
             <div class="col-2"> 
                 @if(Session::has('success_message'))
                 <div class="alert alert-danger" role="alert" style="color: #ffffff; background-color: #228B22; border: 1px solid #228B22;">

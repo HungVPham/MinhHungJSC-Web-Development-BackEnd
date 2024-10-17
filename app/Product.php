@@ -133,10 +133,43 @@ class Product extends Model
         return $getProductImage['main_image'];
     }
 
-    public static function getProductStatus($product_id){
-        $getProductStatus = Product::select('status')->where('id',$product_id)->first();
+    public static function getProductCount($product_id){
+        $getProductCount = Product::where(['id'=>$product_id,'status'=>1])->count();
 
-        return $getProductStatus['status'];
+        return $getProductCount;
+    }
+
+    public static function getProductAttributeCount($section_id, $product_id, $sku){
+
+        if($section_id == 1){
+            $getProductAttrCount = MaxproProductAttributes::where(['product_id'=>$product_id,'sku'=>$sku,'status'=>1])->count();
+        }else if($section_id == 3){
+            $getProductAttrCount = ShimgeProductAttributes::where(['product_id'=>$product_id,'sku'=>$sku,'status'=>1])->count();
+        }
+
+        return $getProductAttrCount;
+    
+    }
+
+    public static function getProductAttributeStock($section_id, $product_id, $sku){
+
+        if($section_id == 1){
+            $getProductAttrStock = MaxproProductAttributes::select('stock')->where(['product_id'=>$product_id,'sku'=>$sku])->first();
+        }else if($section_id == 3){
+            $getProductAttrStock = ShimgeProductAttributes::select('stock')->where(['product_id'=>$product_id,'sku'=>$sku])->first();
+        }
+
+        return $getProductAttrStock['stock'];
+
+    } 
+
+    public static function getCategoryCount($category_id){
+        $getCategoryCount = Category::where(['id'=>$category_id,'status'=>1])->count();
+        return $getCategoryCount;
+    }
+
+    public static function deleteCartProductAttr($product_id, $sku){
+        Cart::where(['product_id'=>$product_id,'sku'=>$sku])->delete();
     }
 
     public static function deleteCartProduct($product_id){

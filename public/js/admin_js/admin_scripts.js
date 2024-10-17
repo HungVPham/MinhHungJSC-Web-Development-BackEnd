@@ -308,6 +308,78 @@ $(document).ready(function(){
         });
     });
 
+    // Update Blog Category Status 
+    $(document).on("click", ".updateBlogCategoryStatus", function(){
+        var status = $(this).text();
+        var category_id = $(this).attr("category_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'post',
+                url:'/admin/update-blog-category-status',
+                data:{status:status,category_id:category_id},
+                success:function(resp){
+                    if(resp['status']==0){
+                        $("#category-"+category_id).html("<a class='updateBlogCategoryStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                    }else if(resp['status']==1){
+                        $("#category-"+category_id).html("<a class='updateBlogCategoryStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                    }
+                    },error:function(){
+                        alert("Error");
+                    }
+                })
+            }
+        });
+    });
+
+    // Update Blog Status 
+    $(document).on("click", ".updateBlogStatus", function(){
+        var status = $(this).text();
+        var blog_id = $(this).attr("blog_id");
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--Positive-Green)',
+            cancelButtonColor: 'var(--Delete-Red)',
+            confirmButtonText: 'Thay đổi!',
+            cancelButtonText: 'Không thay đổi.'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type:'post',
+                    url:'/admin/update-blog-status',
+                    data:{status:status,blog_id:blog_id},
+                    success:function(resp){
+                        if(resp['status']==0){
+                            $("#blog-"+blog_id).html("<a class='updateBlogStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                        }else if(resp['status']==1){
+                            $("#blog-"+blog_id).html("<a class='updateBlogStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                        }
+                        },error:function(){
+                            alert("Error");
+                        }
+                    })
+                }
+            });
+        });
+
     // Update Product Status 
     $(document).on("click", ".updateProductStatus", function(){
     var status = $(this).text();
@@ -572,6 +644,9 @@ $(document).ready(function(){
             }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     type:'post',
                     url:'/admin/update-maxproattributes-status',
                     data:{status:status,MaxproAttributes_id:MaxproAttributes_id},
@@ -605,6 +680,9 @@ $(document).ready(function(){
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
                         type:'post',
                         url:'/admin/update-hhoseattributes-status',
                         data:{status:status,HhoseAttributes_id:HhoseAttributes_id},
@@ -638,6 +716,9 @@ $(document).ready(function(){
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
                         type:'post',
                         url:'/admin/update-shimgeattributes-status',
                         data:{status:status,ShimgeAttributes_id:ShimgeAttributes_id},
@@ -655,7 +736,7 @@ $(document).ready(function(){
                 });
             });
 
-            // Update Image Status 
+        // Update Image Status 
         $(document).on("click", ".updateImageStatus", function(){
             var status = $(this).text();
             var Image_id = $(this).attr("Image_id");
@@ -671,6 +752,9 @@ $(document).ready(function(){
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
                         type:'post',
                         url:'/admin/update-image-status',
                         data:{status:status,Image_id:Image_id},
@@ -679,6 +763,43 @@ $(document).ready(function(){
                                 $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
                             }else if(resp['status']==1){
                                 $("#Image-"+Image_id).html("<a class='updateImageStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
+                            }
+                            },error:function(){
+                                alert("Error");
+                            }
+                        })
+                    }
+                });
+            });
+
+            
+        // Update Blog Image Status 
+        $(document).on("click", ".updateBlogImageStatus", function(){
+            var status = $(this).text();
+            var Image_id = $(this).attr("Image_id");
+            Swal.fire({
+                title: 'Xác nhận thay đổi trạng thái?',
+                text: "Thay đổi trạng thái dữ liệu sẽ ảnh hưởng tới website!",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--Positive-Green)',
+                cancelButtonColor: 'var(--Delete-Red)',
+                confirmButtonText: 'Thay đổi!',
+                cancelButtonText: 'Không thay đổi.'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type:'post',
+                        url:'/admin/blogs/update-image-status',
+                        data:{status:status,Image_id:Image_id},
+                        success:function(resp){
+                            if(resp['status']==0){
+                                $("#Image-"+Image_id).html("<a class='updateBlogImageStatus' style='color: var(--Delete-Red);' href='javascript:void(0)'><i id='active' style='color: var(--Delete-Red); font-size: 1.05rem;' class='fas fa-toggle-off' aria-hidden='true'> chưa hoạt động</i></a>");
+                            }else if(resp['status']==1){
+                                $("#Image-"+Image_id).html("<a class='updateBlogImageStatus' style='color: var(--Positive-Green);' href='javascript:void(0)'><i id='inactive' style='color: var(--Positive-Green); font-size: 1.05rem;' class='fas fa-toggle-on' aria-hidden='true'> đang hoạt động</i></a>");
                             }
                             },error:function(){
                                 alert("Error");

@@ -40,17 +40,16 @@
   left: 0;
   right: 0;
   position: fixed;
-  top: 32vh;
+  top: 35vh;
 }
 
 .preloader2 {
   border: 5px solid #f3f3f3;
   border-top: 5px solid #f00;
   border-radius: 50%;
-  width: 250px;
-  height: 250px;
-  -webkit-animation: spin 1s ease-in-out infinite;
-          animation: spin 1s ease-in-out infinite;
+  width: 300px;
+  height: 300px;
+  animation: spin 1s ease-in-out infinite;
   position: fixed;
   left: 0;
   right: 0;
@@ -75,7 +74,6 @@
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   height: 30px;
   width: 30px;
@@ -122,8 +120,7 @@
   visibility: visible;
   opacity: 1;
   background-color: rgba(0, 0, 0, 0);
-  -webkit-animation: slideInOpacity 0.3s ease-in-out both;
-          animation: slideInOpacity 0.3s ease-in-out both;
+  animation: slideInOpacity 0.3s ease-in-out both;
 }
 
 #scrollToTopBtn {
@@ -363,31 +360,12 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
 }
 
-@-webkit-keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes slideInOpacity {
-  0% {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  100% {
-    width: translateY(0px);
-    opacity: 1;
   }
 }
 @keyframes slideInOpacity {
@@ -400,14 +378,6 @@ input[type=number]::-webkit-outer-spin-button {
     opacity: 1;
   }
 }
-@-webkit-keyframes opacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
 @keyframes opacity {
   0% {
     opacity: 0;
@@ -416,28 +386,12 @@ input[type=number]::-webkit-outer-spin-button {
     opacity: 100%;
   }
 }
-@-webkit-keyframes fade {
-  from {
-    opacity: 0.6;
-  }
-  to {
-    opacity: 1;
-  }
-}
 @keyframes fade {
   from {
     opacity: 0.6;
   }
   to {
     opacity: 1;
-  }
-}
-@-webkit-keyframes slidein {
-  0% {
-    width: 712px;
-  }
-  100% {
-    width: 100%;
   }
 }
 @keyframes slidein {
@@ -449,32 +403,12 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 /* The typing effect */
-@-webkit-keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
 @keyframes typing {
   from {
     width: 0;
   }
   to {
     width: 100%;
-  }
-}
-@-webkit-keyframes waitSlideUp {
-  0% {
-    opacity: 0;
-  }
-  90% {
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(-10px);
-    opacity: 1;
   }
 }
 @keyframes waitSlideUp {
@@ -490,14 +424,6 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 /* The typewriter cursor effect */
-@-webkit-keyframes blink-caret {
-  from, to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: var(--MinhHung-Red);
-  }
-}
 @keyframes blink-caret {
   from, to {
     border-color: transparent;
@@ -516,8 +442,7 @@ input[type=number]::-webkit-outer-spin-button {
 .header.sticky {
   position: fixed;
   background: rgba(0, 0, 0, 0.8);
-  -webkit-animation: slideInOpacity 0.3s ease-in-out both;
-          animation: slideInOpacity 0.3s ease-in-out both;
+  animation: slideInOpacity 0.3s ease-in-out both;
   height: 60px;
   top: 0;
   -webkit-backdrop-filter: saturate(100%) blur(3px);
@@ -1155,7 +1080,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Index Carousel CSS */
 .carousel-item {
-  height: 740px;
+  height: 825px;
   background: #777;
   position: relative;
 }
@@ -1166,7 +1091,7 @@ input[type=number]::-webkit-outer-spin-button {
   right: 0;
   bottom: 0;
   border: 1px solid black;
-  height: 740px;
+  height: 825px;
   background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
   opacity: 0;
   transition: all 0.3s ease;
@@ -1175,8 +1100,7 @@ input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
 }
 .index-carousel-container:hover > .overlay-btn {
-  -webkit-animation: waitSlideUp 2s ease-in-out both;
-          animation: waitSlideUp 2s ease-in-out both;
+  animation: waitSlideUp 2s ease-in-out both;
 }
 .index-carousel-container:hover .typewriter p {
   font-family: "Style Script", cursive;
@@ -1191,8 +1115,7 @@ input[type=number]::-webkit-outer-spin-button {
   /* Gives that scrolling effect as the typing happens */
   letter-spacing: 0.05em;
   /* Adjust as needed */
-  -webkit-animation: typing 1.5s steps(90, end), blink-caret 0.75s step-end infinite;
-          animation: typing 1.5s steps(90, end), blink-caret 0.75s step-end infinite;
+  animation: typing 1.5s steps(90, end), blink-caret 0.75s step-end infinite;
 }
 .index-carousel-container > .btn {
   font-size: 22px;
@@ -1225,7 +1148,7 @@ input[type=number]::-webkit-outer-spin-button {
 .overlay-credo {
   height: 70%;
   width: 45%;
-  padding-top: 425px !important;
+  padding-top: 475px !important;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -1685,8 +1608,7 @@ option {
 .row.listing.body.list {
   display: block;
   margin-left: 1px;
-  -webkit-animation: slidein 0.5s ease-in-out both;
-          animation: slidein 0.5s ease-in-out both;
+  animation: slidein 0.5s ease-in-out both;
 }
 .row.listing.body.list .col-4 {
   border: 1px solid black;
@@ -1807,8 +1729,7 @@ option {
 
 .row.info.Active, .row.video.Active {
   display: block;
-  -webkit-animation: opacity 0.3s ease-in-out both;
-          animation: opacity 0.3s ease-in-out both;
+  animation: opacity 0.3s ease-in-out both;
 }
 .row.info > * {
   flex-basis: 50%;
@@ -2108,6 +2029,7 @@ button.mailbox-attachment-close {
 /* cart items */
 .cart-page {
   margin: 80px auto;
+  min-height: calc(100vh - 467.233px - 160px);
 }
 .cart-page h2 {
   font-size: 2.5rem;
@@ -2223,7 +2145,6 @@ th:last-child {
 }
 
 .voucher-containter {
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin-top: -150px;
@@ -2336,119 +2257,102 @@ th:last-child {
 .empty-cart svg #plus,
 .empty-cart svg #diamond,
 .empty-cart svg #bubble-rounded {
-  -webkit-animation: plopp 4s ease-out infinite;
   animation: plopp 4s ease-out infinite;
 }
 .empty-cart svg #oval:nth-child(1),
 .empty-cart svg #plus:nth-child(1),
 .empty-cart svg #diamond:nth-child(1),
 .empty-cart svg #bubble-rounded:nth-child(1) {
-  -webkit-animation-delay: -240ms;
   animation-delay: -240ms;
 }
 .empty-cart svg #oval:nth-child(2),
 .empty-cart svg #plus:nth-child(2),
 .empty-cart svg #diamond:nth-child(2),
 .empty-cart svg #bubble-rounded:nth-child(2) {
-  -webkit-animation-delay: -480ms;
   animation-delay: -480ms;
 }
 .empty-cart svg #oval:nth-child(3),
 .empty-cart svg #plus:nth-child(3),
 .empty-cart svg #diamond:nth-child(3),
 .empty-cart svg #bubble-rounded:nth-child(3) {
-  -webkit-animation-delay: -720ms;
   animation-delay: -720ms;
 }
 .empty-cart svg #oval:nth-child(4),
 .empty-cart svg #plus:nth-child(4),
 .empty-cart svg #diamond:nth-child(4),
 .empty-cart svg #bubble-rounded:nth-child(4) {
-  -webkit-animation-delay: -960ms;
   animation-delay: -960ms;
 }
 .empty-cart svg #oval:nth-child(5),
 .empty-cart svg #plus:nth-child(5),
 .empty-cart svg #diamond:nth-child(5),
 .empty-cart svg #bubble-rounded:nth-child(5) {
-  -webkit-animation-delay: -1200ms;
   animation-delay: -1200ms;
 }
 .empty-cart svg #oval:nth-child(6),
 .empty-cart svg #plus:nth-child(6),
 .empty-cart svg #diamond:nth-child(6),
 .empty-cart svg #bubble-rounded:nth-child(6) {
-  -webkit-animation-delay: -1440ms;
   animation-delay: -1440ms;
 }
 .empty-cart svg #oval:nth-child(7),
 .empty-cart svg #plus:nth-child(7),
 .empty-cart svg #diamond:nth-child(7),
 .empty-cart svg #bubble-rounded:nth-child(7) {
-  -webkit-animation-delay: -1680ms;
   animation-delay: -1680ms;
 }
 .empty-cart svg #oval:nth-child(8),
 .empty-cart svg #plus:nth-child(8),
 .empty-cart svg #diamond:nth-child(8),
 .empty-cart svg #bubble-rounded:nth-child(8) {
-  -webkit-animation-delay: -1920ms;
   animation-delay: -1920ms;
 }
 .empty-cart svg #oval:nth-child(9),
 .empty-cart svg #plus:nth-child(9),
 .empty-cart svg #diamond:nth-child(9),
 .empty-cart svg #bubble-rounded:nth-child(9) {
-  -webkit-animation-delay: -2160ms;
   animation-delay: -2160ms;
 }
 .empty-cart svg #oval:nth-child(10),
 .empty-cart svg #plus:nth-child(10),
 .empty-cart svg #diamond:nth-child(10),
 .empty-cart svg #bubble-rounded:nth-child(10) {
-  -webkit-animation-delay: -2400ms;
   animation-delay: -2400ms;
 }
 .empty-cart svg #oval:nth-child(11),
 .empty-cart svg #plus:nth-child(11),
 .empty-cart svg #diamond:nth-child(11),
 .empty-cart svg #bubble-rounded:nth-child(11) {
-  -webkit-animation-delay: -2640ms;
   animation-delay: -2640ms;
 }
 .empty-cart svg #oval:nth-child(12),
 .empty-cart svg #plus:nth-child(12),
 .empty-cart svg #diamond:nth-child(12),
 .empty-cart svg #bubble-rounded:nth-child(12) {
-  -webkit-animation-delay: -2880ms;
   animation-delay: -2880ms;
 }
 .empty-cart svg #oval:nth-child(13),
 .empty-cart svg #plus:nth-child(13),
 .empty-cart svg #diamond:nth-child(13),
 .empty-cart svg #bubble-rounded:nth-child(13) {
-  -webkit-animation-delay: -3120ms;
   animation-delay: -3120ms;
 }
 .empty-cart svg #oval:nth-child(14),
 .empty-cart svg #plus:nth-child(14),
 .empty-cart svg #diamond:nth-child(14),
 .empty-cart svg #bubble-rounded:nth-child(14) {
-  -webkit-animation-delay: -3360ms;
   animation-delay: -3360ms;
 }
 .empty-cart svg #oval:nth-child(15),
 .empty-cart svg #plus:nth-child(15),
 .empty-cart svg #diamond:nth-child(15),
 .empty-cart svg #bubble-rounded:nth-child(15) {
-  -webkit-animation-delay: -3600ms;
   animation-delay: -3600ms;
 }
 .empty-cart svg #oval:nth-child(16),
 .empty-cart svg #plus:nth-child(16),
 .empty-cart svg #diamond:nth-child(16),
 .empty-cart svg #bubble-rounded:nth-child(16) {
-  -webkit-animation-delay: -3840ms;
   animation-delay: -3840ms;
 }
 .empty-cart svg #bg-line:nth-child(2) {
@@ -2456,16 +2360,6 @@ th:last-child {
 }
 .empty-cart svg #bg-line:nth-child(3) {
   fill-opacity: 0.4;
-}
-@-webkit-keyframes plopp {
-  0% {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(0, -10px);
-    opacity: 0;
-  }
 }
 @keyframes plopp {
   0% {
@@ -2558,6 +2452,7 @@ th:last-child {
   margin-top: 40px;
   padding: 30px 0;
   margin-bottom: 80px;
+  min-height: calc(100vh - 467.233px - 160px);
 }
 .about-page .small-container .row {
   align-items: inherit;
@@ -2703,6 +2598,7 @@ th:last-child {
   background-color: var(--Solid-White);
   position: relative;
   padding-bottom: 750px;
+  min-height: calc(100vh - (382.233px + 85px));
 }
 .contact-page a {
   text-decoration: none;
@@ -3216,6 +3112,7 @@ th:last-child {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  min-height: calc(100vh - (382.233px + 85px));
 }
 .account-page .alert .close, .account-page .alert .mailbox-attachment-close {
   color: #ffffff;
@@ -3247,7 +3144,6 @@ th:last-child {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
   -webkit-backdrop-filter: saturate(100%) blur(3px);
           backdrop-filter: saturate(100%) blur(3px);
-  margin-left: 23px;
 }
 .form-container .form-btn {
   text-align: center;
@@ -3339,7 +3235,6 @@ form .btn:focus {
 
 #LogForNav {
   display: none;
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   cursor: default;
@@ -3498,7 +3393,6 @@ form .btn:focus {
   border-right: 1px solid #00000030;
 }
 .form-container-newPwd form button {
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
@@ -3973,7 +3867,6 @@ form .btn:focus {
     border: none;
   }
   .form-container-newPwd form button {
-    width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
   }
