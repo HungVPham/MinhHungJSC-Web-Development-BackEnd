@@ -20,7 +20,7 @@
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.5",
         "milon/barcode": "^9.0",
-        "spatie/laravel-honeypot": "^2.3",
+        "spatie/laravel-honeypot": "^2.3.0",
         "telesign/telesign": "^3.0"
     },
     "require-dev": {
