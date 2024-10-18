@@ -181,11 +181,23 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
 
 });
 
+// Route::prefix('/admin')->namespace('Admin')->group(function(){
+
 // frontend routes
 Route::namespace('Front')->group(function(){
     // home page route
-   Route::get('/','IndexController@index');
-    
+
+//    if (!in_array($locale, ['vn', 'en'])) {
+//         abort(404);
+//    }
+
+    Route::get('locale/{locale}', function ($locale){
+        Session::put('locale', $locale);
+        return redirect()->back();
+    });
+
+    Route::get('/','IndexController@index');
+
    // listing page route
    /* get categorys url */
     $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();

@@ -45,7 +45,9 @@ $countPopup = Popup::countPopup();
 </div>
 <!------sản phẩm nổi bật------->
 <div class="small-container"> 
-    <h2 class="title">Sản Phẩm Nổi Bật</h2>
+    <h2 class="title">
+        {{ __('Sản Phẩm Nổi Bật') }}
+    </h2>
     <div class="slider-nav-container" style="width: 100%; margin: 0 auto !important; position: relative;">
         @if($featuredItemsCount > 4)
         <i class="fas fa-chevron-left prev"></i>

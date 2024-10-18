@@ -4,8 +4,71 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b93b137bfa1fcabca487cb933c0ca0b",
+    "content-hash": "6b018c62fde81e9c4f3b668fbf3e9e45",
     "packages": [
+        {
+            "name": "alkhatibdev/language-switcher",
+            "version": "v0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alkhatibdev/language-switcher.git",
+                "reference": "087a5bf3c42aec6e4bc5fbb203c977eea5efaedb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alkhatibdev/language-switcher/zipball/087a5bf3c42aec6e4bc5fbb203c977eea5efaedb",
+                "reference": "087a5bf3c42aec6e4bc5fbb203c977eea5efaedb",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "7.x-dev",
+                "phpunit/phpunit": "9.5.x-dev"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AlkhatibDev\\LanguageSwitcher\\Providers\\LanguageSwitcherServiceProvider"
+                    ],
+                    "aliases": {
+                        "Switcher": "AlkhatibDev\\LanguageSwitcher\\Switcher"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AlkhatibDev\\LanguageSwitcher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alkhatib Hamad",
+                    "email": "me@alkhatib.dev",
+                    "homepage": "https://github.com/alkhatibdev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel dynamic language switcher for web and api routes",
+            "homepage": "https://github.com/alkhatibdev/language-switcher",
+            "keywords": [
+                "change locale",
+                "language",
+                "language switcher",
+                "laravel",
+                "locale",
+                "localization",
+                "switcher"
+            ],
+            "support": {
+                "issues": "https://github.com/alkhatibdev/language-switcher/issues",
+                "source": "https://github.com/alkhatibdev/language-switcher/tree/v0.0.2"
+            },
+            "time": "2024-03-07T18:34:06+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.2.0",
