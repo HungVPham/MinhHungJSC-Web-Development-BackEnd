@@ -56,7 +56,7 @@ $countPopup = Popup::countPopup();
         <div class="row">
             <div></div>
             <div class="flexleft-container">
-                <p style="float: right"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount }}+</span> sản phẩm nổi bật!</p>
+                <p style="float: right"><span style="color: var(--MinhHung-Red); font-weight: bolder;">{{ $featuredItemsCount }}+</span> {{ __('Sản Phẩm Nổi Bật') }}!</p>
             </div>
         </div>
         <div class="row" @if($featuredItemsCount > 4) id="featuredCarousel" @endif>
@@ -72,8 +72,8 @@ $countPopup = Popup::countPopup();
                                 <img  loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                                 @endif
                     </a>
-                     <div class="product-overlay navDetail"><a href="{{ url('products/'.$item['id']) }}">xem chi tiết</a></div>
-                        <div class="product-overlay addCart"><a href="{{ url('products/'.$item['id']) }}">thêm vào giỏ</a></div>
+                     <div class="product-overlay navDetail"><a href="{{ url('products/'.$item['id']) }}">{{ __('xem chi tiết') }}</a></div>
+                        <div class="product-overlay addCart"><a href="{{ url('products/'.$item['id']) }}">{{ __('thêm vào giỏ') }}</a></div>
                     <small class="brand-title">
                     <span>
                         <?php echo
@@ -91,7 +91,7 @@ $countPopup = Popup::countPopup();
                     </div>
                         <p class="price">
                         @if(!empty($item['product_price']))
-                            @if($item['section_id']!=1)từ@endif
+                            @if($item['section_id']!=1){{ __('từ') }} @endif
                             @if($discounted_price>0)
                                 <del> 
                                     <?php 
@@ -115,7 +115,7 @@ $countPopup = Popup::countPopup();
                                 ?> ₫
                             @endif
                         @else 
-                            <i>giá liên hệ</i>
+                            <i>{{ __('giá liên hệ') }}</i>
                         @endif   
                         </p>
                 </div>
@@ -124,10 +124,10 @@ $countPopup = Popup::countPopup();
         </div>
     </div>
     <!------sản phẩm mới nhất------->
-    <h2 class="title">Sản Phẩm Mới Nhất</h2>
+    <h2 class="title">{{ __('Sản Phẩm Mới Nhất') }}</h2>
     <div class="row">
         <div class="flexleft-container">
-            <p style="float: right !important;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">8+</span> sản phẩm mới nhất!</p>
+            <p style="float: right !important;"><span style="color: var(--MinhHung-Red); font-weight: bolder;">8+</span> {{ __('Sản Phẩm Mới Nhất') }}!</p>
         </div>
         @foreach($newMaxproProducts as $newTool)
         <?php $discounted_price = Product::getDiscountedPrice($newTool['id']); ?>
@@ -140,7 +140,7 @@ $countPopup = Popup::countPopup();
                         <img loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newTool['id']) }}">xem chi tiết</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newTool['id']) }}">{{ __('xem chi tiết') }}</a></div>
                 <div class="product-overlay addCart"><a href="{{ url('products/'.$newTool['id']) }}">thêm vào giỏ</a></div>
             <small class="brand-title">
                 <span>
@@ -182,7 +182,7 @@ $countPopup = Popup::countPopup();
                         ?> ₫
                     @endif
                 @else 
-                    <i>giá liên hệ</i>
+                    <i>{{ __('giá liên hệ') }}</i>
                 @endif   
             </p>
         </div>
@@ -222,7 +222,7 @@ $countPopup = Popup::countPopup();
                     echo $format;
                     ?> ₫
                 @else
-                    <i>giá liên hệ</i>
+                    <i>{{ __('giá liên hệ') }}</i>
                 @endif   
             </p>
         </div>
@@ -257,7 +257,7 @@ $countPopup = Popup::countPopup();
             </div>
             <p class="price">
                 @if(!empty($newPump['product_price']))
-                        từ @if($discounted_price>0)
+                        {{ __('từ') }} @if($discounted_price>0)
                         <del> 
                             <?php 
                             $num = $newPump['product_price'];
@@ -280,7 +280,7 @@ $countPopup = Popup::countPopup();
                         ?> ₫
                     @endif
                 @else 
-                    <i>giá liên hệ</i>
+                    <i>{{ __('giá liên hệ') }}</i>
                 @endif   
             </p>
         </div>
@@ -309,7 +309,6 @@ $countPopup = Popup::countPopup();
     .offer .small-container .row .col-2 small{
     color: var(--Solid-Black);
     }
-}
   </style>
   @endif
   @if($exclusive['section_id']==3)

@@ -100,7 +100,7 @@ class Product extends Model
         }else if($catDetails['category_discount']>0){
             $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$catDetails['category_discount']/100);
             $discount_amount = $proAttrPrice['price'] - $discounted_price;
-        }else if($primeCatDetails['category_discount']>0){
+        }else if(isset($primeCatDetails['category_discount']) && $primeCatDetails['category_discount']>0){
             $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$primeCatDetails['category_discount']/100);
             $discount_amount = $proAttrPrice['price'] - $discounted_price;
         }else{
