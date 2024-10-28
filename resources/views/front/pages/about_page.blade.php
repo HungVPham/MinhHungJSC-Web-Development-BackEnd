@@ -10,21 +10,21 @@
             <div class="about-col-1">
                 <div class="tab">
                     @foreach($AboutDetails as $NavLinks)
-                    <a href="{{ url('about-us/'.$NavLinks['url'])}}">{{ $NavLinks['title'] }}</a>
+                    <a href="{{ url('about-us/'.$NavLinks['url'])}}">{{ __($NavLinks['title']) }}</a>
                     @endforeach
                 </div>
             </div>
             <div class="about-col-2">
                 <div class="tabcontent">
                     <div class="tabcontent-title">
-                    <h2>{{ $aboutPageDetails['title'] }}</h2>
+                    <h2>{{ __($aboutPageDetails['title']) }}</h2>
                     </div>
                 @if(!empty($aboutPageDetails['info_banner']))
                 <img src="{{ asset('/images/infographic_images/'.$aboutPageDetails['info_banner']) }}">
                 @endif
                 @if(!empty($aboutPageDetails['description']))
                 <div class="text-data">
-                <?php echo $aboutPageDetails['description'] ?>
+                <?php echo __($aboutPageDetails['description']) ?>
                 </div>
                 @endif
                 </div>  

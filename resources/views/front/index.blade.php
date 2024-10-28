@@ -35,7 +35,7 @@ $countPopup = Popup::countPopup();
                     @if(!empty($section['section_image']) && file_exists($section_image_path))
                     <img loading="lazy" src="{{ asset('images/section_images/'.$section['section_image']) }}" alt="thể loại sản phẩm">
                     @endif<div class="image_overlay">
-                    <div class="image_title" style="text-align: center;">{{ $section['name'] }}</div>
+                    <div class="image_title" style="text-align: center;">{{ __($section['name']) }}</div>
                 </div></a>
             </div>
             @endif
@@ -141,7 +141,7 @@ $countPopup = Popup::countPopup();
                         @endif
             </a>
              <div class="product-overlay navDetail"><a href="{{ url('products/'.$newTool['id']) }}">{{ __('xem chi tiết') }}</a></div>
-                <div class="product-overlay addCart"><a href="{{ url('products/'.$newTool['id']) }}">thêm vào giỏ</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('products/'.$newTool['id']) }}">{{ __('thêm vào giỏ') }}</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -197,8 +197,8 @@ $countPopup = Popup::countPopup();
                         <img loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newHose['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a href="{{ url('products/'.$newHose['id']) }}">thêm vào giỏ</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newHose['id']) }}">{{ __('xem chi tiết') }}</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('products/'.$newHose['id']) }}">{{ __('thêm vào giỏ') }}</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -238,8 +238,8 @@ $countPopup = Popup::countPopup();
                         <img loading="lazy" src="{{ url('images/product_images/main_image/medium/no-img.jpg') }}" alt="không có hình ảnh sản phẩm">
                         @endif
             </a>
-             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newPump['id']) }}">xem chi tiết</a></div>
-                <div class="product-overlay addCart"><a href="{{ url('products/'.$newPump['id']) }}">thêm vào giỏ</a></div>
+             <div class="product-overlay navDetail"><a href="{{ url('products/'.$newPump['id']) }}">{{ __('xem chi tiết') }}</a></div>
+                <div class="product-overlay addCart"><a href="{{ url('products/'.$newPump['id']) }}">{{ __('thêm vào giỏ') }}</a></div>
             <small class="brand-title">
                 <span>
                     <?php echo
@@ -332,7 +332,19 @@ $countPopup = Popup::countPopup();
                 </div>
             </div>
             <div class="col-2"> 
-                <p><span>Độc Quyền </span>Của Nhà Phân Phối Minh Hưng!</p>
+                <p>
+                    @if(Config::get('app.locale') == 'cn')
+                        {{ __('Của Nhà Phân Phối Minh Hưng') }}
+                        <span>
+                        {{ __('Độc Quyền') }}! 
+                        </span>    
+                    @else 
+                        <span>
+                        {{ __('Độc Quyền') }} 
+                        </span>
+                        {{ __('Của Nhà Phân Phối Minh Hưng') }}!
+                    @endif
+                </p>
                 <h1><p>{{ $exclusive['product_name']}}</p></h1>
                 <small>
                     <?php echo $exclusive['product_description'] ?>
@@ -347,7 +359,7 @@ $countPopup = Popup::countPopup();
  <!------ tin tức - sự kiện ------->
 <div class="stories">
     <div class="small-container">
-        <h2 class="title">Tin Tức - Sự Kiện</h2>
+        <h2 class="title">{{ __('Tin Tức') }}  - {{ __('Sự Kiện') }} </h2>
         <div class="row">
             <div class="col-3">
                 <i class="fa fa-quote-left"></i>
