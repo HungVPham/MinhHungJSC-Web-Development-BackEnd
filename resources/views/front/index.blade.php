@@ -394,7 +394,7 @@ $countPopup = Popup::countPopup();
 <!------Đối Tác------->
 <div class="partners">
     <div class="small-container">
-        <h2 class="title" id="affiliates-title">Doanh Nghiệp Đối Tác</h2>
+        <h2 class="title" id="affiliates-title">{{ __("Doanh Nghiệp Đối Tác") }}</h2>
         <div class="row">
             <div class="col-5">
                 <a href="http://kelaibo.ck-163.com/" target="_blank"><img loading="lazy" src="{{ url('images/front_images/logoPartner1.png') }}" alt="đối tác MaxPro"></a>

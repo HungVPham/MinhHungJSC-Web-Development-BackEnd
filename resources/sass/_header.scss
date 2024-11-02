@@ -53,6 +53,97 @@
     cursor: pointer;
     margin-top: -20px;
   }
+
+  .navbar-lang {
+
+    position: relative;
+    z-index: 1;
+
+    transition: all 0.5s ease; 
+
+    &.lang1 {
+      transform: translate(122px, 0px);
+      visibility: hidden;
+
+      img{
+        width: 30px;
+      }
+
+      &::before {
+        margin-top: -12px;
+        margin-left: -2px;
+        width: 34px;
+        height: 34px;
+      }
+    }
+
+    &.lang2 {
+      transform: translate(82px, 0px);
+      visibility: hidden;
+
+      img{
+        width: 30px;
+      }
+
+      &::before {
+        margin-top: -12px;
+        margin-left: -2px;
+        width: 34px;
+        height: 34px;
+      }
+    }
+
+    &.lang3 {
+      transform: translate(40px, 0px);
+      visibility: hidden;
+
+      img{
+        width: 30px;
+      }
+
+      &::before {
+        margin-top: -12px;
+        margin-left: -2px;
+        width: 34px;
+        height: 34px;
+      }
+    }
+
+    &.lang1.active{
+      transform: translate(0px, 0px);
+      visibility: visible;
+    }
+
+    &.lang2.active{
+      transform: translate(0px, 0px);
+      visibility: visible;
+    }
+
+    &.lang3.active{
+      transform: translate(0px, 0px);
+      visibility: visible;
+    }
+      
+    img {
+      width: 32px;
+      cursor: pointer;
+      margin-top: -25px;
+      margin-left: -10px;
+    }
+
+    &::before {
+      z-index: -1;
+      content: "";
+      position: absolute; 
+      margin-top: -13px;
+      margin-left: -2px;
+      text-align: center;
+      width: 36px;
+      height: 36px;
+      background-color: rgba(255, 255, 255);
+      border-radius: 50%;
+    }
+  }
   
   .navbar-cart {
     position: relative;

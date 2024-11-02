@@ -6,6 +6,17 @@ $AboutDetails = AboutPage::aboutPageDetails();
 $CatalogueDetails = CataloguePage::cataloguePageDetails();
 $sections = Section::sections();
 ?>
+<script>
+window.langToggle = function () {
+  console.log('test');
+  var toggleMenu1 = document.querySelector('.navbar-lang.lang1');
+  var toggleMenu2 = document.querySelector('.navbar-lang.lang2');
+  var toggleMenu3 = document.querySelector('.navbar-lang.lang3');
+  toggleMenu1.classList.toggle('active');
+  toggleMenu2.classList.toggle('active');
+  toggleMenu3.classList.toggle('active');
+}; // toggle nav-sidebar in responsive view
+</script>
 <div class="header">
 	<div class="navbar-wrapper">
 		<div class="navbar-logo"><a href="{{ url('/') }}"><img src="{{ url('images/front_images/logoMinhHung.png') }}"></a></div>
@@ -17,9 +28,9 @@ $sections = Section::sections();
 				<label class="mobile-item"><a href="{{ url('/') }}">Trang Chủ</a></label>
 			</li>
 			<li id="prime-navlinks">
-				<div class="drop-nav"><a class="desktop-item" style="cursor: default;">Giới Thiệu</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
+				<div class="drop-nav"><a class="desktop-item" style="cursor: default;">{{ __("Giới Thiệu") }}</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showDrop">
-				<label for="showDrop" class="mobile-item">Giới Thiệu<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
+				<label for="showDrop" class="mobile-item">{{ __("Giới Thiệu") }}<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
 				<ul class="drop-menu">
 					@foreach($AboutDetails as $NavLinks)
 					<li><a href="{{ url('about-us/'.$NavLinks['url'])}}">{{ $NavLinks['title'] }}</a></li>
@@ -27,9 +38,9 @@ $sections = Section::sections();
 				</ul>
 			</li>
 			<li id="prime-navlinks">
-				<div class="drop-nav"><a style="cursor: default;" class="desktop-item">Sản Phẩm</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
+				<div class="drop-nav"><a style="cursor: default;" class="desktop-item">{{ __("Sản Phẩm") }}</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showMega">
-				<label for="showMega" class="mobile-item">Sản Phẩm<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
+				<label for="showMega" class="mobile-item">{{ __("Sản Phẩm") }}<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
 				<div class="mega-box">
 					<div class="megabox-content">
 						@foreach($sections as $section)
@@ -79,11 +90,15 @@ $sections = Section::sections();
 				<label for="showDrop2" class="mobile-item">Tuyển Dụng</label>
 			</li> --}}
 			<li id="prime-navlinks">
-				<a class="desktop-item" style="display: flex; align-items: center;" href="{{ url('/contact-us') }}">Liên Hệ</a>
-				<label for="showDrop2" class="mobile-item"><a href="{{ url('/contact-us') }}">Liên Hệ</a></label>
+				<a class="desktop-item" style="display: flex; align-items: center;" href="{{ url('/contact-us') }}">{{ __("Liên Hệ") }}</a>
+				<label for="showDrop2" class="mobile-item"><a href="{{ url('/contact-us') }}">{{ __("Liên Hệ") }}</a></label>
 			</li>
 		</ul>
-		<div class="user-cart-container">
+		<div class="user-cart-container">				
+			<div class="navbar-lang lang1"><a href="{{ url('locale/vn') }}"><img src="{{ url('images/front_images/vietnam-flag.png') }}"></a></div>
+			<div class="navbar-lang lang2"><a href="{{ url('locale/en') }}"><img src="{{ url('images/front_images/usa-flag.png') }}"></a></div>
+			<div class="navbar-lang lang3"><a href="{{ url('locale/cn') }}"><img src="{{ url('images/front_images/china-flag.png') }}"></a></div>
+			<div class="navbar-lang" onclick="langToggle();"><a id="lang-menu"><img src="{{ url('images/front_images/translation_icon(1).png') }}"></a></div>
 			<div class="navbar-cart" cartCount="{{ totalCartItems() }}">
 				<a href="{{ url('/cart')}}"><img src="{{ url('images/front_images/cart.png') }}"></a>
 			</div>

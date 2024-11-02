@@ -64,40 +64,19 @@ class Product extends Model
 
     public static function getDiscountedMaxproPrice($product_id, $sku){
         $proAttrPrice = MaxproProductAttributes::select('price')->where(['product_id'=>$product_id,'sku'=>$sku])->first();
+
+        // Ensure $proAttrPrice is not null and convert to array if it exists
+        $proAttrPrice = $proAttrPrice ? $proAttrPrice->toArray() : ['price' => 0];
+
         $proDetails = Product::select('product_discount', 'category_id', 'parentCategory_id')->where('id', $product_id)->first()->toArray();
         $catDetails = Category::select('category_discount')->where('id', $proDetails['category_id'])->first()->toArray();
         $primeCatDetails = Category::select('category_discount')->where('id', $proDetails['parentCategory_id'])->first();
         // echo  $proDetails['parentCategory_id']; die;
 
-        if($proDetails['product_discount']>0){
+        if(isset($proDetails['product_discount']) && $proDetails['product_discount']>0){
             $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$proDetails['product_discount']/100);
             $discount_amount = $proAttrPrice['price'] - $discounted_price;
-        }else if($catDetails['category_discount']>0){
-            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$catDetails['category_discount']/100);
-            $discount_amount = $proAttrPrice['price'] - $discounted_price;
-        }else if($primeCatDetails['category_discount']>0){
-            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$primeCatDetails['category_discount']/100);
-            $discount_amount = $proAttrPrice['price'] - $discounted_price;
-        }else{
-            $discounted_price = $proAttrPrice['price'];
-            $discount_amount = 0;
-        }
-
-        // echo $discounted_price; die;
-
-        return array('product_price'=>$proAttrPrice['price'], 'discounted_price'=>$discounted_price, 'discount_amount'=>$discount_amount);
-    }
-
-    public static function getDiscountedShimgePrice($product_id, $sku){
-        $proAttrPrice = ShimgeProductAttributes::select('price')->where(['product_id'=>$product_id,'sku'=>$sku])->first();
-        $proDetails = Product::select('product_discount', 'category_id', 'parentCategory_id')->where('id', $product_id)->first()->toArray();
-        $catDetails = Category::select('category_discount')->where('id', $proDetails['category_id'])->first()->toArray();
-        $primeCatDetails = Category::select('category_discount')->where('id', $proDetails['parentCategory_id'])->first();
-
-        if($proDetails['product_discount']>0){
-            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$proDetails['product_discount']/100);
-            $discount_amount = $proAttrPrice['price'] - $discounted_price;
-        }else if($catDetails['category_discount']>0){
+        }else if(isset($catDetails['category_discount']) && $catDetails['category_discount']>0){
             $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$catDetails['category_discount']/100);
             $discount_amount = $proAttrPrice['price'] - $discounted_price;
         }else if(isset($primeCatDetails['category_discount']) && $primeCatDetails['category_discount']>0){
@@ -105,10 +84,70 @@ class Product extends Model
             $discount_amount = $proAttrPrice['price'] - $discounted_price;
         }else{
             $discounted_price = $proAttrPrice['price'];
-            $discount_amount = 0;
+            $discount_amount = 0; 
         }
+
+        // echo $discounted_price; die;
+
         return array('product_price'=>$proAttrPrice['price'], 'discounted_price'=>$discounted_price, 'discount_amount'=>$discount_amount);
     }
+
+    // public static function getDiscountedShimgePrice($product_id, $sku){
+    //     $proAttrPrice = ShimgeProductAttributes::select('price')->where(['product_id'=>$product_id,'sku'=>$sku])->first();
+    //     $proDetails = Product::select('product_discount', 'category_id', 'parentCategory_id')->where('id', $product_id)->first()->toArray();
+    //     $catDetails = Category::select('category_discount')->where('id', $proDetails['category_id'])->first()->toArray();
+
+    //     $primeCatDetails = Category::select('category_discount')->where('id', $proDetails['parentCategory_id'])->first();
+    //     $primeCatDetails = $primeCatDetails ? $primeCatDetails->toArray() : null;
+
+    //     if(isset($proDetails['product_discount']) && $proDetails['product_discount']>0){
+    //         $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$proDetails['product_discount']/100);
+    //         $discount_amount = $proAttrPrice['price'] - $discounted_price;
+    //     }else if(isset($catDetails['category_discount']) && $catDetails['category_discount']>0){
+    //         $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$catDetails['category_discount']/100);
+    //         $discount_amount = $proAttrPrice['price'] - $discounted_price;
+    //     }else if(isset($primeCatDetails['category_discount']) && $primeCatDetails['category_discount']>0){
+    //         $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$primeCatDetails['category_discount']/100);
+    //         $discount_amount = $proAttrPrice['price'] - $discounted_price;
+    //     }else{
+    //         $discounted_price = $proAttrPrice['price'];
+    //         $discount_amount = 0;
+    //     }
+    //     return array('product_price'=>$proAttrPrice['price'], 'discounted_price'=>$discounted_price, 'discount_amount'=>$discount_amount);
+    // }
+
+public static function getDiscountedShimgePrice($product_id, $sku) {
+    $proAttrPrice = ShimgeProductAttributes::select('price')->where(['product_id' => $product_id, 'sku' => $sku])->first();
+
+    // Ensure $proAttrPrice is not null and convert to array if it exists
+    $proAttrPrice = $proAttrPrice ? $proAttrPrice->toArray() : ['price' => 0];
+    
+    $proDetails = Product::select('product_discount', 'category_id', 'parentCategory_id')->where('id', $product_id)->first()->toArray();
+    $catDetails = Category::select('category_discount')->where('id', $proDetails['category_id'])->first()->toArray();
+
+    // Handle case where $primeCatDetails might be null
+    $primeCatDetails = Category::select('category_discount')->where('id', $proDetails['parentCategory_id'])->first();
+    $primeCatDiscount = $primeCatDetails ? $primeCatDetails->category_discount : 0;
+
+    if (isset($proDetails['product_discount']) && $proDetails['product_discount'] > 0) {
+        $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price'] * $proDetails['product_discount'] / 100);
+        $discount_amount = $proAttrPrice['price'] - $discounted_price;
+
+    } elseif (isset($catDetails['category_discount']) && $catDetails['category_discount'] > 0) {
+        $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price'] * $catDetails['category_discount'] / 100);
+        $discount_amount = $proAttrPrice['price'] - $discounted_price;
+
+    } elseif ($primeCatDiscount > 0) {
+        $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price'] * $primeCatDiscount / 100);
+        $discount_amount = $proAttrPrice['price'] - $discounted_price;
+
+    } else {
+        $discounted_price = $proAttrPrice['price'];
+        $discount_amount = 0;
+    }
+
+    return array('product_price' => $proAttrPrice['price'], 'discounted_price' => $discounted_price, 'discount_amount' => $discount_amount);
+}
 
     // public static function getDiscountedHhosePrice($product_id, $sku){
     //     $proHhosePrice = HhoseProductAttributes::where(['product_id'=>$product_id,'sku'=>$sku])->first()->toArray();
