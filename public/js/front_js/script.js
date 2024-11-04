@@ -1125,6 +1125,16 @@ window.menuToggle = function () {
   toggleMenu.classList.toggle('active');
 }; // toggle nav-sidebar in responsive view
 
+window.langToggle = function () {
+  console.log('test');
+  var toggleMenu1 = document.querySelector('.navbar-lang.lang1');
+  var toggleMenu2 = document.querySelector('.navbar-lang.lang2');
+  var toggleMenu3 = document.querySelector('.navbar-lang.lang3');
+  toggleMenu1.classList.toggle('active');
+  toggleMenu2.classList.toggle('active');
+  toggleMenu3.classList.toggle('active');
+}; // toggle nav-sidebar in responsive view
+
 var icon = document.querySelector('.icon');
 var search = document.querySelector('.search');
 icon.onclick = function () {

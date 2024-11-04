@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Blog;
 use App\BlogsImage;
-use Image;
-use Session;
+// use Image;
+// use Session;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 use App\BlogCategory;
 
 class BlogController extends Controller

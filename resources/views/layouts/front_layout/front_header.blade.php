@@ -7,15 +7,7 @@ $CatalogueDetails = CataloguePage::cataloguePageDetails();
 $sections = Section::sections();
 ?>
 <script>
-window.langToggle = function () {
-  console.log('test');
-  var toggleMenu1 = document.querySelector('.navbar-lang.lang1');
-  var toggleMenu2 = document.querySelector('.navbar-lang.lang2');
-  var toggleMenu3 = document.querySelector('.navbar-lang.lang3');
-  toggleMenu1.classList.toggle('active');
-  toggleMenu2.classList.toggle('active');
-  toggleMenu3.classList.toggle('active');
-}; // toggle nav-sidebar in responsive view
+
 </script>
 <div class="header">
 	<div class="navbar-wrapper">
@@ -75,7 +67,7 @@ window.langToggle = function () {
 					</div>
 				</div>
 			</li>
-			{{-- <li id="prime-navlinks">
+			<li id="prime-navlinks">
 				<div class="drop-nav"><a class="desktop-item" href="#">Tin Tức - Sự Kiện</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
 				<input type="checkbox" id="showDrop2">
 				<label for="showDrop2" class="mobile-item">Tin Tức - Sự Kiện<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
@@ -88,7 +80,7 @@ window.langToggle = function () {
 			<li id="prime-navlinks">
 				<a class="desktop-item" style="display: flex; align-items: center;" href="#">Tuyển Dụng</a>
 				<label for="showDrop2" class="mobile-item">Tuyển Dụng</label>
-			</li> --}}
+			</li>
 			<li id="prime-navlinks">
 				<a class="desktop-item" style="display: flex; align-items: center;" href="{{ url('/contact-us') }}">{{ __("Liên Hệ") }}</a>
 				<label for="showDrop2" class="mobile-item"><a href="{{ url('/contact-us') }}">{{ __("Liên Hệ") }}</a></label>
@@ -176,9 +168,9 @@ window.langToggle = function () {
 						}
 					</style>
 					@endif
-					<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
+					<p><span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_1']) }}</span> {{ __($main['nBlack_1']) }} <span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_2']) }}</span>
 					<br>
-					<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>  
+					<span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_3']) }}</span> {{ __($main['nBlack_2']) }} <span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_4']) }}</span></p>  
 					</div>
 					@if(Auth::check())
 					@else
@@ -246,16 +238,16 @@ $getSubBanners = Banner::getSubBanners();
 					</style>
 					@endif
 					<div class="typewriter">
-						<p><span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_1']}}</span> {{ $main['nBlack_1']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_2']}}</span>
+						<p><span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_1']) }}</span> {{ __($main['nBlack_1']) }} <span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_2']) }}</span>
 							<br>
-						<span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_3']}}</span> {{ $main['nBlack_2']}} <span style="color: #cb1c22; font-weight: bolder;">{{ $main['bRed_4']}}</span></p>
+						<span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_3']) }}</span> {{ __($main['nBlack_2']) }} <span style="color: #cb1c22; font-weight: bolder;">{{ __($main['bRed_4']) }}</span></p>
 					</div>
 					</div>
 					@if(Auth::check())
 					@else
 					@if(!empty($main['link']))
 					<div class="overlay-btn">
-					<a href="{{ url('/'.$main['link']) }}" class="btn">{{ $main['title'] }} &#8594;</a>
+					<a href="{{ url('/'.$main['link']) }}" class="btn">{{ __($main['title']) }} &#8594;</a>
 					</div>
 					@endif
 					@endif

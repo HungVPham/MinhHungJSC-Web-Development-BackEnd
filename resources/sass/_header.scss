@@ -12,6 +12,7 @@
       animation: slideInOpacity 0.3s ease-in-out both;
       height: 60px;
       top: 0;
+      -webkit-backdrop-filter: saturate(100%) blur(3px);
       backdrop-filter: saturate(100%) blur(3px);
     }
   
@@ -201,6 +202,7 @@
     visibility: hidden;
     opacity: 0;
     transform: translateY(20px);
+    -webkit-backdrop-filter: saturate(100%) blur(3px);
     backdrop-filter: saturate(100%) blur(3px);
   
     &.active {

@@ -19,6 +19,8 @@ use App\Section;
 use App\CmsPage;
 use App\AboutPage;
 use App\CataloguePage;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 
 // Auth::routes();

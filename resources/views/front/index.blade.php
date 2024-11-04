@@ -4,6 +4,7 @@
 use App\Section;
 use App\Product;
 use App\Popup;
+use App\Blog;
 $sections = Section::sections();
 $getPopup = Popup::getPopup();
 $countPopup = Popup::countPopup();
@@ -361,16 +362,18 @@ $countPopup = Popup::countPopup();
     <div class="small-container">
         <h2 class="title">{{ __('Tin Tức') }}  - {{ __('Sự Kiện') }} </h2>
         <div class="row">
-            <div class="col-3">
-                <i class="fa fa-quote-left"></i>
-                <h4>Hành Trình Về Phía Bắc Tổ Quốc!</h4>
-                <p style="line-height: 25px;">Người Minh Hưng chúng tôi đã có 1 chuyến đi với rất nhiều kỉ niệm, sự trải nghiệm, nhìn nhận sự việc ở thế giới bên ngoài, xung quanh ta với nhiều tình yêu thương bằng ánh mắt trìu mến</p>
-                <div class="subdiv">
-                    <img src="{{ url('images/front_images/logoMinhHung.png') }}" alt="tác giả bài biết">
-                    <h4>Người Minh Hưng</h4>
-                </div>
+        @foreach($latestBlogs as $blog)
+            <div class="col-3" onclick="window.location='{{ url('/') }}';">
+                    <i class="fa fa-quote-left"></i>
+                    <h4>{{ $blog['title'] }}</h4>
+                    <p style="line-height: 25px;"><?php echo __($blog['content']) ?></p>
+                    <div class="subdiv">
+                        <img src="{{ url('images/front_images/logoMinhHung.png') }}" alt="tác giả bài biết">
+                        <h4>{{ $blog['author'] }}</h4>
+                    </div>
             </div>
-            <div class="col-3">
+        @endforeach
+            <!-- <div class="col-3">
                 <i class="fa fa-quote-left"></i>
                 <h4>Happy Birthday chị Hoàng Thị Đông</h4>
                 <p style="line-height: 25px;">Chúc mừng sinh nhật chị Hoàng Thị Đông (Nhân viên Phòng Tài Chính - Kế Toán).</p>
@@ -387,7 +390,7 @@ $countPopup = Popup::countPopup();
                     <img src="{{ url('images/front_images/logoMinhHung.png') }}" alt="tác giả bài biết">
                     <h4>Người Minh Hưng</h4>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div> 

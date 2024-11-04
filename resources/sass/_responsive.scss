@@ -73,6 +73,23 @@
     }
 }
 @media only screen and (max-width: 1165px) {
+
+    .navbar-lang { 
+        margin-top: 30px;
+        
+        &.lang1 {
+            margin-top: 30px;
+        }
+
+        &.lang2 {
+            margin-top: 30px;
+        }
+
+        &.lang3 {
+            margin-top: 30px;
+        }
+    }
+
   .action .menu {
       &::before {
           right: 75px;
@@ -297,6 +314,10 @@
       .navbar-wrapper .user-cart-container {
           display: flex;
 
+          .navbar-lang {
+            display: none;
+          }
+
           .action .profile {
               display: none;
           }
@@ -325,6 +346,8 @@
           justify-content: center;
       }
   }
+
+
 }
 @media only screen and (max-width: 1120px) {
     .post-info {

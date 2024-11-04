@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Banner;
+use App\Blog;
 
 class IndexController extends Controller
 {
@@ -25,9 +26,16 @@ class IndexController extends Controller
         
         // Get 1 Main Banner For Responsive View
         $bannerResponsive = Banner::where('status', 1)->where('is_main', 'Yes')->limit(1)->get();
+
+        // Get Three Latest Blog
+        $latestBlogs = Blog::where('status', 1)->orderBy('created_at','Desc')->limit(3)->get()->toArray();
+
         //dd($bannerResponsive); die;
         $page_name = "index";
 
-        return view('front.index')->with(compact('page_name', 'featuredItemsCount', 'featuredItemsChunk', 'newMaxproProducts', 'newHhoseProducts', 'newShimgeProducts', "exclusiveProduct", 'bannerResponsive'));
+        
+        
+
+        return view('front.index')->with(compact('page_name', 'featuredItemsCount', 'featuredItemsChunk', 'newMaxproProducts', 'newHhoseProducts', 'newShimgeProducts', "exclusiveProduct", 'latestBlogs', 'bannerResponsive'));
     }
 }
