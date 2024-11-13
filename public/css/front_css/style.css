@@ -2805,7 +2805,6 @@ th:last-child {
 
 /* news/events page css */
 .page-wrapper {
-  padding-bottom: 500px;
   position: relative;
 }
 .page-wrapper.single {
@@ -2823,7 +2822,7 @@ th:last-child {
   transition: color 0.3s ease;
 }
 .page-wrapper a:focus {
-  color: #563434;
+  color: var(--MinhHung-Red);
   outline: none;
 }
 
@@ -2834,7 +2833,7 @@ th:last-child {
 .post-slider .next {
   position: absolute;
   top: 40%;
-  right: 20px;
+  right: 0 !important;
   font-size: 2em;
   color: rgba(0, 0, 0, 0.5);
   opacity: 70%;
@@ -2844,11 +2843,10 @@ th:last-child {
   color: var(--MinhHung-Red);
   transition: color 0.3s ease;
 }
-
 .post-slider .prev {
   position: absolute;
   top: 40%;
-  left: 20px;
+  left: 0 !important;
   font-size: 2em;
   color: rgba(0, 0, 0, 0.5);
   opacity: 80%;
@@ -2858,7 +2856,6 @@ th:last-child {
   color: var(--MinhHung-Red);
   transition: color 0.3s ease;
 }
-
 .post-slider .slider-title {
   margin: 30px auto;
   text-align: center;
@@ -2875,19 +2872,14 @@ th:last-child {
 }
 
 .postcard-background {
-  background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  -webkit-backdrop-filter: saturate(100%) blur(5px);
-          backdrop-filter: saturate(100%) blur(5px);
   border-radius: 10px;
   width: 100%;
   height: 330px;
 }
 
 .post-slider .post-wrapper .post {
-  background: radial-gradient(var(--Solid-White), var(--MinhHung-Red));
+  background: var(--MinhHung-Red);
   display: inline-block;
   margin: 0 10px;
   width: 300px;
@@ -2916,20 +2908,20 @@ th:last-child {
   text-align: center;
   font-weight: bold;
   font-size: 1.4rem;
-  color: #333;
   padding-top: 10px;
 }
+.post-info h4 a {
+  color: var(--Solid-White);
+}
 .post-info h4 a:hover {
-  color: #f2f2f2 !important;
-  border: none !important;
-  background-color: none !important;
+  color: var(--Solid-White);
 }
 .post-info i {
   float: left;
   padding-top: 10px;
   font-size: 0.8rem;
   margin-left: 10px;
-  color: #333;
+  color: var(--Solid-White);
 }
 
 .user-date-container {
@@ -2984,8 +2976,6 @@ th:last-child {
   border-bottom: 1px solid rgba(255, 255, 255, 0.7);
   border-left: 1px solid rgba(255, 255, 255, 0.7);
   border-right: 1px solid rgba(255, 255, 255, 0.7);
-  -webkit-backdrop-filter: saturate(100%) blur(5px);
-          backdrop-filter: saturate(100%) blur(5px);
   position: relative;
 }
 .content .otherPosts .post {

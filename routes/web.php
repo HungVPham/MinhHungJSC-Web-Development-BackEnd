@@ -236,6 +236,8 @@ Route::namespace('Front')->group(function(){
     // contact us page route
     Route::match(['get', 'post'], '/contact-us', 'CmsController@contact');
 
+    Route::get('/blogs', 'BlogsController@blogs');
+
     // detail page route
     Route::get('/products/{id}','ProductsController@detail');
 

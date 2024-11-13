@@ -68,19 +68,23 @@ $sections = Section::sections();
 				</div>
 			</li>
 			<li id="prime-navlinks">
-				<div class="drop-nav"><a class="desktop-item" href="#">Tin Tức - Sự Kiện</a><span id="expand-indicator">&nbsp;&#9660;</span></div>
+				<div class="drop-nav"><a class="desktop-item" href="#">Tin Tức - Sự Kiện</a>
+					<!-- <span id="expand-indicator">&nbsp;&#9660;</span> -->
+				</div>
 				<input type="checkbox" id="showDrop2">
-				<label for="showDrop2" class="mobile-item">Tin Tức - Sự Kiện<span id="expand-indicator-mobile">&nbsp;&#9660;</span></label>
-				<ul class="drop-menu">
+				<label for="showDrop2" class="mobile-item">Tin Tức - Sự Kiện
+					<!-- <span id="expand-indicator-mobile">&nbsp;&#9660;</span> -->
+				</label>
+				<!-- <ul class="drop-menu">
 					<li><a href="">Tin Nội Bộ</a></li>
 					<li><a href="">Tin Thị Trường</a></li>
 					<li><a href="">Tin Khuyến Mãi</a></li>
-				</ul>
+				</ul> -->
 			</li>
-			<li id="prime-navlinks">
+			<!-- <li id="prime-navlinks">
 				<a class="desktop-item" style="display: flex; align-items: center;" href="#">Tuyển Dụng</a>
 				<label for="showDrop2" class="mobile-item">Tuyển Dụng</label>
-			</li>
+			</li> -->
 			<li id="prime-navlinks">
 				<a class="desktop-item" style="display: flex; align-items: center;" href="{{ url('/contact-us') }}">{{ __("Liên Hệ") }}</a>
 				<label for="showDrop2" class="mobile-item"><a href="{{ url('/contact-us') }}">{{ __("Liên Hệ") }}</a></label>

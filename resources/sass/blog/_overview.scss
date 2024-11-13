@@ -1,7 +1,6 @@
 /* news/events page css */
 
 .page-wrapper {
-    padding-bottom: 500px;
     position: relative;
 
     &.single {
@@ -22,7 +21,7 @@
     }
 
     &:focus {
-        color: #563434;
+        color: var(--MinhHung-Red);
         outline: none;
     }
 }
@@ -34,7 +33,7 @@
     .next {
         position: absolute;
         top: 40%;
-        right: 20px;
+        right: 0 !important;
         font-size: 2em;
         color: rgba(0, 0, 0, 0.5);
         opacity: 70%;
@@ -45,24 +44,22 @@
             transition: color 0.3s ease;
         }
     }
-}
 
-.post-slider .prev {
-    position: absolute;
-    top: 40%;
-    left: 20px;
-    font-size: 2em;
-    color: rgba(0, 0, 0, 0.5);
-    opacity: 80%;
-    cursor: pointer;
-
-    &:hover {
-        color: var(--MinhHung-Red);
-        transition: color 0.3s ease;
+    .prev {
+        position: absolute;
+        top: 40%;
+        left: 0 !important;
+        font-size: 2em;
+        color: rgba(0, 0, 0, 0.5);
+        opacity: 80%;
+        cursor: pointer;
+    
+        &:hover {
+            color: var(--MinhHung-Red);
+            transition: color 0.3s ease;
+        }
     }
-}
 
-.post-slider {
     .slider-title {
         margin: 30px auto;
         text-align: center;
@@ -81,18 +78,15 @@
 }
 
 .postcard-background {
-    background-color: rgba(255, 255, 255, 0.1);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    border-left: 1px solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: saturate(100%) blur(5px);
     border-radius: 10px;
     width: 100%;
     height: 330px;
 }
 
 .post-slider .post-wrapper .post {
-    background: radial-gradient(var(--Solid-White), var(--MinhHung-Red));
+    // background: radial-gradient(var(--Solid-White), var(--MinhHung-Red));
+    background: var(--MinhHung-Red);
     display: inline-block;
     margin: 0 10px;
     width: 300px;
@@ -125,13 +119,14 @@
         text-align: center;
         font-weight: bold;
         font-size: 1.4rem;
-        color: #333;
         padding-top: 10px;
 
+        a {
+            color: var(--Solid-White);
+        }
+
         a:hover {
-            color: #f2f2f2 !important;
-            border: none !important;
-            background-color: none !important;
+            color: var(--Solid-White);
         }
     }
 
@@ -140,7 +135,7 @@
         padding-top: 10px;
         font-size: 0.8rem;
         margin-left: 10px;
-        color: #333;
+        color: var(--Solid-White);
     }
 }
 
@@ -202,7 +197,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.7);
             border-left: 1px solid rgba(255, 255, 255, 0.7);
             border-right: 1px solid rgba(255, 255, 255, 0.7);
-            backdrop-filter: saturate(100%) blur(5px);
             position: relative;
         }
     }
